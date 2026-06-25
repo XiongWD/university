@@ -1,0 +1,17 @@
+{
+  "change": "provincial-score-data",
+  "phase": "design",
+  "mode": "compact",
+  "canonical_spec": "openspec",
+  "generated_by": "comet-handoff.sh",
+  "context_hash": "f591a9f3e7c380c12d6751adc419c3fa1bc05d28605a1042f76403ac76b06b84",
+  "files": [
+    { "path": "openspec/changes/provincial-score-data/proposal.md", "sha256": "97e61b5232af2eae9c7f5ebb560e84235bf6eec98b7c5c82a28e10d2e204d16f" },
+    { "path": "openspec/changes/provincial-score-data/design.md", "sha256": "7e14f0560c5c0374e55627116bf07ba3cea921f97b915d704cfe68e64dea9728" },
+    { "path": "openspec/changes/provincial-score-data/tasks.md", "sha256": "687e3b95530d8ef6d957a920ac95adf4e8abc04faecb28488b60ce741bb0aa5e" },
+    { "path": "openspec/changes/provincial-score-data/specs/data-foundation-api/spec.md", "sha256": "e8011d41c13dc80729980273fe6dd0d4bb0f45a90061f921c4f2f6712cb0ff9d" },
+    { "path": "openspec/changes/provincial-score-data/specs/provincial-control-line/spec.md", "sha256": "60e47ba9cb20979effa42305249cd179ee8f94d884ffb278de5976d846d5a4b4" },
+    { "path": "openspec/changes/provincial-score-data/specs/provincial-data-import/spec.md", "sha256": "eb06c7a56b473beba44de699a4a8b425b67836f4d46e9c9bdc8e4f7e25689b3e" },
+    { "path": "openspec/changes/provincial-score-data/specs/score-rank-table/spec.md", "sha256": "e2affc510bc02c50b144f06e0a36d249906b41f6aca6cea67210056bb526a34b" }
+  ]
+}
