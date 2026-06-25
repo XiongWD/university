@@ -306,11 +306,16 @@ def life_paths(req: LifePathsRequest, session: Session = Depends(get_session_dep
     adm_by_school = {a.school: a for a in admissions}
 
     # 构建 candidates（合法集合上的候选）
-    # 从University查真实费用
+    # 从University查真实费用 + Major查真实薪资
     from app.models.tables import UniversityRow
     uni_map = {}
     for u in session.exec(select(UniversityRow)).all():
         uni_map[u.name] = u
+    # Major薪资映射（按专业名，MajorRow已拍平为p25/p50/p75列）
+    from app.models.tables import MajorRow
+    major_salary = {}
+    for m in session.exec(select(MajorRow)).all():
+        major_salary[m.name] = {"p25": m.p25, "p50": m.p50, "p75": m.p75}
 
     candidates = []
     for off, elig_result in eligible:
@@ -352,6 +357,12 @@ def life_paths(req: LifePathsRequest, session: Session = Depends(get_session_dep
             is_private = any(k in off.school for k in ["升达", "黄河科技", "工商", "商丘", "西亚斯"])
             cost = 160000 if is_private else 100000
             ownership = "民办" if is_private else "公办"
+        # 薪资：从Major查（按方向的第一个匹配专业），无则默认
+        sal = {"p25": 4500, "p50": 5500, "p75": 7500}
+        for mname in direction.majors:
+            if mname in major_salary:
+                sal = major_salary[mname]
+                break
         candidates.append({
             "school": off.school, "direction": direction.name,
             "major": off.major_group_name, "ownership": ownership,
@@ -359,7 +370,7 @@ def life_paths(req: LifePathsRequest, session: Session = Depends(get_session_dep
             "cost_4y": cost, "market": market,
             "major_value": market.current_market_score,
             "target_careers": list(direction.career_weights.keys())[:3],
-            "salary_p50": 6000, "salary_p25": 4500, "salary_p75": 8500,
+            "salary_p50": sal["p50"], "salary_p25": sal["p25"], "salary_p75": sal["p75"],
             "overall_score": market.current_market_score,
             "data_granularity": "group", "confidence": group_pred.confidence,
             "city": uni.city if uni else None,

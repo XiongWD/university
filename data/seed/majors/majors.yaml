@@ -1,254 +1,528 @@
-# 专业实力种子（就业密度 + 薪资P25/P50/P75三分位 + 门槛 + 上升空间）
-# 无 avg 字段，强制三分位
 - name: 日语
   category: 文学
-  employment_density: {jobs: 8000, frequency: 0.6, city_coverage: 0.4}
-  salary: {p25: 5500, p50: 7500, p75: 10000}
-  barriers: {english: false, math: false, certificate: true, postgrad: false}
-  upside: {management: true, freelance: true, cross_industry: true}
-  source: BOSS直聘2024
-  as_of: 2024-04-01
-  confidence: 0.5
-  note: 待爬虫校准
-
+  employment_density:
+    jobs: 8000
+    frequency: 0.6
+    city_coverage: 0.4
+  salary:
+    p25: 4500
+    p50: 6000
+    p75: 8500
+  barriers:
+    english: false
+    math: false
+    certificate: true
+    postgrad: false
+  upside:
+    management: true
+    freelance: true
+    cross_industry: true
+  source: BOSS直聘+智联2026(河南/非一线校准)
+  as_of: '2026-05-01'
+  confidence: 0.65
+  note: 2026河南/非一线应届校准
 - name: 国际经济与贸易
   category: 经济学
-  employment_density: {jobs: 15000, frequency: 0.7, city_coverage: 0.6}
-  salary: {p25: 5000, p50: 7000, p75: 9500}
-  barriers: {english: true, math: true, certificate: true, postgrad: false}
-  upside: {management: true, freelance: false, cross_industry: true}
-  source: BOSS直聘2024
-  as_of: 2024-04-01
-  confidence: 0.5
-  note: 待爬虫校准
-
+  employment_density:
+    jobs: 15000
+    frequency: 0.7
+    city_coverage: 0.6
+  salary:
+    p25: 4000
+    p50: 5500
+    p75: 8000
+  barriers:
+    english: true
+    math: true
+    certificate: true
+    postgrad: false
+  upside:
+    management: true
+    freelance: false
+    cross_industry: true
+  source: BOSS直聘+智联2026(河南/非一线校准)
+  as_of: '2026-05-01'
+  confidence: 0.65
+  note: 2026河南/非一线应届校准
 - name: 历史
   category: 历史学
-  employment_density: {jobs: 3000, frequency: 0.3, city_coverage: 0.3}
-  salary: {p25: 4000, p50: 5500, p75: 7500}
-  barriers: {english: false, math: false, certificate: false, postgrad: true}
-  upside: {management: false, freelance: true, cross_industry: true}
+  employment_density:
+    jobs: 3000
+    frequency: 0.3
+    city_coverage: 0.3
+  salary:
+    p25: 4000
+    p50: 5500
+    p75: 7500
+  barriers:
+    english: false
+    math: false
+    certificate: false
+    postgrad: true
+  upside:
+    management: false
+    freelance: true
+    cross_industry: true
   source: BOSS直聘2024
   as_of: 2024-04-01
   confidence: 0.5
   note: 待爬虫校准
-
 - name: 计算机科学与技术
   category: 工学
-  employment_density: {jobs: 50000, frequency: 0.95, city_coverage: 0.8}
-  salary: {p25: 8000, p50: 12000, p75: 18000}
-  barriers: {english: true, math: true, certificate: false, postgrad: false}
-  upside: {management: true, freelance: true, cross_industry: true}
+  employment_density:
+    jobs: 50000
+    frequency: 0.95
+    city_coverage: 0.8
+  salary:
+    p25: 8000
+    p50: 12000
+    p75: 18000
+  barriers:
+    english: true
+    math: true
+    certificate: false
+    postgrad: false
+  upside:
+    management: true
+    freelance: true
+    cross_industry: true
   source: BOSS直聘2024
   as_of: 2024-04-01
   confidence: 0.5
   note: 待爬虫校准
-
 - name: 软件工程
   category: 工学
-  employment_density: {jobs: 45000, frequency: 0.95, city_coverage: 0.8}
-  salary: {p25: 8500, p50: 13000, p75: 20000}
-  barriers: {english: true, math: true, certificate: false, postgrad: false}
-  upside: {management: true, freelance: true, cross_industry: true}
+  employment_density:
+    jobs: 45000
+    frequency: 0.95
+    city_coverage: 0.8
+  salary:
+    p25: 8500
+    p50: 13000
+    p75: 20000
+  barriers:
+    english: true
+    math: true
+    certificate: false
+    postgrad: false
+  upside:
+    management: true
+    freelance: true
+    cross_industry: true
   source: BOSS直聘2024
   as_of: 2024-04-01
   confidence: 0.5
   note: 待爬虫校准
-
 - name: 临床医学
   category: 医学
-  employment_density: {jobs: 12000, frequency: 0.5, city_coverage: 0.7}
-  salary: {p25: 5000, p50: 6500, p75: 9000}
-  barriers: {english: true, math: true, certificate: true, postgrad: true}
-  upside: {management: false, freelance: false, cross_industry: false}
+  employment_density:
+    jobs: 12000
+    frequency: 0.5
+    city_coverage: 0.7
+  salary:
+    p25: 5000
+    p50: 6500
+    p75: 9000
+  barriers:
+    english: true
+    math: true
+    certificate: true
+    postgrad: true
+  upside:
+    management: false
+    freelance: false
+    cross_industry: false
   source: 医疗行业报告2024
   as_of: 2024-04-01
   confidence: 0.5
   note: 待爬虫校准
-
 - name: 法学
   category: 法学
-  employment_density: {jobs: 10000, frequency: 0.5, city_coverage: 0.6}
-  salary: {p25: 5000, p50: 7000, p75: 10000}
-  barriers: {english: true, math: false, certificate: true, postgrad: true}
-  upside: {management: true, freelance: true, cross_industry: false}
+  employment_density:
+    jobs: 10000
+    frequency: 0.5
+    city_coverage: 0.6
+  salary:
+    p25: 5000
+    p50: 7000
+    p75: 10000
+  barriers:
+    english: true
+    math: false
+    certificate: true
+    postgrad: true
+  upside:
+    management: true
+    freelance: true
+    cross_industry: false
   source: 法律行业报告2024
   as_of: 2024-04-01
   confidence: 0.5
   note: 待爬虫校准
-
 - name: 金融学
   category: 经济学
-  employment_density: {jobs: 18000, frequency: 0.7, city_coverage: 0.5}
-  salary: {p25: 5500, p50: 8000, p75: 13000}
-  barriers: {english: true, math: true, certificate: true, postgrad: false}
-  upside: {management: true, freelance: false, cross_industry: true}
+  employment_density:
+    jobs: 18000
+    frequency: 0.7
+    city_coverage: 0.5
+  salary:
+    p25: 5500
+    p50: 8000
+    p75: 13000
+  barriers:
+    english: true
+    math: true
+    certificate: true
+    postgrad: false
+  upside:
+    management: true
+    freelance: false
+    cross_industry: true
   source: 金融行业报告2024
   as_of: 2024-04-01
   confidence: 0.5
   note: 待爬虫校准
-
 - name: 会计学
   category: 管理学
-  employment_density: {jobs: 25000, frequency: 0.85, city_coverage: 0.7}
-  salary: {p25: 4500, p50: 6000, p75: 8500}
-  barriers: {english: false, math: true, certificate: true, postgrad: false}
-  upside: {management: true, freelance: true, cross_industry: true}
-  source: 财会行业报告2024
-  as_of: 2024-04-01
-  confidence: 0.5
-  note: 待爬虫校准
-
+  employment_density:
+    jobs: 25000
+    frequency: 0.85
+    city_coverage: 0.7
+  salary:
+    p25: 3800
+    p50: 5000
+    p75: 7000
+  barriers:
+    english: false
+    math: true
+    certificate: true
+    postgrad: false
+  upside:
+    management: true
+    freelance: true
+    cross_industry: true
+  source: BOSS直聘+智联2026(河南/非一线校准)
+  as_of: '2026-05-01'
+  confidence: 0.65
+  note: 2026河南/非一线应届校准
 - name: 工商管理
   category: 管理学
-  employment_density: {jobs: 20000, frequency: 0.7, city_coverage: 0.6}
-  salary: {p25: 4500, p50: 6000, p75: 8500}
-  barriers: {english: false, math: false, certificate: false, postgrad: false}
-  upside: {management: true, freelance: true, cross_industry: true}
+  employment_density:
+    jobs: 20000
+    frequency: 0.7
+    city_coverage: 0.6
+  salary:
+    p25: 4500
+    p50: 6000
+    p75: 8500
+  barriers:
+    english: false
+    math: false
+    certificate: false
+    postgrad: false
+  upside:
+    management: true
+    freelance: true
+    cross_industry: true
   source: BOSS直聘2024
   as_of: 2024-04-01
   confidence: 0.5
   note: 待爬虫校准
-
 - name: 跨境电子商务
   category: 管理学
-  employment_density: {jobs: 12000, frequency: 0.8, city_coverage: 0.5}
-  salary: {p25: 5500, p50: 7500, p75: 10000}
-  barriers: {english: true, math: false, certificate: false, postgrad: false}
-  upside: {management: true, freelance: true, cross_industry: true}
+  employment_density:
+    jobs: 12000
+    frequency: 0.8
+    city_coverage: 0.5
+  salary:
+    p25: 5500
+    p50: 7500
+    p75: 10000
+  barriers:
+    english: true
+    math: false
+    certificate: false
+    postgrad: false
+  upside:
+    management: true
+    freelance: true
+    cross_industry: true
   source: 跨境电商行业报告2024
   as_of: 2024-04-01
   confidence: 0.5
   note: 待爬虫校准
-
 - name: 翻译
   category: 文学
-  employment_density: {jobs: 6000, frequency: 0.5, city_coverage: 0.4}
-  salary: {p25: 6000, p50: 8500, p75: 13000}
-  barriers: {english: true, math: false, certificate: true, postgrad: false}
-  upside: {management: false, freelance: true, cross_industry: false}
+  employment_density:
+    jobs: 6000
+    frequency: 0.5
+    city_coverage: 0.4
+  salary:
+    p25: 6000
+    p50: 8500
+    p75: 13000
+  barriers:
+    english: true
+    math: false
+    certificate: true
+    postgrad: false
+  upside:
+    management: false
+    freelance: true
+    cross_industry: false
   source: 翻译行业报告2024
   as_of: 2024-04-01
   confidence: 0.5
   note: 待爬虫校准
-
 - name: 电气工程及其自动化
   category: 工学
-  employment_density: {jobs: 16000, frequency: 0.75, city_coverage: 0.6}
-  salary: {p25: 6000, p50: 8500, p75: 12000}
-  barriers: {english: false, math: true, certificate: true, postgrad: false}
-  upside: {management: true, freelance: false, cross_industry: true}
+  employment_density:
+    jobs: 16000
+    frequency: 0.75
+    city_coverage: 0.6
+  salary:
+    p25: 6000
+    p50: 8500
+    p75: 12000
+  barriers:
+    english: false
+    math: true
+    certificate: true
+    postgrad: false
+  upside:
+    management: true
+    freelance: false
+    cross_industry: true
   source: BOSS直聘2024
   as_of: 2024-04-01
   confidence: 0.5
   note: 待爬虫校准
-
 - name: 统计学
   category: 理学
-  employment_density: {jobs: 9000, frequency: 0.65, city_coverage: 0.5}
-  salary: {p25: 6500, p50: 9000, p75: 14000}
-  barriers: {english: true, math: true, certificate: false, postgrad: false}
-  upside: {management: true, freelance: true, cross_industry: true}
+  employment_density:
+    jobs: 9000
+    frequency: 0.65
+    city_coverage: 0.5
+  salary:
+    p25: 6500
+    p50: 9000
+    p75: 14000
+  barriers:
+    english: true
+    math: true
+    certificate: false
+    postgrad: false
+  upside:
+    management: true
+    freelance: true
+    cross_industry: true
   source: BOSS直聘2024
   as_of: 2024-04-01
   confidence: 0.5
   note: 待爬虫校准
-
 - name: 护理学
   category: 医学
-  employment_density: {jobs: 20000, frequency: 0.8, city_coverage: 0.7}
-  salary: {p25: 3500, p50: 4500, p75: 6000}
-  barriers: {english: false, math: false, certificate: true, postgrad: false}
-  upside: {management: true, freelance: false, cross_industry: false}
+  employment_density:
+    jobs: 20000
+    frequency: 0.8
+    city_coverage: 0.7
+  salary:
+    p25: 3500
+    p50: 4500
+    p75: 6000
+  barriers:
+    english: false
+    math: false
+    certificate: true
+    postgrad: false
+  upside:
+    management: true
+    freelance: false
+    cross_industry: false
   source: 医疗护理行业报告2024
   as_of: 2024-04-01
   confidence: 0.5
   note: 待爬虫校准
-
 - name: 汉语言文学
   category: 文学
-  employment_density: {jobs: 14000, frequency: 0.6, city_coverage: 0.6}
-  salary: {p25: 4000, p50: 5500, p75: 7500}
-  barriers: {english: false, math: false, certificate: false, postgrad: false}
-  upside: {management: true, freelance: true, cross_industry: true}
-  source: BOSS直聘2024
-  as_of: 2024-04-01
-  confidence: 0.5
-  note: 待爬虫校准
-
-# 历史类常见专业补充（起薪参考招聘网站2024，文科/教育类薪资适中）
+  employment_density:
+    jobs: 14000
+    frequency: 0.6
+    city_coverage: 0.6
+  salary:
+    p25: 3800
+    p50: 5000
+    p75: 7000
+  barriers:
+    english: false
+    math: false
+    certificate: false
+    postgrad: false
+  upside:
+    management: true
+    freelance: true
+    cross_industry: true
+  source: BOSS直聘+智联2026(河南/非一线校准)
+  as_of: '2026-05-01'
+  confidence: 0.65
+  note: 2026河南/非一线应届校准
 - name: 英语
   category: 文学
-  employment_density: {jobs: 18000, frequency: 0.8, city_coverage: 0.7}
-  salary: {p25: 4500, p50: 6000, p75: 9000}
-  barriers: {english: true, math: false, certificate: true, postgrad: false}
-  upside: {management: false, freelance: true, cross_industry: true}
-  source: BOSS直聘2024+智联招聘
-  as_of: 2024-04-01
-  confidence: 0.5
-  note: 待爬虫校准，教师/外贸/翻译方向
-
+  employment_density:
+    jobs: 18000
+    frequency: 0.8
+    city_coverage: 0.7
+  salary:
+    p25: 4000
+    p50: 5500
+    p75: 8500
+  barriers:
+    english: true
+    math: false
+    certificate: true
+    postgrad: false
+  upside:
+    management: false
+    freelance: true
+    cross_industry: true
+  source: BOSS直聘+智联2026(河南/非一线校准)
+  as_of: '2026-05-01'
+  confidence: 0.65
+  note: 2026河南/非一线应届校准
 - name: 市场营销
   category: 管理学
-  employment_density: {jobs: 25000, frequency: 0.85, city_coverage: 0.7}
-  salary: {p25: 4500, p50: 6500, p75: 11000}
-  barriers: {english: false, math: false, certificate: false, postgrad: false}
-  upside: {management: true, freelance: true, cross_industry: true}
-  source: BOSS直聘2024
-  as_of: 2024-04-01
-  confidence: 0.5
-  note: 销售岗起薪含提成波动大
-
+  employment_density:
+    jobs: 25000
+    frequency: 0.85
+    city_coverage: 0.7
+  salary:
+    p25: 4000
+    p50: 5500
+    p75: 9000
+  barriers:
+    english: false
+    math: false
+    certificate: false
+    postgrad: false
+  upside:
+    management: true
+    freelance: true
+    cross_industry: true
+  source: BOSS直聘+智联2026(河南/非一线校准)
+  as_of: '2026-05-01'
+  confidence: 0.65
+  note: 2026河南/非一线应届校准
 - name: 学前教育
   category: 教育学
-  employment_density: {jobs: 12000, frequency: 0.6, city_coverage: 0.5}
-  salary: {p25: 3500, p50: 4500, p75: 6000}
-  barriers: {english: false, math: false, certificate: true, postgrad: false}
-  upside: {management: false, freelance: false, cross_industry: false}
-  source: BOSS直聘2024+幼师招聘
-  as_of: 2024-04-01
-  confidence: 0.5
-  note: 公办园有编制，民办园薪资较低
-
+  employment_density:
+    jobs: 12000
+    frequency: 0.6
+    city_coverage: 0.5
+  salary:
+    p25: 3200
+    p50: 4000
+    p75: 5500
+  barriers:
+    english: false
+    math: false
+    certificate: true
+    postgrad: false
+  upside:
+    management: false
+    freelance: false
+    cross_industry: false
+  source: BOSS直聘+智联2026(河南/非一线校准)
+  as_of: '2026-05-01'
+  confidence: 0.65
+  note: 2026河南/非一线应届校准
 - name: 网络与新媒体
   category: 文学
-  employment_density: {jobs: 10000, frequency: 0.7, city_coverage: 0.6}
-  salary: {p25: 5000, p50: 7000, p75: 12000}
-  barriers: {english: false, math: false, certificate: false, postgrad: false}
-  upside: {management: false, freelance: true, cross_industry: true}
-  source: BOSS直聘2024
-  as_of: 2024-04-01
-  confidence: 0.5
-  note: 新媒体运营/内容方向，朝阳行业
-
+  employment_density:
+    jobs: 10000
+    frequency: 0.7
+    city_coverage: 0.6
+  salary:
+    p25: 4500
+    p50: 6500
+    p75: 11000
+  barriers:
+    english: false
+    math: false
+    certificate: false
+    postgrad: false
+  upside:
+    management: false
+    freelance: true
+    cross_industry: true
+  source: BOSS直聘+智联2026(河南/非一线校准)
+  as_of: '2026-05-01'
+  confidence: 0.65
+  note: 2026河南/非一线应届校准
 - name: 旅游管理
   category: 管理学
-  employment_density: {jobs: 9000, frequency: 0.5, city_coverage: 0.6}
-  salary: {p25: 3800, p50: 5000, p75: 8000}
-  barriers: {english: true, math: false, certificate: true, postgrad: false}
-  upside: {management: true, freelance: true, cross_industry: false}
+  employment_density:
+    jobs: 9000
+    frequency: 0.5
+    city_coverage: 0.6
+  salary:
+    p25: 3800
+    p50: 5000
+    p75: 8000
+  barriers:
+    english: true
+    math: false
+    certificate: true
+    postgrad: false
+  upside:
+    management: true
+    freelance: true
+    cross_industry: false
   source: BOSS直聘2024
   as_of: 2024-04-01
   confidence: 0.5
   note: 导游/酒店/景区管理，疫情后复苏
-
 - name: 园林
   category: 农学
-  employment_density: {jobs: 4000, frequency: 0.3, city_coverage: 0.4}
-  salary: {p25: 3800, p50: 5000, p75: 7500}
-  barriers: {english: false, math: false, certificate: true, postgrad: false}
-  upside: {management: false, freelance: true, cross_industry: false}
-  source: BOSS直聘2024
-  as_of: 2024-04-01
-  confidence: 0.5
-  note: 园林设计/市政绿化方向
-
+  employment_density:
+    jobs: 4000
+    frequency: 0.3
+    city_coverage: 0.4
+  salary:
+    p25: 3500
+    p50: 4800
+    p75: 7000
+  barriers:
+    english: false
+    math: false
+    certificate: true
+    postgrad: false
+  upside:
+    management: false
+    freelance: true
+    cross_industry: false
+  source: BOSS直聘+智联2026(河南/非一线校准)
+  as_of: '2026-05-01'
+  confidence: 0.65
+  note: 2026河南/非一线应届校准
 - name: 历史学
   category: 历史学
-  employment_density: {jobs: 3000, frequency: 0.3, city_coverage: 0.3}
-  salary: {p25: 4000, p50: 5500, p75: 7500}
-  barriers: {english: false, math: false, certificate: false, postgrad: true}
-  upside: {management: false, freelance: true, cross_industry: true}
+  employment_density:
+    jobs: 3000
+    frequency: 0.3
+    city_coverage: 0.3
+  salary:
+    p25: 4000
+    p50: 5500
+    p75: 7500
+  barriers:
+    english: false
+    math: false
+    certificate: false
+    postgrad: true
+  upside:
+    management: false
+    freelance: true
+    cross_industry: true
   source: BOSS直聘2024（与"历史"专业同源）
   as_of: 2024-04-01
   confidence: 0.5
