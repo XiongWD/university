@@ -44,7 +44,12 @@ class FamilyBudget(BaseModel):
 
     @property
     def affordable_total(self) -> int:
-        """可承担总预算 = 储蓄 + 4×年预算 + 贷款 + 资助。"""
+        """可承担总预算 = 储蓄 + 4×年教育预算 + 贷款 + 资助。
+
+        注意：年教育预算是家庭每年"能拿出用于教育的钱"（从年收入中划出），
+        已扣除生活开销。如年收入8万、年教育预算1.5万→4年6万+储蓄2万=8万可承担。
+        若用户填的年预算接近年收入，则可承担更高。
+        """
         return (
             self.available_savings
             + 4 * self.max_annual_education_budget

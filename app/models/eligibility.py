@@ -108,6 +108,9 @@ class AdmissionOfferingRule(BaseModel):
     # 口试
     oral_test_required: bool = False
 
+    # 专业方向提示（用于匹配MajorDirection，"不限组"类无法自动匹配时用）
+    direction_hint: str = ""
+
     # 溯源
     source: str = ""
     as_of: str = ""
