@@ -382,3 +382,142 @@
   as_of: '2025-06-01'
   confidence: 0.7
   note: 省内民办兜底
+
+# ===== 物理类招生规则（2025新高考，补全让物理类考生可用）=====
+# 覆盖不同分段：冲(郑大/河大) 稳(河师大/财经政法) 保(中原工/农大/民办)
+
+- school: 郑州大学
+  major_group_code: '501'
+  major_group_name: 物理类计算机组
+  province: 河南
+  batch: 本科批
+  accepted_exam_languages: []
+  subject_score_rules:
+    - {subject: math, operator: '>=', threshold: 100, source_text: 数学>=100}
+    - {subject: foreign_language, operator: '>=', threshold: 100, source_text: 外语>=100}
+  primary_subject_requirement: 物理
+  elective_subject_rule: {require: [化学]}
+  public_foreign_languages: [英语]
+  english_dependency_level: medium
+  direction_hint: 计算机
+  source: 郑州大学2025招生章程
+  as_of: '2025-06-01'
+  confidence: 0.9
+  note: 物理+化学组，计算机要求数学外语>=100
+
+- school: 河南大学
+  major_group_code: '501'
+  major_group_name: 物理类软件工程组
+  province: 河南
+  batch: 本科批
+  accepted_exam_languages: []
+  subject_score_rules:
+    - {subject: math, operator: '>=', threshold: 90, source_text: 数学>=90}
+  primary_subject_requirement: 物理
+  elective_subject_rule: {}
+  public_foreign_languages: [英语, 日语]
+  english_dependency_level: low
+  direction_hint: 计算机
+  source: 河南大学2025招生章程
+  as_of: '2025-06-01'
+  confidence: 0.85
+  note: 物理类不限再选，开日语公共外语
+
+- school: 河南师范大学
+  major_group_code: '501'
+  major_group_name: 物理类计算机组
+  province: 河南
+  batch: 本科批
+  accepted_exam_languages: []
+  primary_subject_requirement: 物理
+  elective_subject_rule: {}
+  public_foreign_languages: [英语, 日语]
+  english_dependency_level: low
+  direction_hint: 计算机
+  source: 河南师范大学2025招生章程
+  as_of: '2025-06-01'
+  confidence: 0.85
+  note: 物理类，日语友好
+
+- school: 河南财经政法大学
+  major_group_code: '501'
+  major_group_name: 物理类金融组
+  province: 河南
+  batch: 本科批
+  accepted_exam_languages: []
+  subject_score_rules:
+    - {subject: math, operator: '>=', threshold: 95, source_text: 数学>=95}
+    - {subject: foreign_language, operator: '>=', threshold: 90, source_text: 外语>=90}
+  primary_subject_requirement: 物理
+  elective_subject_rule: {}
+  public_foreign_languages: [英语]
+  english_dependency_level: medium
+  direction_hint: 财经会计
+  source: 河南财经政法大学2025招生章程
+  as_of: '2025-06-01'
+  confidence: 0.85
+  note: 物理类金融要求数学>=95
+
+- school: 中原工学院
+  major_group_code: '501'
+  major_group_name: 物理类软件工程组
+  province: 河南
+  batch: 本科批
+  accepted_exam_languages: []
+  primary_subject_requirement: 物理
+  elective_subject_rule: {}
+  public_foreign_languages: [英语]
+  english_dependency_level: low
+  direction_hint: 计算机
+  source: 中原工学院2025招生章程
+  as_of: '2025-06-01'
+  confidence: 0.8
+  note: 物理类公办应用型
+
+- school: 河南农业大学
+  major_group_code: '501'
+  major_group_name: 物理类计算机组
+  province: 河南
+  batch: 本科批
+  accepted_exam_languages: []
+  primary_subject_requirement: 物理
+  elective_subject_rule: {}
+  public_foreign_languages: [英语]
+  english_dependency_level: low
+  direction_hint: 计算机
+  source: 河南农业大学2025招生章程
+  as_of: '2025-06-01'
+  confidence: 0.8
+  note: 物理类公办保底
+
+- school: 郑州升达经贸管理学院
+  major_group_code: '501'
+  major_group_name: 物理类经管组
+  province: 河南
+  batch: 本科批
+  accepted_exam_languages: []
+  primary_subject_requirement: 物理
+  elective_subject_rule: {}
+  public_foreign_languages: [英语, 日语]
+  english_dependency_level: low
+  direction_hint: 财经会计
+  source: 升达2025招生章程
+  as_of: '2025-06-01'
+  confidence: 0.85
+  note: 民办物理类兜底，日语友好
+
+- school: 黄河科技学院
+  major_group_code: '501'
+  major_group_name: 物理类计算机组
+  province: 河南
+  batch: 本科批
+  accepted_exam_languages: []
+  primary_subject_requirement: 物理
+  elective_subject_rule: {}
+  public_foreign_languages: [英语]
+  english_dependency_level: low
+  direction_hint: 计算机
+  source: 黄河科技学院2025招生章程
+  as_of: '2025-06-01'
+  confidence: 0.8
+  note: 民办物理类兜底
