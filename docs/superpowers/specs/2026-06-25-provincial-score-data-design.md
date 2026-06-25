@@ -2,6 +2,8 @@
 comet_change: provincial-score-data
 role: technical-design
 canonical_spec: openspec
+archived-with: 2026-06-25-provincial-score-data
+status: final
 ---
 
 # Design Doc: provincial-score-data

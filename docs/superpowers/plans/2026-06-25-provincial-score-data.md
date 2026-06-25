@@ -2,6 +2,7 @@
 change: provincial-score-data
 design-doc: docs/superpowers/specs/2026-06-25-provincial-score-data-design.md
 base-ref: 7625e5b31b2e57699375865f8692bae220b3d385
+archived-with: 2026-06-25-provincial-score-data
 ---
 
 # 省级分数数据 (provincial-score-data) 实施计划
@@ -39,6 +40,7 @@ base-ref: 7625e5b31b2e57699375865f8692bae220b3d385
 - 测试 fixture `isolated_db`（tests/conftest.py）
 - Router 模式：APIRouter + *_to_domain.model_dump(mode="json") + d["id"]=r.id
 
+archived-with: 2026-06-25-provincial-score-data
 ---
 
 ### Task 1: 省控线与一分一段表 Domain 模型
@@ -122,6 +124,7 @@ base-ref: 7625e5b31b2e57699375865f8692bae220b3d385
 - [x] **Step 4: 更新 README** — 省级端点 + 标注历史数据
 - [x] **Step 5: Commit** — `test(provincial): add provenance chain assertions for provincial data`
 
+archived-with: 2026-06-25-provincial-score-data
 ---
 
 ## Self-Review

@@ -17,7 +17,7 @@ verification_report: docs/superpowers/reports/2026-06-25-provincial-score-data-v
 branch_status: handled
 created_at: 2026-06-25
 verified_at: 2026-06-25
-archived: false
+archived: true
 handoff_context: openspec/changes/provincial-score-data/.comet/handoff/design-context.json
 handoff_hash: f591a9f3e7c380c12d6751adc419c3fa1bc05d28605a1042f76403ac76b06b84
 
