@@ -2,6 +2,7 @@
 change: data-foundation
 design-doc: docs/superpowers/specs/2026-06-25-data-foundation-design.md
 base-ref: ea5430bea61df1a52017179387b3d763e63c31d2
+archived-with: 2026-06-25-data-foundation
 ---
 
 # data-foundation Implementation Plan
@@ -81,6 +82,7 @@ base-ref: ea5430bea61df1a52017179387b3d763e63c31d2
 
 **分解决策**：模型按实体分文件；Repository 集中映射逻辑单独可测；Engine 拆为 insurance/cost 两个纯函数模块；API 按实体分 router。TDD 顺序：models/engine（纯单元测试）→ db/repository → loader → seeds → api → 集成。
 
+archived-with: 2026-06-25-data-foundation
 ---
 
 ### Task 1: 项目脚手架与配置
@@ -96,6 +98,7 @@ base-ref: ea5430bea61df1a52017179387b3d763e63c31d2
 - [x] **Step 5: 验证 pytest 可运行** — Run `pytest -q` 退出码 0/5 无收集错误
 - [x] **Step 6: Commit** — `chore: 搭建 data-foundation 包结构与配置`
 
+archived-with: 2026-06-25-data-foundation
 ---
 
 ### Task 2: SourcedRecord 基类与 CostBand
@@ -110,6 +113,7 @@ base-ref: ea5430bea61df1a52017179387b3d763e63c31d2
 - [x] **Step 4: 运行确认通过** — 4 测试 PASS
 - [x] **Step 5: Commit** — `feat(models): SourcedRecord 基类与 CostBand 区间校验`
 
+archived-with: 2026-06-25-data-foundation
 ---
 
 ### Task 3: StudentProfile 考生画像模型
@@ -124,6 +128,7 @@ base-ref: ea5430bea61df1a52017179387b3d763e63c31d2
 - [x] **Step 4: 运行确认通过** — 5 测试 PASS
 - [x] **Step 5: Commit** — `feat(models): StudentProfile 考生画像（6 家庭资源布尔位）`
 
+archived-with: 2026-06-25-data-foundation
 ---
 
 ### Task 4: Career 职业模型（含 SalaryBand）
@@ -136,6 +141,7 @@ base-ref: ea5430bea61df1a52017179387b3d763e63c31d2
 - [x] **Step 2-4: 失败→实现→通过**
 - [x] **Step 5: Commit** — `feat(models): Career 职业模型（SalaryBand 三档区间校验）`
 
+archived-with: 2026-06-25-data-foundation
 ---
 
 ### Task 5: SocialInsurance 五险一金模型 + 全国基准
@@ -148,6 +154,7 @@ base-ref: ea5430bea61df1a52017179387b3d763e63c31d2
 - [x] **Step 2-4: 失败→实现→通过**
 - [x] **Step 5: Commit** — `feat(models): SocialInsurance 五险一金模型 + 全国基准比例`
 
+archived-with: 2026-06-25-data-foundation
 ---
 
 ### Task 6: CityCost 城市成本模型（含 RentTiers）
@@ -160,6 +167,7 @@ base-ref: ea5430bea61df1a52017179387b3d763e63c31d2
 - [x] **Step 2-4: 失败→实现→通过**
 - [x] **Step 5: Commit** — `feat(models): CityCost 城市成本模型（租房三档区间）`
 
+archived-with: 2026-06-25-data-foundation
 ---
 
 ### Task 7: University 大学三维模型
@@ -172,6 +180,7 @@ base-ref: ea5430bea61df1a52017179387b3d763e63c31d2
 - [x] **Step 2-4: 失败→实现→通过**
 - [x] **Step 5: Commit** — `feat(models): University 大学三维模型`
 
+archived-with: 2026-06-25-data-foundation
 ---
 
 ### Task 8: Major 专业三分位模型
@@ -184,6 +193,7 @@ base-ref: ea5430bea61df1a52017179387b3d763e63c31d2
 - [x] **Step 2-4: 失败→实现→通过**
 - [x] **Step 5: Commit** — `feat(models): Major 专业模型（强制 P25/P50/P75 三分位）`
 
+archived-with: 2026-06-25-data-foundation
 ---
 
 ### Task 9: AdmissionRecord 录取 schema
@@ -196,6 +206,7 @@ base-ref: ea5430bea61df1a52017179387b3d763e63c31d2
 - [x] **Step 2-4: 失败→实现→通过**
 - [x] **Step 5: Commit** — `feat(models): AdmissionRecord 录取 schema`
 
+archived-with: 2026-06-25-data-foundation
 ---
 
 ### Task 10: Engine — 个税累进 + 五险一金计算
@@ -208,6 +219,7 @@ base-ref: ea5430bea61df1a52017179387b3d763e63c31d2
 - [x] **Step 2-4: 失败→实现→通过** — 8 测试 PASS
 - [x] **Step 5: Commit** — `feat(engine): 五险一金企业成本/到手工资 + 2024 七档累进个税`
 
+archived-with: 2026-06-25-data-foundation
 ---
 
 ### Task 11: Engine — 城市成本年化
@@ -220,6 +232,7 @@ base-ref: ea5430bea61df1a52017179387b3d763e63c31d2
 - [x] **Step 2-4: 失败→实现→通过**
 - [x] **Step 5: Commit** — `feat(engine): 城市成本年化计算`
 
+archived-with: 2026-06-25-data-foundation
 ---
 
 ### Task 12: DB 层 — SQLite 引擎 + Table 模型
@@ -232,6 +245,7 @@ base-ref: ea5430bea61df1a52017179387b3d763e63c31d2
 - [x] **Step 2-4: 失败→实现→通过** — 含完整 Table 定义
 - [x] **Step 5: Commit** — `feat(db): SQLite 引擎 + 六类 Table 拍平模型 + Session`
 
+archived-with: 2026-06-25-data-foundation
 ---
 
 ### Task 13: Repository — Table↔Domain 映射
@@ -244,6 +258,7 @@ base-ref: ea5430bea61df1a52017179387b3d763e63c31d2
 - [x] **Step 2-4: 失败→实现→通过**（career 完整 + 其余实体同模式）
 - [x] **Step 5: Commit** — `feat(repositories): 六类实体 Table↔Domain 映射层`
 
+archived-with: 2026-06-25-data-foundation
 ---
 
 ### Task 14: Seed Loader — YAML→Domain→Table（幂等 upsert）
@@ -256,6 +271,7 @@ base-ref: ea5430bea61df1a52017179387b3d763e63c31d2
 - [x] **Step 2-4: 失败→实现→通过** — **移除 placeholder 行**，只实现 load_all_seeds 主入口
 - [x] **Step 5: Commit** — `feat(loader): YAML 种子加载（Domain 校验 + 幂等 upsert + 拒绝损坏记录）`
 
+archived-with: 2026-06-25-data-foundation
 ---
 
 ### Task 15: 种子 YAML 数据
@@ -270,6 +286,7 @@ base-ref: ea5430bea61df1a52017179387b3d763e63c31d2
 - [x] **Step 4: 运行确认通过**
 - [x] **Step 5: Commit** — `feat(data): 六类种子 YAML（合规标注 + 文档量级）`
 
+archived-with: 2026-06-25-data-foundation
 ---
 
 ### Task 16: FastAPI 访问层
@@ -285,6 +302,7 @@ base-ref: ea5430bea61df1a52017179387b3d763e63c31d2
 - [x] **Step 5: 运行确认通过** — 7 测试 PASS
 - [x] **Step 6: Commit** — `feat(api): FastAPI 六实体查询端点 + 五险一金计算 + 启动自动加载`
 
+archived-with: 2026-06-25-data-foundation
 ---
 
 ### Task 17: 来源追溯全链路集成测试
@@ -295,6 +313,7 @@ base-ref: ea5430bea61df1a52017179387b3d763e63c31d2
 - [x] **Step 2: 运行确认通过**
 - [x] **Step 3: Commit** — `test: 来源追溯全链路集成测试`
 
+archived-with: 2026-06-25-data-foundation
 ---
 
 ### Task 18: README + 端到端验证 + 合规检查
@@ -308,6 +327,7 @@ base-ref: ea5430bea61df1a52017179387b3d763e63c31d2
 - [x] **Step 5: 全量回归** — `pytest -q` 全 PASS
 - [x] **Step 6: Commit** — `docs: README + 端到端验证 + 合规检查`
 
+archived-with: 2026-06-25-data-foundation
 ---
 
 ## Self-Review

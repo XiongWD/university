@@ -2,6 +2,8 @@
 comet_change: data-foundation
 role: technical-design
 canonical_spec: openspec
+archived-with: 2026-06-25-data-foundation
+status: final
 ---
 
 # Design Doc: data-foundation
