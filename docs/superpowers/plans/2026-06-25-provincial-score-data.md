@@ -46,81 +46,81 @@ base-ref: 7625e5b31b2e57699375865f8692bae220b3d385
 **Files:** Create `app/models/provincial.py`; Test `tests/models/test_provincial.py`
 **Interfaces:** BatchLines(5 int|None)、ProvincialControlLine(SourcedRecord)、ScoreRankEntry(score/count_at/cumulative_rank 非负)、ScoreRankTable(SourcedRecord + entries + 位次单调性校验)
 
-- [ ] **Step 1: 写失败测试** — 河南传统理综、广东新高考批次可选、缺省/负数拒绝、entry 非负、表单调性通过/违反拒绝（9 测试）
-- [ ] **Step 2: 运行确认失败** — ModuleNotFoundError
-- [ ] **Step 3: 实现 app/models/provincial.py** — BatchLines(field_validator "*" 非负) + ScoreRankEntry(非负) + ScoreRankTable(model_validator after 校验 score 降序时 cumulative_rank 严格递增)
-- [ ] **Step 4: 运行确认通过** — 9 passed
-- [ ] **Step 5: Commit** — `feat(provincial): add domain models for control line and score-rank table`
+- [x] **Step 1: 写失败测试** — 河南传统理综、广东新高考批次可选、缺省/负数拒绝、entry 非负、表单调性通过/违反拒绝（9 测试）
+- [x] **Step 2: 运行确认失败** — ModuleNotFoundError
+- [x] **Step 3: 实现 app/models/provincial.py** — BatchLines(field_validator "*" 非负) + ScoreRankEntry(非负) + ScoreRankTable(model_validator after 校验 score 降序时 cumulative_rank 严格递增)
+- [x] **Step 4: 运行确认通过** — 9 passed
+- [x] **Step 5: Commit** — `feat(provincial): add domain models for control line and score-rank table`
 
 ### Task 2: Table 层 Row 模型
 
 **Files:** Modify `app/models/tables.py`
 **Interfaces:** ProvincialControlLineRow(batches 拍平 5 列)、ScoreRankTableRow(表头)、ScoreRankEntryRow(table_id 外键 + score/count_at/cumulative_rank)
 
-- [ ] **Step 1: 追加 3 个 Row 到 tables.py**
-- [ ] **Step 2: 验证建表** — `python -c "from app.db import init_db; init_db(); print('ok')"`
-- [ ] **Step 3: Commit** — `feat(provincial): add SQLModel rows for control line and score-rank`
+- [x] **Step 1: 追加 3 个 Row 到 tables.py**
+- [x] **Step 2: 验证建表** — `python -c "from app.db import init_db; init_db(); print('ok')"`
+- [x] **Step 3: Commit** — `feat(provincial): add SQLModel rows for control line and score-rank`
 
 ### Task 3: 位次双向查询纯函数
 
 **Files:** Create `app/engine/rank_query.py`; Test `tests/engine/test_rank_query.py`
 **Interfaces:** score_to_rank(entries,score)->int|None(精确)、rank_to_score(entries,rank)->int|None(就近)
 
-- [ ] **Step 1: 写失败测试** — 精确匹配(690→215)、缺失返 None、空表返 None、就近匹配(220→690, 230→689)（7 测试）
-- [ ] **Step 2-4: 失败→实现→通过** — rank_to_score 用 min(key=abs(cumulative_rank-rank))
-- [ ] **Step 5: Commit** — `feat(provincial): add bidirectional score-rank query functions`
+- [x] **Step 1: 写失败测试** — 精确匹配(690→215)、缺失返 None、空表返 None、就近匹配(220→690, 230→689)（7 测试）
+- [x] **Step 2-4: 失败→实现→通过** — rank_to_score 用 min(key=abs(cumulative_rank-rank))
+- [x] **Step 5: Commit** — `feat(provincial): add bidirectional score-rank query functions`
 
 ### Task 4: Repository 映射层
 
 **Files:** Modify `app/repositories/mappers.py`; Test `tests/repositories/test_provincial_mappers.py`
 **Interfaces:** provincial_control_line_to_row/domain、score_rank_table_to_row/domain(接 entries 参数)、score_rank_entry_to_row(接 table_id)/domain
 
-- [ ] **Step 1: 写失败测试** — control_line 往返(广东 special_line=539/undergrad_batch=442/first_batch=None)、table 往返、entry 往返（3 测试）
-- [ ] **Step 2-4: 失败→实现(import+追加 6 函数)→通过**
-- [ ] **Step 5: Commit** — `feat(provincial): add mappers for control line and score-rank`
+- [x] **Step 1: 写失败测试** — control_line 往返(广东 special_line=539/undergrad_batch=442/first_batch=None)、table 往返、entry 往返（3 测试）
+- [x] **Step 2-4: 失败→实现(import+追加 6 函数)→通过**
+- [x] **Step 5: Commit** — `feat(provincial): add mappers for control line and score-rank`
 
 ### Task 5: CSV 一分一段表导入器
 
 **Files:** Create `app/loader/dataset_importer.py`; Test `tests/loader/test_dataset_importer.py`
 **Interfaces:** import_score_rank_csv(csv_path,session,provinces,years)->dict。CSV 缺失→{}不抛；位次单调违反→ValueError
 
-- [ ] **Step 1: 写失败测试** — 解析存储(河南3条)、幂等、白名单过滤(省/年)、单调违反拒绝、CSV缺失降级（5 测试）
-- [ ] **Step 2-4: 失败→实现(utf-8-sig/列映射/分桶/ScoreRankTable校验/upsert删旧写新)→通过**
-- [ ] **Step 5: 真实CSV冒烟** — import_score_rank_csv('data/datasets/gaokao_raw.csv',...,['河南','广东'],[2022,2023,2024])
-- [ ] **Step 6: Commit** — `feat(provincial): add CSV score-rank importer with graceful degradation`
+- [x] **Step 1: 写失败测试** — 解析存储(河南3条)、幂等、白名单过滤(省/年)、单调违反拒绝、CSV缺失降级（5 测试）
+- [x] **Step 2-4: 失败→实现(utf-8-sig/列映射/分桶/ScoreRankTable校验/upsert删旧写新)→通过**
+- [x] **Step 5: 真实CSV冒烟** — import_score_rank_csv('data/datasets/gaokao_raw.csv',...,['河南','广东'],[2022,2023,2024])
+- [x] **Step 6: Commit** — `feat(provincial): add CSV score-rank importer with graceful degradation`
 
 ### Task 6: 省控线手编种子 + seed_loader 注册
 
 **Files:** Create `data/seed/provincial/control_line/{henan,guangdong}.yaml`; Modify `app/loader/seed_loader.py`; Test `tests/loader/test_provincial_seeds.py`
 
-- [ ] **Step 1: henan.yaml** — 2022-2024 文/理科各批次线（一本/二本/专科），confidence 0.9
-- [ ] **Step 2: guangdong.yaml** — 2022-2024 物理/历史类（special_line/undergrad_batch/专科），confidence 0.9，note 标注合并批次
-- [ ] **Step 3: 扩展 seed_loader** — SEED_SPECS 加 provincial/control_line 目录(主键 province/year/track)；load_all_seeds 支持目录多文件(is_dir 则 glob *.yaml)
-- [ ] **Step 4: 写失败测试** — 种子≥12条、confidence≥0.8、河南有first_batch/广东有undergrad_batch/广东无first_batch（2 测试）
-- [ ] **Step 5-6: 通过 + 既有 seed 测试不回归**
-- [ ] **Step 7: Commit** — `feat(provincial): add hand-authored control-line seeds and register in loader`
+- [x] **Step 1: henan.yaml** — 2022-2024 文/理科各批次线（一本/二本/专科），confidence 0.9
+- [x] **Step 2: guangdong.yaml** — 2022-2024 物理/历史类（special_line/undergrad_batch/专科），confidence 0.9，note 标注合并批次
+- [x] **Step 3: 扩展 seed_loader** — SEED_SPECS 加 provincial/control_line 目录(主键 province/year/track)；load_all_seeds 支持目录多文件(is_dir 则 glob *.yaml)
+- [x] **Step 4: 写失败测试** — 种子≥12条、confidence≥0.8、河南有first_batch/广东有undergrad_batch/广东无first_batch（2 测试）
+- [x] **Step 5-6: 通过 + 既有 seed 测试不回归**
+- [x] **Step 7: Commit** — `feat(provincial): add hand-authored control-line seeds and register in loader`
 
 ### Task 7: FastAPI 省级数据端点
 
 **Files:** Create `app/api/routers/provincial.py`; Modify `app/api/main.py`+`app/config.py`; Test `tests/api/test_provincial_api.py`
 **Interfaces:** 4 端点：control-line / score-rank / score-rank/rank / score-rank/score。空结果不报错
 
-- [ ] **Step 1: 写失败测试** — control_line 带来源(first_batch=511)、空查询不报错、score-rank 列表、score→rank(690→215)、rank→score(215→690)（5 测试）
-- [ ] **Step 2: 运行确认失败**
-- [ ] **Step 3: 实现 routers/provincial.py** — _load_table_entries 辅助 + 4 端点(model_dump + 来源字段)
-- [ ] **Step 4: main.py 注册 + lifespan CSV 导入 + config 加 data_dir**
-- [ ] **Step 5: 运行确认通过** — 5 passed（含真实 690→215）
-- [ ] **Step 6: Commit** — `feat(provincial): add FastAPI endpoints and runtime CSV import on startup`
+- [x] **Step 1: 写失败测试** — control_line 带来源(first_batch=511)、空查询不报错、score-rank 列表、score→rank(690→215)、rank→score(215→690)（5 测试）
+- [x] **Step 2: 运行确认失败**
+- [x] **Step 3: 实现 routers/provincial.py** — _load_table_entries 辅助 + 4 端点(model_dump + 来源字段)
+- [x] **Step 4: main.py 注册 + lifespan CSV 导入 + config 加 data_dir**
+- [x] **Step 5: 运行确认通过** — 5 passed（含真实 690→215）
+- [x] **Step 6: Commit** — `feat(provincial): add FastAPI endpoints and runtime CSV import on startup`
 
 ### Task 8: 来源链路集成验证 + 文档
 
 **Files:** Modify `tests/test_provenance_chain.py`; README
 
-- [ ] **Step 1: 追加省级来源断言** — control_line provenance、score_rank 全链路(690→215 source=数据集)
-- [ ] **Step 2: 全量回归** — `pytest tests/ -v` 全过无回归
-- [ ] **Step 3: 合规检查** — grep 无"预测"措辞
-- [ ] **Step 4: 更新 README** — 省级端点 + 标注历史数据
-- [ ] **Step 5: Commit** — `test(provincial): add provenance chain assertions for provincial data`
+- [x] **Step 1: 追加省级来源断言** — control_line provenance、score_rank 全链路(690→215 source=数据集)
+- [x] **Step 2: 全量回归** — `pytest tests/ -v` 全过无回归
+- [x] **Step 3: 合规检查** — grep 无"预测"措辞
+- [x] **Step 4: 更新 README** — 省级端点 + 标注历史数据
+- [x] **Step 5: Commit** — `test(provincial): add provenance chain assertions for provincial data`
 
 ---
 

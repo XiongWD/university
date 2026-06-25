@@ -1,0 +1,54 @@
+# 河南2022-2024 文/理科省控线（传统文理 3+X）
+- province: 河南
+  year: 2024
+  track: 理科
+  batches: {first_batch: 511, second_batch: 396, junior_college: 185}
+  source: 河南省教育考试院2024
+  as_of: 2024-06-25
+  confidence: 0.9
+  note: null
+
+- province: 河南
+  year: 2024
+  track: 文科
+  batches: {first_batch: 521, second_batch: 428, junior_college: 185}
+  source: 河南省教育考试院2024
+  as_of: 2024-06-25
+  confidence: 0.9
+  note: null
+
+- province: 河南
+  year: 2023
+  track: 理科
+  batches: {first_batch: 514, second_batch: 409, junior_college: 185}
+  source: 河南省教育考试院2023
+  as_of: 2023-06-25
+  confidence: 0.9
+  note: null
+
+- province: 河南
+  year: 2023
+  track: 文科
+  batches: {first_batch: 547, second_batch: 465, junior_college: 185}
+  source: 河南省教育考试院2023
+  as_of: 2023-06-25
+  confidence: 0.9
+  note: null
+
+- province: 河南
+  year: 2022
+  track: 理科
+  batches: {first_batch: 509, second_batch: 405, junior_college: 190}
+  source: 河南省教育考试院2022
+  as_of: 2022-06-25
+  confidence: 0.9
+  note: null
+
+- province: 河南
+  year: 2022
+  track: 文科
+  batches: {first_batch: 527, second_batch: 445, junior_college: 190}
+  source: 河南省教育考试院2022
+  as_of: 2022-06-25
+  confidence: 0.9
+  note: null

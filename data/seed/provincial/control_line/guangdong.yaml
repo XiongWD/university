@@ -1,0 +1,54 @@
+# 广东2022-2024 物理/历史类省控线（新高考 3+1+2，本科批合并批次）
+- province: 广东
+  year: 2024
+  track: 物理类
+  batches: {special_line: 539, undergrad_batch: 442, junior_college: 160}
+  source: 广东省教育考试院2024
+  as_of: 2024-06-25
+  confidence: 0.9
+  note: 新高考合并批次，无一本/二本
+
+- province: 广东
+  year: 2024
+  track: 历史类
+  batches: {special_line: 540, undergrad_batch: 428, junior_college: 160}
+  source: 广东省教育考试院2024
+  as_of: 2024-06-25
+  confidence: 0.9
+  note: 新高考合并批次，无一本/二本
+
+- province: 广东
+  year: 2023
+  track: 物理类
+  batches: {special_line: 539, undergrad_batch: 439, junior_college: 180}
+  source: 广东省教育考试院2023
+  as_of: 2023-06-25
+  confidence: 0.9
+  note: null
+
+- province: 广东
+  year: 2023
+  track: 历史类
+  batches: {special_line: 540, undergrad_batch: 433, junior_college: 180}
+  source: 广东省教育考试院2023
+  as_of: 2023-06-25
+  confidence: 0.9
+  note: null
+
+- province: 广东
+  year: 2022
+  track: 物理类
+  batches: {special_line: 538, undergrad_batch: 445, junior_college: 180}
+  source: 广东省教育考试院2022
+  as_of: 2022-06-25
+  confidence: 0.9
+  note: null
+
+- province: 广东
+  year: 2022
+  track: 历史类
+  batches: {special_line: 532, undergrad_batch: 437, junior_college: 180}
+  source: 广东省教育考试院2022
+  as_of: 2022-06-25
+  confidence: 0.9
+  note: null

@@ -52,3 +52,39 @@ def test_low_confidence_hand_edited_seeds_flagged(client):
     for c in client.get("/api/v1/careers").json():
         assert c["confidence"] <= 0.6
         assert c.get("note") and "待爬虫校准" in c["note"]
+
+
+# ---------- 省级数据来源链路（含 CSV 导入）----------
+@pytest.fixture(scope="module")
+def prov_client(tmp_path_factory):
+    """加载种子 + CSV 导入的 client，验证省级数据全链路来源。"""
+    tmp_db = tmp_path_factory.mktemp("prov") / "prov_chain.db"
+    import app.db as db_module
+    db_module._engine = None
+    settings.db_path = tmp_db
+    init_db()
+    with Session(get_engine()) as s:
+        if is_db_empty(s):
+            load_all_seeds(settings.seed_dir, s)
+    with TestClient(app) as c:
+        yield c
+
+
+def test_provincial_control_line_provenance(prov_client):
+    r = prov_client.get(
+        "/api/v1/provincial/control-line?province=河南&year=2024&track=理科"
+    ).json()
+    assert r, "河南2024理科省控线应存在"
+    cl = r[0]
+    assert cl["source"] and cl["confidence"] >= 0.8
+
+
+def test_score_rank_provenance_full_chain(prov_client):
+    """CSV → DB → API 来源不丢：一分一段表查询带 source 字段。"""
+    r = prov_client.get(
+        "/api/v1/provincial/score-rank/rank"
+        "?province=河南&year=2024&track=理科&score=690"
+    ).json()
+    assert r.get("rank") == 215
+    assert r.get("source") == "Gaokao-score-distribution数据集"
+    assert r.get("confidence") == 0.8

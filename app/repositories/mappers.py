@@ -16,6 +16,9 @@ from app.models.insurance import InsuranceRates, RatePair, SocialInsurance
 from app.models.major import (
     Barriers, EmploymentDensity, Major, SalaryQuantile, Upside,
 )
+from app.models.provincial import (
+    BatchLines, ProvincialControlLine, ScoreRankEntry, ScoreRankTable,
+)
 from app.models.student import (
     FamilyResources, MinorLanguage, RiskPreference, StudentProfile,
 )
@@ -24,6 +27,7 @@ from app.models.university import (
 )
 from app.models.tables import (
     AdmissionRow, CareerRow, CityCostRow, MajorRow,
+    ProvincialControlLineRow, ScoreRankEntryRow, ScoreRankTableRow,
     SocialInsuranceRow, StudentRow, UniversityRow,
 )
 
@@ -239,4 +243,58 @@ def student_to_domain(r: StudentRow) -> StudentProfile:
         strengths=json.loads(r.strengths),
         risk_preference=RiskPreference(r.risk_preference),
         source=r.source, as_of=r.as_of, confidence=r.confidence, note=r.note,
+    )
+
+
+# ---------- ProvincialControlLine ----------
+def provincial_control_line_to_row(c: ProvincialControlLine) -> ProvincialControlLineRow:
+    return ProvincialControlLineRow(
+        province=c.province, year=c.year, track=c.track,
+        special_line=c.batches.special_line, first_batch=c.batches.first_batch,
+        second_batch=c.batches.second_batch, undergrad_batch=c.batches.undergrad_batch,
+        junior_college=c.batches.junior_college,
+        source=c.source, as_of=c.as_of, confidence=c.confidence, note=c.note,
+    )
+
+
+def provincial_control_line_to_domain(r: ProvincialControlLineRow) -> ProvincialControlLine:
+    return ProvincialControlLine(
+        province=r.province, year=r.year, track=r.track,
+        batches=BatchLines(
+            special_line=r.special_line, first_batch=r.first_batch,
+            second_batch=r.second_batch, undergrad_batch=r.undergrad_batch,
+            junior_college=r.junior_college,
+        ),
+        source=r.source, as_of=r.as_of, confidence=r.confidence, note=r.note,
+    )
+
+
+# ---------- ScoreRankTable ----------
+def score_rank_table_to_row(t: ScoreRankTable) -> ScoreRankTableRow:
+    return ScoreRankTableRow(
+        province=t.province, year=t.year, track=t.track,
+        source=t.source, as_of=t.as_of, confidence=t.confidence, note=t.note,
+    )
+
+
+def score_rank_table_to_domain(
+    r: ScoreRankTableRow, entries: list[ScoreRankEntry],
+) -> ScoreRankTable:
+    return ScoreRankTable(
+        province=r.province, year=r.year, track=r.track, entries=entries,
+        source=r.source, as_of=r.as_of, confidence=r.confidence, note=r.note,
+    )
+
+
+# ---------- ScoreRankEntry ----------
+def score_rank_entry_to_row(e: ScoreRankEntry, table_id: int) -> ScoreRankEntryRow:
+    return ScoreRankEntryRow(
+        table_id=table_id, score=e.score,
+        count_at=e.count_at, cumulative_rank=e.cumulative_rank,
+    )
+
+
+def score_rank_entry_to_domain(r: ScoreRankEntryRow) -> ScoreRankEntry:
+    return ScoreRankEntry(
+        score=r.score, count_at=r.count_at, cumulative_rank=r.cumulative_rank,
     )
