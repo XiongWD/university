@@ -212,16 +212,27 @@ export default function LifePathsPage() {
                       <div key={b.label}>
                         <div className={`text-xs font-bold ${b.color} mb-1`}>{b.label}（{b.items.length}）</div>
                         {b.items.map((s, j) => (
-                          <div key={j} className="flex items-center justify-between bg-white/5 rounded-lg px-3 py-2 mb-1 text-sm">
-                            <div>
-                              <span className="font-medium">{s.school}</span>
-                              <span className="text-xs text-white/40 ml-2">{s.matched_major}</span>
-                              <span className={`text-[10px] ml-2 px-1.5 py-0.5 rounded ${s.ownership === "民办" ? "bg-orange-500/20 text-orange-300" : "bg-emerald-500/20 text-emerald-300"}`}>{s.ownership}</span>
+                          <div key={j} className="bg-white/5 rounded-lg px-3 py-2 mb-1.5 text-sm">
+                            <div className="flex items-center justify-between">
+                              <div>
+                                <span className="font-medium">{s.school}</span>
+                                <span className="text-xs text-white/40 ml-2">{s.matched_major}</span>
+                                <span className={`text-[10px] ml-2 px-1.5 py-0.5 rounded ${s.ownership === "民办" ? "bg-orange-500/20 text-orange-300" : "bg-emerald-500/20 text-emerald-300"}`}>{s.ownership}</span>
+                              </div>
+                              <div className="text-right text-xs">
+                                <div>{wan(s.total_cost_4y)}</div>
+                                <div className={s.affordability_status === "超预算" ? "text-red-300" : "text-white/40"}>{s.affordability_status}</div>
+                              </div>
                             </div>
-                            <div className="text-right text-xs">
-                              <div>{wan(s.total_cost_4y)}</div>
-                              <div className={s.affordability_status === "超预算" ? "text-red-300" : "text-white/40"}>{s.affordability_status}</div>
-                            </div>
+                            {s.warnings && s.warnings.length > 0 && (
+                              <div className="mt-1.5 space-y-0.5">
+                                {s.warnings.map((w, k) => (
+                                  <div key={k} className={`text-[10px] leading-tight ${
+                                    w.startsWith("⚠") ? "text-amber-300/80" : w.startsWith("✓") ? "text-emerald-300/70" : "text-white/40"
+                                  }`}>{w}</div>
+                                ))}
+                              </div>
+                            )}
                           </div>
                         ))}
                       </div>

@@ -227,25 +227,35 @@ def build_life_paths(
 def _build_buckets(
     candidates: list[dict], budget: FamilyBudget | None, direction: str
 ) -> AdmissionBuckets:
-    """为某路径构建冲/稳/保学校清单（简化版，按admission_level分桶）。"""
+    """为某路径构建冲/稳/保学校清单，每个学校带填报专家建议。"""
+    from app.engine.filling_rules import generate_filling_advice
     reach, match, safe = [], [], []
     for c in candidates:
         if c.get("direction", "") != direction:
             continue
         cost = c.get("cost_4y", 0)
         afford = "可承受" if (not budget or budget.can_afford(cost)) else "超预算"
+        school_province = c.get("school_province", "河南")
+        level = c.get("admission_level", "稳")
+        # 生成填报专家建议（8大规则）
+        advice = generate_filling_advice(
+            school=c.get("school", ""),
+            school_province=school_province,
+            planned_enrollment=c.get("planned_enrollment"),
+            admission_level=level,
+        )
         opt = SchoolOption(
             school=c.get("school", ""),
             matched_major=c.get("major", ""),
             ownership=c.get("ownership", "公办"),
             city=c.get("city"),
-            admission_level=c.get("admission_level", "稳"),
+            admission_level=level,
             total_cost_4y=cost,
             affordability_status=afford,
             data_granularity=c.get("data_granularity", "school"),
             confidence=c.get("confidence", 0.5),
+            warnings=advice,
         )
-        level = c.get("admission_level", "稳")
         if level in ("冲", "偏冲"):
             reach.append(opt)
         elif level in ("偏保", "保"):

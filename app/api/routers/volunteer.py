@@ -374,6 +374,9 @@ def life_paths(req: LifePathsRequest, session: Session = Depends(get_session_dep
             "overall_score": market.current_market_score,
             "data_granularity": "group", "confidence": group_pred.confidence,
             "city": uni.city if uni else None,
+            "school_province": off.province if off.province != "河南" else
+                (adm.province if adm and adm.province != "河南" else "河南"),
+            "planned_enrollment": adm.planned_enrollment if adm else None,
         })
 
     # [5] Path Optimizer：三路径
