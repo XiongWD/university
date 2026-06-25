@@ -15,14 +15,16 @@ from app.models.career import Career
 from app.models.city import CityCost
 from app.models.insurance import SocialInsurance
 from app.models.major import Major
+from app.models.provincial import ProvincialControlLine
 from app.models.tables import (
     AdmissionRow, CareerRow, CityCostRow, MajorRow,
-    SocialInsuranceRow, UniversityRow,
+    ProvincialControlLineRow, SocialInsuranceRow, UniversityRow,
 )
 from app.models.university import University
 from app.repositories.mappers import (
     admission_to_row, career_to_row, city_to_row,
-    insurance_to_row, major_to_row, university_to_row, _check_sourced,
+    insurance_to_row, major_to_row, provincial_control_line_to_row,
+    university_to_row, _check_sourced,
 )
 
 
@@ -39,6 +41,9 @@ SEED_SPECS = [
     ("insurance/insurance.yaml", SocialInsurance, SocialInsuranceRow, insurance_to_row, ["city"]),
     ("admissions/admissions.yaml", AdmissionRecord, AdmissionRow, admission_to_row,
      ["school", "major", "province", "year"]),
+    # 省控线：目录形式，加载目录下所有 *.yaml（河南/广东分文件）
+    ("provincial/control_line", ProvincialControlLine, ProvincialControlLineRow,
+     provincial_control_line_to_row, ["province", "year", "track"]),
 ]
 
 
@@ -69,33 +74,38 @@ def load_all_seeds(seed_dir: Path, session: Session) -> dict:
     seed_dir = Path(seed_dir)
     report: dict[str, tuple[int, int]] = {}
     for rel, domain_cls, row_cls, to_row, match_keys in SEED_SPECS:
-        path = seed_dir / rel
         entity = rel.split("/")[0]
-        if not path.exists():
-            report[entity] = (0, 0)
-            continue
-        data = yaml.safe_load(path.read_text(encoding="utf-8")) or []
+        target = seed_dir / rel
+        # 支持目录（多文件，如 provincial/control_line/）与单文件两种形态
+        if target.is_dir():
+            files = sorted(target.glob("*.yaml"))
+        elif target.exists():
+            files = [target]
+        else:
+            files = []
         count = 0
-        for idx, rec in enumerate(data):
-            try:
-                dom = domain_cls.model_validate(rec)
-            except ValidationError as e:
-                ident = {k: rec.get(k) for k in match_keys} if isinstance(rec, dict) else {}
-                raise SeedLoadError(
-                    f"{path.name}[{idx}] 校验失败 {ident} —— {e}"
-                ) from e
-            row = to_row(dom)
-            _check_sourced(row)  # 写回前校验来源不变量（confidence 范围）
-            key = {k: getattr(row, k) for k in match_keys}
-            existing = _find_existing(session, row_cls, key)
-            if existing:
-                # upsert：更新已有记录的全部字段（除 id）
-                for field in row.model_dump():
-                    if field != "id":
-                        setattr(existing, field, getattr(row, field))
-            else:
-                session.add(row)
-            count += 1
+        for path in files:
+            data = yaml.safe_load(path.read_text(encoding="utf-8")) or []
+            for idx, rec in enumerate(data):
+                try:
+                    dom = domain_cls.model_validate(rec)
+                except ValidationError as e:
+                    ident = {k: rec.get(k) for k in match_keys} if isinstance(rec, dict) else {}
+                    raise SeedLoadError(
+                        f"{path.name}[{idx}] 校验失败 {ident} —— {e}"
+                    ) from e
+                row = to_row(dom)
+                _check_sourced(row)  # 写回前校验来源不变量（confidence 范围）
+                key = {k: getattr(row, k) for k in match_keys}
+                existing = _find_existing(session, row_cls, key)
+                if existing:
+                    # upsert：更新已有记录的全部字段（除 id）
+                    for field in row.model_dump():
+                        if field != "id":
+                            setattr(existing, field, getattr(row, field))
+                else:
+                    session.add(row)
+                count += 1
         session.commit()
         report[entity] = (count, 0)
     return report
