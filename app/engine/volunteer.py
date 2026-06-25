@@ -90,6 +90,7 @@ def _meets_requirements(admission: AdmissionRecord, student: StudentProfile) -> 
 
     - 选科：若专业组有 subject_requirement（如"物理+化学"），考生 elective_subjects 须含全部要求科目
     - 外语：若专业要求特定外语（非"不限"），考生 foreign_language 须匹配
+    - 专业名推断语种：英语/翻译/商务英语等专业名含英语关键词→非英语考生自动过滤
     - 单科门槛：若专业有 single_subject_requirements，考生该科分数须达标
     """
     # 选科匹配：只校验再选科目("2")。首选(物理/历史)已由 track 过滤体现，不在此检查。
@@ -103,10 +104,17 @@ def _meets_requirements(admission: AdmissionRecord, student: StudentProfile) -> 
         for r in elective_required:
             if r not in student_electives:
                 return False
-    # 外语匹配
+    # 外语匹配：显式字段
     fl_req = admission.foreign_language_required
     if fl_req and fl_req != "不限":
         if student.foreign_language != fl_req and fl_req != "可小语种":
+            return False
+    # 外语匹配：专业名推断（录取数据未设foreign_language_required时的兜底）
+    # 英语类专业：英语/翻译/商务英语/英语教育→非英语考生不可报
+    if student.foreign_language != "英语":
+        major_name = (admission.major or "").lower()
+        english_keywords = ["英语", "翻译", "商务英语", "英语教育", "翻译学"]
+        if any(kw in admission.major for kw in english_keywords if admission.major):
             return False
     # 单科门槛
     for subj, threshold in (admission.single_subject_requirements or {}).items():
