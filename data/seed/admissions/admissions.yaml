@@ -13,7 +13,7 @@
   as_of: 2024-07-01
   confidence: 0.95
   note: 河南理科最高收分省内校之一，计算机为代表性高分专业
-
+  data_granularity: major
 - school: 河南大学
   major: 软件工程
   province: 河南
@@ -27,7 +27,7 @@
   as_of: 2024-07-01
   confidence: 0.95
   note: null
-
+  data_granularity: major
 - school: 河南师范大学
   major: 计算机科学与技术
   province: 河南
@@ -41,7 +41,7 @@
   as_of: 2024-07-01
   confidence: 0.9
   note: null
-
+  data_granularity: major
 - school: 河南财经政法大学
   major: 金融学
   province: 河南
@@ -55,7 +55,7 @@
   as_of: 2024-07-01
   confidence: 0.9
   note: null
-
+  data_granularity: major
 - school: 中原工学院
   major: 软件工程
   province: 河南
@@ -69,7 +69,7 @@
   as_of: 2024-07-01
   confidence: 0.9
   note: null
-
+  data_granularity: major
 - school: 河南农业大学
   major: 计算机科学与技术
   province: 河南
@@ -86,6 +86,7 @@
 
 # 河南2025物理类（首年新高考院校专业组，按普通类最低专业组记录便于跨年对比）
 # 注：2025新高考按专业组投档，此处取各校普通类最低组，中外合作/特殊类型不计
+  data_granularity: major
 - school: 郑州大学
   major: 物理学类
   province: 河南
@@ -101,7 +102,7 @@
   as_of: 2025-08-01
   confidence: 0.9
   note: 2025新高考专业组，物理学类为普通类较高组
-
+  data_granularity: group
 - school: 河南大学
   major: 化学类
   province: 河南
@@ -117,7 +118,7 @@
   as_of: 2025-08-01
   confidence: 0.8
   note: 普通类最低专业组，位次为量级参考
-
+  data_granularity: group
 - school: 河南师范大学
   major: 普通类
   province: 河南
@@ -132,7 +133,7 @@
   as_of: 2025-08-01
   confidence: 0.7
   note: 普通类预估参考，待官方精确数据
-
+  data_granularity: school
 - school: 河南农业大学
   major: 普通类
   province: 河南
@@ -148,7 +149,7 @@
   as_of: 2025-08-01
   confidence: 0.9
   note: 物理+化学专业组
-
+  data_granularity: school
 - school: 河南财经政法大学
   major: 普通类
   province: 河南
@@ -163,7 +164,7 @@
   as_of: 2025-08-01
   confidence: 0.7
   note: 普通类预估参考，待官方精确数据
-
+  data_granularity: school
 - school: 中原工学院
   major: 普通类
   province: 河南
@@ -180,6 +181,7 @@
   note: 普通类预估参考(本一11.5万位次)
 
 # 新高考示例（广东，展示major_group+subject_requirement字段）
+  data_granularity: school
 - school: 深圳大学
   major: 软件工程
   province: 广东
@@ -201,6 +203,7 @@
 # 数据源：各校招生网/掌上高考/自主选拔在线2025整理（部分为预估，confidence标注）
 # 策略：公办冲(地市冷门+省外) + 民办保底(省内)
 # --- 冲：公办压线（位次略优于考生，需冲刺）---
+  data_granularity: major
 - school: 信阳农林学院
   major: 园林
   province: 河南
@@ -215,7 +218,7 @@
   as_of: 2025-08-01
   confidence: 0.75
   note: 省内地市公办，农林冷门专业480分段可冲
-
+  data_granularity: major
 - school: 河南牧业经济学院
   major: 市场营销
   province: 河南
@@ -230,7 +233,7 @@
   as_of: 2025-08-01
   confidence: 0.8
   note: 省内公办，中外合作专业分数线较低
-
+  data_granularity: major
 - school: 黄淮学院
   major: 汉语言文学
   province: 河南
@@ -245,7 +248,7 @@
   as_of: 2025-08-01
   confidence: 0.8
   note: 驻马店地市公办，历史类503分起
-
+  data_granularity: major
 - school: 洛阳师范学院
   major: 旅游管理
   province: 河南
@@ -262,6 +265,7 @@
   note: 洛阳地市公办，普通类较高(513+)
 
 # --- 稳：省外冷门公办 + 省内公办边缘 ---
+  data_granularity: major
 - school: 九江学院
   major: 历史学
   province: 河南
@@ -276,7 +280,7 @@
   as_of: 2025-08-01
   confidence: 0.7
   note: 江西省公办，非热门地域投档线较低
-
+  data_granularity: major
 - school: 韶关学院
   major: 汉语言文学
   province: 河南
@@ -291,7 +295,7 @@
   as_of: 2025-08-01
   confidence: 0.7
   note: 广东省公办，非热门地域
-
+  data_granularity: major
 - school: 新乡学院
   major: 网络与新媒体
   province: 河南
@@ -308,6 +312,7 @@
   note: 新乡地市公办，历史类528+
 
 # --- 保：省内民办本科（兜底）---
+  data_granularity: major
 - school: 郑州升达经贸管理学院
   major: 国际经济与贸易
   province: 河南
@@ -323,7 +328,7 @@
   as_of: 2025-08-01
   confidence: 0.8
   note: 省内民办满意度第1，贴本科线录取
-
+  data_granularity: major
 - school: 黄河科技学院
   major: 英语
   province: 河南
@@ -339,7 +344,7 @@
   as_of: 2025-08-01
   confidence: 0.75
   note: 省内老牌民办
-
+  data_granularity: major
 - school: 郑州工商学院
   major: 会计学
   province: 河南
@@ -355,7 +360,7 @@
   as_of: 2025-08-01
   confidence: 0.75
   note: 省内综合类民办
-
+  data_granularity: major
 - school: 商丘学院
   major: 学前教育
   province: 河南
@@ -371,7 +376,7 @@
   as_of: 2025-08-01
   confidence: 0.7
   note: 省内民办，贴本科线兜底
-
+  data_granularity: major
 - school: 郑州西亚斯学院
   major: 英语
   province: 河南
@@ -389,7 +394,7 @@
   as_of: 2025-08-01
   confidence: 0.75
   note: 省内民办，中外合作特色；英语专业要求外语英语且单科≥105
-
+  data_granularity: major
 - school: 黄河科技学院
   major: 翻译
   province: 河南
@@ -407,3 +412,4 @@
   as_of: 2025-08-01
   confidence: 0.7
   note: 翻译专业要求外语英语（日语考生不可报）
+  data_granularity: major

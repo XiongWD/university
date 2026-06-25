@@ -6,7 +6,7 @@ JSON 字段用 json.dumps/loads，ensure_ascii=False 保留中文。
 
 import json
 
-from app.models.admission import AdmissionRecord, Batch
+from app.models.admission import AdmissionRecord, Batch, DataGranularity
 from app.models.base import CostBand
 from app.models.career import (
     Career, EstablishmentType, PromotionSpeed, SalaryBand,
@@ -27,8 +27,8 @@ from app.models.university import (
 )
 from app.models.tables import (
     AdmissionRow, CareerRow, CityCostRow, MajorRow,
-    ProvincialControlLineRow, ScoreRankEntryRow, ScoreRankTableRow,
-    SocialInsuranceRow, StudentRow, UniversityRow,
+    ProvincialControlLineRow, SchoolMajorOfferingRow, ScoreRankEntryRow,
+    ScoreRankTableRow, SocialInsuranceRow, StudentRow, UniversityRow,
 )
 
 
@@ -207,6 +207,8 @@ def admission_to_row(a: AdmissionRecord) -> AdmissionRow:
         major_group=a.major_group, subject_requirement=a.subject_requirement,
         foreign_language_required=a.foreign_language_required,
         single_subject_requirements=json.dumps(a.single_subject_requirements, ensure_ascii=False) if a.single_subject_requirements else None,
+        data_granularity=a.data_granularity.value,
+        planned_enrollment=a.planned_enrollment,
     )
 
 
@@ -219,6 +221,17 @@ def admission_to_domain(r: AdmissionRow) -> AdmissionRecord:
         major_group=r.major_group, subject_requirement=r.subject_requirement,
         foreign_language_required=r.foreign_language_required,
         single_subject_requirements=json.loads(r.single_subject_requirements) if r.single_subject_requirements else {},
+        data_granularity=DataGranularity(r.data_granularity) if r.data_granularity else DataGranularity.SCHOOL,
+        planned_enrollment=r.planned_enrollment,
+    )
+
+
+# ---------- SchoolMajorOffering ----------
+def school_major_offering_to_row(o) -> "SchoolMajorOfferingRow":
+    return SchoolMajorOfferingRow(
+        school=o.school, major=o.major, degree_level=o.degree_level,
+        is_active=o.is_active, source=o.source, as_of=o.as_of,
+        confidence=o.confidence, note=o.note,
     )
 
 

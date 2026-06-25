@@ -16,15 +16,17 @@ from app.models.city import CityCost
 from app.models.insurance import SocialInsurance
 from app.models.major import Major
 from app.models.provincial import ProvincialControlLine
+from app.models.school_major import SchoolMajorOffering
 from app.models.tables import (
     AdmissionRow, CareerRow, CityCostRow, MajorRow,
-    ProvincialControlLineRow, SocialInsuranceRow, UniversityRow,
+    ProvincialControlLineRow, SchoolMajorOfferingRow, SocialInsuranceRow,
+    UniversityRow,
 )
 from app.models.university import University
 from app.repositories.mappers import (
     admission_to_row, career_to_row, city_to_row,
     insurance_to_row, major_to_row, provincial_control_line_to_row,
-    university_to_row, _check_sourced,
+    school_major_offering_to_row, university_to_row, _check_sourced,
 )
 
 
@@ -41,6 +43,9 @@ SEED_SPECS = [
     ("insurance/insurance.yaml", SocialInsurance, SocialInsuranceRow, insurance_to_row, ["city"]),
     ("admissions/admissions.yaml", AdmissionRecord, AdmissionRow, admission_to_row,
      ["school", "major", "province", "year"]),
+    # 学校开设专业供给（学位层面，判断学校有无某专业）
+    ("school_majors/school_majors.yaml", SchoolMajorOffering, SchoolMajorOfferingRow,
+     school_major_offering_to_row, ["school", "major"]),
     # 省控线：目录形式，加载目录下所有 *.yaml（河南/广东分文件）
     ("provincial/control_line", ProvincialControlLine, ProvincialControlLineRow,
      provincial_control_line_to_row, ["province", "year", "track"]),
@@ -54,7 +59,7 @@ def is_db_empty(session: Session) -> bool:
     避免部分加载场景误判为空触发全量重载。
     """
     row_classes = (CareerRow, CityCostRow, UniversityRow, MajorRow,
-                   SocialInsuranceRow, AdmissionRow)
+                   SocialInsuranceRow, AdmissionRow, SchoolMajorOfferingRow)
     return all(session.exec(select(cls)).first() is None for cls in row_classes)
 
 

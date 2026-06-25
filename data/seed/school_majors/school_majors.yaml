@@ -1,0 +1,84 @@
+# 学校开设专业供给（学位层面，判断"这所学校有没有这个专业"）
+# 注意：is_active=True 仅表示该校开设此专业，不代表当年在豫招生。
+# 当年招生需查 admissions 的 data_granularity=major/group 记录确认。
+# 数据源：各校招生网/教育部专业备案
+# 重点覆盖志愿推荐涉及的学校×专业方向
+
+# ===== 郑州大学（综合，专业齐全）=====
+- {school: 郑州大学, major: 计算机科学与技术, is_active: true, source: 郑大招生网, as_of: "2025-06-01", confidence: 0.9}
+- {school: 郑州大学, major: 软件工程, is_active: true, source: 郑大招生网, as_of: "2025-06-01", confidence: 0.9}
+- {school: 郑州大学, major: 临床医学, is_active: true, source: 郑大招生网, as_of: "2025-06-01", confidence: 0.9}
+- {school: 郑州大学, major: 法学, is_active: true, source: 郑大招生网, as_of: "2025-06-01", confidence: 0.9}
+- {school: 郑州大学, major: 金融学, is_active: true, source: 郑大招生网, as_of: "2025-06-01", confidence: 0.9}
+- {school: 郑州大学, major: 英语, is_active: true, source: 郑大招生网, as_of: "2025-06-01", confidence: 0.9}
+- {school: 郑州大学, major: 日语, is_active: true, source: 郑大招生网, as_of: "2025-06-01", confidence: 0.85}
+
+# ===== 河南大学 =====
+- {school: 河南大学, major: 软件工程, is_active: true, source: 河大招生网, as_of: "2025-06-01", confidence: 0.9}
+- {school: 河南大学, major: 汉语言文学, is_active: true, source: 河大招生网, as_of: "2025-06-01", confidence: 0.9}
+- {school: 河南大学, major: 英语, is_active: true, source: 河大招生网, as_of: "2025-06-01", confidence: 0.9}
+- {school: 河南大学, major: 历史学, is_active: true, source: 河大招生网, as_of: "2025-06-01", confidence: 0.9}
+- {school: 河南大学, major: 学前教育, is_active: true, source: 河大招生网, as_of: "2025-06-01", confidence: 0.9}
+- {school: 河南大学, major: 国际经济与贸易, is_active: true, source: 河大招生网, as_of: "2025-06-01", confidence: 0.85}
+
+# ===== 河南师范大学（师范类）=====
+- {school: 河南师范大学, major: 计算机科学与技术, is_active: true, source: 河师大招生网, as_of: "2025-06-01", confidence: 0.85}
+- {school: 河南师范大学, major: 汉语言文学, is_active: true, source: 河师大招生网, as_of: "2025-06-01", confidence: 0.9}
+- {school: 河南师范大学, major: 英语, is_active: true, source: 河师大招生网, as_of: "2025-06-01", confidence: 0.9}
+- {school: 河南师范大学, major: 学前教育, is_active: true, source: 河师大招生网, as_of: "2025-06-01", confidence: 0.9}
+- {school: 河南师范大学, major: 历史学, is_active: true, source: 河师大招生网, as_of: "2025-06-01", confidence: 0.85}
+- {school: 河南师范大学, major: 数学与应用数学, is_active: true, source: 河师大招生网, as_of: "2025-06-01", confidence: 0.9}
+
+# ===== 河南财经政法大学（财经类）=====
+- {school: 河南财经政法大学, major: 金融学, is_active: true, source: 财经政法招生网, as_of: "2025-06-01", confidence: 0.9}
+- {school: 河南财经政法大学, major: 会计学, is_active: true, source: 财经政法招生网, as_of: "2025-06-01", confidence: 0.9}
+- {school: 河南财经政法大学, major: 法学, is_active: true, source: 财经政法招生网, as_of: "2025-06-01", confidence: 0.9}
+- {school: 河南财经政法大学, major: 国际经济与贸易, is_active: true, source: 财经政法招生网, as_of: "2025-06-01", confidence: 0.85}
+
+# ===== 洛阳师范学院（师范，地市公办）=====
+- {school: 洛阳师范学院, major: 汉语言文学, is_active: true, source: 洛阳师范招生网, as_of: "2025-06-01", confidence: 0.85}
+- {school: 洛阳师范学院, major: 英语, is_active: true, source: 洛阳师范招生网, as_of: "2025-06-01", confidence: 0.85}
+- {school: 洛阳师范学院, major: 历史学, is_active: true, source: 洛阳师范招生网, as_of: "2025-06-01", confidence: 0.85}
+- {school: 洛阳师范学院, major: 学前教育, is_active: true, source: 洛阳师范招生网, as_of: "2025-06-01", confidence: 0.85}
+- {school: 洛阳师范学院, major: 旅游管理, is_active: true, source: 洛阳师范招生网, as_of: "2025-06-01", confidence: 0.8}
+
+# ===== 新乡学院（地市公办）=====
+- {school: 新乡学院, major: 汉语言文学, is_active: true, source: 新乡学院招生网, as_of: "2025-06-01", confidence: 0.8}
+- {school: 新乡学院, major: 网络与新媒体, is_active: true, source: 新乡学院招生网, as_of: "2025-06-01", confidence: 0.85}
+- {school: 新乡学院, major: 学前教育, is_active: true, source: 新乡学院招生网, as_of: "2025-06-01", confidence: 0.8}
+
+# ===== 信阳农林学院（地市公办，农林特色）=====
+- {school: 信阳农林学院, major: 园林, is_active: true, source: 信阳农林招生网, as_of: "2025-06-01", confidence: 0.85}
+- {school: 信阳农林学院, major: 林学, is_active: true, source: 信阳农林招生网, as_of: "2025-06-01", confidence: 0.85}
+
+# ===== 黄淮学院（驻马店地市公办）=====
+- {school: 黄淮学院, major: 汉语言文学, is_active: true, source: 黄淮学院招生网, as_of: "2025-06-01", confidence: 0.8}
+- {school: 黄淮学院, major: 学前教育, is_active: true, source: 黄淮学院招生网, as_of: "2025-06-01", confidence: 0.8}
+
+# ===== 河南牧业经济学院 =====
+- {school: 河南牧业经济学院, major: 市场营销, is_active: true, source: 牧业经济招生网, as_of: "2025-06-01", confidence: 0.8}
+- {school: 河南牧业经济学院, major: 国际经济与贸易, is_active: true, source: 牧业经济招生网, as_of: "2025-06-01", confidence: 0.75}
+
+# ===== 九江学院（省外公办）=====
+- {school: 九江学院, major: 历史学, is_active: true, source: 九江学院招生网, as_of: "2025-06-01", confidence: 0.8}
+- {school: 九江学院, major: 汉语言文学, is_active: true, source: 九江学院招生网, as_of: "2025-06-01", confidence: 0.8}
+- {school: 九江学院, major: 英语, is_active: true, source: 九江学院招生网, as_of: "2025-06-01", confidence: 0.8}
+
+# ===== 韶关学院（省外公办）=====
+- {school: 韶关学院, major: 汉语言文学, is_active: true, source: 韶关学院招生网, as_of: "2025-06-01", confidence: 0.8}
+- {school: 韶关学院, major: 英语, is_active: true, source: 韶关学院招生网, as_of: "2025-06-01", confidence: 0.8}
+
+# ===== 省内民办（480保底层）=====
+- {school: 郑州升达经贸管理学院, major: 国际经济与贸易, is_active: true, source: 升达招生网, as_of: "2025-06-01", confidence: 0.85}
+- {school: 郑州升达经贸管理学院, major: 会计学, is_active: true, source: 升达招生网, as_of: "2025-06-01", confidence: 0.85}
+- {school: 郑州升达经贸管理学院, major: 市场营销, is_active: true, source: 升达招生网, as_of: "2025-06-01", confidence: 0.85}
+- {school: 黄河科技学院, major: 英语, is_active: true, source: 黄河科技招生网, as_of: "2025-06-01", confidence: 0.85}
+- {school: 黄河科技学院, major: 翻译, is_active: true, source: 黄河科技招生网, as_of: "2025-06-01", confidence: 0.8}
+- {school: 黄河科技学院, major: 计算机科学与技术, is_active: true, source: 黄河科技招生网, as_of: "2025-06-01", confidence: 0.85}
+- {school: 郑州工商学院, major: 会计学, is_active: true, source: 郑工商招生网, as_of: "2025-06-01", confidence: 0.85}
+- {school: 郑州工商学院, major: 市场营销, is_active: true, source: 郑工商招生网, as_of: "2025-06-01", confidence: 0.85}
+- {school: 商丘学院, major: 学前教育, is_active: true, source: 商丘学院招生网, as_of: "2025-06-01", confidence: 0.8}
+- {school: 商丘学院, major: 汉语言文学, is_active: true, source: 商丘学院招生网, as_of: "2025-06-01", confidence: 0.8}
+- {school: 郑州西亚斯学院, major: 英语, is_active: true, source: 西亚斯招生网, as_of: "2025-06-01", confidence: 0.85}
+- {school: 郑州西亚斯学院, major: 国际经济与贸易, is_active: true, source: 西亚斯招生网, as_of: "2025-06-01", confidence: 0.85}
+- {school: 郑州西亚斯学院, major: 日语, is_active: true, source: 西亚斯招生网, as_of: "2025-06-01", confidence: 0.85}

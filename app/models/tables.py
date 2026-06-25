@@ -155,6 +155,22 @@ class AdmissionRow(SQLModel, table=True):
     subject_requirement: Optional[str] = None
     foreign_language_required: str = "不限"
     single_subject_requirements: Optional[str] = None  # JSON
+    data_granularity: str = "school"  # major/group/school，防伪装
+    planned_enrollment: Optional[int] = None  # 招生计划数
+
+
+class SchoolMajorOfferingRow(SQLModel, table=True):
+    """学校开设专业供给（学位层面，判断学校有无某专业）。"""
+    __tablename__ = "school_major_offerings"
+    id: Optional[int] = Field(default=None, primary_key=True)
+    school: str
+    major: str
+    degree_level: str = "本科"
+    is_active: bool = True
+    source: str
+    as_of: str
+    confidence: float
+    note: Optional[str] = None
 
 
 class StudentRow(SQLModel, table=True):
