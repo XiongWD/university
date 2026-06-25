@@ -1,6 +1,6 @@
 # 河南省控线（2025起改新高考3+1+2：物理类/历史类，不再有一本/二本）
 # 数据来源：河南省教育考试院（经教育在线/人民网核实）
-# - 2026: 教育在线 gaokao.eol.cn 2026-06-24 (本科批物理419/历史459, 特控物理521/历史542)
+# - 2026: 教育在线 gaokao.eol.cn 2026-06-24 (本科批物理419/历史459, 特控物理513/历史534, 专科179)
 # - 2025: 人民网 people.com.cn 2025-06-25 (本科批物理427/历史471, 特控物理535/历史552)
 # - 2022-2024: 传统文理分科（2025改革前，仅历史参考）
 
@@ -8,7 +8,7 @@
 - province: 河南
   year: 2026
   track: 物理类
-  batches: {special_line: 521, undergrad_batch: 419, junior_college: 185}
+  batches: {special_line: 513, undergrad_batch: 419, junior_college: 179}
   source: 河南省教育考试院2026(教育在线核实)
   as_of: 2026-06-24
   confidence: 0.95
@@ -17,7 +17,7 @@
 - province: 河南
   year: 2026
   track: 历史类
-  batches: {special_line: 542, undergrad_batch: 459, junior_college: 185}
+  batches: {special_line: 534, undergrad_batch: 459, junior_college: 179}
   source: 河南省教育考试院2026(教育在线核实)
   as_of: 2026-06-24
   confidence: 0.95

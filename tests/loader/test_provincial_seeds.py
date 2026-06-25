@@ -27,7 +27,7 @@ def test_henan_2026_new_gaokao_mode(isolated_db):
         assert {r.track for r in h26} == {"物理类", "历史类"}
         phys = next(r for r in h26 if r.track == "物理类")
         assert phys.undergrad_batch == 419  # 2026官方
-        assert phys.special_line == 521
+        assert phys.special_line == 513  # 2026官方(经教育在线/新蓝网核实)
         assert phys.first_batch is None  # 新高考无一本二本
 
 
