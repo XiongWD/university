@@ -63,9 +63,25 @@ export default function TrajectoryCard({ item, index }: { item: TrajectoryItem; 
             <p className="text-[9px] text-amber-300/70 mt-1">⚠ {item.note}</p>
           )}
         </div>
-        <div className="text-right shrink-0">
-          <div className="text-lg font-bold text-white">{pct}%</div>
+        <div className="text-right shrink-0 relative group">
+          <div className="text-lg font-bold text-white cursor-help underline decoration-dotted decoration-white/30">{pct}%</div>
           <div className="text-[10px] text-white/40">录取概率</div>
+          {/* hover tooltip：算法说明 */}
+          <div className="absolute right-0 top-full mt-1 z-10 hidden group-hover:block w-64 bg-slate-900/95 border border-white/15 rounded-xl p-3 text-left shadow-xl">
+            <div className="text-[10px] font-bold text-white/80 mb-1.5">录取概率算法</div>
+            <div className="text-[9px] text-white/60 leading-relaxed space-y-1">
+              <p><b className="text-white/80">输入</b>：考生位次 vs 学校历年最低录取位次</p>
+              <p><b className="text-white/80">核心比值</b>：ratio = 校录位次 ÷ 考生位次</p>
+              <div className="bg-white/5 rounded p-1.5 font-mono text-[8px] text-emerald-300/80">
+                ratio ≥ 1（保）：概率 = 0.9 + (ratio-1)×0.3，上限99%<br/>
+                ratio &lt; 1（冲）：概率 = 0.9 - (1-ratio)×2.5，下限5%
+              </div>
+              <p className="text-white/40">考生位次{item.student_rank} vs 校录位次{item.last_year_rank}</p>
+              <p className="text-amber-300/50 text-[8px] pt-1 border-t border-white/10">
+                ⚠ 基于历年位次的粗估，非精确概率。2026投档线8月公布后可校准。
+              </p>
+            </div>
+          </div>
         </div>
       </div>
 

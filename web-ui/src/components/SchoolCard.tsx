@@ -57,8 +57,8 @@ export default function SchoolCard({ suggestion: s, index }: Props) {
         </div>
 
         {/* 概率圆环 */}
-        <div className="flex flex-col items-center shrink-0">
-          <div className="relative w-14 h-14">
+        <div className="flex flex-col items-center shrink-0 relative group">
+          <div className="relative w-14 h-14 cursor-help">
             <svg className="w-14 h-14 -rotate-90" viewBox="0 0 56 56">
               <circle cx="28" cy="28" r="24" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="5" />
               <circle
@@ -72,7 +72,23 @@ export default function SchoolCard({ suggestion: s, index }: Props) {
               {pct}%
             </span>
           </div>
-          <span className="text-[10px] text-white/40 mt-0.5">录取概率</span>
+          <span className="text-[10px] text-white/40 mt-0.5">录取概率 ⓘ</span>
+          {/* hover tooltip */}
+          <div className="absolute right-0 top-full mt-1 z-10 hidden group-hover:block w-64 bg-slate-900/95 border border-white/15 rounded-xl p-3 text-left shadow-xl">
+            <div className="text-[10px] font-bold text-white/80 mb-1.5">录取概率算法</div>
+            <div className="text-[9px] text-white/60 leading-relaxed space-y-1">
+              <p><b className="text-white/80">输入</b>：考生位次 vs 学校历年最低录取位次</p>
+              <p><b className="text-white/80">核心比值</b>：ratio = 校录位次 ÷ 考生位次</p>
+              <div className="bg-white/5 rounded p-1.5 font-mono text-[8px] text-emerald-300/80">
+                ratio ≥ 1（保）：0.9 + (ratio-1)×0.3，上限99%<br/>
+                ratio &lt; 1（冲）：0.9 - (1-ratio)×2.5，下限5%
+              </div>
+              <p className="text-white/40">{s.probability.basis}</p>
+              <p className="text-amber-300/50 text-[8px] pt-1 border-t border-white/10">
+                ⚠ 基于历年位次的粗估，非精确概率。
+              </p>
+            </div>
+          </div>
         </div>
       </div>
 
