@@ -193,6 +193,7 @@ def life_trajectory(req: RecommendRequest, session: Session = Depends(get_sessio
     """
     entries = _load_rank_entries(session, req.province, req.data_year, req.track)
     admissions = _load_admissions(session, req.province, req.track, req.data_year)
+    actual_year = admissions[0].year if admissions else req.data_year
 
     student = _build_student(req)
 
@@ -205,7 +206,7 @@ def life_trajectory(req: RecommendRequest, session: Session = Depends(get_sessio
         majors=_load_majors(session),
         careers=_load_careers(session),
         track=req.track,
-        data_year=req.data_year,
+        data_year=actual_year,
         years=4,
     )
     return trajectory.model_dump(mode="json")

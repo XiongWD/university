@@ -39,8 +39,8 @@ export default function ScoreForm({ loading, onSubmit }: Props) {
   // 选科/外语/单科（填报硬门槛）
   const [foreignLang, setForeignLang] = useState("日语");  // 默认日语(用户弟弟场景)
   const [electives, setElectives] = useState<string[]>(["政治", "地理"]);
-  const [mathScore, setMathScore] = useState(85);
-  const [foreignScore, setForeignScore] = useState(110);
+  const [mathScore, setMathScore] = useState(64);
+  const [foreignScore, setForeignScore] = useState(98);
 
   const tracks = TRACKS_BY_PROVINCE[province] || [];
 
