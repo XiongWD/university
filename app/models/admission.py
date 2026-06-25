@@ -7,12 +7,16 @@ class Batch(str, Enum):
     FIRST = "一本"
     SECOND = "二本"
     EARLY = "提前批"
+    UNDERGRAD = "本科批"  # 新高考合并批次（河南2025+/广东）
+    JUNIOR = "专科"
 
 
 class AdmissionRecord(SourcedRecord):
-    """高校历年录取数据（仅 schema + 示例，不批量入库）。
+    """高校历年录取数据。
 
-    本层只做原始字段匹配查询；按分数筛选/院校推荐归属 decision-engine。
+    老高考(2023-2024河南文/理科)：major_group=None，按"学校+专业"粒度。
+    新高考(2025+河南 物理类/历史类)：major_group 标注院校专业组，
+    subject_requirement 标注选科要求(如"物理+化学")。
     """
 
     school: str
@@ -24,3 +28,5 @@ class AdmissionRecord(SourcedRecord):
     min_rank: int
     avg_score: int
     batch: Batch
+    major_group: str | None = None  # 院校专业组代码(新高考)，老高考为空
+    subject_requirement: str | None = None  # 选科要求(如"物理+化学")，无要求为空

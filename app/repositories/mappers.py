@@ -202,6 +202,7 @@ def admission_to_row(a: AdmissionRecord) -> AdmissionRow:
         year=a.year, track=a.track, min_score=a.min_score,
         min_rank=a.min_rank, avg_score=a.avg_score, batch=a.batch.value,
         source=a.source, as_of=a.as_of, confidence=a.confidence, note=a.note,
+        major_group=a.major_group, subject_requirement=a.subject_requirement,
     )
 
 
@@ -211,6 +212,7 @@ def admission_to_domain(r: AdmissionRow) -> AdmissionRecord:
         year=r.year, track=r.track, min_score=r.min_score,
         min_rank=r.min_rank, avg_score=r.avg_score, batch=Batch(r.batch),
         source=r.source, as_of=r.as_of, confidence=r.confidence, note=r.note,
+        major_group=r.major_group, subject_requirement=r.subject_requirement,
     )
 
 

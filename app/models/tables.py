@@ -147,6 +147,8 @@ class AdmissionRow(SQLModel, table=True):
     as_of: date
     confidence: float
     note: Optional[str] = None
+    major_group: Optional[str] = None
+    subject_requirement: Optional[str] = None
 
 
 class StudentRow(SQLModel, table=True):

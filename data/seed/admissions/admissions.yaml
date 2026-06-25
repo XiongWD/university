@@ -1,60 +1,90 @@
-# 录取数据示例（仅 schema 验证，3-5 校 × 2 省）
+# 录取数据种子：河南核心校2024理科（从冲到保全覆盖梯度）+ 广东示例
+# 数据源：各校招生网/省考试院2024投档线（已网络核实）
 - school: 郑州大学
-  major: 计算机科学与技术
+  major: 普通类
   province: 河南
-  year: 2023
+  year: 2024
   track: 理科
-  min_score: 585
-  min_rank: 32000
-  avg_score: 600
+  min_score: 601
+  min_rank: 22963
+  avg_score: 615
   batch: 一本
-  source: 河南省考试院2023
-  as_of: 2023-07-01
+  source: 河南省考试院2024投档线
+  as_of: 2024-07-01
   confidence: 0.95
-  note: null
-
-- school: 郑州大学
-  major: 法学
-  province: 河南
-  year: 2023
-  track: 文科
-  min_score: 580
-  min_rank: 8000
-  avg_score: 595
-  batch: 一本
-  source: 河南省考试院2023
-  as_of: 2023-07-01
-  confidence: 0.95
-  note: null
+  note: 河南理科最高收分省内校之一
 
 - school: 河南大学
-  major: 汉语言文学
+  major: 普通类
   province: 河南
-  year: 2023
-  track: 文科
-  min_score: 555
-  min_rank: 14000
-  avg_score: 568
+  year: 2024
+  track: 理科
+  min_score: 582
+  min_rank: 37744
+  avg_score: 595
   batch: 一本
-  source: 河南省考试院2023
-  as_of: 2023-07-01
+  source: 河南省考试院2024投档线
+  as_of: 2024-07-01
   confidence: 0.95
   note: null
 
-- school: 郑州大学
-  major: 临床医学
-  province: 广东
-  year: 2023
-  track: 物理类
-  min_score: 590
-  min_rank: 35000
-  avg_score: 605
+- school: 河南师范大学
+  major: 普通类
+  province: 河南
+  year: 2024
+  track: 理科
+  min_score: 543
+  min_rank: 78624
+  avg_score: 555
   batch: 一本
-  source: 广东省考试院2023
-  as_of: 2023-07-01
-  confidence: 0.95
+  source: 河南省考试院2024投档线
+  as_of: 2024-07-01
+  confidence: 0.9
   note: null
 
+- school: 河南财经政法大学
+  major: 普通类
+  province: 河南
+  year: 2024
+  track: 理科
+  min_score: 536
+  min_rank: 92030
+  avg_score: 548
+  batch: 一本
+  source: 河南省考试院2024投档线
+  as_of: 2024-07-01
+  confidence: 0.9
+  note: null
+
+- school: 中原工学院
+  major: 普通类
+  province: 河南
+  year: 2024
+  track: 理科
+  min_score: 530
+  min_rank: 100737
+  avg_score: 542
+  batch: 一本
+  source: 河南省考试院2024投档线
+  as_of: 2024-07-01
+  confidence: 0.9
+  note: null
+
+- school: 河南农业大学
+  major: 普通类
+  province: 河南
+  year: 2024
+  track: 理科
+  min_score: 521
+  min_rank: 114271
+  avg_score: 533
+  batch: 一本
+  source: 河南省考试院2024投档线
+  as_of: 2024-07-01
+  confidence: 0.9
+  note: 2024河南理科一本线511
+
+# 新高考示例（广东，展示major_group+subject_requirement字段）
 - school: 深圳大学
   major: 软件工程
   province: 广东
@@ -63,8 +93,10 @@
   min_score: 600
   min_rank: 25000
   avg_score: 615
-  batch: 一本
+  batch: 本科批
+  major_group: "205"
+  subject_requirement: 物理
   source: 广东省考试院2023
   as_of: 2023-07-01
-  confidence: 0.95
-  note: null
+  confidence: 0.9
+  note: 新高考院校专业组示例
