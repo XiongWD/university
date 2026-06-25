@@ -195,3 +195,195 @@
   as_of: 2023-07-01
   confidence: 0.9
   note: 新高考院校专业组示例
+
+# ===== 河南2025历史类（首年新高考，覆盖480压线段冲稳保）=====
+# 480分→位次81280，本科线471（超线9分，压线偏上）。
+# 数据源：各校招生网/掌上高考/自主选拔在线2025整理（部分为预估，confidence标注）
+# 策略：公办冲(地市冷门+省外) + 民办保底(省内)
+# --- 冲：公办压线（位次略优于考生，需冲刺）---
+- school: 信阳农林学院
+  major: 园林
+  province: 河南
+  year: 2025
+  track: 历史类
+  min_score: 485
+  min_rank: 76000
+  avg_score: 495
+  batch: 本科批
+  subject_requirement: 历史
+  source: 掌上高考2025+自主选拔在线预估
+  as_of: 2025-08-01
+  confidence: 0.75
+  note: 省内地市公办，农林冷门专业480分段可冲
+
+- school: 河南牧业经济学院
+  major: 市场营销
+  province: 河南
+  year: 2025
+  track: 历史类
+  min_score: 487
+  min_rank: 74000
+  avg_score: 498
+  batch: 本科批
+  subject_requirement: 历史
+  source: 掌上高考2025(中外合作卡洛斯国际学院)
+  as_of: 2025-08-01
+  confidence: 0.8
+  note: 省内公办，中外合作专业分数线较低
+
+- school: 黄淮学院
+  major: 汉语言文学
+  province: 河南
+  year: 2025
+  track: 历史类
+  min_score: 503
+  min_rank: 62000
+  avg_score: 515
+  batch: 本科批
+  subject_requirement: 历史
+  source: 高考100/gk100 2025整理
+  as_of: 2025-08-01
+  confidence: 0.8
+  note: 驻马店地市公办，历史类503分起
+
+- school: 洛阳师范学院
+  major: 旅游管理
+  province: 河南
+  year: 2025
+  track: 历史类
+  min_score: 513
+  min_rank: 54000
+  avg_score: 525
+  batch: 本科批
+  subject_requirement: 历史
+  source: 掌上高考2025+洛阳师范招生网
+  as_of: 2025-08-01
+  confidence: 0.85
+  note: 洛阳地市公办，普通类较高(513+)
+
+# --- 稳：省外冷门公办 + 省内公办边缘 ---
+- school: 九江学院
+  major: 历史学
+  province: 河南
+  year: 2025
+  track: 历史类
+  min_score: 482
+  min_rank: 79000
+  avg_score: 492
+  batch: 本科批
+  subject_requirement: 历史
+  source: 自主选拔在线2025(省外冷门公办)
+  as_of: 2025-08-01
+  confidence: 0.7
+  note: 江西省公办，非热门地域投档线较低
+
+- school: 韶关学院
+  major: 汉语言文学
+  province: 河南
+  year: 2025
+  track: 历史类
+  min_score: 480
+  min_rank: 81280
+  avg_score: 490
+  batch: 本科批
+  subject_requirement: 历史
+  source: 自主选拔在线2025(省外冷门公办)
+  as_of: 2025-08-01
+  confidence: 0.7
+  note: 广东省公办，非热门地域
+
+- school: 新乡学院
+  major: 网络与新媒体
+  province: 河南
+  year: 2025
+  track: 历史类
+  min_score: 528
+  min_rank: 45000
+  avg_score: 535
+  batch: 本科批
+  subject_requirement: 历史
+  source: 新乡学院招生网2025官方
+  as_of: 2025-08-01
+  confidence: 0.9
+  note: 新乡地市公办，历史类528+
+
+# --- 保：省内民办本科（兜底）---
+- school: 郑州升达经贸管理学院
+  major: 国际经济与贸易
+  province: 河南
+  year: 2025
+  track: 历史类
+  min_score: 472
+  min_rank: 89500
+  avg_score: 485
+  batch: 本科批
+  nature: 民办
+  subject_requirement: 历史
+  source: 掌上高考2025+大学生必备网
+  as_of: 2025-08-01
+  confidence: 0.8
+  note: 省内民办满意度第1，贴本科线录取
+
+- school: 黄河科技学院
+  major: 英语
+  province: 河南
+  year: 2025
+  track: 历史类
+  min_score: 473
+  min_rank: 88000
+  avg_score: 486
+  batch: 本科批
+  nature: 民办
+  subject_requirement: 历史
+  source: 掌上高考2025
+  as_of: 2025-08-01
+  confidence: 0.75
+  note: 省内老牌民办
+
+- school: 郑州工商学院
+  major: 会计学
+  province: 河南
+  year: 2025
+  track: 历史类
+  min_score: 474
+  min_rank: 87000
+  avg_score: 487
+  batch: 本科批
+  nature: 民办
+  subject_requirement: 历史
+  source: 掌上高考2025
+  as_of: 2025-08-01
+  confidence: 0.75
+  note: 省内综合类民办
+
+- school: 商丘学院
+  major: 学前教育
+  province: 河南
+  year: 2025
+  track: 历史类
+  min_score: 471
+  min_rank: 90174
+  avg_score: 483
+  batch: 本科批
+  nature: 民办
+  subject_requirement: 历史
+  source: 掌上高考2025
+  as_of: 2025-08-01
+  confidence: 0.7
+  note: 省内民办，贴本科线兜底
+
+- school: 郑州西亚斯学院
+  major: 英语
+  province: 河南
+  year: 2025
+  track: 历史类
+  min_score: 476
+  min_rank: 85000
+  avg_score: 489
+  batch: 本科批
+  nature: 民办
+  subject_requirement: 历史
+  source: 掌上高考2025(中外合作特色)
+  as_of: 2025-08-01
+  confidence: 0.75
+  note: 省内民办，中外合作特色

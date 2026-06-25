@@ -175,3 +175,81 @@
   as_of: 2024-04-01
   confidence: 0.5
   note: 待爬虫校准
+
+# 历史类常见专业补充（起薪参考招聘网站2024，文科/教育类薪资适中）
+- name: 英语
+  category: 文学
+  employment_density: {jobs: 18000, frequency: 0.8, city_coverage: 0.7}
+  salary: {p25: 4500, p50: 6000, p75: 9000}
+  barriers: {english: true, math: false, certificate: true, postgrad: false}
+  upside: {management: false, freelance: true, cross_industry: true}
+  source: BOSS直聘2024+智联招聘
+  as_of: 2024-04-01
+  confidence: 0.5
+  note: 待爬虫校准，教师/外贸/翻译方向
+
+- name: 市场营销
+  category: 管理学
+  employment_density: {jobs: 25000, frequency: 0.85, city_coverage: 0.7}
+  salary: {p25: 4500, p50: 6500, p75: 11000}
+  barriers: {english: false, math: false, certificate: false, postgrad: false}
+  upside: {management: true, freelance: true, cross_industry: true}
+  source: BOSS直聘2024
+  as_of: 2024-04-01
+  confidence: 0.5
+  note: 销售岗起薪含提成波动大
+
+- name: 学前教育
+  category: 教育学
+  employment_density: {jobs: 12000, frequency: 0.6, city_coverage: 0.5}
+  salary: {p25: 3500, p50: 4500, p75: 6000}
+  barriers: {english: false, math: false, certificate: true, postgrad: false}
+  upside: {management: false, freelance: false, cross_industry: false}
+  source: BOSS直聘2024+幼师招聘
+  as_of: 2024-04-01
+  confidence: 0.5
+  note: 公办园有编制，民办园薪资较低
+
+- name: 网络与新媒体
+  category: 文学
+  employment_density: {jobs: 10000, frequency: 0.7, city_coverage: 0.6}
+  salary: {p25: 5000, p50: 7000, p75: 12000}
+  barriers: {english: false, math: false, certificate: false, postgrad: false}
+  upside: {management: false, freelance: true, cross_industry: true}
+  source: BOSS直聘2024
+  as_of: 2024-04-01
+  confidence: 0.5
+  note: 新媒体运营/内容方向，朝阳行业
+
+- name: 旅游管理
+  category: 管理学
+  employment_density: {jobs: 9000, frequency: 0.5, city_coverage: 0.6}
+  salary: {p25: 3800, p50: 5000, p75: 8000}
+  barriers: {english: true, math: false, certificate: true, postgrad: false}
+  upside: {management: true, freelance: true, cross_industry: false}
+  source: BOSS直聘2024
+  as_of: 2024-04-01
+  confidence: 0.5
+  note: 导游/酒店/景区管理，疫情后复苏
+
+- name: 园林
+  category: 农学
+  employment_density: {jobs: 4000, frequency: 0.3, city_coverage: 0.4}
+  salary: {p25: 3800, p50: 5000, p75: 7500}
+  barriers: {english: false, math: false, certificate: true, postgrad: false}
+  upside: {management: false, freelance: true, cross_industry: false}
+  source: BOSS直聘2024
+  as_of: 2024-04-01
+  confidence: 0.5
+  note: 园林设计/市政绿化方向
+
+- name: 历史学
+  category: 历史学
+  employment_density: {jobs: 3000, frequency: 0.3, city_coverage: 0.3}
+  salary: {p25: 4000, p50: 5500, p75: 7500}
+  barriers: {english: false, math: false, certificate: false, postgrad: true}
+  upside: {management: false, freelance: true, cross_industry: true}
+  source: BOSS直聘2024（与"历史"专业同源）
+  as_of: 2024-04-01
+  confidence: 0.5
+  note: 教学/文博/考公方向，考研率高

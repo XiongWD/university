@@ -157,6 +157,150 @@
   confidence: 0.8
   note: 省属农业重点
 
+# 河南历史类480压线段院校（费用数据，用于人生轨迹）
+# 公办地市校
+- name: 信阳农林学院
+  province: 河南
+  tier: 二本
+  nature: 公立
+  tuition: 4400
+  accommodation: 800
+  city: 信阳
+  employment_ability: {campus_tier: 省内农林基层单位, avg_entry_salary: 4200, employment_rate: 0.83}
+  disciplines: []
+  source: 各校招生网2024学费标准
+  as_of: 2024-09-01
+  confidence: 0.75
+  note: 省内地市公办，农林特色
+
+- name: 河南牧业经济学院
+  province: 河南
+  tier: 二本
+  nature: 公立
+  tuition: 4400
+  accommodation: 800
+  city: 郑州
+  employment_ability: {campus_tier: 省内畜牧/食品企业, avg_entry_salary: 4400, employment_rate: 0.84}
+  disciplines: []
+  source: 各校招生网2024学费标准
+  as_of: 2024-09-01
+  confidence: 0.75
+  note: 省属公办，中外合作专业分较低
+
+- name: 黄淮学院
+  province: 河南
+  tier: 二本
+  nature: 公立
+  tuition: 4400
+  accommodation: 800
+  city: 驻马店
+  employment_ability: {campus_tier: 省内地市企事业单位, avg_entry_salary: 4300, employment_rate: 0.83}
+  disciplines: []
+  source: 各校招生网2024学费标准
+  as_of: 2024-09-01
+  confidence: 0.75
+  note: 驻马店地市公办
+
+- name: 洛阳师范学院
+  province: 河南
+  tier: 二本
+  nature: 公立
+  tuition: 4400
+  accommodation: 850
+  city: 洛阳
+  employment_ability: {campus_tier: 省内中小学教育, avg_entry_salary: 4500, employment_rate: 0.86}
+  disciplines: []
+  source: 各校招生网2024学费标准
+  as_of: 2024-09-01
+  confidence: 0.8
+  note: 洛阳地市师范公办
+
+- name: 新乡学院
+  province: 河南
+  tier: 二本
+  nature: 公立
+  tuition: 4400
+  accommodation: 800
+  city: 新乡
+  employment_ability: {campus_tier: 省内地市企事业单位, avg_entry_salary: 4400, employment_rate: 0.84}
+  disciplines: []
+  source: 各校招生网2024学费标准
+  as_of: 2024-09-01
+  confidence: 0.75
+  note: 新乡地市公办
+
+# 省外冷门公办（在豫招生）
+- name: 九江学院
+  province: 江西
+  tier: 二本
+  nature: 公立
+  tuition: 4400
+  accommodation: 800
+  city: 九江
+  employment_ability: {campus_tier: 江西省内企事业单位, avg_entry_salary: 4300, employment_rate: 0.83}
+  disciplines: []
+  source: 各校招生网2024学费标准
+  as_of: 2024-09-01
+  confidence: 0.7
+  note: 江西省公办，在豫投放少量历史类名额
+
+- name: 韶关学院
+  province: 广东
+  tier: 二本
+  nature: 公立
+  tuition: 4600
+  accommodation: 900
+  city: 韶关
+  employment_ability: {campus_tier: 广东北部企事业单位, avg_entry_salary: 4500, employment_rate: 0.84}
+  disciplines: []
+  source: 各校招生网2024学费标准
+  as_of: 2024-09-01
+  confidence: 0.7
+  note: 广东省公办，非热门地域
+
+# 省内民办（480保底）
+- name: 郑州工商学院
+  province: 河南
+  tier: 二本
+  nature: 民办
+  tuition: 15000
+  accommodation: 1400
+  city: 郑州
+  employment_ability: {campus_tier: 省内中小企业, avg_entry_salary: 4500, employment_rate: 0.84}
+  disciplines: []
+  source: 各校招生网2024学费标准
+  as_of: 2024-09-01
+  confidence: 0.75
+  note: 省内综合类民办
+
+- name: 商丘学院
+  province: 河南
+  tier: 二本
+  nature: 民办
+  tuition: 14500
+  accommodation: 1300
+  city: 商丘
+  employment_ability: {campus_tier: 省内中小企业+教育机构, avg_entry_salary: 4300, employment_rate: 0.82}
+  disciplines: []
+  source: 各校招生网2024学费标准
+  as_of: 2024-09-01
+  confidence: 0.7
+  note: 省内民办，贴本科线兜底
+
+- name: 郑州西亚斯学院
+  province: 河南
+  tier: 二本
+  nature: 民办
+  tuition: 16000
+  accommodation: 1500
+  city: 郑州
+  employment_ability: {campus_tier: 外企+省内企业, avg_entry_salary: 4800, employment_rate: 0.85}
+  disciplines: []
+  source: 各校招生网2024学费标准
+  as_of: 2024-09-01
+  confidence: 0.75
+  note: 省内民办，中外合作特色
+
 - name: 武汉大学
   province: 湖北
   tier: "985"
