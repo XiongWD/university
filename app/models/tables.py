@@ -105,6 +105,10 @@ class UniversityRow(SQLModel, table=True):
     as_of: date
     confidence: float
     note: Optional[str] = None
+    nature: str = "公立"  # 办学性质(公立/民办/中外合作)
+    tuition: int = 5000  # 年学费(元)
+    accommodation: int = 1200  # 年住宿费(元)
+    city: Optional[str] = None  # 所在城市
 
 
 class MajorRow(SQLModel, table=True):

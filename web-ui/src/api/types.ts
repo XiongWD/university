@@ -75,3 +75,40 @@ export interface ControlLine {
   note: string | null;
   id: number;
 }
+
+// 大学
+export type SchoolNature = "公立" | "民办" | "中外合作";
+
+export interface University {
+  name: string;
+  province: string;
+  tier: string;
+  nature: SchoolNature;
+  tuition: number;
+  accommodation: number;
+  city: string | null;
+  employment_ability: {
+    campus_tier: string;
+    avg_entry_salary: number;
+    employment_rate: number;
+  };
+  source: string;
+  confidence: number;
+  note: string | null;
+  id: number;
+}
+
+// GET /universities/{school}/cost 响应
+export interface CostEstimate {
+  school: string;
+  nature: SchoolNature;
+  city: string | null;
+  years: number;
+  tuition_per_year: number;
+  accommodation_per_year: number;
+  living_cost_per_year: number;
+  annual_total: number;
+  grand_total: number;
+  city_cost_source: string | null;
+  note: string | null;
+}

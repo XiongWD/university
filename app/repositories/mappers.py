@@ -23,7 +23,7 @@ from app.models.student import (
     FamilyResources, MinorLanguage, RiskPreference, StudentProfile,
 )
 from app.models.university import (
-    Discipline, EmploymentAbility, University, UniversityTier,
+    Discipline, EmploymentAbility, SchoolNature, University, UniversityTier,
 )
 from app.models.tables import (
     AdmissionRow, CareerRow, CityCostRow, MajorRow,
@@ -116,6 +116,7 @@ def university_to_row(u: University) -> UniversityRow:
         employment_rate=u.employment_ability.employment_rate,
         disciplines=json.dumps([d.model_dump() for d in u.disciplines], ensure_ascii=False),
         source=u.source, as_of=u.as_of, confidence=u.confidence, note=u.note,
+        nature=u.nature.value, tuition=u.tuition, accommodation=u.accommodation, city=u.city,
     )
 
 
@@ -128,6 +129,7 @@ def university_to_domain(r: UniversityRow) -> University:
         ),
         disciplines=[Discipline(**d) for d in json.loads(r.disciplines)],
         source=r.source, as_of=r.as_of, confidence=r.confidence, note=r.note,
+        nature=SchoolNature(r.nature), tuition=r.tuition, accommodation=r.accommodation, city=r.city,
     )
 
 

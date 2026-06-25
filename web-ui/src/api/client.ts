@@ -5,6 +5,9 @@ import type {
   VolunteerTable,
   RankResponse,
   ControlLine,
+  University,
+  CostEstimate,
+  SchoolNature,
 } from "./types";
 
 const BASE = "/api/v1";
@@ -70,4 +73,21 @@ export function getControlLine(
   if (year) q.set("year", String(year));
   if (track) q.set("track", track);
   return request(`/provincial/control-line?${q}`);
+}
+
+// GET /universities
+export function listUniversities(
+  nature?: SchoolNature,
+  province?: string
+): Promise<University[]> {
+  const q = new URLSearchParams();
+  if (nature) q.set("nature", nature);
+  if (province) q.set("province", province);
+  return request(`/universities?${q}`);
+}
+
+// GET /universities/{school}/cost
+export function estimateCost(school: string, years?: number): Promise<CostEstimate | null> {
+  const q = years ? `?years=${years}` : "";
+  return request(`/universities/${encodeURIComponent(school)}/cost${q}`);
 }

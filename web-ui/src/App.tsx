@@ -1,11 +1,13 @@
 import { Routes, Route, NavLink } from "react-router-dom";
-import { GraduationCap, Calculator, LineChart } from "lucide-react";
+import { GraduationCap, Calculator, LineChart, Wallet } from "lucide-react";
 import HomePage from "./pages/HomePage";
 import RankPage from "./pages/RankPage";
 import ControlLinePage from "./pages/ControlLinePage";
+import UniversityCostPage from "./pages/UniversityCostPage";
 
 const navItems = [
   { to: "/", label: "志愿推荐", icon: GraduationCap, end: true },
+  { to: "/cost", label: "大学费用", icon: Wallet },
   { to: "/rank", label: "位次工具", icon: LineChart },
   { to: "/control-line", label: "省控线", icon: Calculator },
 ];
@@ -49,6 +51,7 @@ export default function App() {
       <main className="max-w-5xl mx-auto px-4 py-8">
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/cost" element={<UniversityCostPage />} />
           <Route path="/rank" element={<RankPage />} />
           <Route path="/control-line" element={<ControlLinePage />} />
         </Routes>

@@ -1,121 +1,228 @@
-# 大学三维实力种子（层级 + 就业能力 + 学科评估）
+# 大学种子（层级 + 就业能力 + 学科评估 + 费用字段）
 # 学科评估用教育部第四轮（公开），note 标注轮次
+# 费用字段：nature(办学性质) / tuition(年学费元) / accommodation(年住宿费元) / city(所在城市，关联CityCost)
+# 公立普通类学费约5000-6000，艺术类8000-10000，民办15000-30000，中外合作40000-90000
 - name: 清华大学
   province: 北京
   tier: "985"
+  nature: 公立
+  tuition: 5000
+  accommodation: 1500
+  city: 北京
   employment_ability: {campus_tier: 央企+大厂核心校招, avg_entry_salary: 15000, employment_rate: 0.98}
   disciplines: [{name: 计算机科学与技术, grade: A+}, {name: 建筑学, grade: A+}, {name: 管理科学与工程, grade: A+}]
-  source: 教育部第四轮学科评估
-  as_of: 2017-12-28
+  source: 教育部第四轮学科评估 + 各校招生网2024学费标准
+  as_of: 2024-09-01
   confidence: 0.9
   note: 第四轮评估数据
 
 - name: 北京大学
   province: 北京
   tier: "985"
+  nature: 公立
+  tuition: 5000
+  accommodation: 1500
+  city: 北京
   employment_ability: {campus_tier: 央企+金融核心校招, avg_entry_salary: 14000, employment_rate: 0.97}
   disciplines: [{name: 哲学, grade: A+}, {name: 中国语言文学, grade: A+}, {name: 数学, grade: A+}]
-  source: 教育部第四轮学科评估
-  as_of: 2017-12-28
+  source: 教育部第四轮学科评估 + 各校招生网2024学费标准
+  as_of: 2024-09-01
   confidence: 0.9
   note: 第四轮评估数据
 
 - name: 上海交通大学
   province: 上海
   tier: "985"
+  nature: 公立
+  tuition: 5000
+  accommodation: 1200
+  city: 上海
   employment_ability: {campus_tier: 大厂+央企校招, avg_entry_salary: 13500, employment_rate: 0.97}
   disciplines: [{name: 机械工程, grade: A+}, {name: 船舶与海洋工程, grade: A+}, {name: 临床医学, grade: A+}]
-  source: 教育部第四轮学科评估
-  as_of: 2017-12-28
+  source: 教育部第四轮学科评估 + 各校招生网2024学费标准
+  as_of: 2024-09-01
   confidence: 0.9
   note: 第四轮评估数据
 
 - name: 复旦大学
   province: 上海
   tier: "985"
+  nature: 公立
+  tuition: 5000
+  accommodation: 1200
+  city: 上海
   employment_ability: {campus_tier: 金融+大厂校招, avg_entry_salary: 13000, employment_rate: 0.96}
   disciplines: [{name: 政治学, grade: A+}, {name: 新闻传播学, grade: A+}, {name: 数学, grade: A}]
-  source: 教育部第四轮学科评估
-  as_of: 2017-12-28
+  source: 教育部第四轮学科评估 + 各校招生网2024学费标准
+  as_of: 2024-09-01
   confidence: 0.9
   note: 第四轮评估数据
 
 - name: 浙江大学
   province: 浙江
   tier: "985"
+  nature: 公立
+  tuition: 5300
+  accommodation: 1200
+  city: 杭州
   employment_ability: {campus_tier: 大厂+央企校招, avg_entry_salary: 12500, employment_rate: 0.97}
   disciplines: [{name: 计算机科学与技术, grade: A+}, {name: 光学工程, grade: A+}, {name: 农业工程, grade: A}]
-  source: 教育部第四轮学科评估
-  as_of: 2017-12-28
+  source: 教育部第四轮学科评估 + 各校招生网2024学费标准
+  as_of: 2024-09-01
   confidence: 0.9
   note: 第四轮评估数据
 
 - name: 南京大学
   province: 江苏
   tier: "985"
+  nature: 公立
+  tuition: 5300
+  accommodation: 1200
+  city: 南京
   employment_ability: {campus_tier: 大厂校招, avg_entry_salary: 12000, employment_rate: 0.96}
   disciplines: [{name: 天文学, grade: A+}, {name: 地质学, grade: A+}, {name: 物理学, grade: A}]
-  source: 教育部第四轮学科评估
-  as_of: 2017-12-28
+  source: 教育部第四轮学科评估 + 各校招生网2024学费标准
+  as_of: 2024-09-01
   confidence: 0.9
   note: 第四轮评估数据
 
 - name: 郑州大学
   province: 河南
   tier: "211"
+  nature: 公立
+  tuition: 5000
+  accommodation: 1100
+  city: 郑州
   employment_ability: {campus_tier: 省属重点+央企校招, avg_entry_salary: 6500, employment_rate: 0.92}
   disciplines: [{name: 化学, grade: A}, {name: 材料, grade: B+}, {name: 临床医学, grade: B}]
-  source: 教育部第四轮学科评估
-  as_of: 2017-12-28
+  source: 教育部第四轮学科评估 + 各校招生网2024学费标准
+  as_of: 2024-09-01
   confidence: 0.9
   note: 第四轮评估数据
 
 - name: 武汉大学
   province: 湖北
   tier: "985"
+  nature: 公立
+  tuition: 5300
+  accommodation: 1200
+  city: 武汉
   employment_ability: {campus_tier: 大厂+央企校招, avg_entry_salary: 10000, employment_rate: 0.95}
   disciplines: [{name: 马克思主义理论, grade: A+}, {name: 法学, grade: A}, {name: 测绘科学与技术, grade: A}]
-  source: 教育部第四轮学科评估
-  as_of: 2017-12-28
+  source: 教育部第四轮学科评估 + 各校招生网2024学费标准
+  as_of: 2024-09-01
   confidence: 0.9
   note: 第四轮评估数据
 
 - name: 四川大学
   province: 四川
   tier: "985"
+  nature: 公立
+  tuition: 5300
+  accommodation: 1200
+  city: 成都
   employment_ability: {campus_tier: 大厂+央企校招, avg_entry_salary: 9500, employment_rate: 0.94}
   disciplines: [{name: 口腔医学, grade: A+}, {name: 中国语言文学, grade: A}, {name: 数学, grade: A-}]
-  source: 教育部第四轮学科评估
-  as_of: 2017-12-28
+  source: 教育部第四轮学科评估 + 各校招生网2024学费标准
+  as_of: 2024-09-01
   confidence: 0.9
   note: 第四轮评估数据
 
 - name: 西安交通大学
   province: 陕西
   tier: "985"
+  nature: 公立
+  tuition: 5300
+  accommodation: 1200
+  city: 西安
   employment_ability: {campus_tier: 央企+大厂校招, avg_entry_salary: 9500, employment_rate: 0.95}
   disciplines: [{name: 动力工程及工程热物理, grade: A+}, {name: 电气工程, grade: A+}, {name: 机械工程, grade: A}]
-  source: 教育部第四轮学科评估
-  as_of: 2017-12-28
+  source: 教育部第四轮学科评估 + 各校招生网2024学费标准
+  as_of: 2024-09-01
   confidence: 0.9
   note: 第四轮评估数据
 
 - name: 河南大学
   province: 河南
   tier: 双一流
+  nature: 公立
+  tuition: 5000
+  accommodation: 1000
+  city: 开封
   employment_ability: {campus_tier: 省属校招, avg_entry_salary: 5500, employment_rate: 0.88}
   disciplines: [{name: 生物学, grade: B}, {name: 地理学, grade: B}, {name: 教育学, grade: B-}]
-  source: 教育部第四轮学科评估
-  as_of: 2017-12-28
+  source: 教育部第四轮学科评估 + 各校招生网2024学费标准
+  as_of: 2024-09-01
   confidence: 0.9
   note: 第四轮评估数据
 
 - name: 深圳大学
   province: 广东
   tier: 一本
+  nature: 公立
+  tuition: 5500
+  accommodation: 1500
+  city: 深圳
   employment_ability: {campus_tier: 大厂校招活跃, avg_entry_salary: 8500, employment_rate: 0.93}
   disciplines: [{name: 光学工程, grade: B+}, {name: 计算机科学与技术, grade: B}, {name: 理论经济学, grade: B-}]
-  source: 教育部第四轮学科评估
-  as_of: 2017-12-28
+  source: 教育部第四轮学科评估 + 各校招生网2024学费标准
+  as_of: 2024-09-01
   confidence: 0.85
   note: 第四轮评估数据
+
+# 民办/中外合作院校（展示学费差异，大学费用对比关键）
+- name: 郑州升达经贸管理学院
+  province: 河南
+  tier: 二本
+  nature: 民办
+  tuition: 16000
+  accommodation: 1500
+  city: 郑州
+  employment_ability: {campus_tier: 省内中小企校招, avg_entry_salary: 4800, employment_rate: 0.85}
+  disciplines: []
+  source: 各校招生网2024学费标准
+  as_of: 2024-09-01
+  confidence: 0.8
+  note: 民办本科典型学费1.5-1.8万
+
+- name: 黄河科技学院
+  province: 河南
+  tier: 二本
+  nature: 民办
+  tuition: 17000
+  accommodation: 1400
+  city: 郑州
+  employment_ability: {campus_tier: 省内中小企校招, avg_entry_salary: 4600, employment_rate: 0.84}
+  disciplines: []
+  source: 各校招生网2024学费标准
+  as_of: 2024-09-01
+  confidence: 0.8
+  note: 民办本科
+
+- name: 西交利物浦大学
+  province: 江苏
+  tier: 一本
+  nature: 中外合作
+  tuition: 88000
+  accommodation: 6000
+  city: 苏州
+  employment_ability: {campus_tier: 外企+留学跳板, avg_entry_salary: 9000, employment_rate: 0.90}
+  disciplines: [{name: 建筑, grade: B+}, {name: 经济, grade: B}]
+  source: 各校招生网2024学费标准
+  as_of: 2024-09-01
+  confidence: 0.85
+  note: 中外合作高学费典型，住宿费也偏高
+
+- name: 宁波诺丁汉大学
+  province: 浙江
+  tier: 一本
+  nature: 中外合作
+  tuition: 100000
+  accommodation: 6000
+  city: 宁波
+  employment_ability: {campus_tier: 外企+留学跳板, avg_entry_salary: 9500, employment_rate: 0.91}
+  disciplines: []
+  source: 各校招生网2024学费标准
+  as_of: 2024-09-01
+  confidence: 0.85
+  note: 中外合作高学费典型(10万/年)
