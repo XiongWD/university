@@ -165,3 +165,41 @@ class StudentRow(SQLModel, table=True):
     as_of: date
     confidence: float
     note: Optional[str] = None
+
+
+class ProvincialControlLineRow(SQLModel, table=True):
+    __tablename__ = "provincial_control_lines"
+    id: Optional[int] = Field(default=None, primary_key=True)
+    province: str
+    year: int
+    track: str
+    special_line: Optional[int] = None
+    first_batch: Optional[int] = None
+    second_batch: Optional[int] = None
+    undergrad_batch: Optional[int] = None
+    junior_college: Optional[int] = None
+    source: str
+    as_of: date
+    confidence: float
+    note: Optional[str] = None
+
+
+class ScoreRankTableRow(SQLModel, table=True):
+    __tablename__ = "score_rank_tables"
+    id: Optional[int] = Field(default=None, primary_key=True)
+    province: str
+    year: int
+    track: str
+    source: str
+    as_of: date
+    confidence: float
+    note: Optional[str] = None
+
+
+class ScoreRankEntryRow(SQLModel, table=True):
+    __tablename__ = "score_rank_entries"
+    id: Optional[int] = Field(default=None, primary_key=True)
+    table_id: int = Field(foreign_key="score_rank_tables.id")
+    score: int
+    count_at: int
+    cumulative_rank: int
