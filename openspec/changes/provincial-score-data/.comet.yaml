@@ -7,13 +7,13 @@ subagent_dispatch: null
 tdd_mode: tdd
 review_mode: standard
 isolation: branch
-verify_mode: null
+verify_mode: full
 auto_transition: true
 base_ref: 7625e5b31b2e57699375865f8692bae220b3d385
 design_doc: docs/superpowers/specs/2026-06-25-provincial-score-data-design.md
 plan: docs/superpowers/plans/2026-06-25-provincial-score-data.md
 verify_result: pending
-verification_report: null
+verification_report: docs/superpowers/reports/2026-06-25-provincial-score-data-verify.md
 branch_status: pending
 created_at: 2026-06-25
 verified_at: null
