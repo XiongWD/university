@@ -99,13 +99,28 @@ def _load_rank_entries(session: Session, province: str, year: int, track: str):
 
 
 def _load_admissions(session: Session, province: str, track: str, year: int):
-    """取某省/track/年份的录取数据 → list[AdmissionRecord]。"""
+    """取某省/track/年份的录取数据 → list[AdmissionRecord]。
+
+    若指定年份无数据（如2026投档线未公布），自动回退到最近有数据的年份。
+    2026是新高考第二年，2025同制度数据是核心基准。
+    """
     rows = session.exec(
         select(AdmissionRow)
         .where(AdmissionRow.province == province)
         .where(AdmissionRow.track == track)
         .where(AdmissionRow.year == year)
     ).all()
+    # 无数据→回退到最近年份（2025→2024）
+    if not rows:
+        for fallback_year in [year - 1, year - 2]:
+            rows = session.exec(
+                select(AdmissionRow)
+                .where(AdmissionRow.province == province)
+                .where(AdmissionRow.track == track)
+                .where(AdmissionRow.year == fallback_year)
+            ).all()
+            if rows:
+                break
     return [admission_to_domain(r) for r in rows]
 
 
@@ -132,14 +147,17 @@ def recommend(req: RecommendRequest, session: Session = Depends(get_session_dep)
     位次表用 data_year（与录取数据同年），保证分↔位次换算口径一致。
     若该年无位次表（如2024有录取数据但位次表不全），降级返回空位次（引擎容错）。
     """
+    # 位次表用data_year（2026一分一段表已有），录取数据可能需回退
     entries = _load_rank_entries(session, req.province, req.data_year, req.track)
     admissions = _load_admissions(session, req.province, req.track, req.data_year)
+    # 录取数据回退后，用实际数据年份做引擎过滤（避免year不匹配全部被过滤）
+    actual_year = admissions[0].year if admissions else req.data_year
 
     student = _build_student(req)
 
     table = generate_volunteer_table(
         student=student, admissions=admissions, rank_entries=entries,
-        track=req.track, data_year=req.data_year,
+        track=req.track, data_year=actual_year,
         total_this_year=req.total_this_year, total_history=req.total_history,
     )
     return table.model_dump(mode="json")
