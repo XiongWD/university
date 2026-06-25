@@ -26,9 +26,10 @@ os.environ.setdefault("FLAGS_use_mkldnn", "0")
 
 from paddleocr import PaddleOCR
 
-IMG_DIR = "data/raw/henan_2026/ocr"
-OUT_DIR = "data/raw/henan_2026/out"
-CACHE_DIR = "data/raw/henan_2026/cache"
+YEAR = sys.argv[1] if len(sys.argv) > 1 and sys.argv[1].isdigit() else "2026"
+IMG_DIR = f"data/raw/henan_{YEAR}/ocr"
+OUT_DIR = f"data/raw/henan_{YEAR}/out"
+CACHE_DIR = f"data/raw/henan_{YEAR}/cache"
 os.makedirs(OUT_DIR, exist_ok=True)
 os.makedirs(CACHE_DIR, exist_ok=True)
 
@@ -145,33 +146,37 @@ def validate(rows):
 
 
 def anchor_check(rows, track):
-    """锚点：600分累计应≈37544（物理类全省，非单表，仅量级参考）。
-    本表"考生人数"是累计。本科线 419 物理类累计应≈359972。"""
+    """锚点校验：检查关键分数的累计位次是否合理。
+    本表"考生人数"是累计。各年本科线不同（2025物理427/历史471，2026物理419/历史459）。"""
     anchors = {}
     by = {r[0]: r[1] for r in rows}
-    for sc in (700, 650, 600, 550, 513, 500, 419, 400):
+    # 关键分数：高分段 + 本科线附近
+    key_scores = (700, 650, 600, 550, 500, 450, 400, 350)
+    for sc in key_scores:
         if sc in by:
             anchors[sc] = by[sc]
     return anchors
 
 
 def main():
-    only = sys.argv[1:] if len(sys.argv) > 1 else None
+    # 第一个参数为年份(默认2026)，之后的参数为可选科类过滤(物理类/历史类)
+    args = sys.argv[1:]
+    track_filter = [a for a in args if not a.isdigit()]
     ocr = PaddleOCR(use_textline_orientation=False, lang="ch", enable_mkldnn=False)
     summary = {}
     for track, stems in TRACKS.items():
-        if only and track not in only and not any(s.split("_")[0] in only[0] for s in stems):
+        if track_filter and track not in track_filter:
             continue
         recs = extract_track(ocr, track, stems)
         rows = merge(recs)
         issues = validate(rows)
         anchors = anchor_check(rows, track)
-        csv_path = f"{OUT_DIR}/henan_2026_{track}.csv"
+        csv_path = f"{OUT_DIR}/henan_{YEAR}_{track}.csv"
         with open(csv_path, "w", encoding="utf-8-sig") as f:
             f.write("score,count_at,page,col,min_confidence\n")
             for sc, cnt, page, col, conf in rows:
                 f.write(f"{sc},{cnt},{page},{col},{conf}\n")
-        with open(f"{OUT_DIR}/henan_2026_{track}_issues.json", "w", encoding="utf-8") as f:
+        with open(f"{OUT_DIR}/henan_{YEAR}_{track}_issues.json", "w", encoding="utf-8") as f:
             json.dump({"issues": issues, "anchors": anchors, "row_count": len(rows)}, f, ensure_ascii=False, indent=2)
         summary[track] = {"rows": len(rows), "issues": len(issues), "anchors": anchors}
         print(f"  -> {csv_path} ({len(rows)} 行, {len(issues)} 异常)")

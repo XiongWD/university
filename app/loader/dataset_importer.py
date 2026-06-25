@@ -31,6 +31,11 @@ DEFAULT_AS_OF = date(2024, 7, 1)
 
 # 按 CSV 文件名覆盖来源元数据（更准确的溯源）
 _FILE_META: dict[str, dict] = {
+    "henan_2025_score_rank.csv": {
+        "source": "河南省教育考试院2025(OCR自官方PDF,4硬锚点校验)",
+        "confidence": 0.95,
+        "as_of": date(2025, 6, 25),
+    },
     "henan_2026_score_rank.csv": {
         "source": "河南省教育考试院2026(OCR自官方PDF,5硬锚点校验)",
         "confidence": 0.95,

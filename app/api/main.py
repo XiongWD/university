@@ -22,11 +22,12 @@ async def lifespan(app: FastAPI):
             load_all_seeds(settings.seed_dir, s)
         # 一分一段表 CSV 运行时导入（CSV 缺失降级为空，不阻断启动）
         # - gaokao_raw.csv: 历史数据集(至2024, 文/理科)
+        # - henan_2025_score_rank.csv: 河南2025(物理类/历史类, OCR自官方PDF)
         # - henan_2026_score_rank.csv: 河南2026(物理类/历史类, OCR自官方PDF)
-        for csv_name in ["gaokao_raw.csv", "henan_2026_score_rank.csv"]:
+        for csv_name in ["gaokao_raw.csv", "henan_2025_score_rank.csv", "henan_2026_score_rank.csv"]:
             import_score_rank_csv(
                 settings.data_dir / "datasets" / csv_name,
-                s, ["河南", "广东"], [2022, 2023, 2024, 2026],
+                s, ["河南", "广东"], [2022, 2023, 2024, 2025, 2026],
             )
         _state["seed_loaded"] = True
     yield

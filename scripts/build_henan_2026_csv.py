@@ -1,25 +1,25 @@
 """把 OCR 输出转换为 dataset_importer 能直接导入的 CSV 格式。
 
-河南2026一分一段表"考生人数"列实为【累计位次】（表脚注已说明）。
+河南一分一段表"考生人数"列实为【累计位次】（表脚注已说明）。
 importer 需要: 最高分(score), 人数(count_at本段), 累计(cumulative_rank).
 本段人数 = cumu[score] - cumu[score+1]（相邻高分累计之差）。
 
-输出 data/datasets/henan_2026_score_rank.csv，列与 gaokao_raw.csv 一致，
-importer 白名单(省/年)需包含 2026，track=物理类/历史类。
+支持 2025/2026 两年。输出 data/datasets/henan_{YEAR}_score_rank.csv。
+importer 白名单(省/年)需包含对应年份。
 """
+import sys
 import csv
 from pathlib import Path
 
-OCR_DIR = Path("data/raw/henan_2026/out")
-OUT = Path("data/datasets/henan_2026_score_rank.csv")
-
-TRACK_MAP = {"物理类": "物理类", "历史类": "历史类"}
+YEAR = sys.argv[1] if len(sys.argv) > 1 and sys.argv[1].isdigit() else "2026"
+OCR_DIR = Path(f"data/raw/henan_{YEAR}/out")
+OUT = Path(f"data/datasets/henan_{YEAR}_score_rank.csv")
 
 
 def load_cumulative(track):
     """读 OCR，返回 {score: cumulative_rank}。"""
     d = {}
-    with open(OCR_DIR / f"henan_2026_{track}.csv", encoding="utf-8-sig") as f:
+    with open(OCR_DIR / f"henan_{YEAR}_{track}.csv", encoding="utf-8-sig") as f:
         for r in csv.DictReader(f):
             d[int(r["score"])] = int(r["count_at"])
     return d
@@ -49,7 +49,7 @@ def build_track(track):
             "最高分": sc, "最低分": sc,
             "人数": count_at, "累计": cumulative,
             "省级行政区": "河南", "综合": track,
-            "年份": "2026", "总分(裸分)": "750", "模式": "3+1+2",
+            "年份": YEAR, "总分(裸分)": "750", "模式": "3+1+2",
         })
     return rows, missing_diff
 
@@ -68,11 +68,11 @@ def main():
     fields = ["最高分", "最低分", "人数", "累计", "省级行政区", "综合",
               "年份", "总分(裸分)", "模式"]
     if OUT.exists():
-        # 读已有，剔除河南2026避免重复
+        # 读已有，剔除河南该年避免重复
         kept = []
         with open(OUT, encoding="utf-8-sig", newline="") as f:
             for r in csv.DictReader(f):
-                if not (r["省级行政区"] == "河南" and r["年份"] == "2026"):
+                if not (r["省级行政区"] == "河南" and r["年份"] == YEAR):
                     kept.append(r)
         with open(OUT, "w", encoding="utf-8-sig", newline="") as f:
             w = csv.DictWriter(f, fieldnames=fields)
