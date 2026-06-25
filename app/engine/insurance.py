@@ -7,7 +7,7 @@
 个税使用 2024 年月度累进税率表，起征点 5000，7 档。
 """
 
-from app.models.insurance import SocialInsurance
+from app.models.insurance import InsuranceRates, SocialInsurance
 
 # 2024 个人所得税月度累进税率表：(应纳税所得额上限, 税率, 速算扣除数)
 TAX_BRACKETS_2024 = [
@@ -37,7 +37,7 @@ def _employer_total(insurance: SocialInsurance) -> float:
     """单位缴纳比例合计（遍历六险种，避免硬编码字段名）。"""
     return sum(
         getattr(getattr(insurance.rates, k), "employer")
-        for k in insurance.rates.model_fields
+        for k in InsuranceRates.model_fields
     )
 
 
@@ -45,7 +45,7 @@ def _employee_total(insurance: SocialInsurance) -> float:
     """个人缴纳比例合计。"""
     return sum(
         getattr(getattr(insurance.rates, k), "employee")
-        for k in insurance.rates.model_fields
+        for k in InsuranceRates.model_fields
     )
 
 
