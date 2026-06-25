@@ -35,7 +35,7 @@ class RecommendRequest(BaseModel):
     province: str
     total_score: int
     track: str  # 文/理/物理类/历史类
-    data_year: int = 2024  # 录取数据年份
+    data_year: int = 2026  # 默认当年最新
     risk_preference: RiskPreference = RiskPreference.BALANCED
     gender: str = ""
     interests: list[str] = []
@@ -43,6 +43,10 @@ class RecommendRequest(BaseModel):
     subject_scores: dict[str, int] = {}
     total_this_year: int | None = None  # 等效位次用，可选
     total_history: int | None = None
+    # 选科/外语/单科（填报硬门槛）
+    foreign_language: str = "英语"  # 英语/日语/俄语/德语/法语/西班牙语
+    elective_subjects: list[str] = []  # 再选科目(3+1+2的"2")
+    subject_scores_detail: dict[str, int] = {}  # 单科分数
 
 
 # ---------- 取数辅助 ----------
@@ -74,6 +78,21 @@ def _load_admissions(session: Session, province: str, track: str, year: int):
     return [admission_to_domain(r) for r in rows]
 
 
+def _build_student(req: RecommendRequest) -> StudentProfile:
+    """从请求构建学生画像（含选科/外语/单科）。"""
+    return StudentProfile(
+        province=req.province, total_score=req.total_score,
+        subject_scores=req.subject_scores or {"总分": req.total_score},
+        minor_language=None, family_resources=FamilyResources(),
+        gender=req.gender, interests=req.interests, strengths=req.strengths,
+        risk_preference=req.risk_preference,
+        source="api请求", as_of=date.today(), confidence=1.0,
+        foreign_language=req.foreign_language,
+        elective_subjects=req.elective_subjects,
+        subject_scores_detail=req.subject_scores_detail,
+    )
+
+
 # ---------- 端点 ----------
 @router.post("/recommend")
 def recommend(req: RecommendRequest, session: Session = Depends(get_session_dep)):
@@ -85,14 +104,7 @@ def recommend(req: RecommendRequest, session: Session = Depends(get_session_dep)
     entries = _load_rank_entries(session, req.province, req.data_year, req.track)
     admissions = _load_admissions(session, req.province, req.track, req.data_year)
 
-    student = StudentProfile(
-        province=req.province, total_score=req.total_score,
-        subject_scores=req.subject_scores or {"总分": req.total_score},
-        minor_language=None, family_resources=FamilyResources(),
-        gender=req.gender, interests=req.interests, strengths=req.strengths,
-        risk_preference=req.risk_preference,
-        source="api请求", as_of=date.today(), confidence=1.0,
-    )
+    student = _build_student(req)
 
     table = generate_volunteer_table(
         student=student, admissions=admissions, rank_entries=entries,
@@ -133,14 +145,7 @@ def life_trajectory(req: RecommendRequest, session: Session = Depends(get_sessio
     entries = _load_rank_entries(session, req.province, req.data_year, req.track)
     admissions = _load_admissions(session, req.province, req.track, req.data_year)
 
-    student = StudentProfile(
-        province=req.province, total_score=req.total_score,
-        subject_scores=req.subject_scores or {"总分": req.total_score},
-        minor_language=None, family_resources=FamilyResources(),
-        gender=req.gender, interests=req.interests, strengths=req.strengths,
-        risk_preference=req.risk_preference,
-        source="api请求", as_of=date.today(), confidence=1.0,
-    )
+    student = _build_student(req)
 
     trajectory = build_life_trajectory(
         student=student,

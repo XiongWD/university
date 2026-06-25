@@ -153,6 +153,8 @@ class AdmissionRow(SQLModel, table=True):
     note: Optional[str] = None
     major_group: Optional[str] = None
     subject_requirement: Optional[str] = None
+    foreign_language_required: str = "不限"
+    single_subject_requirements: Optional[str] = None  # JSON
 
 
 class StudentRow(SQLModel, table=True):

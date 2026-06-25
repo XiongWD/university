@@ -383,7 +383,27 @@
   batch: 本科批
   nature: 民办
   subject_requirement: 历史
+  foreign_language_required: 英语
+  single_subject_requirements: {外语: 105}
   source: 掌上高考2025(中外合作特色)
   as_of: 2025-08-01
   confidence: 0.75
-  note: 省内民办，中外合作特色
+  note: 省内民办，中外合作特色；英语专业要求外语英语且单科≥105
+
+- school: 黄河科技学院
+  major: 翻译
+  province: 河南
+  year: 2025
+  track: 历史类
+  min_score: 475
+  min_rank: 86000
+  avg_score: 488
+  batch: 本科批
+  nature: 民办
+  subject_requirement: 历史
+  foreign_language_required: 英语
+  single_subject_requirements: {外语: 100}
+  source: 掌上高考2025
+  as_of: 2025-08-01
+  confidence: 0.7
+  note: 翻译专业要求外语英语（日语考生不可报）

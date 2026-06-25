@@ -39,6 +39,19 @@ export default function TrajectoryCard({ item, index }: { item: TrajectoryItem; 
           {item.major && (
             <p className="text-xs text-white/60 mt-1">{item.major}</p>
           )}
+          {/* 选科/外语要求展示 */}
+          {(item.subject_requirement || (item as any).foreign_language_required) && (
+            <div className="flex flex-wrap gap-1 mt-1">
+              {item.subject_requirement && (
+                <span className="text-[9px] px-1.5 py-0.5 rounded bg-white/10 text-white/50">
+                  选科:{item.subject_requirement}
+                </span>
+              )}
+            </div>
+          )}
+          {item.note && (
+            <p className="text-[9px] text-amber-300/70 mt-1">⚠ {item.note}</p>
+          )}
         </div>
         <div className="text-right shrink-0">
           <div className="text-lg font-bold text-white">{pct}%</div>

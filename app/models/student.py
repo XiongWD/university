@@ -37,3 +37,7 @@ class StudentProfile(SourcedRecord):
     interests: list[str]
     strengths: list[str]
     risk_preference: RiskPreference
+    # 新高考选科与单科要求相关（3+1+2模式）
+    foreign_language: str = "英语"  # 外语语种：英语/日语/俄语/德语/法语/西班牙语
+    elective_subjects: list[str] = []  # 再选科目(3+1+2的"2")，如["政治","地理"]
+    subject_scores_detail: dict[str, int] = {}  # 单科分数，如{"数学":95,"外语":110,"物理":80}

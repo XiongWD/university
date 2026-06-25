@@ -85,6 +85,51 @@ def classify_strategy(student_rank: int, school_rank: int) -> Strategy:
     return Strategy.STABLE
 
 
+def _meets_requirements(admission: AdmissionRecord, student: StudentProfile) -> bool:
+    """硬门槛筛选：选科/外语/单科要求不匹配则剔除（返回False）。
+
+    - 选科：若专业组有 subject_requirement（如"物理+化学"），考生 elective_subjects 须含全部要求科目
+    - 外语：若专业要求特定外语（非"不限"），考生 foreign_language 须匹配
+    - 单科门槛：若专业有 single_subject_requirements，考生该科分数须达标
+    """
+    # 选科匹配：只校验再选科目("2")。首选(物理/历史)已由 track 过滤体现，不在此检查。
+    req = admission.subject_requirement
+    if req:
+        required = [s.strip() for s in req.replace("＋", "+").split("+") if s.strip()]
+        # 首选科目(物理/历史/文科/理科)是 track 的事，从选科要求里剔除（避免误杀）
+        track_subjects = {"物理", "历史", "文科", "理科", "物理类", "历史类"}
+        elective_required = [r for r in required if r not in track_subjects]
+        student_electives = set(student.elective_subjects or [])
+        for r in elective_required:
+            if r not in student_electives:
+                return False
+    # 外语匹配
+    fl_req = admission.foreign_language_required
+    if fl_req and fl_req != "不限":
+        if student.foreign_language != fl_req and fl_req != "可小语种":
+            return False
+    # 单科门槛
+    for subj, threshold in (admission.single_subject_requirements or {}).items():
+        score = (student.subject_scores_detail or {}).get(subj)
+        if score is not None and score < threshold:
+            return False
+    return True
+
+
+def _match_warnings(admission: AdmissionRecord, student: StudentProfile) -> str | None:
+    """生成匹配提示（软提醒，不剔除）。如选科刚好满足、单科贴线等。"""
+    warnings = []
+    # 外语提示：考生小语种但专业不限（通常可报，但部分课程英语授课）
+    if student.foreign_language != "英语" and admission.foreign_language_required == "不限":
+        warnings.append(f"考生{student.foreign_language}，专业外语不限（部分课程或教材可能英语）")
+    # 单科贴线提醒（达门槛但余量<5分）
+    for subj, threshold in (admission.single_subject_requirements or {}).items():
+        score = (student.subject_scores_detail or {}).get(subj)
+        if score is not None and 0 <= score - threshold < 5:
+            warnings.append(f"{subj}贴线（{score}/{threshold}）")
+    return "；".join(warnings) if warnings else None
+
+
 def estimate_probability(student_rank: int, school_rank: int) -> AdmissionProbability:
     """估算录取概率（0-1）。位次越优于考生，概率越低。
 
@@ -140,17 +185,22 @@ def generate_volunteer_table(
             continue
         if a.province != student.province:
             continue
+        # 硬门槛筛选：选科/外语/单科要求不匹配则剔除
+        if not _meets_requirements(a, student):
+            continue
         strat = classify_strategy(ref_rank, a.min_rank)
         # 过冲：学校位次远优于考生(低于考生位次的SPRINT_FLOOR)则不列入(几乎录不了)
         if strat == Strategy.SPRINT and ref_rank > 0:
             if a.min_rank / ref_rank < SPRINT_FLOOR:
                 continue
         prob = estimate_probability(ref_rank, a.min_rank)
+        warning = _match_warnings(a, student)
         buckets[strat].append(VolunteerSuggestion(
             strategy=strat, school=a.school, major=a.major,
             major_group=a.major_group, subject_requirement=a.subject_requirement,
             last_year_rank=a.min_rank, last_year_score=a.min_score,
             student_rank=ref_rank, probability=prob,
+            note=warning,
         ))
 
     quotas = _QUOTAS[student.risk_preference]

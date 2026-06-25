@@ -44,6 +44,9 @@ export interface RecommendRequest {
   interests?: string[];
   strengths?: string[];
   subject_scores?: Record<string, number>;
+  foreign_language?: string;  // 英语/日语/俄语/...
+  elective_subjects?: string[];  // 再选科目(3+1+2的"2")
+  subject_scores_detail?: Record<string, number>;  // 单科分数
 }
 
 // GET /provincial/score-rank/rank 响应
@@ -152,6 +155,8 @@ export interface TrajectoryItem {
   major: string | null;
   major_group: string | null;
   subject_requirement: string | null;
+  foreign_language_required?: string;
+  single_subject_requirements?: Record<string, number>;
   last_year_rank: number;
   last_year_score: number;
   student_rank: number;
@@ -159,6 +164,7 @@ export interface TrajectoryItem {
   cost: CostSummary | null;
   career: CareerProspect | null;
   payback: PaybackAnalysis | null;
+  note: string | null;
 }
 
 export interface LifeTrajectory {

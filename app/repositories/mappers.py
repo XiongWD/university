@@ -205,6 +205,8 @@ def admission_to_row(a: AdmissionRecord) -> AdmissionRow:
         min_rank=a.min_rank, avg_score=a.avg_score, batch=a.batch.value,
         source=a.source, as_of=a.as_of, confidence=a.confidence, note=a.note,
         major_group=a.major_group, subject_requirement=a.subject_requirement,
+        foreign_language_required=a.foreign_language_required,
+        single_subject_requirements=json.dumps(a.single_subject_requirements, ensure_ascii=False) if a.single_subject_requirements else None,
     )
 
 
@@ -215,6 +217,8 @@ def admission_to_domain(r: AdmissionRow) -> AdmissionRecord:
         min_rank=r.min_rank, avg_score=r.avg_score, batch=Batch(r.batch),
         source=r.source, as_of=r.as_of, confidence=r.confidence, note=r.note,
         major_group=r.major_group, subject_requirement=r.subject_requirement,
+        foreign_language_required=r.foreign_language_required,
+        single_subject_requirements=json.loads(r.single_subject_requirements) if r.single_subject_requirements else {},
     )
 
 

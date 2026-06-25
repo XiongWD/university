@@ -30,3 +30,5 @@ class AdmissionRecord(SourcedRecord):
     batch: Batch
     major_group: str | None = None  # 院校专业组代码(新高考)，老高考为空
     subject_requirement: str | None = None  # 选科要求(如"物理+化学")，无要求为空
+    foreign_language_required: str = "不限"  # 外语要求：不限/英语/可日语等，多数"不限"
+    single_subject_requirements: dict[str, int] = {}  # 单科分数门槛，如{"数学":90,"外语":105}，空=无门槛
