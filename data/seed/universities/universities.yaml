@@ -427,3 +427,144 @@
   as_of: 2024-09-01
   confidence: 0.85
   note: 中外合作高学费典型(10万/年)
+
+# 扩充：更多河南历史类院校费用数据
+- name: 安阳师范学院
+  province: 河南
+  tier: 二本
+  nature: 公立
+  tuition: 4400
+  accommodation: 800
+  city: 安阳
+  employment_ability: {campus_tier: 省内中小学教育, avg_entry_salary: 4400, employment_rate: 0.85}
+  disciplines: []
+  source: 各校招生网2024学费标准
+  as_of: 2024-09-01
+  confidence: 0.8
+  note: 豫北地市公办师范
+
+- name: 南阳师范学院
+  province: 河南
+  tier: 二本
+  nature: 公立
+  tuition: 4400
+  accommodation: 800
+  city: 南阳
+  employment_ability: {campus_tier: 省内中小学教育, avg_entry_salary: 4300, employment_rate: 0.84}
+  disciplines: []
+  source: 各校招生网2024学费标准
+  as_of: 2024-09-01
+  confidence: 0.8
+  note: 豫南地市公办师范
+
+- name: 商丘师范学院
+  province: 河南
+  tier: 二本
+  nature: 公立
+  tuition: 4400
+  accommodation: 800
+  city: 商丘
+  employment_ability: {campus_tier: 省内中小学教育, avg_entry_salary: 4200, employment_rate: 0.83}
+  disciplines: []
+  source: 各校招生网2024学费标准
+  as_of: 2024-09-01
+  confidence: 0.8
+  note: 豫东地市公办师范
+
+- name: 周口师范学院
+  province: 河南
+  tier: 二本
+  nature: 公立
+  tuition: 4400
+  accommodation: 800
+  city: 周口
+  employment_ability: {campus_tier: 省内中小学教育, avg_entry_salary: 4200, employment_rate: 0.83}
+  disciplines: []
+  source: 各校招生网2024学费标准
+  as_of: 2024-09-01
+  confidence: 0.8
+  note: 豫东地市公办师范
+
+- name: 许昌学院
+  province: 河南
+  tier: 二本
+  nature: 公立
+  tuition: 4400
+  accommodation: 800
+  city: 许昌
+  employment_ability: {campus_tier: 省内地市企事业单位, avg_entry_salary: 4300, employment_rate: 0.83}
+  disciplines: []
+  source: 各校招生网2024学费标准
+  as_of: 2024-09-01
+  confidence: 0.75
+  note: 豫中地市公办综合
+
+- name: 平顶山学院
+  province: 河南
+  tier: 二本
+  nature: 公立
+  tuition: 4400
+  accommodation: 800
+  city: 平顶山
+  employment_ability: {campus_tier: 省内地市企事业单位, avg_entry_salary: 4300, employment_rate: 0.83}
+  disciplines: []
+  source: 各校招生网2024学费标准
+  as_of: 2024-09-01
+  confidence: 0.75
+  note: 豫中地市公办
+
+- name: 郑州科技学院
+  province: 河南
+  tier: 二本
+  nature: 民办
+  tuition: 15000
+  accommodation: 1400
+  city: 郑州
+  employment_ability: {campus_tier: 省内中小企业, avg_entry_salary: 4400, employment_rate: 0.83}
+  disciplines: []
+  source: 各校招生网2024学费标准
+  as_of: 2024-09-01
+  confidence: 0.75
+  note: 省内民办
+
+- name: 郑州财经学院
+  province: 河南
+  tier: 二本
+  nature: 民办
+  tuition: 14800
+  accommodation: 1400
+  city: 郑州
+  employment_ability: {campus_tier: 省内金融+中小企业, avg_entry_salary: 4600, employment_rate: 0.84}
+  disciplines: []
+  source: 各校招生网2024学费标准
+  as_of: 2024-09-01
+  confidence: 0.8
+  note: 省内民办财经特色
+
+- name: 河南城建学院
+  province: 河南
+  tier: 二本
+  nature: 公立
+  tuition: 4400
+  accommodation: 800
+  city: 平顶山
+  employment_ability: {campus_tier: 省内城建+企事业单位, avg_entry_salary: 4400, employment_rate: 0.84}
+  disciplines: []
+  source: 各校招生网2024学费标准
+  as_of: 2024-09-01
+  confidence: 0.75
+  note: 平顶山公办
+
+- name: 新乡工程学院
+  province: 河南
+  tier: 二本
+  nature: 民办
+  tuition: 14500
+  accommodation: 1300
+  city: 新乡
+  employment_ability: {campus_tier: 省内中小企业, avg_entry_salary: 4300, employment_rate: 0.82}
+  disciplines: []
+  source: 各校招生网2024学费标准
+  as_of: 2024-09-01
+  confidence: 0.7
+  note: 省内民办

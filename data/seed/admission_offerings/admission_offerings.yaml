@@ -229,3 +229,156 @@
   confidence: 0.8
   note: 公办应用型，不限语种
   direction_hint: 财经会计
+
+# ===== 扩充：更多河南历史类院校（480分段冲稳保）=====
+- school: 安阳师范学院
+  major_group_code: '101'
+  major_group_name: 历史类师范组
+  province: 河南
+  batch: 本科批
+  accepted_exam_languages: []
+  primary_subject_requirement: 历史
+  public_foreign_languages: [英语, 日语]
+  english_dependency_level: low
+  direction_hint: 师范教育
+  source: 安阳师范学院2025招生章程
+  as_of: '2025-06-01'
+  confidence: 0.8
+  note: 豫北地市公办师范，日语考生友好
+
+- school: 南阳师范学院
+  major_group_code: '101'
+  major_group_name: 历史类师范组
+  province: 河南
+  batch: 本科批
+  accepted_exam_languages: []
+  primary_subject_requirement: 历史
+  public_foreign_languages: [英语]
+  english_dependency_level: low
+  direction_hint: 师范教育
+  source: 南阳师范学院2025招生章程
+  as_of: '2025-06-01'
+  confidence: 0.8
+  note: 豫南地市公办师范
+
+- school: 商丘师范学院
+  major_group_code: '101'
+  major_group_name: 历史类师范组
+  province: 河南
+  batch: 本科批
+  accepted_exam_languages: []
+  primary_subject_requirement: 历史
+  public_foreign_languages: [英语, 日语]
+  english_dependency_level: low
+  direction_hint: 师范教育
+  source: 商丘师范学院2025招生章程
+  as_of: '2025-06-01'
+  confidence: 0.8
+  note: 豫东地市公办师范，日语考生可报
+
+- school: 周口师范学院
+  major_group_code: '101'
+  major_group_name: 历史类师范组
+  province: 河南
+  batch: 本科批
+  accepted_exam_languages: []
+  primary_subject_requirement: 历史
+  public_foreign_languages: [英语]
+  english_dependency_level: low
+  direction_hint: 师范教育
+  source: 周口师范学院2025招生章程
+  as_of: '2025-06-01'
+  confidence: 0.8
+  note: 豫东地市公办师范
+
+- school: 许昌学院
+  major_group_code: '101'
+  major_group_name: 历史类综合组
+  province: 河南
+  batch: 本科批
+  accepted_exam_languages: []
+  primary_subject_requirement: 历史
+  public_foreign_languages: [英语]
+  english_dependency_level: low
+  direction_hint: 公共管理
+  source: 许昌学院2025招生章程
+  as_of: '2025-06-01'
+  confidence: 0.8
+  note: 豫中地市公办综合院校
+
+- school: 平顶山学院
+  major_group_code: '101'
+  major_group_name: 历史类综合组
+  province: 河南
+  batch: 本科批
+  accepted_exam_languages: []
+  primary_subject_requirement: 历史
+  public_foreign_languages: [英语]
+  english_dependency_level: low
+  direction_hint: 数字商务
+  source: 平顶山学院2025招生章程
+  as_of: '2025-06-01'
+  confidence: 0.75
+  note: 豫中地市公办，有网络与新媒体专业
+
+- school: 郑州科技学院
+  major_group_code: '101'
+  major_group_name: 历史类经管组
+  province: 河南
+  batch: 本科批
+  accepted_exam_languages: []
+  primary_subject_requirement: 历史
+  public_foreign_languages: [英语]
+  english_dependency_level: low
+  direction_hint: 财经会计
+  source: 郑州科技学院2025招生章程
+  as_of: '2025-06-01'
+  confidence: 0.75
+  note: 省内民办，贴本科线兜底
+
+- school: 郑州财经学院
+  major_group_code: '101'
+  major_group_name: 历史类财会组
+  province: 河南
+  batch: 本科批
+  accepted_exam_languages: []
+  subject_score_rules:
+    - {subject: math, operator: '>=', threshold: 70, source_text: 数学>=70}
+  primary_subject_requirement: 历史
+  public_foreign_languages: [英语, 日语]
+  english_dependency_level: low
+  direction_hint: 财经会计
+  source: 郑州财经学院2025招生章程
+  as_of: '2025-06-01'
+  confidence: 0.8
+  note: 省内民办财经特色，数学>=70(弟弟75可过)，开日语公共外语
+
+- school: 河南城建学院
+  major_group_code: '101'
+  major_group_name: 历史类管理组
+  province: 河南
+  batch: 本科批
+  accepted_exam_languages: []
+  primary_subject_requirement: 历史
+  public_foreign_languages: [英语]
+  english_dependency_level: low
+  direction_hint: 公共管理
+  source: 河南城建学院2025招生章程
+  as_of: '2025-06-01'
+  confidence: 0.75
+  note: 平顶山公办，管理类专业480可冲
+
+- school: 新乡工程学院
+  major_group_code: '101'
+  major_group_name: 历史类经管组
+  province: 河南
+  batch: 本科批
+  accepted_exam_languages: []
+  primary_subject_requirement: 历史
+  public_foreign_languages: [英语]
+  english_dependency_level: low
+  direction_hint: 财经会计
+  source: 新乡工程学院2025招生章程
+  as_of: '2025-06-01'
+  confidence: 0.7
+  note: 省内民办兜底
