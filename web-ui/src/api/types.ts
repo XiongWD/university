@@ -177,3 +177,65 @@ export interface LifeTrajectory {
   safe: TrajectoryItem[];
   source_note: string;
 }
+
+// ===== V2.2 人生路径 =====
+export interface LifePathsRequest {
+  province?: string;
+  total_score: number;
+  primary_subject: string;
+  chinese_score?: number;
+  math_score?: number;
+  exam_foreign_language?: string;
+  foreign_language_score?: number;
+  english_actual_level?: string;
+  elective_subjects?: string[];
+  family_annual_income?: number;
+  family_savings?: number;
+  max_annual_education_budget?: number;
+  accepted_loan_amount?: number;
+  accept_private_school?: boolean;
+}
+
+export interface SchoolOption {
+  school: string;
+  matched_major: string | null;
+  ownership: string;
+  city: string | null;
+  admission_level: string;
+  total_cost_4y: number;
+  affordability_status: string;
+  data_granularity: string;
+  confidence: number;
+  warnings: string[];
+}
+
+export interface AdmissionBuckets {
+  reach: SchoolOption[];
+  match: SchoolOption[];
+  safe: SchoolOption[];
+}
+
+export interface LifePath {
+  path_type: string;
+  title: string;
+  summary: string;
+  major_direction: string;
+  recommended_majors: string[];
+  target_careers: string[];
+  university_cost_4y: number;
+  pressure_coefficient: number;
+  affordability_status: string;
+  expected_start_salary_p50: number;
+  major_value_score: number;
+  overall_score: number;
+  risk_level: string;
+  key_benefits: string[];
+  key_risks: string[];
+  school_buckets: AdmissionBuckets;
+}
+
+export interface LifePathResult {
+  paths: LifePath[];
+  notes: string[];
+  model_version: string;
+}

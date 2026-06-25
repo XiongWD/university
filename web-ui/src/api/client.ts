@@ -9,6 +9,8 @@ import type {
   CostEstimate,
   SchoolNature,
   LifeTrajectory,
+  LifePathsRequest,
+  LifePathResult,
 } from "./types";
 
 const BASE = "/api/v1";
@@ -99,4 +101,12 @@ export function listUniversities(
 export function estimateCost(school: string, years?: number): Promise<CostEstimate | null> {
   const q = years ? `?years=${years}` : "";
   return request(`/universities/${encodeURIComponent(school)}/cost${q}`);
+}
+
+// POST /volunteer/life-paths（V2.2 人生路径）
+export function lifePaths(req: LifePathsRequest): Promise<LifePathResult> {
+  return request<LifePathResult>("/volunteer/life-paths", {
+    method: "POST",
+    body: JSON.stringify(req),
+  });
 }
