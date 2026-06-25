@@ -1,0 +1,225 @@
+# 职业种子数据（薪资三档区间，单位元/月）
+# 来源为公开报告量级，confidence≤0.6 手编，note 标注待爬虫校准
+- name: 公务员-科员
+  category: 公务员
+  entry_salary: {low: 4000, mid: 5000, high: 6000}
+  mid_salary_5y: {low: 7000, mid: 8000, high: 9000}
+  ceil_salary_15y: {low: 10000, mid: 12000, high: 15000}
+  stability: 0.95
+  promotion_speed: 慢
+  establishment_type: 行政编
+  related_majors: [法学, 公共管理, 汉语言文学]
+  source: 公务员公开报告2024
+  as_of: 2024-05-01
+  confidence: 0.5
+  note: 待爬虫校准
+
+- name: 医生-住院医师
+  category: 医疗
+  entry_salary: {low: 5000, mid: 6500, high: 8000}
+  mid_salary_5y: {low: 10000, mid: 13000, high: 16000}
+  ceil_salary_15y: {low: 18000, mid: 25000, high: 35000}
+  stability: 0.9
+  promotion_speed: 慢
+  establishment_type: 事业编
+  related_majors: [临床医学, 口腔医学]
+  source: 医疗行业薪资报告2024
+  as_of: 2024-04-01
+  confidence: 0.5
+  note: 待爬虫校准
+
+- name: 教师-中学
+  category: 教育
+  entry_salary: {low: 4000, mid: 5000, high: 6500}
+  mid_salary_5y: {low: 6000, mid: 8000, high: 10000}
+  ceil_salary_15y: {low: 9000, mid: 12000, high: 15000}
+  stability: 0.92
+  promotion_speed: 慢
+  establishment_type: 事业编
+  related_majors: [师范类, 学科教育]
+  source: 教育行业报告2024
+  as_of: 2024-04-01
+  confidence: 0.5
+  note: 待爬虫校准
+
+- name: 软件工程师
+  category: IT
+  entry_salary: {low: 8000, mid: 12000, high: 18000}
+  mid_salary_5y: {low: 15000, mid: 22000, high: 30000}
+  ceil_salary_15y: {low: 25000, mid: 40000, high: 60000}
+  stability: 0.7
+  promotion_speed: 中
+  establishment_type: 企业
+  related_majors: [计算机科学与技术, 软件工程]
+  source: BOSS直聘互联网报告2024
+  as_of: 2024-04-01
+  confidence: 0.5
+  note: 待爬虫校准
+
+- name: 外贸业务员-对日
+  category: 外贸
+  entry_salary: {low: 5000, mid: 6500, high: 8000}
+  mid_salary_5y: {low: 8000, mid: 11000, high: 15000}
+  ceil_salary_15y: {low: 12000, mid: 18000, high: 25000}
+  stability: 0.6
+  promotion_speed: 中
+  establishment_type: 企业
+  related_majors: [日语, 国际经济与贸易]
+  source: 外贸行业薪资调研2024
+  as_of: 2024-04-01
+  confidence: 0.5
+  note: 待爬虫校准
+
+- name: 跨境电商运营-日本站
+  category: 跨境电商
+  entry_salary: {low: 5500, mid: 7000, high: 9000}
+  mid_salary_5y: {low: 9000, mid: 13000, high: 18000}
+  ceil_salary_15y: {low: 15000, mid: 22000, high: 30000}
+  stability: 0.6
+  promotion_speed: 快
+  establishment_type: 企业
+  related_majors: [日语, 电子商务, 国际经济与贸易]
+  source: 跨境电商行业报告2024
+  as_of: 2024-04-01
+  confidence: 0.5
+  note: 待爬虫校准
+
+- name: 国企-管理培训生
+  category: 国企
+  entry_salary: {low: 6000, mid: 8000, high: 10000}
+  mid_salary_5y: {low: 10000, mid: 14000, high: 18000}
+  ceil_salary_15y: {low: 16000, mid: 22000, high: 30000}
+  stability: 0.88
+  promotion_speed: 中
+  establishment_type: 企业
+  related_majors: [工商管理, 经济学]
+  source: 国企校招报告2024
+  as_of: 2024-04-01
+  confidence: 0.5
+  note: 待爬虫校准
+
+- name: 日企商务助理
+  category: 外资
+  entry_salary: {low: 5000, mid: 6500, high: 8000}
+  mid_salary_5y: {low: 8000, mid: 11000, high: 14000}
+  ceil_salary_15y: {low: 12000, mid: 17000, high: 23000}
+  stability: 0.75
+  promotion_speed: 慢
+  establishment_type: 企业
+  related_majors: [日语, 商务日语]
+  source: 日企薪资调研2024
+  as_of: 2024-04-01
+  confidence: 0.5
+  note: 待爬虫校准
+
+- name: 事业单位-文员
+  category: 体制内
+  entry_salary: {low: 3500, mid: 4500, high: 5500}
+  mid_salary_5y: {low: 5500, mid: 7000, high: 8500}
+  ceil_salary_15y: {low: 8000, mid: 10000, high: 13000}
+  stability: 0.93
+  promotion_speed: 慢
+  establishment_type: 事业编
+  related_majors: [公共管理, 汉语言文学]
+  source: 事业单位薪资报告2024
+  as_of: 2024-04-01
+  confidence: 0.5
+  note: 待爬虫校准
+
+- name: 数据分析师
+  category: IT
+  entry_salary: {low: 7000, mid: 10000, high: 14000}
+  mid_salary_5y: {low: 13000, mid: 19000, high: 26000}
+  ceil_salary_15y: {low: 22000, mid: 35000, high: 50000}
+  stability: 0.7
+  promotion_speed: 中
+  establishment_type: 企业
+  related_majors: [统计学, 数学, 计算机科学与技术]
+  source: BOSS直聘数据分析报告2024
+  as_of: 2024-04-01
+  confidence: 0.5
+  note: 待爬虫校准
+
+- name: 产品经理
+  category: IT
+  entry_salary: {low: 8000, mid: 12000, high: 16000}
+  mid_salary_5y: {low: 15000, mid: 22000, high: 30000}
+  ceil_salary_15y: {low: 25000, mid: 38000, high: 55000}
+  stability: 0.65
+  promotion_speed: 中
+  establishment_type: 企业
+  related_majors: [计算机科学与技术, 工商管理]
+  source: 互联网产品岗位报告2024
+  as_of: 2024-04-01
+  confidence: 0.5
+  note: 待爬虫校准
+
+- name: 律师-执业
+  category: 法律
+  entry_salary: {low: 5000, mid: 7000, high: 10000}
+  mid_salary_5y: {low: 10000, mid: 16000, high: 25000}
+  ceil_salary_15y: {low: 18000, mid: 30000, high: 50000}
+  stability: 0.6
+  promotion_speed: 中
+  establishment_type: 企业
+  related_majors: [法学]
+  source: 法律行业薪资报告2024
+  as_of: 2024-04-01
+  confidence: 0.5
+  note: 待爬虫校准
+
+- name: 银行-客户经理
+  category: 金融
+  entry_salary: {low: 5000, mid: 7000, high: 9000}
+  mid_salary_5y: {low: 9000, mid: 13000, high: 18000}
+  ceil_salary_15y: {low: 14000, mid: 20000, high: 28000}
+  stability: 0.8
+  promotion_speed: 慢
+  establishment_type: 企业
+  related_majors: [金融学, 经济学, 会计学]
+  source: 银行业薪资报告2024
+  as_of: 2024-04-01
+  confidence: 0.5
+  note: 待爬虫校准
+
+- name: 会计-企业
+  category: 财会
+  entry_salary: {low: 4500, mid: 6000, high: 7500}
+  mid_salary_5y: {low: 7000, mid: 10000, high: 13000}
+  ceil_salary_15y: {low: 11000, mid: 16000, high: 22000}
+  stability: 0.8
+  promotion_speed: 慢
+  establishment_type: 企业
+  related_majors: [会计学, 财务管理]
+  source: 财会行业报告2024
+  as_of: 2024-04-01
+  confidence: 0.5
+  note: 待爬虫校准
+
+- name: 翻译-日语口译
+  category: 翻译
+  entry_salary: {low: 6000, mid: 8500, high: 12000}
+  mid_salary_5y: {low: 10000, mid: 15000, high: 22000}
+  ceil_salary_15y: {low: 15000, mid: 25000, high: 40000}
+  stability: 0.55
+  promotion_speed: 快
+  establishment_type: 无
+  related_majors: [日语, 翻译]
+  source: 翻译行业薪资调研2024
+  as_of: 2024-04-01
+  confidence: 0.5
+  note: 待爬虫校准
+
+- name: 护士
+  category: 医疗
+  entry_salary: {low: 3500, mid: 4500, high: 5500}
+  mid_salary_5y: {low: 5000, mid: 6500, high: 8000}
+  ceil_salary_15y: {low: 7000, mid: 9000, high: 12000}
+  stability: 0.9
+  promotion_speed: 慢
+  establishment_type: 事业编
+  related_majors: [护理学]
+  source: 医疗护理薪资报告2024
+  as_of: 2024-04-01
+  confidence: 0.5
+  note: 待爬虫校准

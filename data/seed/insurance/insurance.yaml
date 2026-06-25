@@ -1,0 +1,66 @@
+# 城市五险一金比例种子（个人/单位比例 0-1）
+# 全国基准 + 代表城市调整
+- city: 全国基准
+  rates:
+    pension: {employee: 0.08, employer: 0.16}
+    medical: {employee: 0.02, employer: 0.09}
+    unemployment: {employee: 0.003, employer: 0.005}
+    work_injury: {employee: 0.0, employer: 0.005}
+    maternity: {employee: 0.0, employer: 0.0}
+    housing_fund: {employee: 0.08, employer: 0.08}
+  source: 人社局2024基准
+  as_of: 2024-01-01
+  confidence: 0.9
+  note: 全国基准比例
+
+- city: 深圳
+  rates:
+    pension: {employee: 0.08, employer: 0.16}
+    medical: {employee: 0.02, employer: 0.06}
+    unemployment: {employee: 0.003, employer: 0.007}
+    work_injury: {employee: 0.0, employer: 0.004}
+    maternity: {employee: 0.0, employer: 0.0}
+    housing_fund: {employee: 0.05, employer: 0.05}
+  source: 深圳人社局2024
+  as_of: 2024-01-01
+  confidence: 0.7
+  note: 待爬虫校准
+
+- city: 北京
+  rates:
+    pension: {employee: 0.08, employer: 0.16}
+    medical: {employee: 0.02, employer: 0.09}
+    unemployment: {employee: 0.005, employer: 0.005}
+    work_injury: {employee: 0.0, employer: 0.004}
+    maternity: {employee: 0.0, employer: 0.008}
+    housing_fund: {employee: 0.12, employer: 0.12}
+  source: 北京人社局2024
+  as_of: 2024-01-01
+  confidence: 0.7
+  note: 待爬虫校准
+
+- city: 郑州
+  rates:
+    pension: {employee: 0.08, employer: 0.16}
+    medical: {employee: 0.02, employer: 0.08}
+    unemployment: {employee: 0.003, employer: 0.007}
+    work_injury: {employee: 0.0, employer: 0.005}
+    maternity: {employee: 0.0, employer: 0.01}
+    housing_fund: {employee: 0.08, employer: 0.08}
+  source: 河南人社厅2024
+  as_of: 2024-01-01
+  confidence: 0.7
+  note: 待爬虫校准
+
+- city: 成都
+  rates:
+    pension: {employee: 0.08, employer: 0.16}
+    medical: {employee: 0.02, employer: 0.065}
+    unemployment: {employee: 0.004, employer: 0.006}
+    work_injury: {employee: 0.0, employer: 0.005}
+    maternity: {employee: 0.0, employer: 0.004}
+    housing_fund: {employee: 0.06, employer: 0.06}
+  source: 四川人社厅2024
+  as_of: 2024-01-01
+  confidence: 0.7
+  note: 待爬虫校准

@@ -1,0 +1,85 @@
+# 城市生活成本种子（租房三档 + 吃饭/通勤/其他 + 综合月成本 + 房价均价）
+# 量级参考文档范例（深圳一房一厅1800、综合月成本3500-6000）
+- city: 深圳
+  rent: {single: {low: 1200, high: 1800}, one_bed: {low: 1800, high: 2600}, shared: {low: 800, high: 1200}}
+  food: {low: 1200, high: 2000}
+  commute: {low: 150, high: 300}
+  other: {low: 400, high: 800}
+  monthly_total: {low: 3500, high: 6000}
+  house_price_avg: 55000
+  source: 贝壳租房2024
+  as_of: 2024-06-01
+  confidence: 0.5
+  note: 待爬虫校准
+
+- city: 北京
+  rent: {single: {low: 1500, high: 2200}, one_bed: {low: 2500, high: 3500}, shared: {low: 1000, high: 1500}}
+  food: {low: 1500, high: 2500}
+  commute: {low: 200, high: 400}
+  other: {low: 500, high: 1000}
+  monthly_total: {low: 4200, high: 7000}
+  house_price_avg: 60000
+  source: 贝壳租房2024
+  as_of: 2024-06-01
+  confidence: 0.5
+  note: 待爬虫校准
+
+- city: 上海
+  rent: {single: {low: 1500, high: 2200}, one_bed: {low: 2500, high: 3500}, shared: {low: 1000, high: 1500}}
+  food: {low: 1500, high: 2500}
+  commute: {low: 200, high: 400}
+  other: {low: 500, high: 1000}
+  monthly_total: {low: 4200, high: 7000}
+  house_price_avg: 58000
+  source: 贝壳租房2024
+  as_of: 2024-06-01
+  confidence: 0.5
+  note: 待爬虫校准
+
+- city: 郑州
+  rent: {single: {low: 600, high: 900}, one_bed: {low: 900, high: 1400}, shared: {low: 400, high: 700}}
+  food: {low: 900, high: 1400}
+  commute: {low: 100, high: 200}
+  other: {low: 200, high: 500}
+  monthly_total: {low: 2000, high: 3500}
+  house_price_avg: 13000
+  source: 贝壳租房2024
+  as_of: 2024-06-01
+  confidence: 0.5
+  note: 待爬虫校准
+
+- city: 成都
+  rent: {single: {low: 800, high: 1200}, one_bed: {low: 1200, high: 1800}, shared: {low: 600, high: 900}}
+  food: {low: 1000, high: 1600}
+  commute: {low: 100, high: 250}
+  other: {low: 300, high: 600}
+  monthly_total: {low: 2500, high: 4200}
+  house_price_avg: 18000
+  source: 贝壳租房2024
+  as_of: 2024-06-01
+  confidence: 0.5
+  note: 待爬虫校准
+
+- city: 武汉
+  rent: {single: {low: 700, high: 1100}, one_bed: {low: 1100, high: 1700}, shared: {low: 500, high: 800}}
+  food: {low: 900, high: 1500}
+  commute: {low: 100, high: 200}
+  other: {low: 250, high: 550}
+  monthly_total: {low: 2200, high: 3900}
+  house_price_avg: 16000
+  source: 贝壳租房2024
+  as_of: 2024-06-01
+  confidence: 0.5
+  note: 待爬虫校准
+
+- city: 西安
+  rent: {single: {low: 650, high: 1000}, one_bed: {low: 1000, high: 1500}, shared: {low: 450, high: 750}}
+  food: {low: 850, high: 1400}
+  commute: {low: 100, high: 200}
+  other: {low: 200, high: 500}
+  monthly_total: {low: 2100, high: 3700}
+  house_price_avg: 14000
+  source: 贝壳租房2024
+  as_of: 2024-06-01
+  confidence: 0.5
+  note: 待爬虫校准
