@@ -65,20 +65,38 @@ export default function TrajectoryCard({ item, index }: { item: TrajectoryItem; 
         </div>
         <div className="text-right shrink-0 relative group">
           <div className="text-lg font-bold text-white cursor-help underline decoration-dotted decoration-white/30">{pct}%</div>
-          <div className="text-[10px] text-white/40">录取概率</div>
-          {/* hover tooltip：算法说明 */}
-          <div className="absolute right-0 top-full mt-2 z-20 hidden group-hover:block w-72 bg-slate-900/98 border border-white/20 rounded-xl p-4 text-left shadow-2xl">
-            <div className="text-sm font-bold text-white/90 mb-2">录取概率算法</div>
-            <div className="text-xs text-white/70 leading-relaxed space-y-1.5">
-              <p><b className="text-white/90">输入</b>：考生位次 vs 学校历年最低录取位次</p>
-              <p><b className="text-white/90">核心比值</b>：ratio = 校录位次 ÷ 考生位次</p>
-              <div className="bg-white/5 rounded-lg p-2 font-mono text-[11px] text-emerald-300/90 leading-relaxed">
-                ratio ≥ 1（保）：<br/>概率 = 0.9 + (ratio-1) × 0.3，上限99%<br/><br/>
-                ratio &lt; 1（冲）：<br/>概率 = 0.9 - (1-ratio) × 2.5，下限5%
+          <div className="text-[10px] text-white/40">录取概率 ⓘ</div>
+          {/* hover tooltip：完整算法+数据来源 */}
+          <div className="absolute right-0 top-full mt-2 z-50 hidden group-hover:block w-80 bg-slate-800 border border-white/25 rounded-xl p-4 text-left shadow-2xl">
+            <div className="text-sm font-bold text-white mb-2">录取概率算法</div>
+            <div className="text-xs text-white/80 leading-relaxed space-y-2">
+              {/* 历年参考数据 */}
+              <div className="bg-white/10 rounded-lg p-2.5 space-y-1">
+                <div className="text-[11px] font-bold text-amber-300">历年录取数据（参考2025同制度）</div>
+                <div className="flex justify-between text-[11px] text-white/70">
+                  <span>校录最低分</span><span className="text-white font-mono">{item.last_year_score}分</span>
+                </div>
+                <div className="flex justify-between text-[11px] text-white/70">
+                  <span>校录最低位次</span><span className="text-white font-mono">{item.last_year_rank.toLocaleString()}</span>
+                </div>
+                <div className="flex justify-between text-[11px] text-white/70">
+                  <span>考生今年位次</span><span className="text-white font-mono">{item.student_rank.toLocaleString()}</span>
+                </div>
+                <div className="flex justify-between text-[11px] text-white/70">
+                  <span>2025本科省控线</span><span className="text-white/60 font-mono">历史类471分</span>
+                </div>
+                <div className="flex justify-between text-[11px] text-white/70">
+                  <span>2026本科省控线</span><span className="text-white/60 font-mono">历史类459分</span>
+                </div>
               </div>
-              <p className="text-white/50 text-[11px]">考生位次 {item.student_rank.toLocaleString()} vs 校录位次 {item.last_year_rank.toLocaleString()}</p>
-              <p className="text-amber-300/60 text-[11px] pt-2 border-t border-white/10">
-                ⚠ 基于历年位次的粗估，非精确概率。2026投档线8月公布后可校准。
+              {/* 算法公式 */}
+              <p className="font-bold text-white/90 text-[11px]">计算公式（ratio = 校录位次 ÷ 考生位次）：</p>
+              <div className="bg-white/10 rounded-lg p-2 font-mono text-[11px] text-emerald-300 leading-relaxed">
+                ratio ≥ 1（保档）：<br/>概率 = 0.9 + (ratio-1) × 0.3，上限99%<br/><br/>
+                ratio &lt; 1（冲档）：<br/>概率 = 0.9 - (1-ratio) × 2.5，下限5%
+              </div>
+              <p className="text-amber-300/70 text-[11px] pt-1 border-t border-white/15">
+                ⚠ 基于2025历年位次的粗略估算，非精确概率。位次受试卷难度/招生计划影响会有波动，2026投档线8月公布后可校准。
               </p>
             </div>
           </div>
