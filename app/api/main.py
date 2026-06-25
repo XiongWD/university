@@ -1,6 +1,7 @@
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.routers import (
     admissions, careers, cities, insurance, majors, provincial, universities, volunteer,
@@ -35,6 +36,19 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title="人生经济模型模拟器 — 数据底座", lifespan=lifespan)
+
+# CORS：前端 dev (Vite 5173) 跨域调用
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5173",  # Vite dev server
+        "http://127.0.0.1:5173",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 prefix = settings.api_prefix
 app.include_router(careers.router, prefix=prefix)
 app.include_router(cities.router, prefix=prefix)
