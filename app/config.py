@@ -9,6 +9,7 @@ DB_PATH = DATA_DIR / "llm_sim.db"
 class Settings:
     db_path: Path = DB_PATH
     seed_dir: Path = SEED_DIR
+    data_dir: Path = DATA_DIR
     api_prefix: str = "/api/v1"
 
     @property
