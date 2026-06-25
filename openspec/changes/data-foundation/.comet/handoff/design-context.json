@@ -1,0 +1,21 @@
+{
+  "change": "data-foundation",
+  "phase": "design",
+  "mode": "compact",
+  "canonical_spec": "openspec",
+  "generated_by": "comet-handoff.sh",
+  "context_hash": "9288109a3559a72011908b94e7df7ae618373660a9770fa9d46ba33e009e74c6",
+  "files": [
+    { "path": "openspec/changes/data-foundation/proposal.md", "sha256": "9d339286d12c6cc54929d0617fd4b3eaf9b7c21dc31abbeedc60a93d2cc80146" },
+    { "path": "openspec/changes/data-foundation/design.md", "sha256": "3788f408abf06b895044334152cc0b41b0d8ec35a11966313acc06e13df20126" },
+    { "path": "openspec/changes/data-foundation/tasks.md", "sha256": "7f5b6fa799e53dab4bd66a52ac0318ef720762ff08188493c31aa2cd4e74a94c" },
+    { "path": "openspec/changes/data-foundation/specs/admission-data-schema/spec.md", "sha256": "be87a639bb654b9f2e3ecc1dcb35c24a9ac94bf228e69b41b7ad3a7cabaa9ea2" },
+    { "path": "openspec/changes/data-foundation/specs/career-data/spec.md", "sha256": "cb25329a3086b666fd48b6e8db883691582dcfd9f16ab528240cc2adab6c2c59" },
+    { "path": "openspec/changes/data-foundation/specs/city-cost-data/spec.md", "sha256": "470e22abb10ea0ab4f469886ec64b486bfff9b8b8e6f3baf2009e2d992193aee" },
+    { "path": "openspec/changes/data-foundation/specs/data-foundation-api/spec.md", "sha256": "8cb6a1f8e6723a518a0e5b0ba99cc6c6182d89caf8c9c201d97e2a6de4f8be4e" },
+    { "path": "openspec/changes/data-foundation/specs/major-data/spec.md", "sha256": "9e8c305d9533d1a25dd48b9025013924a89ba015e75afdde8af0c13d50a5dbfc" },
+    { "path": "openspec/changes/data-foundation/specs/social-insurance-model/spec.md", "sha256": "1b9075580b71de2e57bd9ee04701c95f0b1ec446cccfb56d0ba9c0e7df09a9ce" },
+    { "path": "openspec/changes/data-foundation/specs/student-profile-data/spec.md", "sha256": "523c2db9a6ff8189cf8648f1e247f9b935ddead3dfa0b9e25cddad16f8d7b340" },
+    { "path": "openspec/changes/data-foundation/specs/university-data/spec.md", "sha256": "8873a380b2104946e7b33dfdae299cbb6b5b9ade46f1ed72e834607df177b178" }
+  ]
+}
