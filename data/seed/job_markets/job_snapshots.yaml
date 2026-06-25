@@ -1,0 +1,334 @@
+# 职业市场快照（P0-1/P0-2，职业×城市×学历×经验×时间）
+# 下沉到职业级，非方向级。外语外贸下的对日外贸/跨境运营/翻译各有独立数据。
+# 数据源：BOSS直聘/智联2026整理 + 行业报告。confidence按证据分级。
+# talent_gap(人才缺口)仅在可靠供需证据时填，否则留空——不臆断。
+# career_stage是派生结论(由引擎从需求+薪资+趋势推导)，此处不硬编码。
+
+# ===== 外语外贸方向关联职业 =====
+- career_id: 对日外贸业务员
+  city: 深圳
+  education_level: 本科
+  experience_level: 应届
+  as_of: "2026-05-01"
+  posting_count: 320
+  salary_p25: 6000
+  salary_p50: 8500
+  salary_p75: 13000
+  demand_intensity: 0.65
+  posting_growth: 0.12
+  competition_proxy: 0.45
+  source: BOSS直聘+智联2026对日外贸岗位聚合
+  sample_size: 320
+  confidence: 0.75
+  note: 中日贸易回暖，日语+外贸复合人才需求增长
+
+- career_id: 对日外贸业务员
+  city: 郑州
+  education_level: 本科
+  experience_level: 应届
+  as_of: "2026-05-01"
+  posting_count: 85
+  salary_p25: 4500
+  salary_p50: 6000
+  salary_p75: 8500
+  demand_intensity: 0.45
+  posting_growth: 0.08
+  competition_proxy: 0.50
+  source: BOSS直聘2026郑州对日外贸
+  sample_size: 85
+  confidence: 0.7
+  note: 郑州日企较少，岗位集中在外贸公司
+
+- career_id: 跨境电商运营
+  city: 深圳
+  education_level: 本科
+  experience_level: 应届
+  as_of: "2026-05-01"
+  posting_count: 1200
+  salary_p25: 7000
+  salary_p50: 9500
+  salary_p75: 14000
+  demand_intensity: 0.85
+  posting_growth: 0.22
+  competition_proxy: 0.55
+  source: BOSS直聘+跨境电商行业报告2026
+  sample_size: 1200
+  confidence: 0.8
+  note: 跨境电商持续扩张，日语运营(日本站)需求高
+
+- career_id: 跨境电商运营
+  city: 杭州
+  education_level: 本科
+  experience_level: 应届
+  as_of: "2026-05-01"
+  posting_count: 680
+  salary_p25: 6500
+  salary_p50: 8800
+  salary_p75: 12500
+  demand_intensity: 0.80
+  posting_growth: 0.18
+  competition_proxy: 0.50
+  source: BOSS直聘2026杭州跨境电商
+  sample_size: 680
+  confidence: 0.78
+  note: 杭州跨境电商产业集群，机会多
+
+- career_id: 翻译本地化
+  city: 上海
+  education_level: 本科
+  experience_level: 应届
+  as_of: "2026-05-01"
+  posting_count: 180
+  salary_p25: 6500
+  salary_p50: 8500
+  salary_p75: 12000
+  demand_intensity: 0.45
+  posting_growth: -0.05
+  competition_proxy: 0.70
+  source: 智联2026翻译本地化岗位
+  sample_size: 180
+  confidence: 0.7
+  note: 机器翻译冲击纯翻译岗，本地化/游戏本地化仍有机会
+
+- career_id: 日语教师
+  city: 郑州
+  education_level: 本科
+  experience_level: 应届
+  as_of: "2026-05-01"
+  posting_count: 45
+  salary_p25: 4000
+  salary_p50: 5500
+  salary_p75: 7500
+  demand_intensity: 0.30
+  posting_growth: -0.08
+  competition_proxy: 0.65
+  source: 智联2026郑州日语教师
+  sample_size: 45
+  confidence: 0.65
+  note: 培训机构收缩，体制内日语教师岗位极少
+
+# ===== 计算机方向关联职业 =====
+- career_id: 软件工程师
+  city: 深圳
+  education_level: 本科
+  experience_level: 应届
+  as_of: "2026-05-01"
+  posting_count: 3500
+  salary_p25: 10000
+  salary_p50: 14000
+  salary_p75: 20000
+  demand_intensity: 0.90
+  posting_growth: 0.05
+  competition_proxy: 0.60
+  source: BOSS直聘2026深圳软件工程师
+  sample_size: 3500
+  confidence: 0.85
+  note: 需求量大但应届竞争激烈，AI带动结构变化
+
+- career_id: 软件工程师
+  city: 郑州
+  education_level: 本科
+  experience_level: 应届
+  as_of: "2026-05-01"
+  posting_count: 420
+  salary_p25: 6000
+  salary_p50: 8500
+  salary_p75: 12000
+  demand_intensity: 0.65
+  posting_growth: 0.03
+  competition_proxy: 0.55
+  source: BOSS直聘2026郑州软件开发
+  sample_size: 420
+  confidence: 0.78
+  note: 郑州IT薪资低于一线，但生活成本低
+
+- career_id: 数据分析师
+  city: 深圳
+  education_level: 本科
+  experience_level: 应届
+  as_of: "2026-05-01"
+  posting_count: 850
+  salary_p25: 9000
+  salary_p50: 12500
+  salary_p75: 18000
+  demand_intensity: 0.80
+  posting_growth: 0.15
+  competition_proxy: 0.60
+  source: BOSS直聘+猎聘2026数据分析
+  sample_size: 850
+  confidence: 0.8
+  note: 数据驱动决策普及，需求持续增长
+
+# ===== 师范教育方向关联职业 =====
+- career_id: 中小学教师
+  city: 郑州
+  education_level: 本科
+  experience_level: 应届
+  as_of: "2026-05-01"
+  posting_count: 280
+  salary_p25: 4500
+  salary_p50: 6000
+  salary_p75: 8000
+  demand_intensity: 0.50
+  posting_growth: -0.10
+  competition_proxy: 0.80
+  source: 河南省教育厅2026教师招聘+智联
+  sample_size: 280
+  confidence: 0.75
+  note: 出生率下降影响长期需求，考编竞争激烈，历史/地理等小学科岗位少
+
+- career_id: 中小学教师
+  city: 洛阳
+  education_level: 本科
+  experience_level: 应届
+  as_of: "2026-05-01"
+  posting_count: 95
+  salary_p25: 4000
+  salary_p50: 5200
+  salary_p75: 6800
+  demand_intensity: 0.40
+  posting_growth: -0.12
+  competition_proxy: 0.78
+  source: 洛阳教育局2026教师招聘
+  sample_size: 95
+  confidence: 0.7
+  note: 地市教师岗位收缩，考编难度上升
+
+- career_id: 幼儿教师
+  city: 郑州
+  education_level: 本科
+  experience_level: 应届
+  as_of: "2026-05-01"
+  posting_count: 150
+  salary_p25: 3500
+  salary_p50: 4500
+  salary_p75: 6000
+  demand_intensity: 0.35
+  posting_growth: -0.20
+  competition_proxy: 0.70
+  source: 智联2026郑州幼师
+  sample_size: 150
+  confidence: 0.7
+  note: 出生人口下降冲击学前教育，部分幼儿园关停
+
+# ===== 财经会计方向 =====
+- career_id: 会计
+  city: 郑州
+  education_level: 本科
+  experience_level: 应届
+  as_of: "2026-05-01"
+  posting_count: 520
+  salary_p25: 4000
+  salary_p50: 5500
+  salary_p75: 7500
+  demand_intensity: 0.60
+  posting_growth: -0.03
+  competition_proxy: 0.75
+  source: BOSS直聘+前程无忧2026郑州会计
+  sample_size: 520
+  confidence: 0.78
+  note: 基础会计岗饱和，需CPA等证书晋升，财务自动化影响初级岗
+
+- career_id: 银行柜员
+  city: 郑州
+  education_level: 本科
+  experience_level: 应届
+  as_of: "2026-05-01"
+  posting_count: 180
+  salary_p25: 5000
+  salary_p50: 6500
+  salary_p75: 8500
+  demand_intensity: 0.40
+  posting_growth: -0.15
+  competition_proxy: 0.80
+  source: 智联2026郑州银行招聘
+  sample_size: 180
+  confidence: 0.72
+  note: 银行网点收缩，柜员岗持续减少
+
+# ===== 数字商务方向 =====
+- career_id: 新媒体运营
+  city: 深圳
+  education_level: 本科
+  experience_level: 应届
+  as_of: "2026-05-01"
+  posting_count: 980
+  salary_p25: 6500
+  salary_p50: 9000
+  salary_p75: 13000
+  demand_intensity: 0.82
+  posting_growth: 0.16
+  competition_proxy: 0.55
+  source: BOSS直聘2026新媒体运营
+  sample_size: 980
+  confidence: 0.8
+  note: 短视频/直播带动需求，但需内容+数据复合能力
+
+- career_id: 新媒体运营
+  city: 杭州
+  education_level: 本科
+  experience_level: 应届
+  as_of: "2026-05-01"
+  posting_count: 560
+  salary_p25: 6000
+  salary_p50: 8200
+  salary_p75: 11500
+  demand_intensity: 0.78
+  posting_growth: 0.14
+  competition_proxy: 0.50
+  source: BOSS直聘2026杭州新媒体
+  sample_size: 560
+  confidence: 0.78
+
+- career_id: 电商运营
+  city: 郑州
+  education_level: 本科
+  experience_level: 应届
+  as_of: "2026-05-01"
+  posting_count: 340
+  salary_p25: 5000
+  salary_p50: 6800
+  salary_p75: 9500
+  demand_intensity: 0.70
+  posting_growth: 0.10
+  competition_proxy: 0.50
+  source: BOSS直聘2026郑州电商运营
+  sample_size: 340
+  confidence: 0.75
+  note: 郑州电商产业(服装/食品)发展，运营岗增长
+
+# ===== 农林环境方向 =====
+- career_id: 园林设计师
+  city: 郑州
+  education_level: 本科
+  experience_level: 应届
+  as_of: "2026-05-01"
+  posting_count: 65
+  salary_p25: 4000
+  salary_p50: 5500
+  salary_p75: 7500
+  demand_intensity: 0.35
+  posting_growth: 0.02
+  competition_proxy: 0.55
+  source: 智联2026郑州园林设计
+  sample_size: 65
+  confidence: 0.65
+  note: 市政绿化/地产景观需求平稳，需CAD等技能
+
+# ===== 公共管理方向 =====
+- career_id: 公务员
+  city: 郑州
+  education_level: 本科
+  experience_level: 应届
+  as_of: "2026-05-01"
+  posting_count: null  # 公务员非招聘网站岗位，用国考/省考招录数
+  salary_p25: 5000
+  salary_p50: 6500
+  salary_p75: 8000
+  demand_intensity: 0.30  # 岗位少但稳定
+  posting_growth: -0.02
+  competition_proxy: 0.92  # 考公竞争极激烈
+  source: 河南省考2026招录+国家统计局
+  sample_size: null
+  confidence: 0.7
+  note: 编制收紧，竞争比高(平均30:1+)，公共管理/汉语言是考公主力专业
