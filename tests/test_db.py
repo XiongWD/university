@@ -6,7 +6,7 @@ from app.db import init_db, get_session
 from app.models.tables import CareerRow
 
 
-def test_init_db_creates_tables():
+def test_init_db_creates_tables(isolated_db):
     engine = init_db()
     with Session(engine) as s:
         row = CareerRow(
