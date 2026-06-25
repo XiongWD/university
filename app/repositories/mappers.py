@@ -28,6 +28,19 @@ from app.models.tables import (
 )
 
 
+def _check_sourced(row) -> None:
+    """写回 Table 前防御性校验来源不变量（confidence 范围）。
+
+    SQLModel table 类的 field_validator 不可靠，故在 mapper 层显式校验，
+    保证 Table 存储层与 Domain 层 SourcedRecord 约束一致，避免越界值入库污染。
+    由 loader 在 upsert 前统一调用（loader 是唯一入库入口）。
+    """
+    if row.confidence is not None and not 0.0 <= row.confidence <= 1.0:
+        raise ValueError(
+            f"{type(row).__name__} confidence 越界: {row.confidence}（需 [0,1]）"
+        )
+
+
 # ---------- Career ----------
 def career_to_row(c: Career) -> CareerRow:
     return CareerRow(

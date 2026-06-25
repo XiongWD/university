@@ -11,18 +11,12 @@ router = APIRouter(prefix="/cities", tags=["cities"])
 @router.get("")
 def list_cities(session: Session = Depends(get_session_dep)):
     rows = session.exec(select(CityCostRow)).all()
-    return [
-        {
-            "city": r.city,
-            "house_price_avg": r.house_price_avg,
-            "monthly_total": {"low": r.monthly_total_low, "high": r.monthly_total_high},
-            "source": r.source,
-            "as_of": str(r.as_of),
-            "confidence": r.confidence,
-            "note": r.note,
-        }
-        for r in rows
-    ]
+    result = []
+    for r in rows:
+        d = city_to_domain(r).model_dump(mode="json")
+        d["id"] = r.id
+        result.append(d)
+    return result
 
 
 @router.get("/{city}/cost")

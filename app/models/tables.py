@@ -10,6 +10,16 @@ from typing import Optional
 from sqlmodel import SQLModel, Field
 
 
+def _confidence_check(v: float) -> float:
+    """Table 层 confidence 不变量校验：与 Domain 层 SourcedRecord 保持一致 [0,1]。
+
+    供 mappers 写回 Row 前调用（SQLModel table 类的 field_validator 不可靠）。
+    """
+    if v is not None and not 0.0 <= v <= 1.0:
+        raise ValueError(f"confidence 必须在 [0.0, 1.0] 之间，得到 {v}")
+    return v
+
+
 class CareerRow(SQLModel, table=True):
     __tablename__ = "careers"
     id: Optional[int] = Field(default=None, primary_key=True)

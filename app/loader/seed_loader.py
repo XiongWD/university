@@ -22,7 +22,7 @@ from app.models.tables import (
 from app.models.university import University
 from app.repositories.mappers import (
     admission_to_row, career_to_row, city_to_row,
-    insurance_to_row, major_to_row, university_to_row,
+    insurance_to_row, major_to_row, university_to_row, _check_sourced,
 )
 
 
@@ -43,9 +43,14 @@ SEED_SPECS = [
 
 
 def is_db_empty(session: Session) -> bool:
-    """DB 是否无任何核心数据。"""
-    return (session.exec(select(CareerRow)).first() is None
-            and session.exec(select(CityCostRow)).first() is None)
+    """DB 是否无任何核心数据（检查全部 6 张核心数据表）。
+
+    覆盖 careers/cities/universities/majors/social_insurance/admissions，
+    避免部分加载场景误判为空触发全量重载。
+    """
+    row_classes = (CareerRow, CityCostRow, UniversityRow, MajorRow,
+                   SocialInsuranceRow, AdmissionRow)
+    return all(session.exec(select(cls)).first() is None for cls in row_classes)
 
 
 def _find_existing(session: Session, row_cls, match_keys: dict):
@@ -80,6 +85,7 @@ def load_all_seeds(seed_dir: Path, session: Session) -> dict:
                     f"{path.name}[{idx}] 校验失败 {ident} —— {e}"
                 ) from e
             row = to_row(dom)
+            _check_sourced(row)  # 写回前校验来源不变量（confidence 范围）
             key = {k: getattr(row, k) for k in match_keys}
             existing = _find_existing(session, row_cls, key)
             if existing:

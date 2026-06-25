@@ -13,4 +13,9 @@ def list_universities(tier: str | None = None, session: Session = Depends(get_se
     stmt = select(UniversityRow)
     if tier:
         stmt = stmt.where(UniversityRow.tier == tier)
-    return [university_to_domain(r).model_dump(mode="json") for r in session.exec(stmt)]
+    result = []
+    for r in session.exec(stmt):
+        d = university_to_domain(r).model_dump(mode="json")
+        d["id"] = r.id
+        result.append(d)
+    return result

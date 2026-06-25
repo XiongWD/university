@@ -24,4 +24,9 @@ def list_admissions(
         stmt = stmt.where(AdmissionRow.track == track)
     if school:
         stmt = stmt.where(AdmissionRow.school == school)
-    return [admission_to_domain(r).model_dump(mode="json") for r in session.exec(stmt)]
+    result = []
+    for r in session.exec(stmt):
+        d = admission_to_domain(r).model_dump(mode="json")
+        d["id"] = r.id
+        result.append(d)
+    return result
