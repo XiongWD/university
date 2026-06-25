@@ -1,4 +1,48 @@
-# 广东2022-2024 物理/历史类省控线（新高考 3+1+2，本科批合并批次）
+# 广东省控线（新高考3+1+2：物理类/历史类）
+# 数据来源：广东省教育考试院（经教育在线核实）
+# - 2026: 教育在线 gaokao.eol.cn 2026-06-24 (本科批物理425/历史440, 特控物理539/历史546)
+# - 2025: 广东省教育考试院2025
+# - 2022-2024: 广东省教育考试院历年
+
+# ===== 2026 =====
+- province: 广东
+  year: 2026
+  track: 物理类
+  batches: {special_line: 539, undergrad_batch: 425, junior_college: 200}
+  source: 广东省教育考试院2026(教育在线核实)
+  as_of: 2026-06-24
+  confidence: 0.95
+  note: 新高考3+1+2，本科批合并
+
+- province: 广东
+  year: 2026
+  track: 历史类
+  batches: {special_line: 546, undergrad_batch: 440, junior_college: 200}
+  source: 广东省教育考试院2026(教育在线核实)
+  as_of: 2026-06-24
+  confidence: 0.95
+  note: 新高考3+1+2，本科批合并
+
+# ===== 2025 =====
+- province: 广东
+  year: 2025
+  track: 物理类
+  batches: {special_line: 534, undergrad_batch: 436, junior_college: 200}
+  source: 广东省教育考试院2025
+  as_of: 2025-06-25
+  confidence: 0.9
+  note: null
+
+- province: 广东
+  year: 2025
+  track: 历史类
+  batches: {special_line: 557, undergrad_batch: 464, junior_college: 200}
+  source: 广东省教育考试院2025
+  as_of: 2025-06-25
+  confidence: 0.9
+  note: null
+
+# ===== 2022-2024 =====
 - province: 广东
   year: 2024
   track: 物理类
@@ -6,7 +50,7 @@
   source: 广东省教育考试院2024
   as_of: 2024-06-25
   confidence: 0.9
-  note: 新高考合并批次，无一本/二本
+  note: null
 
 - province: 广东
   year: 2024
@@ -15,7 +59,7 @@
   source: 广东省教育考试院2024
   as_of: 2024-06-25
   confidence: 0.9
-  note: 新高考合并批次，无一本/二本
+  note: null
 
 - province: 广东
   year: 2023

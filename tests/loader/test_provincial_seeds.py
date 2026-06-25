@@ -10,21 +10,34 @@ def test_provincial_control_line_seeds_load_and_meet_minimums(isolated_db):
     init_db()
     with Session(init_db()) as s:
         report = load_all_seeds(settings.seed_dir, s)
-        # 两省 × 3年 × 2科类 = 12 条
-        assert report["provincial"][0] >= 12
+        # 河南物理/历史(2025-2026) + 文理(2022-2024历史保留) + 广东物理/历史(5年)
+        assert report["provincial"][0] >= 16
         rows = s.exec(select(ProvincialControlLineRow)).all()
         for r in rows:
             assert r.source and r.as_of and r.confidence >= 0.8
 
 
-def test_henan_has_first_second_batch_guangdong_has_undergrad(isolated_db):
+def test_henan_2026_new_gaokao_mode(isolated_db):
+    """河南2025起改3+1+2，2026应为物理类/历史类 + 本科批合并（无一本/二本）。"""
     init_db()
     with Session(init_db()) as s:
         load_all_seeds(settings.seed_dir, s)
         rows = s.exec(select(ProvincialControlLineRow)).all()
-        henan = [r for r in rows if r.province == "河南"]
-        gd = [r for r in rows if r.province == "广东"]
-        assert henan and any(r.first_batch for r in henan)
-        assert gd and any(r.undergrad_batch for r in gd)
-        # 结构差异：广东无一本/二本
-        assert all(r.first_batch is None for r in gd)
+        h26 = [r for r in rows if r.province == "河南" and r.year == 2026]
+        assert {r.track for r in h26} == {"物理类", "历史类"}
+        phys = next(r for r in h26 if r.track == "物理类")
+        assert phys.undergrad_batch == 419  # 2026官方
+        assert phys.special_line == 521
+        assert phys.first_batch is None  # 新高考无一本二本
+
+
+def test_guangdong_2026_official(isolated_db):
+    init_db()
+    with Session(init_db()) as s:
+        load_all_seeds(settings.seed_dir, s)
+        rows = s.exec(select(ProvincialControlLineRow)).all()
+        gd26 = next((r for r in rows
+                     if r.province == "广东" and r.year == 2026 and r.track == "物理类"), None)
+        assert gd26 is not None
+        assert gd26.undergrad_batch == 425  # 2026官方
+        assert gd26.special_line == 539

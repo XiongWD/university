@@ -1,4 +1,48 @@
-# 河南2022-2024 文/理科省控线（传统文理 3+X）
+# 河南省控线（2025起改新高考3+1+2：物理类/历史类，不再有一本/二本）
+# 数据来源：河南省教育考试院（经教育在线/人民网核实）
+# - 2026: 教育在线 gaokao.eol.cn 2026-06-24 (本科批物理419/历史459, 特控物理521/历史542)
+# - 2025: 人民网 people.com.cn 2025-06-25 (本科批物理427/历史471, 特控物理535/历史552)
+# - 2022-2024: 传统文理分科（2025改革前，仅历史参考）
+
+# ===== 2026 新高考 3+1+2 =====
+- province: 河南
+  year: 2026
+  track: 物理类
+  batches: {special_line: 521, undergrad_batch: 419, junior_college: 185}
+  source: 河南省教育考试院2026(教育在线核实)
+  as_of: 2026-06-24
+  confidence: 0.95
+  note: 新高考3+1+2，本科批合并，无一本/二本
+
+- province: 河南
+  year: 2026
+  track: 历史类
+  batches: {special_line: 542, undergrad_batch: 459, junior_college: 185}
+  source: 河南省教育考试院2026(教育在线核实)
+  as_of: 2026-06-24
+  confidence: 0.95
+  note: 新高考3+1+2，本科批合并，无一本/二本
+
+# ===== 2025 新高考首年 3+1+2 =====
+- province: 河南
+  year: 2025
+  track: 物理类
+  batches: {special_line: 535, undergrad_batch: 427, junior_college: 185}
+  source: 河南省教育考试院2025(人民网核实)
+  as_of: 2025-06-25
+  confidence: 0.95
+  note: 新高考3+1+2首年
+
+- province: 河南
+  year: 2025
+  track: 历史类
+  batches: {special_line: 552, undergrad_batch: 471, junior_college: 185}
+  source: 河南省教育考试院2025(人民网核实)
+  as_of: 2025-06-25
+  confidence: 0.95
+  note: 新高考3+1+2首年
+
+# ===== 2022-2024 传统文理分科（改革前，历史保留参考）=====
 - province: 河南
   year: 2024
   track: 理科
@@ -6,7 +50,7 @@
   source: 河南省教育考试院2024
   as_of: 2024-06-25
   confidence: 0.9
-  note: null
+  note: 传统文理分科（2025改革前）
 
 - province: 河南
   year: 2024
@@ -15,7 +59,7 @@
   source: 河南省教育考试院2024
   as_of: 2024-06-25
   confidence: 0.9
-  note: null
+  note: 传统文理分科（2025改革前）
 
 - province: 河南
   year: 2023
@@ -24,7 +68,7 @@
   source: 河南省教育考试院2023
   as_of: 2023-06-25
   confidence: 0.9
-  note: null
+  note: 传统文理分科（2025改革前）
 
 - province: 河南
   year: 2023
@@ -33,7 +77,7 @@
   source: 河南省教育考试院2023
   as_of: 2023-06-25
   confidence: 0.9
-  note: null
+  note: 传统文理分科（2025改革前）
 
 - province: 河南
   year: 2022
@@ -42,7 +86,7 @@
   source: 河南省教育考试院2022
   as_of: 2022-06-25
   confidence: 0.9
-  note: null
+  note: 传统文理分科（2025改革前）
 
 - province: 河南
   year: 2022
@@ -51,4 +95,4 @@
   source: 河南省教育考试院2022
   as_of: 2022-06-25
   confidence: 0.9
-  note: null
+  note: 传统文理分科（2025改革前）
