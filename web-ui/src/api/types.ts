@@ -112,3 +112,62 @@ export interface CostEstimate {
   city_cost_source: string | null;
   note: string | null;
 }
+
+// ===== 人生轨迹（志愿推荐+费用+就业+回本集成）=====
+export interface CostSummary {
+  tuition_total: number;
+  accommodation_total: number;
+  living_total: number;
+  grand_total: number;
+  annual_total: number;
+  years: number;
+  nature: SchoolNature;
+  city: string | null;
+  city_cost_source: string | null;
+}
+
+export interface CareerProspect {
+  major_name: string | null;
+  entry_salary_low: number;
+  entry_salary_mid: number;
+  entry_salary_high: number;
+  mid_salary_5y: number | null;
+  ceil_salary_15y: number | null;
+  stability: number | null;
+  establishment_type: string | null;
+  source: string;
+}
+
+export interface PaybackAnalysis {
+  total_investment: number;
+  annual_income_after_grad: number;
+  years_to_break_even: number;
+  lifetime_15y_net: number;
+  note: string;
+}
+
+export interface TrajectoryItem {
+  strategy: string;
+  school: string;
+  major: string | null;
+  major_group: string | null;
+  subject_requirement: string | null;
+  last_year_rank: number;
+  last_year_score: number;
+  student_rank: number;
+  probability: number;
+  cost: CostSummary | null;
+  career: CareerProspect | null;
+  payback: PaybackAnalysis | null;
+}
+
+export interface LifeTrajectory {
+  student_score: number;
+  student_rank: number;
+  track: string;
+  data_year: number;
+  sprint: TrajectoryItem[];
+  stable: TrajectoryItem[];
+  safe: TrajectoryItem[];
+  source_note: string;
+}

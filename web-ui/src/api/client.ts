@@ -8,6 +8,7 @@ import type {
   University,
   CostEstimate,
   SchoolNature,
+  LifeTrajectory,
 } from "./types";
 
 const BASE = "/api/v1";
@@ -35,6 +36,14 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
 // POST /volunteer/recommend
 export function recommend(req: RecommendRequest): Promise<VolunteerTable> {
   return request<VolunteerTable>("/volunteer/recommend", {
+    method: "POST",
+    body: JSON.stringify(req),
+  });
+}
+
+// POST /volunteer/life-trajectory（志愿推荐+费用+就业+回本集成）
+export function lifeTrajectory(req: RecommendRequest): Promise<LifeTrajectory> {
+  return request<LifeTrajectory>("/volunteer/life-trajectory", {
     method: "POST",
     body: JSON.stringify(req),
   });

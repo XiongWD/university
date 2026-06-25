@@ -100,6 +100,63 @@
   confidence: 0.9
   note: 第四轮评估数据
 
+# 河南省内其他核心校（费用+就业数据，用于人生轨迹模拟）
+- name: 河南师范大学
+  province: 河南
+  tier: 一本
+  nature: 公立
+  tuition: 5000
+  accommodation: 1000
+  city: 新乡
+  employment_ability: {campus_tier: 省内教育+企事业单位, avg_entry_salary: 5200, employment_rate: 0.88}
+  disciplines: [{name: 物理学, grade: B}, {name: 化学, grade: B}]
+  source: 各校招生网2024学费标准
+  as_of: 2024-09-01
+  confidence: 0.8
+  note: 省属师范重点
+
+- name: 河南财经政法大学
+  province: 河南
+  tier: 一本
+  nature: 公立
+  tuition: 5000
+  accommodation: 1000
+  city: 郑州
+  employment_ability: {campus_tier: 省内金融+企事业单位, avg_entry_salary: 5400, employment_rate: 0.87}
+  disciplines: [{name: 应用经济学, grade: B-}]
+  source: 各校招生网2024学费标准
+  as_of: 2024-09-01
+  confidence: 0.8
+  note: 省内财经类重点
+
+- name: 中原工学院
+  province: 河南
+  tier: 一本
+  nature: 公立
+  tuition: 5000
+  accommodation: 900
+  city: 郑州
+  employment_ability: {campus_tier: 省内制造业+IT企业, avg_entry_salary: 5000, employment_rate: 0.86}
+  disciplines: []
+  source: 各校招生网2024学费标准
+  as_of: 2024-09-01
+  confidence: 0.8
+  note: 省属工科院校
+
+- name: 河南农业大学
+  province: 河南
+  tier: 一本
+  nature: 公立
+  tuition: 5000
+  accommodation: 900
+  city: 郑州
+  employment_ability: {campus_tier: 省内农林业+企事业单位, avg_entry_salary: 4800, employment_rate: 0.85}
+  disciplines: [{name: 农业工程, grade: B}]
+  source: 各校招生网2024学费标准
+  as_of: 2024-09-01
+  confidence: 0.8
+  note: 省属农业重点
+
 - name: 武汉大学
   province: 湖北
   tier: "985"

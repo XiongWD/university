@@ -11,12 +11,19 @@ from pydantic import BaseModel
 from sqlmodel import Session, select
 
 from app.db import get_session_dep
+from app.engine.trajectory import build_life_trajectory
 from app.engine.volunteer import generate_volunteer_table
 from app.models.admission import Batch
 from app.models.provincial import ScoreRankEntry
 from app.models.student import FamilyResources, MinorLanguage, RiskPreference, StudentProfile
-from app.models.tables import AdmissionRow, ScoreRankEntryRow, ScoreRankTableRow
-from app.repositories.mappers import admission_to_domain
+from app.models.tables import (
+    AdmissionRow, CareerRow, CityCostRow, MajorRow, ScoreRankEntryRow,
+    ScoreRankTableRow, UniversityRow,
+)
+from app.repositories.mappers import (
+    admission_to_domain, career_to_domain, city_to_domain, major_to_domain,
+    university_to_domain,
+)
 
 router = APIRouter(prefix="/volunteer", tags=["volunteer"])
 
@@ -93,6 +100,61 @@ def recommend(req: RecommendRequest, session: Session = Depends(get_session_dep)
         total_this_year=req.total_this_year, total_history=req.total_history,
     )
     return table.model_dump(mode="json")
+
+
+# ---------- 取数辅助（人生轨迹用）----------
+def _load_universities(session: Session):
+    rows = session.exec(select(UniversityRow)).all()
+    return [university_to_domain(r) for r in rows]
+
+
+def _load_cities(session: Session):
+    rows = session.exec(select(CityCostRow)).all()
+    return [city_to_domain(r) for r in rows]
+
+
+def _load_majors(session: Session):
+    rows = session.exec(select(MajorRow)).all()
+    return [major_to_domain(r) for r in rows]
+
+
+def _load_careers(session: Session):
+    rows = session.exec(select(CareerRow)).all()
+    return [career_to_domain(r) for r in rows]
+
+
+@router.post("/life-trajectory")
+def life_trajectory(req: RecommendRequest, session: Session = Depends(get_session_dep)):
+    """人生轨迹：志愿推荐 + 每校费用 + 就业前景 + 回本分析。
+
+    家长和孩子筛选志愿时一站式看到「读这所大学要花多少、毕业后赚多少、多久回本」。
+    复用 volunteer 引擎生成冲稳保，再附加 University(费用)+Major/Career(就业)数据。
+    """
+    entries = _load_rank_entries(session, req.province, req.data_year, req.track)
+    admissions = _load_admissions(session, req.province, req.track, req.data_year)
+
+    student = StudentProfile(
+        province=req.province, total_score=req.total_score,
+        subject_scores=req.subject_scores or {"总分": req.total_score},
+        minor_language=None, family_resources=FamilyResources(),
+        gender=req.gender, interests=req.interests, strengths=req.strengths,
+        risk_preference=req.risk_preference,
+        source="api请求", as_of=date.today(), confidence=1.0,
+    )
+
+    trajectory = build_life_trajectory(
+        student=student,
+        admissions=admissions,
+        rank_entries=entries,
+        unis=_load_universities(session),
+        cities=_load_cities(session),
+        majors=_load_majors(session),
+        careers=_load_careers(session),
+        track=req.track,
+        data_year=req.data_year,
+        years=4,
+    )
+    return trajectory.model_dump(mode="json")
 
 
 @router.get("/admissions")

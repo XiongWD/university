@@ -1,7 +1,7 @@
 # 录取数据种子：河南核心校2024理科（从冲到保全覆盖梯度）+ 广东示例
 # 数据源：各校招生网/省考试院2024投档线（已网络核实）
 - school: 郑州大学
-  major: 普通类
+  major: 计算机科学与技术
   province: 河南
   year: 2024
   track: 理科
@@ -12,10 +12,10 @@
   source: 河南省考试院2024投档线
   as_of: 2024-07-01
   confidence: 0.95
-  note: 河南理科最高收分省内校之一
+  note: 河南理科最高收分省内校之一，计算机为代表性高分专业
 
 - school: 河南大学
-  major: 普通类
+  major: 软件工程
   province: 河南
   year: 2024
   track: 理科
@@ -29,7 +29,7 @@
   note: null
 
 - school: 河南师范大学
-  major: 普通类
+  major: 计算机科学与技术
   province: 河南
   year: 2024
   track: 理科
@@ -43,7 +43,7 @@
   note: null
 
 - school: 河南财经政法大学
-  major: 普通类
+  major: 金融学
   province: 河南
   year: 2024
   track: 理科
@@ -57,7 +57,7 @@
   note: null
 
 - school: 中原工学院
-  major: 普通类
+  major: 软件工程
   province: 河南
   year: 2024
   track: 理科
@@ -71,7 +71,7 @@
   note: null
 
 - school: 河南农业大学
-  major: 普通类
+  major: 计算机科学与技术
   province: 河南
   year: 2024
   track: 理科
