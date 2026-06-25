@@ -29,6 +29,15 @@ SOURCE_NAME = "Gaokao-score-distribution数据集"
 DEFAULT_CONFIDENCE = 0.8
 DEFAULT_AS_OF = date(2024, 7, 1)
 
+# 按 CSV 文件名覆盖来源元数据（更准确的溯源）
+_FILE_META: dict[str, dict] = {
+    "henan_2026_score_rank.csv": {
+        "source": "河南省教育考试院2026(OCR自官方PDF,5硬锚点校验)",
+        "confidence": 0.95,
+        "as_of": date(2026, 6, 25),
+    },
+}
+
 # CSV 真实列名 → 内部字段
 _COL_SCORE = "最高分"
 _COL_COUNT = "人数"
@@ -83,11 +92,14 @@ def import_score_rank_csv(
             )
 
     for (prov, year, track), entries in buckets.items():
-        # ScoreRankTable 构造时校验累计位次单调性，违反抛 ValueError
+        # 来源元数据：文件特定则覆盖默认
+        meta = _FILE_META.get(csv_path.name, {})
         dom = ScoreRankTable(
             province=prov, year=year, track=track, entries=entries,
-            source=SOURCE_NAME, as_of=DEFAULT_AS_OF,
-            confidence=DEFAULT_CONFIDENCE, note=None,
+            source=meta.get("source", SOURCE_NAME),
+            as_of=meta.get("as_of", DEFAULT_AS_OF),
+            confidence=meta.get("confidence", DEFAULT_CONFIDENCE),
+            note=meta.get("note"),
         )
         table_row = score_rank_table_to_row(dom)
         _check_sourced(table_row)
