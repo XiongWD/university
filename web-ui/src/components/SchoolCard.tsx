@@ -74,17 +74,17 @@ export default function SchoolCard({ suggestion: s, index }: Props) {
           </div>
           <span className="text-[10px] text-white/40 mt-0.5">录取概率 ⓘ</span>
           {/* hover tooltip */}
-          <div className="absolute right-0 top-full mt-1 z-10 hidden group-hover:block w-64 bg-slate-900/95 border border-white/15 rounded-xl p-3 text-left shadow-xl">
-            <div className="text-[10px] font-bold text-white/80 mb-1.5">录取概率算法</div>
-            <div className="text-[9px] text-white/60 leading-relaxed space-y-1">
-              <p><b className="text-white/80">输入</b>：考生位次 vs 学校历年最低录取位次</p>
-              <p><b className="text-white/80">核心比值</b>：ratio = 校录位次 ÷ 考生位次</p>
-              <div className="bg-white/5 rounded p-1.5 font-mono text-[8px] text-emerald-300/80">
-                ratio ≥ 1（保）：0.9 + (ratio-1)×0.3，上限99%<br/>
-                ratio &lt; 1（冲）：0.9 - (1-ratio)×2.5，下限5%
+          <div className="absolute right-0 top-full mt-2 z-20 hidden group-hover:block w-72 bg-slate-900/98 border border-white/20 rounded-xl p-4 text-left shadow-2xl">
+            <div className="text-sm font-bold text-white/90 mb-2">录取概率算法</div>
+            <div className="text-xs text-white/70 leading-relaxed space-y-1.5">
+              <p><b className="text-white/90">输入</b>：考生位次 vs 学校历年最低录取位次</p>
+              <p><b className="text-white/90">核心比值</b>：ratio = 校录位次 ÷ 考生位次</p>
+              <div className="bg-white/5 rounded-lg p-2 font-mono text-[11px] text-emerald-300/90 leading-relaxed">
+                ratio ≥ 1（保）：<br/>0.9 + (ratio-1) × 0.3，上限99%<br/><br/>
+                ratio &lt; 1（冲）：<br/>0.9 - (1-ratio) × 2.5，下限5%
               </div>
-              <p className="text-white/40">{s.probability.basis}</p>
-              <p className="text-amber-300/50 text-[8px] pt-1 border-t border-white/10">
+              <p className="text-white/50 text-[11px]">{s.probability.basis}</p>
+              <p className="text-amber-300/60 text-[11px] pt-2 border-t border-white/10">
                 ⚠ 基于历年位次的粗估，非精确概率。
               </p>
             </div>
