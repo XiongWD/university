@@ -1,5 +1,5 @@
 workflow: full
-phase: verify
+phase: archive
 context_compression: off
 build_mode: executing-plans
 build_pause: null
@@ -12,11 +12,11 @@ auto_transition: true
 base_ref: 7625e5b31b2e57699375865f8692bae220b3d385
 design_doc: docs/superpowers/specs/2026-06-25-provincial-score-data-design.md
 plan: docs/superpowers/plans/2026-06-25-provincial-score-data.md
-verify_result: pending
+verify_result: pass
 verification_report: docs/superpowers/reports/2026-06-25-provincial-score-data-verify.md
-branch_status: pending
+branch_status: handled
 created_at: 2026-06-25
-verified_at: null
+verified_at: 2026-06-25
 archived: false
 handoff_context: openspec/changes/provincial-score-data/.comet/handoff/design-context.json
 handoff_hash: f591a9f3e7c380c12d6751adc419c3fa1bc05d28605a1042f76403ac76b06b84
