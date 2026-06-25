@@ -150,3 +150,106 @@ def compute_major_value(
         "evidence_level": market_scores.evidence_level,
     }
     return round(major_value, 3), breakdown
+
+
+# ===== Phase 3：基于 StudentAcademicProfile 的适配（用拆分字段）=====
+# 关键纠正：英语适配用 english_actual_level（实际英语能力），非高考应试语种。
+# 数学适配区分：章程门槛(硬，Phase1已过滤) vs 学习风险(软，此处标风险不挡资格)。
+
+# 实际英语能力等级→适配分映射
+_ENGLISH_LEVEL_FIT = {
+    "none": 0.2,        # 几乎无英语能力
+    "basic": 0.45,      # 基础（四六级难通过）
+    "intermediate": 0.75,  # 中等（四级水平）
+    "advanced": 1.0,    # 高级（六级+/流利）
+}
+
+
+def _math_learning_risk(profile, major: Major) -> float:
+    """数学学习风险（软适配，非资格门槛）。
+
+    评审纠正：数学差不能'排除'（除非章程明确门槛，那是Phase1 Eligibility职责）。
+    此处仅评估课程完成风险，标记给用户，不挡资格。
+    """
+    if not major.barriers.math:
+        return 1.0  # 专业不要求数学，无风险
+    math = profile.math_score
+    if math >= 120:
+        return 1.0
+    if math >= 100:
+        return 0.85
+    if math >= 90:
+        return 0.65
+    if math >= 75:
+        return 0.4  # 及格线下，高数/统计/计量有挂科风险
+    return 0.2  # 极低，课程风险高
+
+
+def _english_adaptation(profile, major: Major, english_dependency: str = "low") -> float:
+    """英语适配（软，用 english_actual_level 而非高考语种）。
+
+    评审核心纠正：日语考生的英语能力用 english_actual_level 评估，
+    不用 foreign_language_score（那是日语分，不是英语能力）。
+    english_dependency 来自 AdmissionOfferingRule（该专业对英语的依赖程度）。
+    """
+    if not major.barriers.english and english_dependency == "low":
+        return 1.0  # 专业不依赖英语
+    # 用实际英语能力等级
+    level = profile.english_actual_level.value if hasattr(profile.english_actual_level, "value") else str(profile.english_actual_level)
+    base_fit = _ENGLISH_LEVEL_FIT.get(level, 0.5)
+    # 英语依赖高的专业，低英语能力惩罚更重（乘法门控）
+    if english_dependency == "high":
+        return base_fit * 0.7  # 高依赖+低能力→更严重
+    if english_dependency == "medium":
+        return base_fit * 0.85
+    return base_fit
+
+
+def compute_student_fit_academic(
+    profile,  # StudentAcademicProfile
+    major: Major,
+    english_dependency: str = "low",
+) -> float:
+    """Phase 3 适配：基于 StudentAcademicProfile（拆分字段）。
+
+    硬门槛（乘法门控）：math_learning_risk × english_adaptation
+    软维度（加权）：兴趣 + 证书考研
+    合成：hard × (0.5 + 0.5×soft)
+    """
+    hard = _math_learning_risk(profile, major) * _english_adaptation(profile, major, english_dependency)
+    # 软维度：用profile的兴趣（若有）或中性
+    # StudentAcademicProfile 无 interests 字段，用中性
+    soft = 0.6  # 无明确兴趣数据，中性
+    return hard * (0.5 + 0.5 * soft)
+
+
+def compute_major_value_academic(
+    market_scores: MarketScores,
+    profile,  # StudentAcademicProfile
+    major: Major,
+    english_dependency: str = "low",
+    market_weight: float = 0.6,
+) -> tuple[float, dict]:
+    """Phase 3 专业价值：market × student_fit_academic（乘法门控）。
+
+    与 compute_major_value 区别：用 StudentAcademicProfile（拆分字段），
+    英语适配用 english_actual_level 而非高考语种。
+    """
+    market_value = market_weight * market_scores.current_market_score + (
+        1 - market_weight
+    ) * market_scores.future_outlook_score
+    student_fit = compute_student_fit_academic(profile, major, english_dependency)
+    major_value = market_value * student_fit
+    eng_level = profile.english_actual_level.value if hasattr(profile.english_actual_level, "value") else str(profile.english_actual_level)
+    breakdown = {
+        "market_value": round(market_value, 3),
+        "student_fit": round(student_fit, 3),
+        "major_value": round(major_value, 3),
+        "math_learning_risk": round(_math_learning_risk(profile, major), 3),
+        "english_adaptation": round(_english_adaptation(profile, major, english_dependency), 3),
+        "english_actual_level": eng_level,
+        "exam_foreign_language": profile.exam_foreign_language,
+        "career_stage": market_scores.career_stage.value,
+        "evidence_level": market_scores.evidence_level,
+    }
+    return round(major_value, 3), breakdown
