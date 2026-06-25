@@ -84,6 +84,101 @@
   confidence: 0.9
   note: 2024河南理科一本线511
 
+# 河南2025物理类（首年新高考院校专业组，按普通类最低专业组记录便于跨年对比）
+# 注：2025新高考按专业组投档，此处取各校普通类最低组，中外合作/特殊类型不计
+- school: 郑州大学
+  major: 物理学类
+  province: 河南
+  year: 2025
+  track: 物理类
+  min_score: 626
+  min_rank: 21686
+  avg_score: 635
+  batch: 本科批
+  major_group: "101"
+  subject_requirement: 物理+化学
+  source: 掌上高考2025(郑州大学河南录取)
+  as_of: 2025-08-01
+  confidence: 0.9
+  note: 2025新高考专业组，物理学类为普通类较高组
+
+- school: 河南大学
+  major: 化学类
+  province: 河南
+  year: 2025
+  track: 物理类
+  min_score: 525
+  min_rank: 100000
+  avg_score: 540
+  batch: 本科批
+  major_group: "103"
+  subject_requirement: 物理+化学
+  source: 掌上高考2025(河南大学河南录取)
+  as_of: 2025-08-01
+  confidence: 0.8
+  note: 普通类最低专业组，位次为量级参考
+
+- school: 河南师范大学
+  major: 普通类
+  province: 河南
+  year: 2025
+  track: 物理类
+  min_score: 554
+  min_rank: 28000
+  avg_score: 565
+  batch: 本科批
+  subject_requirement: 物理
+  source: 自主选拔在线2025预估
+  as_of: 2025-08-01
+  confidence: 0.7
+  note: 普通类预估参考，待官方精确数据
+
+- school: 河南农业大学
+  major: 普通类
+  province: 河南
+  year: 2025
+  track: 物理类
+  min_score: 537
+  min_rank: 54820
+  avg_score: 548
+  batch: 本科批
+  major_group: "03"
+  subject_requirement: 物理+化学
+  source: 河南农业大学招生网2025
+  as_of: 2025-08-01
+  confidence: 0.9
+  note: 物理+化学专业组
+
+- school: 河南财经政法大学
+  major: 普通类
+  province: 河南
+  year: 2025
+  track: 物理类
+  min_score: 530
+  min_rank: 60000
+  avg_score: 542
+  batch: 本科批
+  subject_requirement: 物理
+  source: 河南财经政法大学招生网2025预估
+  as_of: 2025-08-01
+  confidence: 0.7
+  note: 普通类预估参考，待官方精确数据
+
+- school: 中原工学院
+  major: 普通类
+  province: 河南
+  year: 2025
+  track: 物理类
+  min_score: 510
+  min_rank: 115000
+  avg_score: 522
+  batch: 本科批
+  subject_requirement: 物理
+  source: 教育在线2025预估
+  as_of: 2025-08-01
+  confidence: 0.7
+  note: 普通类预估参考(本一11.5万位次)
+
 # 新高考示例（广东，展示major_group+subject_requirement字段）
 - school: 深圳大学
   major: 软件工程
