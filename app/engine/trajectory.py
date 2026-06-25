@@ -142,16 +142,21 @@ def _item_from_suggestion(
     majors: dict[str, Major],
     careers: dict[str, Career],
     years: int,
+    batch: str = "本科批",
 ) -> TrajectoryItem:
     cost = _build_cost(sug.school, unis, cities, years)
     career = _build_career(sug.major, majors, careers)
     payback = _build_payback(cost, career)
+    # 学历层次：专科批次→专科，其余→本科
+    degree = "专科" if "专科" in batch else "本科"
     return TrajectoryItem(
         strategy=sug.strategy.value,
         school=sug.school,
         major=sug.major,
         major_group=sug.major_group,
         subject_requirement=sug.subject_requirement,
+        batch=batch,
+        degree_level=degree,
         last_year_rank=sug.last_year_rank,
         last_year_score=sug.last_year_score,
         student_rank=sug.student_rank,
@@ -190,7 +195,14 @@ def build_life_trajectory(
     career_map = {c.name: c for c in careers}
 
     def transform(items):
-        return [_item_from_suggestion(s, uni_map, city_map, major_map, career_map, years) for s in items]
+        # 从admission记录取batch（本科批/专科等），无则默认本科批
+        adm_map = {a.school: a for a in admissions}
+        results = []
+        for s in items:
+            adm = adm_map.get(s.school)
+            batch = adm.batch.value if adm else "本科批"
+            results.append(_item_from_suggestion(s, uni_map, city_map, major_map, career_map, years, batch))
+        return results
 
     return LifeTrajectory(
         student_score=table.student_score,

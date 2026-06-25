@@ -155,6 +155,8 @@ export interface TrajectoryItem {
   major: string | null;
   major_group: string | null;
   subject_requirement: string | null;
+  batch?: string;
+  degree_level?: string;
   foreign_language_required?: string;
   single_subject_requirements?: Record<string, number>;
   last_year_rank: number;

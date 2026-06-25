@@ -30,10 +30,20 @@ export default function TrajectoryCard({ item, index }: { item: TrajectoryItem; 
               {item.strategy}
             </span>
             <h3 className="font-bold text-base truncate">{item.school}</h3>
+            {item.degree_level && (
+              <span className={`text-[10px] px-1.5 py-0.5 rounded ${
+                item.degree_level === "本科"
+                  ? "bg-indigo-500/20 text-indigo-300"
+                  : "bg-gray-500/20 text-gray-300"
+              }`}>{item.degree_level}</span>
+            )}
             {cost && (
               <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/10 text-white/60">
                 {cost.nature}
               </span>
+            )}
+            {item.batch && item.batch !== "本科批" && (
+              <span className="text-[10px] text-white/40">{item.batch}</span>
             )}
           </div>
           {item.major && (

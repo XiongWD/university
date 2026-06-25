@@ -52,6 +52,8 @@ class TrajectoryItem(BaseModel):
     major: str | None
     major_group: str | None
     subject_requirement: str | None
+    batch: str = "本科批"  # 录取批次：本科批/本科一批/专科等
+    degree_level: str = "本科"  # 学历层次：本科/专科
     last_year_rank: int
     last_year_score: int
     student_rank: int
