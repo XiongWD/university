@@ -1,0 +1,17 @@
+workflow: full
+phase: archive
+context_compression: off
+build_mode: executing-plans
+tdd_mode: tdd
+review_mode: standard
+isolation: branch
+verify_mode: full
+auto_transition: true
+verify_result: pass
+branch_status: handled
+created_at: 2026-06-25
+verified_at: 2026-06-25
+archived: true
+
+build_command: pytest -q
+verify_command: pytest -q
