@@ -82,7 +82,7 @@ base-ref: 96202ecad9afc5e86c65acd311aa5890910c64fb
   - `build_actual_henan_coverage(seed_dir: Path) -> dict`
   - `assert_henan_recommendation_ready(report: dict) -> None`
 
-- [ ] **Step 1: Write failing coverage tests**
+- [x] **Step 1: Write failing coverage tests**
 
 Create `tests/loader/test_henan_real_coverage_gate.py`:
 
@@ -124,7 +124,7 @@ def test_launch_gate_blocks_zero_plan_and_unverified_groups(tmp_path):
         assert_henan_recommendation_ready(report)
 ```
 
-- [ ] **Step 2: Implement real coverage report**
+- [x] **Step 2: Implement real coverage report**
 
 In `app/loader/henan_coverage_report.py`, add:
 
@@ -172,7 +172,7 @@ def assert_henan_recommendation_ready(report: dict) -> None:
         raise ValueError(f"河南志愿推推荐数据未就绪: {', '.join(missing)}")
 ```
 
-- [ ] **Step 3: Add coverage CLI**
+- [x] **Step 3: Add coverage CLI**
 
 Create `scripts/build_henan_coverage_report.py`:
 
@@ -194,7 +194,7 @@ if __name__ == "__main__":
     main()
 ```
 
-- [ ] **Step 4: Verify**
+- [x] **Step 4: Verify**
 
 Run:
 
@@ -224,7 +224,7 @@ Expected:
   - `enrollment_plans_2026.yaml` with real nonzero `plan_count`.
   - `universities.yaml` with all schools that have 2026 Henan plans.
 
-- [ ] **Step 1: Define import input format**
+- [x] **Step 1: Define import input format**
 
 Create importer that accepts a normalized CSV exported from official source parsing:
 
@@ -233,7 +233,7 @@ source_province,school_origin_province,school_code,school_name,year,batch,track,
 河南,河南,10459,郑州大学,2026,本科批,历史类,101,历史类人文组,030101K,法学,12,历史,{},英语|日语,英语,4400,1100,河南2026招生专业目录,https://www.haeea.cn/,2026-06-26,verified
 ```
 
-- [ ] **Step 2: Implement importer**
+- [x] **Step 2: Implement importer**
 
 Create `scripts/import_henan_2026_catalog.py`:
 
@@ -336,7 +336,7 @@ if __name__ == "__main__":
     main()
 ```
 
-- [ ] **Step 3: Import real source**
+- [x] **Step 3: Import real source**
 
 Run with normalized official catalog:
 
@@ -350,7 +350,7 @@ Expected:
 - `enrollment_plans_2026.yaml` contains nonzero plan counts.
 - Coverage report records actual counts and quality.
 
-- [ ] **Step 4: Minimum data acceptance gate**
+- [x] **Step 4: Minimum data acceptance gate**
 
 Before recommendation UI is considered usable:
 
@@ -384,7 +384,7 @@ All records retain source_url and review_status.
 **Why this is mandatory:**
 2026 专业组和招生计划只能回答“能不能报”和“招多少”。冲稳保必须依赖 2025/2024 历史录取位次、专业组或专业录取位次、一分一段换算和招生计划变化。没有历史基线时，系统不得把任何院校专业组标成 `稳` 或 `保`。
 
-- [ ] **Step 1: Define historical import format**
+- [x] **Step 1: Define historical import format**
 
 Importer accepts normalized CSV:
 
@@ -400,7 +400,7 @@ Required fields:
 - `review_status`: `verified` required for production scoring.
 - `source_url` and `source_published_at`: required for traceability.
 
-- [ ] **Step 2: Implement importer and loader**
+- [x] **Step 2: Implement importer and loader**
 
 `scripts/import_henan_admission_history.py` must:
 - read official or manually normalized historical CSV;
@@ -430,7 +430,7 @@ Lookup order:
 4. 2025 school-batch fallback only as low-confidence reference.
 5. No verified history: return `None`.
 
-- [ ] **Step 3: Add history tests**
+- [x] **Step 3: Add history tests**
 
 `tests/loader/test_henan_admission_history_import.py` must cover:
 - verified row with `min_rank <= 0` is rejected;
@@ -438,7 +438,7 @@ Lookup order:
 - 2024 data is used only as trend correction, not as the sole `保` basis;
 - missing verified history returns `None`.
 
-- [ ] **Step 4: Verify**
+- [x] **Step 4: Verify**
 
 ```powershell
 python scripts/import_henan_admission_history.py data/raw/henan_2025/normalized_admission_history.csv --year 2025
@@ -466,7 +466,7 @@ Expected:
   - `build_henan_candidates(profile: dict) -> list[dict]`
   - Candidate fields consumed by homepage and target evaluation.
 
-- [ ] **Step 1: Write failing candidate tests**
+- [x] **Step 1: Write failing candidate tests**
 
 Create `tests/engine/test_henan_candidate_generation.py`:
 
@@ -508,7 +508,7 @@ def test_build_henan_candidates_excludes_zero_plan_from_reachable_buckets():
     assert all(not (item.get("plan_count", 1) == 0 and item["bucket"] in {"冲", "稳", "保"}) for item in candidates)
 ```
 
-- [ ] **Step 2: Implement candidate loading**
+- [x] **Step 2: Implement candidate loading**
 
 In `app/engine/henan_recommendation.py`, replace the placeholder `return []` implementation with:
 
@@ -594,7 +594,7 @@ def build_henan_candidates(profile: dict) -> list[dict]:
 
 This implementation is not acceptable with `adjusted_rank=None` for normal candidates. Verified 2025/2024 history from Task 2B is part of this task, not a later release item.
 
-- [ ] **Step 3: Verify**
+- [x] **Step 3: Verify**
 
 Run:
 
@@ -616,7 +616,7 @@ Expected: pass, and `build_henan_candidates()` no longer returns an unconditiona
 - Produces:
   - `POST /api/v1/henan/recommendation`
 
-- [ ] **Step 1: Write failing API tests**
+- [x] **Step 1: Write failing API tests**
 
 Create `tests/api/test_henan_recommendation_api.py`:
 
@@ -646,7 +646,7 @@ def test_henan_recommendation_returns_data_readiness_and_buckets():
     assert "coverage" in body
 ```
 
-- [ ] **Step 2: Implement endpoint**
+- [x] **Step 2: Implement endpoint**
 
 Add to `app/api/routers/henan.py`:
 
@@ -686,7 +686,7 @@ def recommendation(req: HenanRecommendationRequest):
     }
 ```
 
-- [ ] **Step 3: Verify**
+- [x] **Step 3: Verify**
 
 Run:
 
@@ -710,7 +710,7 @@ Expected: pass.
 **Interfaces:**
 - Consumes: `POST /api/v1/henan/recommendation`.
 
-- [ ] **Step 1: Add frontend types and client**
+- [x] **Step 1: Add frontend types and client**
 
 In `web-ui/src/api/types.ts`, add:
 
@@ -745,7 +745,7 @@ export function henanRecommendation(req: HenanRecommendationRequest): Promise<He
 }
 ```
 
-- [ ] **Step 2: Replace homepage API call**
+- [x] **Step 2: Replace homepage API call**
 
 In `web-ui/src/pages/HomePage.tsx`, stop calling `advisory(req)` for the河南主页面. Call `henanRecommendation(...)` and render:
 
@@ -759,11 +759,11 @@ blocked reasons
 warnings
 ```
 
-- [ ] **Step 3: Keep old advisory compatibility out of homepage**
+- [x] **Step 3: Keep old advisory compatibility out of homepage**
 
 Do not delete `advisory()` from `client.ts`. Only stop using it on the河南志愿推 homepage.
 
-- [ ] **Step 4: Verify**
+- [x] **Step 4: Verify**
 
 Run:
 
@@ -787,7 +787,7 @@ Expected: TypeScript build passes.
 **Interfaces:**
 - Consumes: `build_henan_candidates(profile)`.
 
-- [ ] **Step 1: Add API regression test for non-empty reachable data**
+- [x] **Step 1: Add API regression test for non-empty reachable data**
 
 Add to `tests/api/test_henan_api.py`:
 
@@ -822,7 +822,7 @@ def test_target_evaluation_uses_candidate_generator(monkeypatch):
     assert body["items"][0]["bucket"] == "稳"
 ```
 
-- [ ] **Step 2: Render data readiness**
+- [x] **Step 2: Render data readiness**
 
 Target page must show:
 
@@ -834,7 +834,7 @@ Target page must show:
 
 Use `readiness_errors` from recommendation endpoint or add readiness output to target endpoint.
 
-- [ ] **Step 3: Verify**
+- [x] **Step 3: Verify**
 
 Run:
 
@@ -857,11 +857,11 @@ Expected: pass.
 
 **Steps:**
 
-- [ ] Remove the `/cost` route from `App.tsx`.
-- [ ] Remove `UniversityCostPage` import from `App.tsx`.
-- [ ] Ensure homepage recommendation cards show tuition/accommodation/four-year estimate when data is verified.
-- [ ] Ensure target evaluation cards show cost or “费用待核验”.
-- [ ] Run `npm.cmd run build`.
+- [x] Remove the `/cost` route from `App.tsx`.
+- [x] Remove `UniversityCostPage` import from `App.tsx`.
+- [x] Ensure homepage recommendation cards show tuition/accommodation/four-year estimate when data is verified.
+- [x] Ensure target evaluation cards show cost or “费用待核验”.
+- [x] Run `npm.cmd run build`.
 
 Expected: no standalone cost page in navigation or route table.
 
@@ -875,13 +875,13 @@ Expected: no standalone cost page in navigation or route table.
 
 **Scenarios:**
 
-- [ ] 首页默认标题为“河南志愿推”。
-- [ ] 首页提交历史类 + 日语 + 分数/位次后，显示数据就绪或未就绪状态。
-- [ ] 若数据未就绪，不显示假“稳/保”。
-- [ ] 档位筛选点击“冲”只显示冲。
-- [ ] 目标评估选择学校后，专业和专业组联动。
-- [ ] 480 分历史类评估郑州大学，若无可达专业组，显示“不推荐”。
-- [ ] 若 mock API 返回稳专业组，页面按专业组显示“稳”。
+- [x] 首页默认标题为“河南志愿推”。
+- [x] 首页提交历史类 + 日语 + 分数/位次后，显示数据就绪或未就绪状态。
+- [x] 若数据未就绪，不显示假“稳/保”。
+- [x] 档位筛选点击“冲”只显示冲。
+- [x] 目标评估选择学校后，专业和专业组联动。
+- [x] 480 分历史类评估郑州大学，若无可达专业组，显示“不推荐”。
+- [x] 若 mock API 返回稳专业组，页面按专业组显示“稳”。
 
 Run:
 
