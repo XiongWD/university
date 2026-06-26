@@ -1,0 +1,14 @@
+{
+  "change": "volunteer-advisory-engine",
+  "phase": "design",
+  "mode": "compact",
+  "canonical_spec": "openspec",
+  "generated_by": "comet-handoff.sh",
+  "context_hash": "044839221aac2acd84fe66fc6388228bebf55fab52bda3d9f3291058bed983df",
+  "files": [
+    { "path": "openspec/changes/volunteer-advisory-engine/proposal.md", "sha256": "78f6e9472c71a509623006315fb68dc7e7c32b9f0c6237e3b901a1eeae5c3bbc" },
+    { "path": "openspec/changes/volunteer-advisory-engine/design.md", "sha256": "a3c4e2f52ec3f0cd33ee8f9b3fbed5853e336a1d964d36105cf2561c5954eb99" },
+    { "path": "openspec/changes/volunteer-advisory-engine/tasks.md", "sha256": "4990c610c7067efc911732aa316e541d77e7995f270aea272866a2d6c45cd47b" },
+    { "path": "openspec/changes/volunteer-advisory-engine/specs/volunteer-advisory/spec.md", "sha256": "5ae250d2127d7efc2c58600f6b5192d757a6a880db4f4d95a09d111c97aaca8f" }
+  ]
+}
