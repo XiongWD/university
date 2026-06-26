@@ -1,6 +1,4 @@
-import {
-  Wallet, Briefcase, TrendingUp, Clock,
-} from "lucide-react";
+import { Wallet, Briefcase } from "lucide-react";
 import type { TrajectoryItem } from "../api/types";
 
 const STYLE = {
@@ -15,7 +13,7 @@ const wan = (n: number) => (n >= 10000 ? `${(n / 10000).toFixed(1)}万` : fmt(n)
 export default function TrajectoryCard({ item, index }: { item: TrajectoryItem; index: number }) {
   const st = STYLE[item.strategy as keyof typeof STYLE] || STYLE.稳;
   const pct = Math.round(item.probability * 100);
-  const { cost, career, payback } = item;
+  const { cost, career } = item;
 
   return (
     <div
@@ -103,8 +101,8 @@ export default function TrajectoryCard({ item, index }: { item: TrajectoryItem; 
         </div>
       </div>
 
-      {/* 三栏：费用 / 就业 / 回本 */}
-      <div className="grid grid-cols-3 gap-2 mt-3">
+      {/* 两栏：费用 / 就业 */}
+      <div className="grid grid-cols-2 gap-2 mt-3">
         {/* 费用 */}
         <div className="bg-pink-500/10 rounded-xl p-2.5 border border-pink-400/20">
           <div className="flex items-center gap-1 text-[10px] text-pink-300 mb-1">
@@ -139,30 +137,7 @@ export default function TrajectoryCard({ item, index }: { item: TrajectoryItem; 
             <div className="text-xs text-white/30 py-1">无数据</div>
           )}
         </div>
-
-        {/* 回本 */}
-        <div className="bg-emerald-500/10 rounded-xl p-2.5 border border-emerald-400/20">
-          <div className="flex items-center gap-1 text-[10px] text-emerald-300 mb-1">
-            <TrendingUp className="w-3 h-3" /> 回本周期
-          </div>
-          {payback ? (
-            <>
-              <div className="text-base font-bold text-emerald-200">{payback.years_to_break_even}年</div>
-              <div className="text-[9px] text-white/40 mt-0.5">15年净¥{wan(payback.lifetime_15y_net)}</div>
-            </>
-          ) : (
-            <div className="text-xs text-white/30 py-1">无数据</div>
-          )}
-        </div>
       </div>
-
-      {/* 回本判断 */}
-      {payback && (
-        <div className="mt-2 flex items-center gap-1 text-[10px] text-white/50">
-          <Clock className="w-3 h-3" />
-          {payback.note}
-        </div>
-      )}
     </div>
   );
 }
