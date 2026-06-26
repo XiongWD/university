@@ -1,5 +1,5 @@
 workflow: full
-phase: build
+phase: verify
 context_compression: off
 build_mode: executing-plans
 build_pause: null
@@ -20,3 +20,5 @@ verified_at: null
 archived: false
 handoff_context: openspec/changes/deprecate-life-path-narrative/.comet/handoff/design-context.json
 handoff_hash: 5982573f06d9704e10a1269ea36bed88d4974cc05d54ce1bd3aad7801c94db6a
+build_command: python -c "import app.api.main, app.engine.trajectory, app.engine.life_path, app.models.life_trajectory, app.models.life_path"
+verify_command: python -m pytest -q
