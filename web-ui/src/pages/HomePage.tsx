@@ -14,10 +14,13 @@ export default function HomePage() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<VolunteerAdvisoryResult | null>(null);
   const [error, setError] = useState<string | null>(null);
+  // 河南志愿推：记录用户选择的展示档位（冲/稳/保/全部），用于筛选显示
+  const [displayBucket, setDisplayBucket] = useState<"全部" | "冲" | "稳" | "保">("全部");
 
   async function handleSubmit(req: AdvisoryRequest) {
     setLoading(true);
     setError(null);
+    setDisplayBucket(req.display_bucket ?? "全部");
     try {
       const response = await advisory(req);
       setResult(response);
@@ -29,6 +32,10 @@ export default function HomePage() {
     }
   }
 
+  // 按展示档位筛选可见 bucket（design §7.2）
+  const visibleBuckets = displayBucket === "全部"
+    ? BUCKETS
+    : BUCKETS.filter((b) => b.label === displayBucket);
   const total = result
     ? result.school_options.reach.length + result.school_options.match.length + result.school_options.safe.length
     : 0;
@@ -87,6 +94,57 @@ export default function HomePage() {
             </div>
           </div>
 
+          {/* 批次线判断（河南 2026 升级） */}
+          {result.batch_line_decision && (
+            <div className="glass rounded-2xl p-4 mb-6 text-sm">
+              <div className="font-bold text-white mb-1 flex items-center gap-2">
+                批次线判断
+                <span className={
+                  "text-[10px] font-bold px-1.5 py-0.5 rounded " + (
+                    result.batch_line_decision.batch_position === "above_undergrad"
+                      ? "bg-emerald-500/20 text-emerald-300"
+                      : "bg-orange-500/20 text-orange-300"
+                  )
+                }>
+                  {result.batch_line_decision.batch_position === "above_undergrad"
+                    ? "达本科线"
+                    : result.batch_line_decision.batch_position === "below_undergrad"
+                    ? "低于本科线"
+                    : "专科为主"}
+                </span>
+              </div>
+              <div className="text-white/70">{result.batch_line_decision.recommendation_policy_note}</div>
+              <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-white/45 mt-1.5">
+                {result.batch_line_decision.undergrad_line !== null && (
+                  <span>本科线 {result.batch_line_decision.undergrad_line}</span>
+                )}
+                {result.batch_line_decision.junior_college_line !== null && (
+                  <span>专科线 {result.batch_line_decision.junior_college_line}</span>
+                )}
+                {result.batch_line_decision.distance_to_undergrad_line !== null && (
+                  <span className={
+                    result.batch_line_decision.distance_to_undergrad_line >= 0
+                      ? "text-emerald-300/70"
+                      : "text-orange-300/70"
+                  }>
+                    距本科线 {result.batch_line_decision.distance_to_undergrad_line >= 0 ? "+" : ""}
+                    {result.batch_line_decision.distance_to_undergrad_line} 分
+                  </span>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* 复核警告（数据缺口提示） */}
+          {result.review_warnings && result.review_warnings.length > 0 && (
+            <div className="glass rounded-2xl p-4 mb-6 text-xs text-amber-200/80 space-y-1">
+              <div className="font-bold text-amber-200 mb-1">数据复核提示</div>
+              {result.review_warnings.map((w, i) => (
+                <div key={i}>⚠ {w}</div>
+              ))}
+            </div>
+          )}
+
           {/* 专业方向建议 */}
           {result.major_directions.length > 0 && (
             <div className="mb-7">
@@ -128,7 +186,7 @@ export default function HomePage() {
             </div>
           ) : (
             <>
-              {BUCKETS.map((b) => {
+              {visibleBuckets.map((b) => {
                 const list = result.school_options[b.key];
                 if (list.length === 0) return null;
                 return (
@@ -196,6 +254,9 @@ export default function HomePage() {
 
           {/* 数据说明 */}
           <div className="glass rounded-2xl p-4 text-xs text-white/50 leading-relaxed space-y-1">
+            {result.recommendation_policy && (
+              <div className="text-white/70 font-medium">{result.recommendation_policy}</div>
+            )}
             {result.notes.map((n, i) => <div key={i}>· {n}</div>)}
           </div>
         </div>

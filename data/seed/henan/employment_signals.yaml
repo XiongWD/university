@@ -1,0 +1,33 @@
+# 2026 专业就业与政策信号（design §4.6）。
+# 阳光高考专业库优先用于专业定位；招聘薪资数据缺失时不得编造，必须输出"就业数据不足"。
+- major_name: 计算机科学与技术
+  direction: 计算机
+  policy_signal: 数字经济、人工智能相关岗位需求较高
+  domestic_demand_summary: 北上广深和郑州均有软件开发、测试、运维岗位需求；需持续更新招聘数据
+  job_market_city_scope: 北上广深
+  boss_job_count:
+  salary_p25:
+  salary_p50:
+  salary_p75:
+  evidence_level: C
+  source_name: 阳光高考专业库
+  source_url: https://gaokao.chsi.com.cn/
+  as_of: "2026-06-26"
+  confidence: 0.5
+  review_status: needs_review
+
+- major_name: 会计学
+  direction: 财经会计
+  policy_signal: 财务共享、智能财税转型持续，基础岗位竞争激烈
+  domestic_demand_summary: 各类企业普遍需要财务岗位，会计师事务所季节性需求明显
+  job_market_city_scope: 河南
+  boss_job_count:
+  salary_p25:
+  salary_p50:
+  salary_p75:
+  evidence_level: C
+  source_name: 阳光高考专业库
+  source_url: https://gaokao.chsi.com.cn/
+  as_of: "2026-06-26"
+  confidence: 0.5
+  review_status: needs_review

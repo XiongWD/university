@@ -120,6 +120,8 @@ export interface CostEstimate {
 export interface LifePathsRequest {
   province?: string;
   total_score: number;
+  data_year?: number;
+  risk_preference?: RiskPreference;
   primary_subject: string;
   chinese_score?: number;
   math_score?: number;
@@ -132,6 +134,10 @@ export interface LifePathsRequest {
   max_annual_education_budget?: number;
   accepted_loan_amount?: number;
   accept_private_school?: boolean;
+  // 河南志愿推新增：关注院校 / 兴趣专业 / 展示档位筛选
+  focused_schools?: string[];
+  interest_majors?: string[];
+  display_bucket?: "全部" | "冲" | "稳" | "保";
 }
 
 export interface SchoolOption {
@@ -193,4 +199,107 @@ export interface VolunteerAdvisoryResult {
   ineligible_options: IneligibleReason[];
   budget_summary: BudgetSummary;
   notes: string[];
+  // 河南 2026 升级新增解释字段
+  batch_line_decision?: BatchLineDecision | null;
+  data_sources?: Array<Record<string, unknown>>;
+  review_warnings?: string[];
+  recommendation_policy?: string;
+}
+
+export interface BatchLineDecision {
+  score: number;
+  rank: number;
+  undergrad_line: number | null;
+  junior_college_line: number | null;
+  distance_to_undergrad_line: number | null;
+  batch_position: string;
+  recommendation_policy_note: string;
+}
+
+// ===== 目标院校 + 专业评估 =====
+export interface TargetEvaluationRequest {
+  source_province: string;
+  target_school: string;
+  target_major?: string | null;
+  data_year?: number;
+  total_score: number;
+  primary_subject: string;
+  elective_subjects: string[];
+  exam_foreign_language: string;
+  foreign_language_score: number;
+  math_score: number;
+  english_actual_level?: string;
+  accept_adjustment?: boolean;
+}
+
+export interface TargetEvaluationResult {
+  target_school: string;
+  target_major: string | null;
+  source_province: string;
+  eligibility: {
+    eligible: boolean;
+    blocked_reasons: string[];
+    review_warnings: string[];
+  };
+  group_admission: {
+    risk_band: string;
+    basis: string;
+    student_rank: number | null;
+    baseline_rank: number | null;
+    data_year_used: number | null;
+    confidence: number;
+  };
+  major_admission: {
+    risk_band: string;
+    target_major_available: boolean;
+    plan_count: number | null;
+    basis: string;
+    adjustment_risk: string;
+  };
+  sources: Array<Record<string, unknown>>;
+  missing_data: string[];
+  recommendation_summary: string;
+}
+
+// ===== 河南志愿推：目标评估联动选项 / 目标评估 =====
+export interface HenanOptions {
+  schools: { code: string; name: string }[];
+  majors: { school: string; major: string; group: string }[];
+  groups: { school: string; code: string; name: string; track: string }[];
+}
+
+export interface HenanTargetEvaluationRequest {
+  score: number;
+  rank?: number | null;
+  track: string;
+  source_province?: string;
+  target_school: string;
+  target_majors?: string[];
+  target_group?: string | null;
+  exam_foreign_language?: string;
+  primary_subject?: string;
+  elective_subjects?: string[];
+  obey_adjustment?: boolean;
+}
+
+export interface HenanTargetItem {
+  school_name: string;
+  major_name: string;
+  major_group_code: string;
+  major_group_name?: string;
+  bucket: string;            // 冲 / 稳 / 保 / 不推荐
+  group_bucket?: string;
+  major_bucket?: string;
+  rank_gap?: number;
+  qualified?: boolean;
+  bucket_reason?: string;
+  blocked_reasons?: string[];
+  selected_majors?: string[];
+}
+
+export interface HenanTargetEvaluationResult {
+  school_name: string;
+  overall_bucket: string;    // 可评估 / 不推荐
+  items: HenanTargetItem[];
+  reasons: string[];
 }

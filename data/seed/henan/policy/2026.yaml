@@ -1,0 +1,31 @@
+# 河南志愿规则配置（design §3.1）
+# 志愿数量、志愿单位、组内专业数、是否服从调剂均需以河南省教育考试院2026正式文件核验。
+- year: 2026
+  province: 河南
+  batch: 本科批
+  track: 历史类
+  parallel_volunteer_count: 48
+  volunteer_unit: 院校专业组
+  major_count_per_group: 6
+  has_major_adjustment: true
+  filing_rule_summary: 平行志愿，按位次投档；志愿数量需以河南省教育考试院2026正式文件核验
+  source_name: 河南省教育考试院
+  source_url: https://www.haeea.cn/
+  as_of: "2026-06-26"
+  confidence: 0.7
+  review_status: needs_review
+
+- year: 2026
+  province: 河南
+  batch: 本科批
+  track: 物理类
+  parallel_volunteer_count: 48
+  volunteer_unit: 院校专业组
+  major_count_per_group: 6
+  has_major_adjustment: true
+  filing_rule_summary: 平行志愿，按位次投档；志愿数量需以河南省教育考试院2026正式文件核验
+  source_name: 河南省教育考试院
+  source_url: https://www.haeea.cn/
+  as_of: "2026-06-26"
+  confidence: 0.7
+  review_status: needs_review

@@ -15,6 +15,11 @@ import type {
   SchoolNature,
   AdvisoryRequest,
   VolunteerAdvisoryResult,
+  TargetEvaluationRequest,
+  TargetEvaluationResult,
+  HenanOptions,
+  HenanTargetEvaluationRequest,
+  HenanTargetEvaluationResult,
 } from "./types";
 
 const BASE = "/api/v1";
@@ -50,6 +55,27 @@ export function recommend(req: RecommendRequest): Promise<VolunteerTable> {
 // POST /volunteer/advisory
 export function advisory(req: AdvisoryRequest): Promise<VolunteerAdvisoryResult> {
   return request<VolunteerAdvisoryResult>("/volunteer/advisory", {
+    method: "POST",
+    body: JSON.stringify(req),
+  });
+}
+
+// POST /target/evaluate
+export function evaluateTarget(req: TargetEvaluationRequest): Promise<TargetEvaluationResult> {
+  return request<TargetEvaluationResult>("/target/evaluate", {
+    method: "POST",
+    body: JSON.stringify(req),
+  });
+}
+
+// GET /henan/options（河南志愿推：院校/专业/专业组联动下拉）
+export function getHenanOptions(): Promise<HenanOptions> {
+  return request<HenanOptions>("/henan/options");
+}
+
+// POST /henan/target-evaluation（河南志愿推：目标院校评估，复用首页冲稳保逻辑）
+export function evaluateHenanTarget(req: HenanTargetEvaluationRequest): Promise<HenanTargetEvaluationResult> {
+  return request<HenanTargetEvaluationResult>("/henan/target-evaluation", {
     method: "POST",
     body: JSON.stringify(req),
   });

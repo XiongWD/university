@@ -1,0 +1,58 @@
+# 2026 在河南招生院校属性（design §4.1）。
+# 学校代码、办学性质等需以阳光高考院校库与2026河南招生专业目录核验。
+# review_status: needs_review 表示待与官方目录逐项对齐后转 verified。
+- school_code: "10459"
+  school_name: 郑州大学
+  province: 河南
+  city: 郑州
+  ownership: 公办
+  school_level: 双一流
+  strong_majors: [临床医学, 计算机科学与技术, 材料科学与工程]
+  tags: [省内头部, 综合类]
+  source_name: 阳光高考
+  source_url: https://gaokao.chsi.com.cn/
+  as_of: "2026-06-26"
+  confidence: 0.8
+  review_status: needs_review
+
+- school_code: "10475"
+  school_name: 河南大学
+  province: 河南
+  city: 开封
+  ownership: 公办
+  school_level: 双一流
+  strong_majors: [汉语言文学, 地理学, 生物学]
+  tags: [省内头部, 综合类]
+  source_name: 阳光高考
+  source_url: https://gaokao.chsi.com.cn/
+  as_of: "2026-06-26"
+  confidence: 0.8
+  review_status: needs_review
+
+- school_code: "10471"
+  school_name: 河南财经政法大学
+  province: 河南
+  city: 郑州
+  ownership: 公办
+  school_level: 省重点
+  strong_majors: [会计学, 金融学, 法学]
+  tags: [财经类]
+  source_name: 阳光高考
+  source_url: https://gaokao.chsi.com.cn/
+  as_of: "2026-06-26"
+  confidence: 0.8
+  review_status: needs_review
+
+- school_code: "10469"
+  school_name: 河南牧业经济学院
+  province: 河南
+  city: 郑州
+  ownership: 公办
+  school_level: 普通本科
+  strong_majors: [动物医学, 会计学]
+  tags: [应用型]
+  source_name: 阳光高考
+  source_url: https://gaokao.chsi.com.cn/
+  as_of: "2026-06-26"
+  confidence: 0.7
+  review_status: needs_review

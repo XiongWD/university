@@ -51,4 +51,46 @@ test.describe("志愿推荐 advisory 真实流程", () => {
     // 数据说明区始终存在（advisory notes）
     await expect(page.getByText("数据说明").or(page.getByText(/录取数据基于/))).toBeVisible();
   });
+
+  test("提交 advisory 时携带参考年份与报考策略", async ({ page }) => {
+    let requestBody: Record<string, unknown> | null = null;
+
+    await page.route("**/api/v1/volunteer/advisory", async (route) => {
+      requestBody = route.request().postDataJSON();
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({
+          student_rank: 10000,
+          province: "河南",
+          track: "历史类",
+          data_year: 2025,
+          major_directions: [],
+          school_options: { reach: [], match: [], safe: [] },
+          ineligible_options: [],
+          budget_summary: {
+            tuition_4y: 0,
+            accommodation_4y: 0,
+            living_4y: 0,
+            total_4y: 0,
+            affordable_total: null,
+            affordability_status: "可承受",
+            data_note: null,
+          },
+          notes: ["录取数据基于 2025 年同制度位次参考"],
+        }),
+      });
+    });
+
+    await page.goto("/");
+    await page.getByLabel("参考数据年份").selectOption("2025");
+    await page.getByRole("button", { name: "冲 敢搏名校" }).click();
+    await page.getByRole("button", { name: /生成志愿表|生成中/ }).click();
+
+    await expect.poll(() => requestBody).not.toBeNull();
+    expect(requestBody).toMatchObject({
+      data_year: 2025,
+      risk_preference: "冲",
+    });
+  });
 });

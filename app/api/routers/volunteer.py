@@ -65,6 +65,8 @@ class LifePathsRequest(BaseModel):
     """旧版多方案建议请求（V2.2 完整学业画像+家庭预算，deprecated）。"""
 
     province: str = "河南"
+    data_year: int = 2026
+    risk_preference: RiskPreference = RiskPreference.BALANCED
     total_score: int
     primary_subject: str  # 历史/物理
     chinese_score: int = 0
@@ -185,6 +187,24 @@ def _load_careers(session: Session):
     return [career_to_domain(r) for r in rows]
 
 
+def _load_control_line(session: Session, province: str, track: str, year: int):
+    """取某省/track/年份省控线 → (undergrad_line, junior_college_line)。
+
+    无该年数据时回退到最近有数据的年份（2026 改革后只有物理类/历史类）。
+    """
+    from app.models.tables import ProvincialControlLineRow
+    for try_year in [year, year - 1]:
+        row = session.exec(
+            select(ProvincialControlLineRow)
+            .where(ProvincialControlLineRow.province == province)
+            .where(ProvincialControlLineRow.track == track)
+            .where(ProvincialControlLineRow.year == try_year)
+        ).first()
+        if row:
+            return row.undergrad_batch, row.junior_college, row
+    return None, None, None
+
+
 @router.post("/life-trajectory", deprecated=True)
 def life_trajectory(req: RecommendRequest, session: Session = Depends(get_session_dep)):
     """(deprecated) 志愿推荐 + 每校费用 + 就业参考。
@@ -281,7 +301,7 @@ def _build_academic_profile(req: LifePathsRequest) -> StudentAcademicProfile:
         "intermediate": EnglishLevel.INTERMEDIATE, "advanced": EnglishLevel.ADVANCED,
     }
     return StudentAcademicProfile(
-        province=req.province, admission_year=2026,
+        province=req.province, admission_year=req.data_year,
         total_score=req.total_score, primary_subject=req.primary_subject,
         chinese_score=req.chinese_score, math_score=req.math_score,
         exam_foreign_language=req.exam_foreign_language,
@@ -319,7 +339,7 @@ def life_paths(req: LifePathsRequest, session: Session = Depends(get_session_dep
 
     # 取一分一段表算位次
     track = "历史类" if profile.primary_subject == "历史" else "物理类"
-    entries = _load_rank_entries(session, profile.province, 2026, track)
+    entries = _load_rank_entries(session, profile.province, req.data_year, track)
     from app.engine.volunteer import convert_score_to_rank
     student_rank = convert_score_to_rank(entries, profile.total_score) or 0
 
@@ -428,9 +448,23 @@ def advisory(req: LifePathsRequest, session: Session = Depends(get_session_dep))
     directions, snap_map = _load_directions_and_snapshots()
 
     track = "历史类" if profile.primary_subject == "历史" else "物理类"
-    entries = _load_rank_entries(session, profile.province, 2026, track)
-    admissions = _load_admissions(session, profile.province, track, 2025)
-    actual_year = admissions[0].year if admissions else 2025
+    entries = _load_rank_entries(session, profile.province, req.data_year, track)
+    admissions = _load_admissions(session, profile.province, track, req.data_year)
+    actual_year = admissions[0].year if admissions else req.data_year
+
+    # [§5.2] 加载真实省控线（本科线/专科线），用于批次线判断
+    undergrad_line, junior_college_line, control_row = _load_control_line(
+        session, profile.province, track, req.data_year,
+    )
+    data_sources: list[dict] = []
+    if control_row:
+        data_sources.append({
+            "source_name": control_row.source,
+            "as_of": str(control_row.as_of),
+            "data_granularity": "control_line",
+            "confidence": control_row.confidence,
+            "note": f"{profile.province}{track}本科线{undergrad_line}/专科线{junior_college_line}",
+        })
 
     result = build_advisory(
         profile=profile, budget=budget, offerings=offerings,
@@ -438,5 +472,9 @@ def advisory(req: LifePathsRequest, session: Session = Depends(get_session_dep))
         unis=_load_universities(session), cities=_load_cities(session),
         majors=_load_majors(session), careers=_load_careers(session),
         rank_entries=entries, data_year=actual_year,
+        risk_preference=req.risk_preference.value,
+        undergrad_line=undergrad_line,
+        junior_college_line=junior_college_line,
+        data_sources=data_sources,
     )
     return result.model_dump(mode="json")

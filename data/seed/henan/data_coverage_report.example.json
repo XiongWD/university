@@ -1,0 +1,19 @@
+{
+  "historical": {
+    "score_segment_2025": 500,
+    "score_segment_2024": 500,
+    "admission_history_2025": 3000,
+    "admission_history_2024": 2800
+  },
+  "latest_2026": {
+    "universities_2026": 1500,
+    "program_groups_2026": 3200,
+    "enrollment_plans_henan_2026": 12000,
+    "tuition_accommodation_2026": 9000
+  },
+  "current_signal": {
+    "major_employment_signal_2026": 180
+  },
+  "blocking_missing": [],
+  "warnings": []
+}

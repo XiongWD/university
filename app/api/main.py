@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.routers import (
-    admissions, careers, cities, insurance, majors, provincial, universities, volunteer,
+    admissions, careers, cities, henan, insurance, majors, provincial, target, universities, volunteer,
 )
 from app.config import settings
 from app.db import get_engine, get_session, init_db
@@ -58,6 +58,8 @@ app.include_router(admissions.router, prefix=prefix)
 app.include_router(insurance.router, prefix=prefix)
 app.include_router(provincial.router, prefix=prefix)
 app.include_router(volunteer.router, prefix=prefix)
+app.include_router(target.router, prefix=prefix)
+app.include_router(henan.router, prefix=prefix)
 
 
 @app.get(f"{prefix}/health", tags=["meta"])

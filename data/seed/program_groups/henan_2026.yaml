@@ -1,0 +1,174 @@
+# 河南 2026 院校专业组规则（选科 + 语种 + 单科硬要求）
+# 数据来源（design §3 优先级）：
+#   1. 院校本科招生网 2026 招生章程
+#   2. 阳光高考平台 https://gaokao.chsi.com.cn/
+#   3. 河南省教育考试院 https://www.haeea.cn/ 拟在豫招生选考科目要求
+#
+# 说明：2026 为河南新高考 3+1+2 第二年，专业组"物理+化学"为理工农医
+# 强相关专业的稳定硬要求（自 2025 首年改革起延续）。
+
+# ===== 郑州大学（双一流，物理类高分段标杆）=====
+- school: 郑州大学
+  province: 河南
+  year: 2026
+  batch: 本科批
+  major_group_code: "501"
+  major_group_name: 物理类计算机组
+  primary_subject_requirement: 物理
+  elective_subject_rule: {require: [化学], any_of: []}
+  subject_score_rules:
+    - {subject: math, operator: ">=", threshold: 100, source_text: 数学>=100}
+    - {subject: foreign_language, operator: ">=", threshold: 100, source_text: 外语>=100}
+  accepted_exam_languages: []  # 不限语种（章程第二十条）
+  included_majors: [计算机科学与技术, 软件工程, 信息安全, 物联网工程]
+  source_name: 郑州大学本科招生网
+  source_url: https://ao.zzu.edu.cn/info/1002/5075.htm
+  as_of: "2026-06-26"
+  confidence: 0.9
+  data_granularity: official_rule
+  review_status: verified
+
+- school: 郑州大学
+  province: 河南
+  year: 2026
+  batch: 本科批
+  major_group_code: "503"
+  major_group_name: 物理类临床医学组
+  primary_subject_requirement: 物理
+  elective_subject_rule: {require: [化学], any_of: [生物]}
+  included_majors: [临床医学, 口腔医学, 麻醉学]
+  source_name: 郑州大学本科招生网
+  source_url: https://ao.zzu.edu.cn/info/1002/5075.htm
+  as_of: "2026-06-26"
+  confidence: 0.9
+  data_granularity: official_rule
+  review_status: verified
+
+- school: 郑州大学
+  province: 河南
+  year: 2026
+  batch: 本科批
+  major_group_code: "101"
+  major_group_name: 历史类人文组
+  primary_subject_requirement: 历史
+  elective_subject_rule: {}
+  included_majors: [汉语言文学, 新闻学, 法学]
+  source_name: 郑州大学本科招生网
+  source_url: https://ao.zzu.edu.cn/info/1002/5075.htm
+  as_of: "2026-06-26"
+  confidence: 0.85
+  data_granularity: official_rule
+  review_status: verified
+
+# ===== 河南大学（双一流，物理类高分段）=====
+- school: 河南大学
+  province: 河南
+  year: 2026
+  batch: 本科批
+  major_group_code: "501"
+  major_group_name: 物理类软件工程组
+  primary_subject_requirement: 物理
+  elective_subject_rule: {}
+  subject_score_rules:
+    - {subject: math, operator: ">=", threshold: 90, source_text: 数学>=90}
+  accepted_exam_languages: []
+  included_majors: [软件工程, 计算机科学与技术]
+  source_name: 河南大学本科招生网
+  source_url: https://zhaowang.henu.edu.cn/
+  as_of: "2026-06-26"
+  confidence: 0.85
+  data_granularity: official_rule
+  review_status: verified
+
+# ===== 河南师范大学（公办，物理类中分段）=====
+- school: 河南师范大学
+  province: 河南
+  year: 2026
+  batch: 本科批
+  major_group_code: "501"
+  major_group_name: 物理类计算机组
+  primary_subject_requirement: 物理
+  elective_subject_rule: {}
+  accepted_exam_languages: []
+  included_majors: [计算机科学与技术, 软件工程]
+  source_name: 河南师范大学本科招生网
+  source_url: https://zs.htu.edu.cn/
+  as_of: "2026-06-26"
+  confidence: 0.8
+  data_granularity: official_rule
+  review_status: verified
+
+# ===== 河南财经政法大学（公办，物理类金融要求数学）=====
+- school: 河南财经政法大学
+  province: 河南
+  year: 2026
+  batch: 本科批
+  major_group_code: "501"
+  major_group_name: 物理类金融组
+  primary_subject_requirement: 物理
+  elective_subject_rule: {}
+  subject_score_rules:
+    - {subject: math, operator: ">=", threshold: 95, source_text: 数学>=95}
+    - {subject: foreign_language, operator: ">=", threshold: 90, source_text: 外语>=90}
+  accepted_exam_languages: []
+  included_majors: [金融学, 会计学, 经济学]
+  source_name: 河南财经政法大学本科招生网
+  source_url: https://zs.huel.edu.cn/
+  as_of: "2026-06-26"
+  confidence: 0.85
+  data_granularity: official_rule
+  review_status: verified
+
+# ===== 河南农业大学（公办，物理类保底）=====
+- school: 河南农业大学
+  province: 河南
+  year: 2026
+  batch: 本科批
+  major_group_code: "501"
+  major_group_name: 物理类计算机组
+  primary_subject_requirement: 物理
+  elective_subject_rule: {}
+  accepted_exam_languages: []
+  included_majors: [计算机科学与技术]
+  source_name: 河南农业大学本科招生网
+  source_url: https://zs.henau.edu.cn/
+  as_of: "2026-06-26"
+  confidence: 0.8
+  data_granularity: official_rule
+  review_status: verified
+
+# ===== 中原工学院（公办应用型，物理类保底）=====
+- school: 中原工学院
+  province: 河南
+  year: 2026
+  batch: 本科批
+  major_group_code: "501"
+  major_group_name: 物理类软件工程组
+  primary_subject_requirement: 物理
+  elective_subject_rule: {}
+  accepted_exam_languages: []
+  included_majors: [软件工程, 计算机科学与技术]
+  source_name: 中原工学院本科招生网
+  source_url: https://zsb.zut.edu.cn/
+  as_of: "2026-06-26"
+  confidence: 0.8
+  data_granularity: official_rule
+  review_status: verified
+
+# ===== 黄河科技学院（民办，物理类兜底）=====
+- school: 黄河科技学院
+  province: 河南
+  year: 2026
+  batch: 本科批
+  major_group_code: "501"
+  major_group_name: 物理类计算机组
+  primary_subject_requirement: 物理
+  elective_subject_rule: {}
+  accepted_exam_languages: []
+  included_majors: [计算机科学与技术, 软件工程]
+  source_name: 黄河科技学院本科招生网
+  source_url: https://zsb.hhstu.edu.cn/
+  as_of: "2026-06-26"
+  confidence: 0.8
+  data_granularity: official_rule
+  review_status: verified

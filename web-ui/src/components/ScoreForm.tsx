@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Search, Loader2 } from "lucide-react";
-import type { AdvisoryRequest, RiskPreference } from "../api/types";
+import type { AdvisoryRequest } from "../api/types";
 
 const PROVINCES = ["河南", "广东"];
 const TRACKS_BY_PROVINCE: Record<string, { label: string; value: string }[]> = {
@@ -15,10 +15,13 @@ const TRACKS_BY_PROVINCE: Record<string, { label: string; value: string }[]> = {
     { label: "历史类", value: "历史类" },
   ],
 };
-const RISK_OPTIONS: { value: RiskPreference; label: string; desc: string }[] = [
-  { value: "冲", label: "冲", desc: "敢搏名校" },
-  { value: "中", label: "中", desc: "平衡型" },
-  { value: "稳", label: "稳", desc: "求稳保底" },
+// 河南志愿推：策略改为 冲/稳/保 + 全部（design §7.2，去掉"中"）。
+// 显示档位 display_bucket 作为前端筛选；risk_preference 仍提交后端兼容值。
+const BUCKET_OPTIONS: { value: "全部" | "冲" | "稳" | "保"; label: string; desc: string }[] = [
+  { value: "全部", label: "全部", desc: "48志愿布局" },
+  { value: "冲", label: "冲", desc: "只看冲刺志愿" },
+  { value: "稳", label: "稳", desc: "只看稳妥志愿" },
+  { value: "保", label: "保", desc: "只看保底志愿" },
 ];
 const YEARS = [2026, 2025, 2024];  // 2026优先（当年最新一分一段表）
 
@@ -35,12 +38,15 @@ export default function ScoreForm({ loading, onSubmit }: Props) {
   const [totalScore, setTotalScore] = useState(480);
   const [track, setTrack] = useState("历史类");
   const [dataYear, setDataYear] = useState(2026);  // 默认当年最新
-  const [risk, setRisk] = useState<RiskPreference>("稳");
+  const [displayBucket, setDisplayBucket] = useState<"全部" | "冲" | "稳" | "保">("全部");
   // 选科/外语/单科（填报硬门槛）
   const [foreignLang, setForeignLang] = useState("日语");  // 默认日语(用户弟弟场景)
   const [electives, setElectives] = useState<string[]>(["政治", "地理"]);
   const [mathScore, setMathScore] = useState(64);
   const [foreignScore, setForeignScore] = useState(98);
+  // 河南志愿推新增：关注院校 / 兴趣专业（design §7.3）
+  const [focusedSchoolsText, setFocusedSchoolsText] = useState("");
+  const [interestMajorsText, setInterestMajorsText] = useState("");
 
   const tracks = TRACKS_BY_PROVINCE[province] || [];
 
@@ -50,11 +56,18 @@ export default function ScoreForm({ loading, onSubmit }: Props) {
     );
   }
 
+  function splitWords(text: string): string[] {
+    return text.split(/[、,，\s]+/).map((s) => s.trim()).filter(Boolean);
+  }
+
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     onSubmit({
       province,
       total_score: totalScore,
+      data_year: dataYear,
+      // 仍提交后端兼容的 risk_preference（冲/稳），新增 display_bucket 做前端筛选
+      risk_preference: displayBucket === "冲" ? "冲" : displayBucket === "保" ? "稳" : "中",
       primary_subject: track.includes("历史") ? "历史" : "物理",
       math_score: mathScore,
       exam_foreign_language: foreignLang,
@@ -62,6 +75,9 @@ export default function ScoreForm({ loading, onSubmit }: Props) {
       english_actual_level: foreignLang === "英语" && foreignScore >= 120 ? "advanced" : "intermediate",
       elective_subjects: electives,
       accept_private_school: true,
+      focused_schools: splitWords(focusedSchoolsText),
+      interest_majors: splitWords(interestMajorsText),
+      display_bucket: displayBucket,
     });
   }
 
@@ -201,26 +217,49 @@ export default function ScoreForm({ loading, onSubmit }: Props) {
         <p className="text-[10px] text-white/30 mt-2">部分专业对数学/外语单科有门槛，系统自动剔除不达标的专业</p>
       </div>
 
-      {/* 风险偏好 */}
+      {/* 关注院校 / 兴趣专业（河南志愿推 design §7.3） */}
+      <div className="mt-5 pt-5 border-t border-white/10 grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <label className="block">
+          <span className="text-xs text-white/60 mb-1.5 block">关注院校（可选，逗号/空格分隔）</span>
+          <input
+            value={focusedSchoolsText}
+            onChange={(e) => setFocusedSchoolsText(e.target.value)}
+            placeholder="如 郑州大学 河南大学"
+            className="w-full bg-white/10 border border-white/15 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-pink-400"
+          />
+        </label>
+        <label className="block">
+          <span className="text-xs text-white/60 mb-1.5 block">兴趣专业（可选，逗号/空格分隔）</span>
+          <input
+            value={interestMajorsText}
+            onChange={(e) => setInterestMajorsText(e.target.value)}
+            placeholder="如 会计学 法学"
+            className="w-full bg-white/10 border border-white/15 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-pink-400"
+          />
+        </label>
+      </div>
+
+      {/* 冲稳保档位筛选（design §7.2，去掉"中"） */}
       <div className="mt-5">
-        <span className="text-xs text-white/60 mb-2 block">报考策略</span>
-        <div className="grid grid-cols-3 gap-2">
-          {RISK_OPTIONS.map((r) => (
+        <span className="text-xs text-white/60 mb-2 block">查看档位</span>
+        <div className="grid grid-cols-4 gap-2">
+          {BUCKET_OPTIONS.map((b) => (
             <button
-              key={r.value}
+              key={b.value}
               type="button"
-              onClick={() => setRisk(r.value)}
+              onClick={() => setDisplayBucket(b.value)}
               className={`py-3 rounded-xl text-sm font-bold transition border ${
-                risk === r.value
+                displayBucket === b.value
                   ? "bg-gradient-to-br from-pink-500 to-indigo-500 border-transparent text-white shadow-lg"
                   : "bg-white/5 border-white/15 text-white/60 hover:bg-white/10"
               }`}
             >
-              <div className="text-lg">{r.label}</div>
-              <div className="text-xs font-normal opacity-70 mt-0.5">{r.desc}</div>
+              <div className="text-lg">{b.label}</div>
+              <div className="text-[10px] font-normal opacity-70 mt-0.5">{b.desc}</div>
             </button>
           ))}
         </div>
+        <p className="text-[10px] text-white/30 mt-2">"冲/稳/保"是产品辅助填报策略，非河南省教育考试院官方比例</p>
       </div>
 
       <button

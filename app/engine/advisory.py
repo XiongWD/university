@@ -17,6 +17,7 @@ from app.models.eligibility import AdmissionOfferingRule, StudentAcademicProfile
 from app.models.job_market import JobMarketSnapshot, MajorDirection
 from app.models.life_path import AdmissionBuckets, FamilyBudget, SchoolOption
 from app.models.major import Major
+from app.models.program_plan import BatchLineDecision
 from app.models.provincial import ScoreRankEntry
 from app.models.university import University
 
@@ -101,12 +102,18 @@ def build_advisory(
     careers: list,
     rank_entries: list[ScoreRankEntry],
     data_year: int = 2025,
+    risk_preference: str = "中",
+    undergrad_line: int | None = None,
+    junior_college_line: int | None = None,
+    data_sources: list[dict] | None = None,
 ) -> VolunteerAdvisoryResult:
     """专业方向优先主链路（§3）。纯函数，数据由 router 注入。"""
     from app.engine.admission_prediction import predict_group_admission
+    from app.engine.batch_line import decide_batch_position
     from app.engine.eligibility import filter_eligible
     from app.engine.job_market import score_direction
     from app.engine.major_fit import compute_major_value_academic
+    from app.engine.risk_buckets import classify_rank_gap
     from app.engine.volunteer import convert_score_to_rank
 
     # [§3.2] 资格前置门
@@ -115,6 +122,18 @@ def build_advisory(
     # [§3.3] 位次
     track = "历史类" if profile.primary_subject == "历史" else "物理类"
     student_rank = convert_score_to_rank(rank_entries, profile.total_score) or 0
+
+    # [§5.2] 批次线判断（使用真实省控线）
+    batch_line_decision = decide_batch_position(
+        score=profile.total_score,
+        rank=student_rank,
+        undergrad_line=undergrad_line,
+        junior_college_line=junior_college_line,
+    )
+    review_warnings: list[str] = []
+    # 缺省控线时标注数据不足，降低结果可信度
+    if undergrad_line is None:
+        review_warnings.append("缺少目标年份本科线数据，仅按位次推荐并降低置信度")
 
     adm_by_school = {a.school: a for a in admissions}
     uni_map = {u.name: u for u in unis}
@@ -147,7 +166,16 @@ def build_advisory(
         group_pred = predict_group_admission(
             off.school, off.major_group_code, student_rank, baseline_rank_2025=baseline,
         )
-        level = group_pred.admission_level.value
+        # [§5.5] 风险偏好分桶：按位次差 + 报考策略重新判定档位（更可解释）
+        # 有历史投档位次时用 classify_rank_gap 精确分桶；
+        # 缺位次基准时降级到录取预测引擎的默认档位，并标注数据缺口。
+        if baseline is None:
+            level = group_pred.admission_level.value
+            review_warnings.append(
+                f"{off.school}缺少历史投档位次，档位为估算值，需补齐数据后复核"
+            )
+        else:
+            level = classify_rank_gap(student_rank, baseline, risk_preference)
 
         # [§3.6] 费用 4 年分项
         uni = uni_map.get(off.school)
@@ -230,6 +258,21 @@ def build_advisory(
         ))
     major_directions.sort(key=lambda x: x.major_value, reverse=True)
 
+    # 报考策略只调整输出焦点，不改变资格过滤和录取档位判断本身。
+    # 冲：保留更多冲刺项；中：三档均衡；稳：压缩冲刺项，突出兜底项。
+    if risk_preference == "冲":
+        buckets.reach = buckets.reach[:12]
+        buckets.match = buckets.match[:8]
+        buckets.safe = buckets.safe[:4]
+    elif risk_preference == "稳":
+        buckets.reach = buckets.reach[:2]
+        buckets.match = buckets.match[:6]
+        buckets.safe = buckets.safe[:12]
+    else:
+        buckets.reach = buckets.reach[:6]
+        buckets.match = buckets.match[:8]
+        buckets.safe = buckets.safe[:6]
+
     # BudgetSummary（取代表院校中位费用）
     all_opts = buckets.reach + buckets.match + buckets.safe
     if all_opts:
@@ -260,4 +303,8 @@ def build_advisory(
         ineligible_options=ineligible_options,
         budget_summary=budget_summary,
         notes=notes,
+        batch_line_decision=batch_line_decision,
+        data_sources=data_sources or [],
+        review_warnings=review_warnings,
+        recommendation_policy=f"按{risk_preference}策略使用位次差分桶",
     )

@@ -8,6 +8,7 @@ from __future__ import annotations
 from pydantic import BaseModel
 
 from app.models.life_path import AdmissionBuckets  # noqa: F401  (re-export for convenience)
+from app.models.program_plan import BatchLineDecision
 
 
 class MajorDirectionAdvice(BaseModel):
@@ -55,3 +56,8 @@ class VolunteerAdvisoryResult(BaseModel):
     ineligible_options: list[IneligibleReason] = []
     budget_summary: BudgetSummary
     notes: list[str] = []
+    # 河南 2026 升级新增：批次线判断、数据来源、复核警告、推荐策略说明
+    batch_line_decision: BatchLineDecision | None = None
+    data_sources: list[dict] = []
+    review_warnings: list[str] = []
+    recommendation_policy: str = ""

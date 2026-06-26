@@ -54,3 +54,43 @@ def test_advisory_no_forbidden_narrative(client):
     text = json.dumps(body, ensure_ascii=False)
     for w in forbidden:
         assert w not in text, f"advisory 响应含禁止词 {w}"
+
+
+def test_advisory_data_year_changes_rank_basis(client):
+    """advisory 应使用用户选择的数据年份查询一分一段表。"""
+    req = {
+        **_REQ,
+        "total_score": 480,
+        "primary_subject": "历史",
+        "data_year": 2025,
+    }
+    rank_2025 = client.post("/api/v1/volunteer/advisory", json=req).json()["student_rank"]
+    rank_2026 = client.post(
+        "/api/v1/volunteer/advisory",
+        json={**req, "data_year": 2026},
+    ).json()["student_rank"]
+
+    assert rank_2025 != rank_2026
+
+
+def test_advisory_risk_preference_changes_bucket_mix(client):
+    """报考策略应影响 advisory 输出的冲稳保配比。"""
+    req = {
+        **_REQ,
+        "total_score": 460,
+        "primary_subject": "历史",
+        "data_year": 2026,
+    }
+    aggressive = client.post(
+        "/api/v1/volunteer/advisory",
+        json={**req, "risk_preference": "冲"},
+    ).json()["school_options"]
+    safe = client.post(
+        "/api/v1/volunteer/advisory",
+        json={**req, "risk_preference": "稳"},
+    ).json()["school_options"]
+
+    aggressive_total = sum(len(aggressive[k]) for k in ("reach", "match", "safe"))
+    safe_total = sum(len(safe[k]) for k in ("reach", "match", "safe"))
+
+    assert aggressive_total != safe_total

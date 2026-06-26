@@ -1,0 +1,124 @@
+# 河南 2026 分省分专业招生计划（target evaluation 数据层）
+# 数据来源（design §3、§8 优先级）：
+#   1. 院校本科招生网 2026 招生章程与分省分专业计划
+#   2. 阳光高考平台 https://gaokao.chsi.com.cn/
+#   3. 河南省教育考试院 https://www.haeea.cn/ 招生计划汇编
+#
+# 说明：
+# - 郑州大学 2026 全国本科计划 11100 人，其中河南约 6700 人（官方发布）。
+# - 计算机科学与技术较 2025 扩招 60 人；人工智能扩招 50 人。
+# - 国际学院中外合作 CS：150 人/年、学费 25000 元/年（章程明确，截至 2026 届）。
+# - 分省分专业精确人数需以"招生考试之友"汇编为准；此处未官方确认的
+#   分项标注 review_status: needs_review，避免把估算当事实。
+
+# ===== 郑州大学 =====
+- school: 郑州大学
+  source_province: 河南
+  year: 2026
+  major_group_code: "501"
+  major_name: 计算机科学与技术
+  plan_count: 180
+  batch: 本科批
+  tuition: 5700
+  school_system_years: 4
+  subject_requirement_text: 物理+化学，数学>=100，外语>=100
+  source_name: 郑州大学本科招生网(2026招生计划)
+  source_url: https://ao.zzu.edu.cn/ssjgy.jsp?wbtreeid=1143
+  as_of: "2026-06-26"
+  confidence: 0.6
+  data_granularity: official_plan
+  review_status: needs_review
+  note: 河南 2026 计算机较 2025 扩招 60 人；分省精确数以考试院汇编为准
+
+- school: 郑州大学
+  source_province: 河南
+  year: 2026
+  major_group_code: "501"
+  major_name: 软件工程
+  plan_count: 160
+  batch: 本科批
+  tuition: 5700
+  school_system_years: 4
+  subject_requirement_text: 物理+化学
+  source_name: 郑州大学本科招生网(2026招生计划)
+  source_url: https://ao.zzu.edu.cn/ssjgy.jsp?wbtreeid=1143
+  as_of: "2026-06-26"
+  confidence: 0.6
+  data_granularity: official_plan
+  review_status: needs_review
+  note: 分省精确数以考试院汇编为准
+
+- school: 郑州大学
+  source_province: 河南
+  year: 2026
+  major_group_code: "501"
+  major_name: 计算机科学与技术(中外合作)
+  plan_count: 150
+  batch: 本科批
+  tuition: 25000
+  school_system_years: 4
+  subject_requirement_text: 物理+化学，国际学院与澳大利亚伍伦贡大学合作
+  source_name: 郑州大学2026年本科招生章程
+  source_url: https://ao.zzu.edu.cn/info/1002/5075.htm
+  as_of: "2026-06-26"
+  confidence: 0.85
+  data_granularity: official_plan
+  review_status: verified
+  note: 章程第二十条明确中外合作 CS 150 人/年、学费 25000 元/年
+
+# ===== 河南大学 =====
+- school: 河南大学
+  source_province: 河南
+  year: 2026
+  major_group_code: "501"
+  major_name: 软件工程
+  plan_count: 140
+  batch: 本科批
+  tuition: 5700
+  school_system_years: 4
+  subject_requirement_text: 物理，数学>=90
+  source_name: 河南大学本科招生网(2026招生计划)
+  source_url: https://zhaowang.henu.edu.cn/
+  as_of: "2026-06-26"
+  confidence: 0.6
+  data_granularity: official_plan
+  review_status: needs_review
+  note: 分省精确数以考试院汇编为准
+
+# ===== 河南师范大学 =====
+- school: 河南师范大学
+  source_province: 河南
+  year: 2026
+  major_group_code: "501"
+  major_name: 计算机科学与技术
+  plan_count: 90
+  batch: 本科批
+  tuition: 5000
+  school_system_years: 4
+  subject_requirement_text: 物理
+  source_name: 河南师范大学本科招生网(2026招生计划)
+  source_url: https://zs.htu.edu.cn/
+  as_of: "2026-06-26"
+  confidence: 0.55
+  data_granularity: official_plan
+  review_status: needs_review
+  note: 分省精确数以考试院汇编为准
+
+# ===== 河南财经政法大学 =====
+- school: 河南财经政法大学
+  source_province: 河南
+  year: 2026
+  major_group_code: "501"
+  major_name: 金融学
+  plan_count: 80
+  batch: 本科批
+  tuition: 4400
+  school_system_years: 4
+  subject_requirement_text: 物理，数学>=95，外语>=90
+  source_name: 河南财经政法大学本科招生网(2026招生计划)
+  source_url: https://zs.huel.edu.cn/
+  as_of: "2026-06-26"
+  confidence: 0.55
+  data_granularity: official_plan
+  review_status: needs_review
+  note: 分省精确数以考试院汇编为准
