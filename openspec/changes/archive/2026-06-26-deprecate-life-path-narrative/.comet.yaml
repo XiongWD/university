@@ -17,7 +17,7 @@ verification_report: docs/superpowers/reports/2026-06-26-deprecate-life-path-nar
 branch_status: handled
 created_at: 2026-06-26
 verified_at: 2026-06-26
-archived: false
+archived: true
 handoff_context: openspec/changes/deprecate-life-path-narrative/.comet/handoff/design-context.json
 handoff_hash: 5982573f06d9704e10a1269ea36bed88d4974cc05d54ce1bd3aad7801c94db6a
 build_command: python -c "import app.api.main, app.engine.trajectory, app.engine.life_path, app.models.life_trajectory, app.models.life_path"

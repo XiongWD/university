@@ -2,6 +2,8 @@
 comet_change: deprecate-life-path-narrative
 role: technical-design
 canonical_spec: openspec
+archived-with: 2026-06-26-deprecate-life-path-narrative
+status: final
 ---
 
 # Design Doc: deprecate-life-path-narrative（拆分项 A — 去叙事 / 去交易化）
