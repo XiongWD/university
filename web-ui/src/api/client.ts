@@ -1,5 +1,10 @@
 // API 客户端：统一 /api/v1 前缀 + 错误处理
 // dev 时 vite proxy 把 /api 转发到 8000，无需配置 base url
+//
+// 注意：后端 /volunteer/life-paths、/volunteer/life-trajectory 端点已 deprecated，
+// 仅为兼容旧调用与回归测试保留，前端主入口已切换到 /volunteer/advisory。
+// 后续若完整移除 deprecated 后端模块，需先把 SchoolOption/AdmissionBuckets 从
+// life_path 迁出到 advisory/shared 模型。
 import type {
   RecommendRequest,
   VolunteerTable,
@@ -8,9 +13,6 @@ import type {
   University,
   CostEstimate,
   SchoolNature,
-  LifeTrajectory,
-  LifePathsRequest,
-  LifePathResult,
   AdvisoryRequest,
   VolunteerAdvisoryResult,
 } from "./types";
@@ -40,14 +42,6 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
 // POST /volunteer/recommend
 export function recommend(req: RecommendRequest): Promise<VolunteerTable> {
   return request<VolunteerTable>("/volunteer/recommend", {
-    method: "POST",
-    body: JSON.stringify(req),
-  });
-}
-
-// POST /volunteer/life-trajectory（deprecated，志愿推荐+费用+就业参考）
-export function lifeTrajectory(req: RecommendRequest): Promise<LifeTrajectory> {
-  return request<LifeTrajectory>("/volunteer/life-trajectory", {
     method: "POST",
     body: JSON.stringify(req),
   });
@@ -111,12 +105,4 @@ export function listUniversities(
 export function estimateCost(school: string, years?: number): Promise<CostEstimate | null> {
   const q = years ? `?years=${years}` : "";
   return request(`/universities/${encodeURIComponent(school)}/cost${q}`);
-}
-
-// POST /volunteer/life-paths（deprecated）
-export function lifePaths(req: LifePathsRequest): Promise<LifePathResult> {
-  return request<LifePathResult>("/volunteer/life-paths", {
-    method: "POST",
-    body: JSON.stringify(req),
-  });
 }
