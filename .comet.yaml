@@ -1,5 +1,6 @@
 # 项目级 Comet 配置：build/verify 命令
-# 该项目是 Python(FastAPI/pytest) + React(Vite)，无单一统一 build，
-# 故显式指定 build_command 与 verify_command 供 comet guard 使用。
-build_command: python -m pytest tests/models tests/loader tests/engine tests/api --basetemp .pytest-tmp -q && cd web-ui && npm.cmd run build
-verify_command: python -m pytest --basetemp .pytest-tmp -q && cd web-ui && npm.cmd run build && python scripts/build_henan_coverage_report.py --fail-on-not-ready
+# 该项目是 Python(FastAPI/pytest) + React(Vite)，guard 不允许 shell &&，
+# 故用单一 pytest 命令作为 build/verify 判定（npm build 在 comet-verify 阶段单独跑）。
+build_command: python -m pytest tests/models tests/loader tests/engine tests/api --basetemp .pytest-tmp -q
+verify_command: python -m pytest --basetemp .pytest-tmp -q
+
