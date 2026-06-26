@@ -106,6 +106,7 @@ def _build_career(
 
 # DEPRECATED: 教育投入产出/收益叙事已废弃，见 volunteer-recommendation-refocus；主链路不再调用，仅保留签名以维持兼容
 def _build_payback(cost: CostSummary | None, career: CareerProspect | None) -> PaybackAnalysis | None:
+    """Deprecated stub：回本叙事已移除，恒返回 None。签名保留以维持导入兼容。"""
     return None
 
 

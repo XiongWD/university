@@ -108,3 +108,41 @@ def test_admissions_empty_ok(client):
     r = client.get("/api/v1/volunteer/admissions", params={"school": "不存在的学校"})
     assert r.status_code == 200
     assert r.json() == []
+
+
+# ===== deprecated 端点仍可运行（narrative-policy：回归可用性）=====
+def test_life_trajectory_deprecated_still_runs(client):
+    """/life-trajectory 端点已 deprecated，但仍需返回 2xx 且结构完整（主链路不再生成 payback）。"""
+    r = client.post("/api/v1/volunteer/life-trajectory", json={
+        "province": "河南", "total_score": 543, "track": "理科", "data_year": 2024,
+    })
+    assert r.status_code == 200
+    body = r.json()
+    # 结构完整
+    assert "sprint" in body and "stable" in body and "safe" in body
+    # 回本已从主链路切断（narrative-policy：主流程不生成回本数据）
+    for bucket in ("sprint", "stable", "safe"):
+        for item in body[bucket]:
+            assert item["payback"] is None
+    # deprecated 标记可见
+    assert "deprecated" in body["source_note"]
+
+
+def test_life_paths_deprecated_still_runs(client):
+    """/life-paths 端点已 deprecated，但仍需返回 2xx 且结构完整。"""
+    r = client.post("/api/v1/volunteer/life-paths", json={
+        "total_score": 543, "primary_subject": "历史",
+        "math_score": 75, "exam_foreign_language": "日语",
+        "foreign_language_score": 120, "english_actual_level": "basic",
+        "elective_subjects": ["政治", "地理"],
+        "family_annual_income": 80000, "family_savings": 20000,
+        "max_annual_education_budget": 25000,
+    })
+    assert r.status_code == 200
+    body = r.json()
+    # 结构完整（paths + notes）
+    assert "paths" in body
+    assert "notes" in body
+    # deprecated 标记可见
+    assert any("deprecated" in n for n in body["notes"])
+
