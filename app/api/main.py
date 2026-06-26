@@ -35,7 +35,7 @@ async def lifespan(app: FastAPI):
     _state["seed_loaded"] = False
 
 
-app = FastAPI(title="人生经济模型模拟器 — 数据底座", lifespan=lifespan)
+app = FastAPI(title="高考志愿专业推荐 — 数据底座", lifespan=lifespan)
 
 # CORS：前端 dev (Vite 5173) 跨域调用
 app.add_middleware(

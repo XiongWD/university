@@ -1,7 +1,7 @@
-"""人生轨迹模拟：把志愿推荐与大学费用、就业收入、回本周期串联。
+# DEPRECATED: 旧版志愿集成模型，见 volunteer-recommendation-refocus；本模型保留字段以维持 deprecated 端点序列化，主链路不再填充 payback
+"""志愿推荐集成模型：志愿 + 费用 + 就业参考（历史名 life_trajectory）。
 
-核心问题：读这所大学（某专业）4年要花多少？毕业后能赚多少？多久回本？
-家长和孩子在筛选志愿的那一刻，就能看到「投入产出」全貌。
+本模型承载冲稳保志愿的附加信息。历史兼容字段保留为遗留序列化用途，主链路不再生成。
 """
 from pydantic import BaseModel
 
@@ -34,8 +34,9 @@ class CareerProspect(BaseModel):
     source: str  # 数据来源说明
 
 
+# DEPRECATED: 旧版教育收益分析模型，主链路不再生成，仅遗留端点序列化保留
 class PaybackAnalysis(BaseModel):
-    """回本分析：大学投入 vs 毕业收入。"""
+    """旧版教育收益分析（大学投入 vs 毕业收入）。"""
 
     total_investment: int  # 大学总投入(费用)
     annual_income_after_grad: int  # 毕业后预期年收入(起薪中位×12)
@@ -64,7 +65,7 @@ class TrajectoryItem(BaseModel):
 
 
 class LifeTrajectory(BaseModel):
-    """完整人生轨迹：志愿表 + 每校费用/就业/回本。"""
+    """志愿推荐结果：志愿表 + 每校费用/就业参考。"""
 
     student_score: int
     student_rank: int

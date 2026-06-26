@@ -1,7 +1,8 @@
 """志愿填报引擎 API 端点。
 
 POST /volunteer/recommend：输入考生画像 → 返回冲稳保志愿表（传统）。
-POST /volunteer/life-paths：人生路径（V2.2 三路径+资格链+预算）。
+POST /volunteer/life-paths：(deprecated) 旧版多方案建议，保留以维持兼容。
+POST /volunteer/life-trajectory：(deprecated) 志愿推荐 + 费用 + 就业参考。
 GET /volunteer/admissions：录取数据查询。
 """
 
@@ -61,7 +62,7 @@ class RecommendRequest(BaseModel):
 
 
 class LifePathsRequest(BaseModel):
-    """人生路径请求（V2.2 完整学业画像+家庭预算）。"""
+    """旧版多方案建议请求（V2.2 完整学业画像+家庭预算，deprecated）。"""
 
     province: str = "河南"
     total_score: int
@@ -163,7 +164,7 @@ def recommend(req: RecommendRequest, session: Session = Depends(get_session_dep)
     return table.model_dump(mode="json")
 
 
-# ---------- 取数辅助（人生轨迹用）----------
+# ---------- 取数辅助（志愿推荐集成用）----------
 def _load_universities(session: Session):
     rows = session.exec(select(UniversityRow)).all()
     return [university_to_domain(r) for r in rows]
@@ -184,12 +185,13 @@ def _load_careers(session: Session):
     return [career_to_domain(r) for r in rows]
 
 
-@router.post("/life-trajectory")
+@router.post("/life-trajectory", deprecated=True)
 def life_trajectory(req: RecommendRequest, session: Session = Depends(get_session_dep)):
-    """人生轨迹：志愿推荐 + 每校费用 + 就业前景 + 回本分析。
+    """(deprecated) 志愿推荐 + 每校费用 + 就业参考。
 
-    家长和孩子筛选志愿时一站式看到「读这所大学要花多少、毕业后赚多少、多久回本」。
+    一站式看到「读这所大学要花多少、毕业起薪区间」。
     复用 volunteer 引擎生成冲稳保，再附加 University(费用)+Major/Career(就业)数据。
+    该端点已 deprecated，保留以维持兼容；新主流程将由 advisory 接口提供。
     """
     entries = _load_rank_entries(session, req.province, req.data_year, req.track)
     admissions = _load_admissions(session, req.province, req.track, req.data_year)
@@ -209,6 +211,7 @@ def life_trajectory(req: RecommendRequest, session: Session = Depends(get_sessio
         data_year=actual_year,
         years=4,
     )
+    trajectory.source_note = "(deprecated) " + trajectory.source_note
     return trajectory.model_dump(mode="json")
 
 
@@ -244,7 +247,7 @@ def list_admissions(
     return result
 
 
-# ---------- V2.2 人生路径端点 ----------
+# ---------- V2.2 旧版多方案建议端点（deprecated）----------
 _SEED_DIR = Path("data/seed")
 
 
@@ -298,13 +301,13 @@ def _build_budget(req: LifePathsRequest) -> FamilyBudget:
     )
 
 
-@router.post("/life-paths")
+@router.post("/life-paths", deprecated=True)
 def life_paths(req: LifePathsRequest, session: Session = Depends(get_session_dep)):
-    """V2.2 人生路径：资格链→录取→市场→适配→三路径。
+    """(deprecated) 旧版多方案建议：资格、录取参考、就业市场参考与预算信息的组合输出。
 
-    这是专业优先推荐的核心端点。
-    先过Eligibility定义可行解空间，再在合法集合上优化三路径。
-    返回LifePathResult（三路径+家庭预算+说明）。
+    先过 Eligibility 定义可行解空间，再在合法集合上输出多个备选方案。
+    返回 LifePathResult（多方案+家庭预算+说明）。
+    该端点已 deprecated，保留以维持兼容；新主流程将由 advisory 接口提供。
     """
     profile = _build_academic_profile(req)
     budget = _build_budget(req)
@@ -405,4 +408,5 @@ def life_paths(req: LifePathsRequest, session: Session = Depends(get_session_dep
         f"{off.school}({off.major_group_name})不可报：{res.blocked_summary}"
         for off, res in ineligible
     ])
+    result.notes.append("(deprecated) 该接口已弃用，保留以维持兼容；新主流程将由 advisory 接口提供。")
     return result.model_dump(mode="json")

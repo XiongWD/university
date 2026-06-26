@@ -1,8 +1,8 @@
-# 人生经济模型模拟器 — 教育经济决策系统（V2.2）
+# 高考志愿专业推荐系统
 
-在录取资格、专业适配、家庭预算约束下，优化风险调整后的长期就业与教育回报。
+基于分数、选科、外语、数学、一分一段与家庭预算，生成可解释的专业方向与冲稳保院校建议。
 
-**核心功能**：输入考生分数+选科+外语+家庭预算 → 三条人生路径（稳健/均衡/进取），每条嵌套冲稳保学校清单，含费用/压力/起薪/风险/不可报原因。
+**核心功能**：输入考生分数+选科+外语+家庭预算 → 专业方向建议 + 冲稳保院校清单，含大学费用/家庭压力/起薪参考/录取风险/不可报原因。
 
 > 声明：所有数据基于历史数据模拟，非就业或收入预测。正式填报请以省考试院公布数据为准。
 
@@ -75,9 +75,9 @@ uvicorn app.api.main:app --reload
 
 | 方法 | 路径 | 说明 |
 |------|------|------|
-| **POST** | **`/api/v1/volunteer/life-paths`** | **⭐ 三条人生路径（V2.2核心：资格链→录取→市场→适配→预算→三路径）** |
 | POST | `/api/v1/volunteer/recommend` | 传统冲稳保志愿表 |
-| POST | `/api/v1/volunteer/life-trajectory` | 志愿+费用+就业+回本 |
+| POST | `/api/v1/volunteer/life-paths` | (deprecated) 旧版多方案建议，保留以维持兼容 |
+| POST | `/api/v1/volunteer/life-trajectory` | (deprecated) 志愿+费用+就业参考 |
 | GET | `/api/v1/volunteer/admissions` | 录取数据（track/year/分数范围筛选） |
 | GET | `/api/v1/provincial/score-rank/rank` | 分数→位次 |
 | GET | `/api/v1/provincial/control-line` | 省控线 |
@@ -95,8 +95,7 @@ cd web-ui && npm install && npm run dev
 
 | 路径 | 说明 |
 |------|------|
-| `/life-paths` | ⭐ **三条人生路径**（完整输入→稳健/均衡/进取+冲稳保） |
-| `/` | 志愿推荐（冲稳保+费用+就业+回本） |
+| `/` | 专业推荐（冲稳保+费用+就业参考） |
 | `/cost` | 大学费用估算（公立/民办/中外合作对比） |
 | `/rank` | 位次查询工具（分数↔位次双向） |
 | `/control-line` | 省控线查询 |

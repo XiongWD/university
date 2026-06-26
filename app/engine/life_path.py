@@ -1,7 +1,9 @@
-"""人生路径优化器（V2.2 Phase 4——三路径+多样性约束，纯函数）。
+# DEPRECATED: 旧版多方案优化器已废弃，见 volunteer-recommendation-refocus
+# 仅 /life-paths deprecated 端点调用，主推荐流程不再使用
+"""旧版多方案优化器（V2.2 Phase 4——多方案+多样性约束，纯函数）。
 
-三条路径各有独立目标函数（非综合分前三名），加多样性约束（min_path_distance）。
-路径差异不足时允许"两条有效+一个不建议"，不强造第三条。
+三个备选方案各有独立目标函数（非综合分前三名），加多样性约束（min_path_distance）。
+方案差异不足时允许"两条有效+一个不建议"，不强造第三个。
 
 目标函数=风险调整后综合效用（评审：非收入最大化）。
 在 Eligibility 输出的合法集合 + 家庭预算约束下优化。
@@ -62,6 +64,7 @@ def _path_distance(p1: LifePath, p2: LifePath) -> float:
     return min(1.0, diff)
 
 
+# DEPRECATED: 旧版多方案优化器，见 volunteer-recommendation-refocus；仅 deprecated /life-paths 调用
 def compute_path_score(
     path_type: PathType,
     major_value: float,
@@ -116,6 +119,7 @@ def compute_path_score(
     )
 
 
+# DEPRECATED: 旧版多方案优化器，见 volunteer-recommendation-refocus；仅 deprecated /life-paths 调用
 def select_best_for_path(
     path_type: PathType,
     candidates: list[dict],  # [{offering, eligibility, major_value, market, admission_level, cost_4y, school, ...}]
@@ -146,6 +150,7 @@ def select_best_for_path(
     return scored[0][1]
 
 
+# DEPRECATED: 旧版多方案优化器，见 volunteer-recommendation-refocus；仅 deprecated /life-paths 调用
 def build_life_paths(
     student: StudentAcademicProfile,
     candidates: list[dict],  # 已过Eligibility+有市场分+有录取预测+有费用的候选
