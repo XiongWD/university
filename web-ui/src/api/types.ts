@@ -268,6 +268,25 @@ export interface HenanOptions {
   groups: { school: string; code: string; name: string; track: string }[];
 }
 
+// ===== 河南志愿推：志愿推荐（首页主链路）=====
+export interface HenanRecommendationRequest {
+  score: number;
+  rank?: number | null;
+  track: string;
+  source_province?: string;
+  primary_subject: string;
+  elective_subjects?: string[];
+  exam_foreign_language?: string;
+  strategy?: "自动" | "保守" | "均衡" | "积极";
+}
+
+export interface HenanRecommendationResult {
+  data_ready: boolean;
+  readiness_errors: string[];
+  coverage: Record<string, unknown>;
+  buckets: Record<"冲" | "稳" | "保" | "不推荐" | "需人工复核", HenanTargetItem[]>;
+}
+
 export interface HenanTargetEvaluationRequest {
   score: number;
   rank?: number | null;
@@ -287,14 +306,17 @@ export interface HenanTargetItem {
   major_name: string;
   major_group_code: string;
   major_group_name?: string;
-  bucket: string;            // 冲 / 稳 / 保 / 不推荐
+  bucket: string;            // 冲 / 稳 / 保 / 不推荐 / 需人工复核
   group_bucket?: string;
   major_bucket?: string;
   rank_gap?: number;
   qualified?: boolean;
   bucket_reason?: string;
   blocked_reasons?: string[];
+  warnings?: string[];
   selected_majors?: string[];
+  plan_count?: number;
+  review_status?: string;
 }
 
 export interface HenanTargetEvaluationResult {

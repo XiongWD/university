@@ -3,7 +3,6 @@ import { GraduationCap, Calculator, LineChart, Target } from "lucide-react";
 import HomePage from "./pages/HomePage";
 import RankPage from "./pages/RankPage";
 import ControlLinePage from "./pages/ControlLinePage";
-import UniversityCostPage from "./pages/UniversityCostPage";
 import TargetEvaluationPage from "./pages/TargetEvaluationPage";
 
 const navItems = [
@@ -53,7 +52,6 @@ export default function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/target-evaluation" element={<TargetEvaluationPage />} />
-          <Route path="/cost" element={<UniversityCostPage />} />
           <Route path="/rank" element={<RankPage />} />
           <Route path="/control-line" element={<ControlLinePage />} />
         </Routes>
