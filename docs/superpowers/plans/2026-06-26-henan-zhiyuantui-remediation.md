@@ -1,3 +1,9 @@
+---
+change: henan-real-recommendation-pipeline
+design-doc: docs/superpowers/specs/2026-06-26-henan-real-recommendation-pipeline-design.md
+base-ref: 96202ecad9afc5e86c65acd311aa5890910c64fb
+---
+
 # 河南志愿推产品重构修复 Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
