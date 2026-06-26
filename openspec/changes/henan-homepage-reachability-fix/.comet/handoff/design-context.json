@@ -1,0 +1,13 @@
+{
+  "change": "henan-homepage-reachability-fix",
+  "phase": "design",
+  "mode": "compact",
+  "canonical_spec": "openspec",
+  "generated_by": "comet-handoff.sh",
+  "context_hash": "4696dc07cb5b49c9e72c0243708606604e7730a51701b00865396f15b02e4bf1",
+  "files": [
+    { "path": "openspec/changes/henan-homepage-reachability-fix/proposal.md", "sha256": "621980d7a1c7fb4e6223dcc32dcfd9cea29986764f7eeef4d8f5779eaa86f746" },
+    { "path": "openspec/changes/henan-homepage-reachability-fix/design.md", "sha256": "7ed5e0160045d47755a369f9a7020b3d2d6f6e074711be7d1b1c4725262fe11c" },
+    { "path": "openspec/changes/henan-homepage-reachability-fix/tasks.md", "sha256": "4deddc0541124efa157dd26f2793a3e051e2d146de9657bf13c6e04ee68f5c13" }
+  ]
+}
