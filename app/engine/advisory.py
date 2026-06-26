@@ -82,6 +82,7 @@ _LEVEL_BUCKETS = {
     "冲": "reach", "偏冲": "reach",
     "稳": "match",
     "偏保": "safe", "保": "safe",
+    # "不推荐" 不进任何桶（不可推荐的院校不作为推荐输出）
 }
 
 _PRIVATE_KEYWORDS = ["升达", "黄河科技", "工商", "商丘", "西亚斯"]
@@ -132,6 +133,9 @@ def build_advisory(
         # [§3.4] market × fit（修正 life_paths 把 major_value 错设为 current_market_score）
         matched_major_name = next((m for m in direction.majors if m in major_map), None)
         major_obj = major_map.get(matched_major_name) if matched_major_name else (majors[0] if majors else None)
+        if major_obj is None:
+            # 无任何 major 数据可评分：跳过该 offering（不强行评分导致 AttributeError）
+            continue
         english_dep = getattr(off, "english_dependency_level", "low")
         major_value, breakdown = compute_major_value_academic(
             market, profile, major_obj, english_dependency=english_dep,
@@ -173,7 +177,10 @@ def build_advisory(
             confidence=group_pred.confidence,
             warnings=warnings,
         )
-        bk = _LEVEL_BUCKETS.get(level, "match")
+        # 不推荐（含未识别 level）的院校不作为推荐输出，不进任何桶
+        bk = _LEVEL_BUCKETS.get(level)
+        if bk is None:
+            continue
         getattr(buckets, bk).append(opt)
 
         # 方向聚合（加权均值用）
