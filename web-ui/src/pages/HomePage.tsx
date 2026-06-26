@@ -39,11 +39,11 @@ export default function HomePage() {
         <div className="text-center py-6 animate-fade-in">
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight">
             <span className="bg-gradient-to-r from-pink-400 via-fuchsia-400 to-indigo-400 bg-clip-text text-transparent">
-              填报志愿，看见孩子的人生轨迹
+              高考志愿专业推荐
             </span>
           </h1>
           <p className="text-white/60 mt-3 text-sm sm:text-base">
-            输入分数 → 冲稳保志愿 → 大学花费 · 毕业收入 · 回本周期，一目了然
+            输入分数 → 冲稳保志愿 → 大学花费 · 毕业起薪，一目了然
           </p>
         </div>
       )}
