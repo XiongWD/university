@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Search, Loader2 } from "lucide-react";
-import type { RecommendRequest, RiskPreference } from "../api/types";
+import type { AdvisoryRequest, RiskPreference } from "../api/types";
 
 const PROVINCES = ["河南", "广东"];
 const TRACKS_BY_PROVINCE: Record<string, { label: string; value: string }[]> = {
@@ -24,7 +24,7 @@ const YEARS = [2026, 2025, 2024];  // 2026优先（当年最新一分一段表�
 
 interface Props {
   loading: boolean;
-  onSubmit: (req: RecommendRequest) => void;
+  onSubmit: (req: AdvisoryRequest) => void;
 }
 
 const FOREIGN_LANGS = ["英语", "日语", "俄语", "德语", "法语", "西班牙语"];
@@ -53,9 +53,15 @@ export default function ScoreForm({ loading, onSubmit }: Props) {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     onSubmit({
-      province, total_score: totalScore, track, data_year: dataYear, risk_preference: risk,
-      foreign_language: foreignLang, elective_subjects: electives,
-      subject_scores_detail: { 数学: mathScore, 外语: foreignScore },
+      province,
+      total_score: totalScore,
+      primary_subject: track.includes("历史") ? "历史" : "物理",
+      math_score: mathScore,
+      exam_foreign_language: foreignLang,
+      foreign_language_score: foreignScore,
+      english_actual_level: foreignLang === "英语" && foreignScore >= 120 ? "advanced" : "intermediate",
+      elective_subjects: electives,
+      accept_private_school: true,
     });
   }
 

@@ -116,71 +116,7 @@ export interface CostEstimate {
   note: string | null;
 }
 
-// ===== 志愿推荐集成（志愿+费用+就业参考）=====
-export interface CostSummary {
-  tuition_total: number;
-  accommodation_total: number;
-  living_total: number;
-  grand_total: number;
-  annual_total: number;
-  years: number;
-  nature: SchoolNature;
-  city: string | null;
-  city_cost_source: string | null;
-}
-
-export interface CareerProspect {
-  major_name: string | null;
-  entry_salary_low: number;
-  entry_salary_mid: number;
-  entry_salary_high: number;
-  mid_salary_5y: number | null;
-  ceil_salary_15y: number | null;
-  stability: number | null;
-  establishment_type: string | null;
-  source: string;
-}
-
-export interface PaybackAnalysis {
-  total_investment: number;
-  annual_income_after_grad: number;
-  years_to_break_even: number;
-  lifetime_15y_net: number;
-  note: string;
-}
-
-export interface TrajectoryItem {
-  strategy: string;
-  school: string;
-  major: string | null;
-  major_group: string | null;
-  subject_requirement: string | null;
-  batch?: string;
-  degree_level?: string;
-  foreign_language_required?: string;
-  single_subject_requirements?: Record<string, number>;
-  last_year_rank: number;
-  last_year_score: number;
-  student_rank: number;
-  probability: number;
-  cost: CostSummary | null;
-  career: CareerProspect | null;
-  payback: PaybackAnalysis | null;
-  note: string | null;
-}
-
-export interface LifeTrajectory {
-  student_score: number;
-  student_rank: number;
-  track: string;
-  data_year: number;
-  sprint: TrajectoryItem[];
-  stable: TrajectoryItem[];
-  safe: TrajectoryItem[];
-  source_note: string;
-}
-
-// ===== 志愿推荐请求（遗留）=====
+// ===== 志愿推荐请求（遗留，advisory 复用）=====
 export interface LifePathsRequest {
   province?: string;
   total_score: number;
@@ -217,27 +153,44 @@ export interface AdmissionBuckets {
   safe: SchoolOption[];
 }
 
-export interface LifePath {
-  path_type: string;
-  title: string;
-  summary: string;
-  major_direction: string;
+// ===== 志愿推荐 advisory（主接口）=====
+export type AdvisoryRequest = LifePathsRequest;
+
+export interface MajorDirectionAdvice {
+  direction: string;
   recommended_majors: string[];
-  target_careers: string[];
-  university_cost_4y: number;
-  pressure_coefficient: number;
-  affordability_status: string;
-  expected_start_salary_p50: number;
-  major_value_score: number;
-  overall_score: number;
-  risk_level: string;
-  key_benefits: string[];
-  key_risks: string[];
-  school_buckets: AdmissionBuckets;
+  market_value: number;
+  student_fit: number;
+  major_value: number;
+  fit_explanation: string[];
+  risk_warnings: string[];
 }
 
-export interface LifePathResult {
-  paths: LifePath[];
+export interface BudgetSummary {
+  tuition_4y: number;
+  accommodation_4y: number;
+  living_4y: number;
+  total_4y: number;
+  affordable_total: number | null;
+  affordability_status: string;
+  data_note: string | null;
+}
+
+export interface IneligibleReason {
+  school: string;
+  major_group_name: string;
+  reasons: string[];
+  blocked_summary: string;
+}
+
+export interface VolunteerAdvisoryResult {
+  student_rank: number;
+  province: string;
+  track: string;
+  data_year: number;
+  major_directions: MajorDirectionAdvice[];
+  school_options: AdmissionBuckets;
+  ineligible_options: IneligibleReason[];
+  budget_summary: BudgetSummary;
   notes: string[];
-  model_version: string;
 }
