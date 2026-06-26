@@ -1,5 +1,5 @@
 workflow: full
-phase: build
+phase: verify
 context_compression: off
 build_mode: executing-plans
 build_pause: null
@@ -7,7 +7,7 @@ subagent_dispatch: null
 tdd_mode: tdd
 review_mode: standard
 isolation: branch
-verify_mode: null
+verify_mode: full
 auto_transition: true
 base_ref: 24784c742e32f324956483ac6259fb16cf5a4bc3
 design_doc: docs/superpowers/specs/2026-06-26-henan-real-recommendation-pipeline-design.md
