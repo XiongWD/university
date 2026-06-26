@@ -11,6 +11,8 @@ import type {
   LifeTrajectory,
   LifePathsRequest,
   LifePathResult,
+  AdvisoryRequest,
+  VolunteerAdvisoryResult,
 } from "./types";
 
 const BASE = "/api/v1";
@@ -46,6 +48,14 @@ export function recommend(req: RecommendRequest): Promise<VolunteerTable> {
 // POST /volunteer/life-trajectory（deprecated，志愿推荐+费用+就业参考）
 export function lifeTrajectory(req: RecommendRequest): Promise<LifeTrajectory> {
   return request<LifeTrajectory>("/volunteer/life-trajectory", {
+    method: "POST",
+    body: JSON.stringify(req),
+  });
+}
+
+// POST /volunteer/advisory
+export function advisory(req: AdvisoryRequest): Promise<VolunteerAdvisoryResult> {
+  return request<VolunteerAdvisoryResult>("/volunteer/advisory", {
     method: "POST",
     body: JSON.stringify(req),
   });

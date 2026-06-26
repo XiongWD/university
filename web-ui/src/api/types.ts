@@ -241,3 +241,45 @@ export interface LifePathResult {
   notes: string[];
   model_version: string;
 }
+
+// ===== 志愿推荐 advisory（主接口）=====
+export type AdvisoryRequest = LifePathsRequest;
+
+export interface MajorDirectionAdvice {
+  direction: string;
+  recommended_majors: string[];
+  market_value: number;
+  student_fit: number;
+  major_value: number;
+  fit_explanation: string[];
+  risk_warnings: string[];
+}
+
+export interface BudgetSummary {
+  tuition_4y: number;
+  accommodation_4y: number;
+  living_4y: number;
+  total_4y: number;
+  affordable_total: number | null;
+  affordability_status: string;
+  data_note: string | null;
+}
+
+export interface IneligibleReason {
+  school: string;
+  major_group_name: string;
+  reasons: string[];
+  blocked_summary: string;
+}
+
+export interface VolunteerAdvisoryResult {
+  student_rank: number;
+  province: string;
+  track: string;
+  data_year: number;
+  major_directions: MajorDirectionAdvice[];
+  school_options: AdmissionBuckets;
+  ineligible_options: IneligibleReason[];
+  budget_summary: BudgetSummary;
+  notes: string[];
+}
