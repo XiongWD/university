@@ -1,5 +1,5 @@
 workflow: full
-phase: verify
+phase: archive
 context_compression: off
 build_mode: executing-plans
 build_pause: null
@@ -12,11 +12,11 @@ auto_transition: true
 base_ref: bad9258d5d9ed6546b8bf75519667cdbb05cfa04
 design_doc: docs/superpowers/specs/2026-06-26-deprecate-life-path-narrative-design.md
 plan: docs/superpowers/plans/2026-06-26-deprecate-life-path-narrative.md
-verify_result: pending
+verify_result: pass
 verification_report: docs/superpowers/reports/2026-06-26-deprecate-life-path-narrative-verify.md
-branch_status: pending
+branch_status: handled
 created_at: 2026-06-26
-verified_at: null
+verified_at: 2026-06-26
 archived: false
 handoff_context: openspec/changes/deprecate-life-path-narrative/.comet/handoff/design-context.json
 handoff_hash: 5982573f06d9704e10a1269ea36bed88d4974cc05d54ce1bd3aad7801c94db6a
