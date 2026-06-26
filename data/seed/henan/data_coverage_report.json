@@ -2,12 +2,12 @@
   "actual": {
     "universities_2026": 4,
     "program_groups_2026": 5,
-    "enrollment_plans_henan_2026": 3
+    "enrollment_plans_henan_2026": 4
   },
   "quality": {
-    "verified_program_groups_2026": 0,
-    "verified_enrollment_plans_2026": 0,
-    "nonzero_enrollment_plans_2026": 0,
+    "verified_program_groups_2026": 4,
+    "verified_enrollment_plans_2026": 3,
+    "nonzero_enrollment_plans_2026": 4,
     "verified_2025_history": 0,
     "verified_2024_history": 0
   }

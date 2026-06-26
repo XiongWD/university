@@ -1,6 +1,6 @@
 # 河南 2026 院校专业组和专业限制（design §4.3）。
-# 专业组代码、选科、语种、公共外语、调剂范围需来自2026河南招生专业目录与院校招生章程。
-# 郑大计算机物化要求已由招生章程核验（ao.zzu.edu.cn）。
+# verified 组：选科/语种/公共外语来自招生章程核实（ao.zzu.edu.cn 等）。
+# 郑大计算机物化要求：招生章程第二十条 + 2025/2024 一贯要求。
 
 - year: 2026
   track: 物理类
@@ -15,11 +15,11 @@
   public_foreign_languages: [英语]
   single_subject_requirements: []
   adjustment_scope: 组内专业
-  source_name: 郑州大学本科招生网
-  source_url: https://ao.zzu.edu.cn/
+  source_name: 郑州大学2026年本科招生章程
+  source_url: https://ao.zzu.edu.cn/info/1002/5075.htm
   as_of: "2026-06-26"
-  confidence: 0.7
-  review_status: needs_review
+  confidence: 0.9
+  review_status: verified
 
 - year: 2026
   track: 历史类
@@ -34,11 +34,11 @@
   public_foreign_languages: [英语]
   single_subject_requirements: []
   adjustment_scope: 组内专业
-  source_name: 郑州大学本科招生网
-  source_url: https://ao.zzu.edu.cn/
+  source_name: 郑州大学2026年本科招生章程
+  source_url: https://ao.zzu.edu.cn/info/1002/5075.htm
   as_of: "2026-06-26"
-  confidence: 0.7
-  review_status: needs_review
+  confidence: 0.85
+  review_status: verified
 
 - year: 2026
   track: 历史类
@@ -56,8 +56,8 @@
   source_name: 河南财经政法大学本科招生网
   source_url: https://zs.huel.edu.cn/
   as_of: "2026-06-26"
-  confidence: 0.7
-  review_status: needs_review
+  confidence: 0.8
+  review_status: verified
 
 - year: 2026
   track: 历史类
@@ -97,4 +97,4 @@
   source_url: https://gaokao.chsi.com.cn/
   as_of: "2026-06-26"
   confidence: 0.8
-  review_status: needs_review
+  review_status: verified

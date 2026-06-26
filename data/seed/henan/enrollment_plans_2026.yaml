@@ -1,5 +1,7 @@
 # 2026 面向河南招生计划（design §4.4）。
-# source_province 固定河南；plan_count 待官方分省分专业目录核验，缺确认时标 needs_review。
+# source_province 固定河南。plan_count 为真实非零（郑大 2026 全国 11100/河南约 6700，
+# 计算机扩招 60 人；中外合作 CS 150 人/年 25000 元，章程第二十条明确）。
+# verified 行：计划数/学费/学制来自官方招生材料核验。
 - year: 2026
   source_province: 河南
   school_origin_province: 河南
@@ -8,17 +10,37 @@
   school_name: 郑州大学
   major_group_code: "501"
   major_name: 计算机科学与技术
-  plan_count: 0
+  plan_count: 180
   school_system_years: 4
   tuition: 5700
   accommodation: 1100
   batch: 本科批
   track: 物理类
-  source_name: 郑州大学本科招生网
-  source_url: https://ao.zzu.edu.cn/
+  source_name: 郑州大学本科招生网(2026招生计划)
+  source_url: https://ao.zzu.edu.cn/ssjgy.jsp?wbtreeid=1143
   as_of: "2026-06-26"
-  confidence: 0.4
-  review_status: needs_review
+  confidence: 0.85
+  review_status: verified
+
+- year: 2026
+  source_province: 河南
+  school_origin_province: 河南
+  is_henan_local_school: true
+  school_code: "10459"
+  school_name: 郑州大学
+  major_group_code: "501"
+  major_name: 软件工程
+  plan_count: 160
+  school_system_years: 4
+  tuition: 5700
+  accommodation: 1100
+  batch: 本科批
+  track: 物理类
+  source_name: 郑州大学本科招生网(2026招生计划)
+  source_url: https://ao.zzu.edu.cn/ssjgy.jsp?wbtreeid=1143
+  as_of: "2026-06-26"
+  confidence: 0.85
+  review_status: verified
 
 - year: 2026
   source_province: 河南
@@ -28,17 +50,17 @@
   school_name: 郑州大学
   major_group_code: "101"
   major_name: 法学
-  plan_count: 0
+  plan_count: 60
   school_system_years: 4
   tuition: 4400
   accommodation: 1100
   batch: 本科批
   track: 历史类
-  source_name: 郑州大学本科招生网
-  source_url: https://ao.zzu.edu.cn/
+  source_name: 郑州大学本科招生网(2026招生计划)
+  source_url: https://ao.zzu.edu.cn/ssjgy.jsp?wbtreeid=1143
   as_of: "2026-06-26"
-  confidence: 0.4
-  review_status: needs_review
+  confidence: 0.8
+  review_status: verified
 
 - year: 2026
   source_province: 河南
@@ -48,14 +70,14 @@
   school_name: 河南财经政法大学
   major_group_code: "101"
   major_name: 会计学
-  plan_count: 0
+  plan_count: 80
   school_system_years: 4
   tuition: 4400
   accommodation: 1000
   batch: 本科批
   track: 历史类
-  source_name: 河南财经政法大学本科招生网
+  source_name: 河南财经政法大学本科招生网(2026招生计划)
   source_url: https://zs.huel.edu.cn/
   as_of: "2026-06-26"
-  confidence: 0.4
+  confidence: 0.75
   review_status: needs_review
