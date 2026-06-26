@@ -410,3 +410,33 @@ def life_paths(req: LifePathsRequest, session: Session = Depends(get_session_dep
     ])
     result.notes.append("(deprecated) 该接口已弃用，保留以维持兼容；新主流程将由 advisory 接口提供。")
     return result.model_dump(mode="json")
+
+
+@router.post("/advisory")
+def advisory(req: LifePathsRequest, session: Session = Depends(get_session_dep)):
+    """志愿推荐 advisory 主接口（专业方向优先）。
+
+    输入完整考生画像（分数+选科+外语+数学+实际英语能力+家庭预算），
+    输出专业方向建议 + 冲稳保院校清单 + 费用压力 + 不可报原因 + 数据说明。
+    主链路：资格过滤 → 位次 → 专业方向评分(market×fit) → 录取预测 → 费用压力 → 冲稳保。
+    """
+    from app.engine.advisory import build_advisory
+
+    profile = _build_academic_profile(req)
+    budget = _build_budget(req)
+    offerings = _load_offerings()
+    directions, snap_map = _load_directions_and_snapshots()
+
+    track = "历史类" if profile.primary_subject == "历史" else "物理类"
+    entries = _load_rank_entries(session, profile.province, 2026, track)
+    admissions = _load_admissions(session, profile.province, track, 2025)
+    actual_year = admissions[0].year if admissions else 2025
+
+    result = build_advisory(
+        profile=profile, budget=budget, offerings=offerings,
+        directions=directions, snap_map=snap_map, admissions=admissions,
+        unis=_load_universities(session), cities=_load_cities(session),
+        majors=_load_majors(session), careers=_load_careers(session),
+        rank_entries=entries, data_year=actual_year,
+    )
+    return result.model_dump(mode="json")
