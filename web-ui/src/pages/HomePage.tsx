@@ -24,6 +24,10 @@ export default function HomePage() {
     setError(null);
     setDisplayBucket(req.display_bucket ?? "全部");
     try {
+      // 映射档位选择到推荐策略：冲→积极，保→保守，稳/全部→自动（design §8.4）
+      const strategyMap: Record<string, "自动" | "保守" | "积极" | "均衡"> = {
+        "冲": "积极", "保": "保守", "稳": "均衡", "全部": "自动",
+      };
       const response = await henanRecommendation({
         score: req.total_score,
         rank: null,
@@ -32,7 +36,7 @@ export default function HomePage() {
         primary_subject: req.primary_subject,
         elective_subjects: req.elective_subjects,
         exam_foreign_language: req.exam_foreign_language || "英语",
-        strategy: "自动",
+        strategy: strategyMap[req.display_bucket ?? "全部"] ?? "自动",
       });
       setResult(response);
     } catch (e) {

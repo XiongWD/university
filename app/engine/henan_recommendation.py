@@ -218,20 +218,20 @@ def build_henan_candidates(profile: dict) -> list[dict]:
 
         if not ok:
             bucket = "不推荐"
+        elif baseline is None or not has_verified_history:
+            # design D2/I1：资格通过但缺 verified 历史基线 → 需人工复核（不得稳/保，也不混为不推荐）
+            bucket = "需人工复核"
         else:
-            # 分桶
+            # 分桶（有 verified 历史基线才进入风险层）
             bucket = classify_group_bucket(
                 student_rank=student_rank,
-                adjusted_rank=baseline["adjusted_min_rank"] if baseline else None,
+                adjusted_rank=baseline["adjusted_min_rank"],
                 has_2025_history=has_verified_history and baseline.get("year") == 2025,
                 has_2026_plan=has_2026_plan,
                 has_verified_group=has_verified_group,
                 confidence=group.confidence,
             )
-            # design D2：缺 verified 历史的稳/保降级为需人工复核
-            if bucket in {"稳", "保"} and not has_verified_history:
-                bucket = "需人工复核"
-            # 缺计划或未核验组的可达档位降级
+            # 缺计划或未核验组的可达档位降级为需人工复核
             if bucket in {"冲", "稳", "保"} and (not has_2026_plan or not has_verified_group):
                 bucket = "需人工复核"
 

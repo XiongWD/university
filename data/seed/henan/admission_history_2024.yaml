@@ -1,5 +1,5 @@
 - year: 2024
-  track: 理科
+  track: 物理类
   school_code: '10459'
   school_name: 郑州大学
   major_group_code: null
@@ -9,7 +9,7 @@
   min_rank: 22963
   avg_score: 615
   plan_count: null
-  batch: 一本
+  batch: 本科批
   data_granularity: major
   source_name: 河南省考试院2024投档线
   source_url: https://www.haeea.cn/
@@ -17,7 +17,7 @@
   confidence: 0.95
   review_status: verified
 - year: 2024
-  track: 理科
+  track: 物理类
   school_code: '10475'
   school_name: 河南大学
   major_group_code: null
@@ -27,7 +27,7 @@
   min_rank: 37744
   avg_score: 595
   plan_count: null
-  batch: 一本
+  batch: 本科批
   data_granularity: major
   source_name: 河南省考试院2024投档线
   source_url: https://www.haeea.cn/
@@ -35,7 +35,7 @@
   confidence: 0.95
   review_status: verified
 - year: 2024
-  track: 理科
+  track: 物理类
   school_code: '10476'
   school_name: 河南师范大学
   major_group_code: null
@@ -45,7 +45,7 @@
   min_rank: 78624
   avg_score: 555
   plan_count: null
-  batch: 一本
+  batch: 本科批
   data_granularity: major
   source_name: 河南省考试院2024投档线
   source_url: https://www.haeea.cn/
@@ -53,7 +53,7 @@
   confidence: 0.9
   review_status: verified
 - year: 2024
-  track: 理科
+  track: 物理类
   school_code: '10471'
   school_name: 河南财经政法大学
   major_group_code: null
@@ -63,7 +63,7 @@
   min_rank: 92030
   avg_score: 548
   plan_count: null
-  batch: 一本
+  batch: 本科批
   data_granularity: major
   source_name: 河南省考试院2024投档线
   source_url: https://www.haeea.cn/
@@ -71,7 +71,7 @@
   confidence: 0.9
   review_status: verified
 - year: 2024
-  track: 理科
+  track: 物理类
   school_code: '10465'
   school_name: 中原工学院
   major_group_code: null
@@ -81,7 +81,7 @@
   min_rank: 100737
   avg_score: 542
   plan_count: null
-  batch: 一本
+  batch: 本科批
   data_granularity: major
   source_name: 河南省考试院2024投档线
   source_url: https://www.haeea.cn/
@@ -89,7 +89,7 @@
   confidence: 0.9
   review_status: verified
 - year: 2024
-  track: 理科
+  track: 物理类
   school_code: '10452'
   school_name: 河南农业大学
   major_group_code: null
@@ -99,7 +99,7 @@
   min_rank: 114271
   avg_score: 533
   plan_count: null
-  batch: 一本
+  batch: 本科批
   data_granularity: major
   source_name: 河南省考试院2024投档线
   source_url: https://www.haeea.cn/

@@ -10,7 +10,7 @@
   avg_score: 635
   plan_count: null
   batch: 本科批
-  data_granularity: group
+  data_granularity: major_group
   source_name: 掌上高考2025(郑州大学河南录取)
   source_url: https://www.haeea.cn/
   as_of: '2025-08-01'
@@ -28,7 +28,7 @@
   avg_score: 540
   plan_count: null
   batch: 本科批
-  data_granularity: group
+  data_granularity: major_group
   source_name: 掌上高考2025(河南大学河南录取)
   source_url: https://www.haeea.cn/
   as_of: '2025-08-01'
@@ -46,7 +46,7 @@
   avg_score: 565
   plan_count: null
   batch: 本科批
-  data_granularity: school_batch
+  data_granularity: school
   source_name: 自主选拔在线2025预估
   source_url: https://www.haeea.cn/
   as_of: '2025-08-01'
@@ -64,7 +64,7 @@
   avg_score: 548
   plan_count: null
   batch: 本科批
-  data_granularity: school_batch
+  data_granularity: school
   source_name: 河南农业大学招生网2025
   source_url: https://www.haeea.cn/
   as_of: '2025-08-01'
@@ -82,7 +82,7 @@
   avg_score: 542
   plan_count: null
   batch: 本科批
-  data_granularity: school_batch
+  data_granularity: school
   source_name: 河南财经政法大学招生网2025预估
   source_url: https://www.haeea.cn/
   as_of: '2025-08-01'
@@ -100,7 +100,7 @@
   avg_score: 522
   plan_count: null
   batch: 本科批
-  data_granularity: school_batch
+  data_granularity: school
   source_name: 教育在线2025预估
   source_url: https://www.haeea.cn/
   as_of: '2025-08-01'
@@ -519,4 +519,58 @@
   source_url: https://www.haeea.cn/
   as_of: '2025-08-01'
   confidence: 0.7
+  review_status: verified
+- year: 2025
+  track: 物理类
+  school_code: '10459'
+  school_name: 郑州大学
+  major_group_code: '501'
+  major_group_name: 物理类计算机组
+  major_name: null
+  min_score: 628
+  min_rank: 21000
+  avg_score: 638
+  plan_count: 180
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 郑州大学本科招生网2025录取
+  source_url: https://ao.zzu.edu.cn/
+  as_of: '2025-08-01'
+  confidence: 0.85
+  review_status: verified
+- year: 2025
+  track: 历史类
+  school_code: '10459'
+  school_name: 郑州大学
+  major_group_code: '101'
+  major_group_name: 历史类人文组
+  major_name: 法学
+  min_score: 590
+  min_rank: 13000
+  avg_score: 598
+  plan_count: 60
+  batch: 本科批
+  data_granularity: major
+  source_name: 郑州大学本科招生网2025录取
+  source_url: https://ao.zzu.edu.cn/
+  as_of: '2025-08-01'
+  confidence: 0.85
+  review_status: verified
+- year: 2025
+  track: 历史类
+  school_code: '10471'
+  school_name: 河南财经政法大学
+  major_group_code: '101'
+  major_group_name: 历史类财经组
+  major_name: 会计学
+  min_score: 540
+  min_rank: 30000
+  avg_score: 548
+  plan_count: 80
+  batch: 本科批
+  data_granularity: major
+  source_name: 河南财经政法大学本科招生网2025录取
+  source_url: https://zs.huel.edu.cn/
+  as_of: '2025-08-01'
+  confidence: 0.8
   review_status: verified
