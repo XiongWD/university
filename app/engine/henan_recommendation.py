@@ -128,8 +128,8 @@ def get_bucket_quota(policy_count: int, strategy: str, profile: dict) -> dict[st
     return {"冲": scaled(8, 12), "稳": scaled(20, 24), "保": scaled(12, 16)}  # 均衡
 
 
-# 冲稳保排序权重（冲在前，保次之，不推荐最后）
-_BUCKET_ORDER = {"冲": 0, "稳": 1, "保": 2, "不推荐": 3}
+# 冲稳保排序权重（冲在前，保次之，不推荐最后，需人工复核在末尾）
+_BUCKET_ORDER = {"冲": 0, "稳": 1, "保": 2, "不推荐": 3, "需人工复核": 4}
 
 
 def build_48_volunteer_draft(candidates: list[dict], policy) -> dict:
@@ -152,12 +152,107 @@ def build_48_volunteer_draft(candidates: list[dict], policy) -> dict:
 
 
 def build_henan_candidates(profile: dict) -> list[dict]:
-    """首页推荐候选生成入口（design §8）。
+    """真实候选生成器（design §8、D2、D4）。
 
-    生产实现需加载 2026 河南专业组、2026 招生计划、2025/2024 历史录取、费用、
-    就业信号，再依次调用 check_henan_eligibility() 与 classify_group_bucket()。
-    当前返回占位：仅校验生源地。
+    加载 2026 专业组+计划+历史，逐组做资格过滤、计划校验、历史位次、冲稳保分桶。
+    不再返回空占位。首页推荐与目标评估共同消费此候选集。
+
+    分桶规则：
+    - 资格层不通过 → 不推荐
+    - 缺 2026 计划(plan_count=0 或非 verified) → 需人工复核/不推荐
+    - 缺 verified 历史位次 → 即使位次优也 需人工复核（不得稳/保）
+    - classify_group_bucket 按位次差比分桶
     """
+    from pathlib import Path
+
+    from app.loader.henan_data_loader import (
+        find_best_historical_baseline,
+        load_henan_admission_history,
+        load_henan_enrollment_plans,
+        load_henan_program_groups,
+    )
+
     if profile.get("source_province") not in (None, "河南"):
         raise ValueError("河南志愿推仅支持河南考生")
-    return []
+
+    seed_dir = Path("data/seed")
+    groups = load_henan_program_groups(seed_dir)
+    plans = load_henan_enrollment_plans(seed_dir)
+    history = load_henan_admission_history(seed_dir)
+
+    # 按 (school_code, group_code, track, batch) 聚合计划
+    plans_by_key: dict[tuple, list] = {}
+    for plan in plans:
+        plans_by_key.setdefault(
+            (plan.school_code, plan.major_group_code, plan.track, plan.batch), []
+        ).append(plan)
+
+    candidates: list[dict] = []
+    student_rank = profile.get("rank") or 0
+
+    for group in groups:
+        if group.track != profile.get("track"):
+            continue
+
+        # 资格层
+        ok, blocked, warnings = check_henan_eligibility(profile, group)
+
+        # 2026 计划校验
+        group_plans = plans_by_key.get(
+            (group.school_code, group.major_group_code, group.track, group.batch), []
+        )
+        has_2026_plan = any(p.plan_count > 0 and p.review_status == "verified" for p in group_plans)
+        has_verified_group = group.review_status == "verified"
+        plan_count = sum(p.plan_count for p in group_plans)
+
+        # 历史位次基线
+        baseline = find_best_historical_baseline(
+            history,
+            school_code=group.school_code,
+            group_code=group.major_group_code,
+            major_names=group.included_majors,
+            track=group.track,
+            batch=group.batch,
+        )
+        has_verified_history = baseline is not None and baseline.get("review_status") == "verified"
+
+        if not ok:
+            bucket = "不推荐"
+        else:
+            # 分桶
+            bucket = classify_group_bucket(
+                student_rank=student_rank,
+                adjusted_rank=baseline["adjusted_min_rank"] if baseline else None,
+                has_2025_history=has_verified_history and baseline.get("year") == 2025,
+                has_2026_plan=has_2026_plan,
+                has_verified_group=has_verified_group,
+                confidence=group.confidence,
+            )
+            # design D2：缺 verified 历史的稳/保降级为需人工复核
+            if bucket in {"稳", "保"} and not has_verified_history:
+                bucket = "需人工复核"
+            # 缺计划或未核验组的可达档位降级
+            if bucket in {"冲", "稳", "保"} and (not has_2026_plan or not has_verified_group):
+                bucket = "需人工复核"
+
+        candidates.append({
+            "volunteer_unit": "院校专业组",
+            "school_name": group.school_name,
+            "school_code": group.school_code,
+            "major_group_code": group.major_group_code,
+            "major_group_name": group.major_group_name,
+            "major_name": group.included_majors[0] if group.included_majors else "",
+            "selected_majors": group.included_majors[:6],
+            "track": group.track,
+            "batch": group.batch,
+            "bucket": bucket,
+            "group_bucket": bucket,
+            "major_bucket": bucket,
+            "qualified": ok,
+            "blocked_reasons": blocked,
+            "warnings": warnings,
+            "plan_count": plan_count,
+            "review_status": "verified" if (has_verified_group and has_2026_plan) else "needs_review",
+            "bucket_reason": "按2026河南专业组、招生计划、选科语种和历史位次综合判断",
+        })
+    return candidates
