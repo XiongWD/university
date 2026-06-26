@@ -1,5 +1,5 @@
 workflow: full
-phase: build
+phase: verify
 context_compression: off
 build_mode: executing-plans
 build_pause: null
@@ -21,3 +21,4 @@ archived: false
 handoff_context: openspec/changes/volunteer-advisory-engine/.comet/handoff/design-context.json
 handoff_hash: 044839221aac2acd84fe66fc6388228bebf55fab52bda3d9f3291058bed983df
 verify_command: python -m pytest -q
+build_command: python -c "import app.api.main, app.engine.advisory, app.models.advisory"
