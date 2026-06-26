@@ -1,4 +1,4 @@
-"""人生轨迹引擎：志愿推荐 + 费用 + 就业 + 回本，一站式串联。
+"""志愿推荐集成引擎：志愿推荐 + 费用 + 就业参考，一站式串联。
 
 复用已有引擎：
 - volunteer.generate_volunteer_table（冲稳保志愿表）
@@ -104,35 +104,9 @@ def _build_career(
     )
 
 
+# DEPRECATED: 教育投入产出/收益叙事已废弃，见 volunteer-recommendation-refocus；主链路不再调用，仅保留签名以维持兼容
 def _build_payback(cost: CostSummary | None, career: CareerProspect | None) -> PaybackAnalysis | None:
-    """回本分析。需费用+就业数据齐全。"""
-    if not cost or not career:
-        return None
-    annual_income = career.entry_salary_mid * 12  # 起薪中位年化
-    if annual_income <= 0:
-        return None
-    break_even = cost.grand_total / annual_income
-    # 15年净收益：15年收入 - 大学投入（简化，未扣生活）
-    income_15y = annual_income * 15
-    if career.mid_salary_5y:
-        # 5年后涨薪：后10年按5年中位估算
-        income_15y = annual_income * 5 + career.mid_salary_5y * 12 * 10
-    net_15y = income_15y - cost.grand_total
-    if break_even <= 2:
-        judge = "回本极快（高性价比）"
-    elif break_even <= 4:
-        judge = "回本较快"
-    elif break_even <= 7:
-        judge = "回本正常"
-    else:
-        judge = "回本较慢（投入大或起薪低）"
-    return PaybackAnalysis(
-        total_investment=cost.grand_total,
-        annual_income_after_grad=annual_income,
-        years_to_break_even=round(break_even, 1),
-        lifetime_15y_net=net_15y,
-        note=judge,
-    )
+    return None
 
 
 def _item_from_suggestion(
@@ -146,7 +120,8 @@ def _item_from_suggestion(
 ) -> TrajectoryItem:
     cost = _build_cost(sug.school, unis, cities, years)
     career = _build_career(sug.major, majors, careers)
-    payback = _build_payback(cost, career)
+    # DEPRECATED: 回本(payback)叙事已废弃，见 volunteer-recommendation-refocus；主链路不再生成
+    payback = None
     # 学历层次：专科批次→专科，其余→本科
     degree = "专科" if "专科" in batch else "本科"
     return TrajectoryItem(
@@ -179,10 +154,10 @@ def build_life_trajectory(
     data_year: int,
     years: int = 4,
 ):
-    """构建完整人生轨迹。
+    """构建志愿推荐结果：冲稳保志愿 + 每校费用 + 就业参考。
 
     1. 先生成冲稳保志愿表（复用 volunteer 引擎）
-    2. 每条志愿附加费用/就业/回本
+    2. 每条志愿附加费用与就业参考
     """
     from app.models.life_trajectory import LifeTrajectory
 
