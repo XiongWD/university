@@ -1,0 +1,13 @@
+{
+  "change": "henan-real-recommendation-pipeline",
+  "phase": "design",
+  "mode": "compact",
+  "canonical_spec": "openspec",
+  "generated_by": "comet-handoff.sh",
+  "context_hash": "6e931bff272c883de0ab5c7a3d9a24f06812ea69a6e1d69a49013deb0189ed7c",
+  "files": [
+    { "path": "openspec/changes/henan-real-recommendation-pipeline/proposal.md", "sha256": "20a0f65f23f1202a3cd67f4e41ad3f154f1cf00415ec89a787c552164918160a" },
+    { "path": "openspec/changes/henan-real-recommendation-pipeline/design.md", "sha256": "3475d1d58af5a82ca634c6edfc75a65acce7773de9186c90a34bd330a8c625dd" },
+    { "path": "openspec/changes/henan-real-recommendation-pipeline/tasks.md", "sha256": "6bace5c885820c169f845c3257d0c9c9444f93698487ec4f5f303521d0c2a52c" }
+  ]
+}
