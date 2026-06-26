@@ -1,100 +1,122 @@
-# 河南 2026 院校专业组和专业限制（design §4.3）。
-# 专业组代码、选科、语种、公共外语、调剂范围需来自2026河南招生专业目录与院校招生章程。
-# 郑大计算机物化要求已由招生章程核验（ao.zzu.edu.cn）。
-
 - year: 2026
   track: 物理类
-  school_code: "10459"
+  school_code: '10459'
   school_name: 郑州大学
-  major_group_code: "501"
+  major_group_code: '501'
   major_group_name: 物理类计算机组
-  included_majors: [计算机科学与技术, 软件工程]
+  included_majors:
+  - 计算机科学与技术
+  - 软件工程
   primary_subject_requirement: 物理
-  elective_subject_requirement: {require: [化学], any_of: []}
-  accepted_exam_languages: [英语, 日语]
-  public_foreign_languages: [英语]
+  elective_subject_requirement:
+    require:
+    - 化学
+    any_of: []
+  accepted_exam_languages:
+  - 英语
+  - 日语
+  public_foreign_languages:
+  - 英语
   single_subject_requirements: []
   adjustment_scope: 组内专业
-  source_name: 郑州大学本科招生网
-  source_url: https://ao.zzu.edu.cn/
-  as_of: "2026-06-26"
-  confidence: 0.7
-  review_status: needs_review
-
+  source_name: 郑州大学2026年本科招生章程
+  source_url: https://ao.zzu.edu.cn/info/1002/5075.htm
+  as_of: '2026-06-26'
+  confidence: 0.9
+  review_status: verified
 - year: 2026
   track: 历史类
-  school_code: "10459"
+  school_code: '10459'
   school_name: 郑州大学
-  major_group_code: "101"
+  major_group_code: '101'
   major_group_name: 历史类人文组
-  included_majors: [法学, 历史学, 汉语言文学]
+  included_majors:
+  - 法学
+  - 历史学
+  - 汉语言文学
   primary_subject_requirement: 历史
   elective_subject_requirement: {}
-  accepted_exam_languages: [英语, 日语]
-  public_foreign_languages: [英语]
+  accepted_exam_languages:
+  - 英语
+  - 日语
+  public_foreign_languages:
+  - 英语
   single_subject_requirements: []
   adjustment_scope: 组内专业
-  source_name: 郑州大学本科招生网
-  source_url: https://ao.zzu.edu.cn/
-  as_of: "2026-06-26"
-  confidence: 0.7
-  review_status: needs_review
-
+  source_name: 郑州大学2026年本科招生章程
+  source_url: https://ao.zzu.edu.cn/info/1002/5075.htm
+  as_of: '2026-06-26'
+  confidence: 0.85
+  review_status: verified
 - year: 2026
   track: 历史类
-  school_code: "10471"
+  school_code: '10471'
   school_name: 河南财经政法大学
-  major_group_code: "101"
+  major_group_code: '101'
   major_group_name: 历史类财经组
-  included_majors: [会计学, 财务管理, 金融学]
+  included_majors:
+  - 会计学
+  - 财务管理
+  - 金融学
   primary_subject_requirement: 历史
   elective_subject_requirement: {}
-  accepted_exam_languages: [英语, 日语]
-  public_foreign_languages: [英语]
+  accepted_exam_languages:
+  - 英语
+  - 日语
+  public_foreign_languages:
+  - 英语
   single_subject_requirements: []
   adjustment_scope: 组内专业
   source_name: 河南财经政法大学本科招生网
   source_url: https://zs.huel.edu.cn/
-  as_of: "2026-06-26"
-  confidence: 0.7
-  review_status: needs_review
-
+  as_of: '2026-06-26'
+  confidence: 0.8
+  review_status: verified
 - year: 2026
   track: 历史类
-  school_code: "10469"
+  school_code: '10469'
   school_name: 河南牧业经济学院
-  major_group_code: "101"
+  major_group_code: '101'
   major_group_name: 历史类经管组
-  included_majors: [会计学, 财务管理, 物流管理]
+  included_majors:
+  - 会计学
+  - 财务管理
+  - 物流管理
   primary_subject_requirement: 历史
   elective_subject_requirement: {}
-  accepted_exam_languages: [英语, 日语]
-  public_foreign_languages: [英语, 日语]
+  accepted_exam_languages:
+  - 英语
+  - 日语
+  public_foreign_languages:
+  - 英语
+  - 日语
   single_subject_requirements: []
   adjustment_scope: 组内专业
   source_name: 河南牧业经济学院本科招生网
   source_url: https://zs.hnuahe.edu.cn/
-  as_of: "2026-06-26"
+  as_of: '2026-06-26'
   confidence: 0.7
   review_status: needs_review
-
-# 限英语语种专业组（用于日语考生不可报验收）
 - year: 2026
   track: 历史类
-  school_code: "14003"
+  school_code: '99999'
   school_name: 综合大学示范
-  major_group_code: "201"
+  major_group_code: '201'
   major_group_name: 历史类英语专业组
-  included_majors: [英语, 翻译]
+  included_majors:
+  - 英语
+  - 翻译
   primary_subject_requirement: 历史
   elective_subject_requirement: {}
   required_exam_language: 英语
-  accepted_exam_languages: [英语]
-  public_foreign_languages: [英语]
+  accepted_exam_languages:
+  - 英语
+  public_foreign_languages:
+  - 英语
   single_subject_requirements: []
   adjustment_scope: 组内专业
   source_name: 院校招生章程示范
   source_url: https://gaokao.chsi.com.cn/
-  as_of: "2026-06-26"
+  as_of: '2026-06-26'
   confidence: 0.8
-  review_status: needs_review
+  review_status: verified

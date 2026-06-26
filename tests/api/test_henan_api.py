@@ -55,3 +55,34 @@ def test_target_evaluation_rejects_non_henan_source_province():
     body = response.json()
     assert body["overall_bucket"] == "不推荐"
     assert "河南" in body["reasons"][0]
+
+
+def test_target_evaluation_uses_candidate_generator(monkeypatch):
+    """目标评估复用 build_henan_candidates：mock 候选返回稳时按专业组显示稳。"""
+    from app.api.routers import henan
+
+    def fake_candidates(profile):
+        return [{
+            "school_name": "测试大学",
+            "major_name": "法学",
+            "major_group_code": "101",
+            "major_group_name": "历史组",
+            "bucket": "稳",
+            "qualified": True,
+            "blocked_reasons": [],
+        }]
+
+    monkeypatch.setattr(henan, "build_henan_candidates", fake_candidates)
+    client = TestClient(app)
+    r = client.post("/api/v1/henan/target-evaluation", json={
+        "score": 600,
+        "rank": 12000,
+        "track": "历史类",
+        "source_province": "河南",
+        "target_school": "测试大学",
+        "target_majors": [],
+        "target_group": None,
+    })
+    body = r.json()
+    assert body["overall_bucket"] == "可评估"
+    assert body["items"][0]["bucket"] == "稳"

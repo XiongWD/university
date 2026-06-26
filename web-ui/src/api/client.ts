@@ -20,6 +20,8 @@ import type {
   HenanOptions,
   HenanTargetEvaluationRequest,
   HenanTargetEvaluationResult,
+  HenanRecommendationRequest,
+  HenanRecommendationResult,
 } from "./types";
 
 const BASE = "/api/v1";
@@ -71,6 +73,14 @@ export function evaluateTarget(req: TargetEvaluationRequest): Promise<TargetEval
 // GET /henan/options（河南志愿推：院校/专业/专业组联动下拉）
 export function getHenanOptions(): Promise<HenanOptions> {
   return request<HenanOptions>("/henan/options");
+}
+
+// POST /henan/recommendation（河南志愿推：首页志愿推荐主链路）
+export function henanRecommendation(req: HenanRecommendationRequest): Promise<HenanRecommendationResult> {
+  return request<HenanRecommendationResult>("/henan/recommendation", {
+    method: "POST",
+    body: JSON.stringify(req),
+  });
 }
 
 // POST /henan/target-evaluation（河南志愿推：目标院校评估，复用首页冲稳保逻辑）

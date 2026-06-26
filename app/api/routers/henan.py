@@ -1,6 +1,7 @@
 """河南志愿推 API 端点（design §6、§9）。
 
 GET  /henan/options              院校/专业/专业组下拉选项
+POST /henan/recommendation       志愿推荐（数据就绪门禁 + 冲稳保 buckets）
 POST /henan/target-evaluation    目标院校评估（复用首页冲稳保逻辑）
 
 数据从 data/seed/henan/ 加载。普通批推荐单位是院校专业组。
@@ -12,6 +13,10 @@ from pydantic import BaseModel
 
 from app.engine.henan_recommendation import build_henan_candidates
 from app.engine.henan_target_evaluation import evaluate_target_school
+from app.loader.henan_coverage_report import (
+    assert_henan_recommendation_ready,
+    build_actual_henan_coverage,
+)
 from app.loader.henan_data_loader import (
     load_henan_enrollment_plans,
     load_henan_program_groups,
@@ -39,6 +44,58 @@ def options():
             {"school": g.school_name, "code": g.major_group_code, "name": g.major_group_name, "track": g.track}
             for g in groups
         ],
+    }
+
+
+class HenanRecommendationRequest(BaseModel):
+    score: int
+    rank: int | None = None
+    track: str
+    source_province: str = "河南"
+    primary_subject: str
+    elective_subjects: list[str] = []
+    exam_foreign_language: str = "英语"
+    strategy: str = "自动"
+
+
+@router.post("/recommendation")
+def recommendation(req: HenanRecommendationRequest):
+    """志愿推荐主端点（design D1）。
+
+    先跑数据就绪门禁，再生成候选并分桶。data_ready=false 时仍返回候选
+    （带需人工复核/不推荐），前端显示未就绪 banner 而非假推荐。
+    """
+    profile = req.model_dump()
+    coverage = build_actual_henan_coverage(_SEED_DIR)
+
+    data_ready = True
+    readiness_errors: list[str] = []
+    try:
+        assert_henan_recommendation_ready(coverage)
+    except ValueError as exc:
+        data_ready = False
+        readiness_errors.append(str(exc))
+
+    # 非河南生源：build_henan_candidates 会抛错，捕获后 data_ready=false
+    try:
+        candidates = build_henan_candidates(profile)
+    except ValueError as exc:
+        return {
+            "data_ready": False,
+            "readiness_errors": [str(exc)],
+            "coverage": coverage,
+            "buckets": {"冲": [], "稳": [], "保": [], "不推荐": [], "需人工复核": []},
+        }
+
+    buckets: dict[str, list] = {"冲": [], "稳": [], "保": [], "不推荐": [], "需人工复核": []}
+    for item in candidates:
+        buckets.setdefault(item["bucket"], []).append(item)
+
+    return {
+        "data_ready": data_ready,
+        "readiness_errors": readiness_errors,
+        "coverage": coverage,
+        "buckets": buckets,
     }
 
 

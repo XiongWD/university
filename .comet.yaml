@@ -1,0 +1,6 @@
+# 项目级 Comet 配置：build/verify 命令
+# 该项目是 Python(FastAPI/pytest) + React(Vite)，guard 不允许 shell &&，
+# 故用单一 pytest 命令作为 build/verify 判定（npm build 在 comet-verify 阶段单独跑）。
+build_command: python -m pytest tests/models tests/loader tests/engine tests/api --basetemp .pytest-tmp -q
+verify_command: python -m pytest --basetemp .pytest-tmp -q
+
