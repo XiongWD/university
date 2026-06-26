@@ -1,14 +1,12 @@
 import { Routes, Route, NavLink } from "react-router-dom";
-import { GraduationCap, Calculator, LineChart, Wallet, Compass } from "lucide-react";
+import { GraduationCap, Calculator, LineChart, Wallet } from "lucide-react";
 import HomePage from "./pages/HomePage";
-import LifePathsPage from "./pages/LifePathsPage";
 import RankPage from "./pages/RankPage";
 import ControlLinePage from "./pages/ControlLinePage";
 import UniversityCostPage from "./pages/UniversityCostPage";
 
 const navItems = [
-  { to: "/life-paths", label: "人生路径", icon: Compass },
-  { to: "/", label: "志愿推荐", icon: GraduationCap, end: true },
+  { to: "/", label: "专业推荐", icon: GraduationCap, end: true },
   { to: "/cost", label: "大学费用", icon: Wallet },
   { to: "/rank", label: "位次工具", icon: LineChart },
   { to: "/control-line", label: "省控线", icon: Calculator },
@@ -25,7 +23,7 @@ export default function App() {
               <GraduationCap className="w-5 h-5 text-white" />
             </div>
             <span className="font-bold text-lg tracking-tight">志愿推</span>
-            <span className="text-xs text-white/50 hidden sm:inline">人生经济模型模拟器</span>
+            <span className="text-xs text-white/50 hidden sm:inline">高考志愿专业推荐</span>
           </div>
           <nav className="flex items-center gap-1">
             {navItems.map((it) => (
@@ -53,7 +51,6 @@ export default function App() {
       <main className="max-w-5xl mx-auto px-4 py-8">
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/life-paths" element={<LifePathsPage />} />
           <Route path="/cost" element={<UniversityCostPage />} />
           <Route path="/rank" element={<RankPage />} />
           <Route path="/control-line" element={<ControlLinePage />} />

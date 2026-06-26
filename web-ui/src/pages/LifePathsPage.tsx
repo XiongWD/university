@@ -64,10 +64,10 @@ export default function LifePathsPage() {
       <div className="text-center py-4">
         <h1 className="text-3xl sm:text-4xl font-extrabold">
           <span className="bg-gradient-to-r from-emerald-400 via-amber-400 to-rose-400 bg-clip-text text-transparent">
-            三条人生路径
+            旧版多方案建议（已弃用）
           </span>
         </h1>
-        <p className="text-white/50 text-sm mt-2">资格链 → 录取预测 → 就业市场 → 家庭预算 → 稳健/均衡/进取</p>
+        <p className="text-white/50 text-sm mt-2">资格、录取参考、就业参考与预算信息的旧版组合输出（稳健/均衡/进取）</p>
       </div>
 
       {/* 输入表单 */}
@@ -144,13 +144,13 @@ export default function LifePathsPage() {
 
         <button type="submit" disabled={loading}
           className="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-500 via-amber-500 to-rose-500 font-bold disabled:opacity-50 flex items-center justify-center gap-2">
-          {loading ? <><Loader2 className="w-4 h-4 animate-spin" />生成中</> : <><Compass className="w-4 h-4" />生成三条人生路径</>}
+          {loading ? <><Loader2 className="w-4 h-4 animate-spin" />生成中</> : <><Compass className="w-4 h-4" />生成旧版多方案建议</>}
         </button>
       </form>
 
       {error && <div className="glass rounded-xl p-3 border border-red-400/30 text-red-200 text-sm flex gap-2"><AlertCircle className="w-4 h-4 shrink-0" />{error}</div>}
 
-      {/* 三路径结果 */}
+      {/* 多方案结果（deprecated）*/}
       {result && (
         <div className="space-y-4 animate-slide-up">
           {result.paths.map((path, i) => {
@@ -166,7 +166,7 @@ export default function LifePathsPage() {
                   <Icon className={`w-6 h-6 ${st.color}`} />
                   <div className="flex-1">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <h3 className="font-bold text-lg">{path.path_type}路径</h3>
+                      <h3 className="font-bold text-lg">{path.path_type}方案</h3>
                       <span className={`text-xs px-2 py-0.5 rounded ${st.color} bg-white/10`}>{path.major_direction}</span>
                       <span className="text-xs text-white/40">风险: {path.risk_level}</span>
                     </div>
@@ -178,7 +178,7 @@ export default function LifePathsPage() {
                   </div>
                 </div>
 
-                {/* 路径详情 */}
+                {/* 方案详情（deprecated）*/}
                 <div className="grid grid-cols-3 gap-2 mt-3">
                   <div className="bg-white/5 rounded-lg p-2">
                     <div className="text-[10px] text-white/50 flex items-center gap-1"><Wallet className="w-3 h-3" />起薪中位</div>
