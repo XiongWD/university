@@ -120,3 +120,508 @@
   as_of: '2026-06-26'
   confidence: 0.8
   review_status: verified
+- year: 2026
+  track: 历史类
+  batch: 本科批
+  school_code: '10494'
+  school_name: 信阳农林学院
+  major_group_code: '101'
+  major_group_name: 历史类普通组
+  included_majors:
+  - 园林
+  major_codes: []
+  primary_subject_requirement: 历史
+  elective_subject_requirement: {}
+  accepted_exam_languages:
+  - 英语
+  - 日语
+  public_foreign_languages:
+  - 英语
+  single_subject_requirements: []
+  adjustment_scope: 组内专业
+  source_name: 历史录取数据推断
+  source_url: https://gaokao.chsi.com.cn/
+  as_of: '2026-06-26'
+  confidence: 0.5
+  review_status: needs_review
+- year: 2026
+  track: 历史类
+  batch: 本科批
+  school_code: '10919'
+  school_name: 黄淮学院
+  major_group_code: '101'
+  major_group_name: 历史类普通组
+  included_majors:
+  - 汉语言文学
+  major_codes: []
+  primary_subject_requirement: 历史
+  elective_subject_requirement: {}
+  accepted_exam_languages:
+  - 英语
+  - 日语
+  public_foreign_languages:
+  - 英语
+  single_subject_requirements: []
+  adjustment_scope: 组内专业
+  source_name: 历史录取数据推断
+  source_url: https://gaokao.chsi.com.cn/
+  as_of: '2026-06-26'
+  confidence: 0.5
+  review_status: needs_review
+- year: 2026
+  track: 历史类
+  batch: 本科批
+  school_code: '10482'
+  school_name: 洛阳师范学院
+  major_group_code: '101'
+  major_group_name: 历史类普通组
+  included_majors:
+  - 旅游管理
+  major_codes: []
+  primary_subject_requirement: 历史
+  elective_subject_requirement: {}
+  accepted_exam_languages:
+  - 英语
+  - 日语
+  public_foreign_languages:
+  - 英语
+  single_subject_requirements: []
+  adjustment_scope: 组内专业
+  source_name: 历史录取数据推断
+  source_url: https://gaokao.chsi.com.cn/
+  as_of: '2026-06-26'
+  confidence: 0.5
+  review_status: needs_review
+- year: 2026
+  track: 历史类
+  batch: 本科批
+  school_code: '10418'
+  school_name: 九江学院
+  major_group_code: '101'
+  major_group_name: 历史类普通组
+  included_majors:
+  - 历史学
+  major_codes: []
+  primary_subject_requirement: 历史
+  elective_subject_requirement: {}
+  accepted_exam_languages:
+  - 英语
+  - 日语
+  public_foreign_languages:
+  - 英语
+  single_subject_requirements: []
+  adjustment_scope: 组内专业
+  source_name: 历史录取数据推断
+  source_url: https://gaokao.chsi.com.cn/
+  as_of: '2026-06-26'
+  confidence: 0.5
+  review_status: needs_review
+- year: 2026
+  track: 历史类
+  batch: 本科批
+  school_code: '10567'
+  school_name: 韶关学院
+  major_group_code: '101'
+  major_group_name: 历史类普通组
+  included_majors:
+  - 汉语言文学
+  major_codes: []
+  primary_subject_requirement: 历史
+  elective_subject_requirement: {}
+  accepted_exam_languages:
+  - 英语
+  - 日语
+  public_foreign_languages:
+  - 英语
+  single_subject_requirements: []
+  adjustment_scope: 组内专业
+  source_name: 历史录取数据推断
+  source_url: https://gaokao.chsi.com.cn/
+  as_of: '2026-06-26'
+  confidence: 0.5
+  review_status: needs_review
+- year: 2026
+  track: 历史类
+  batch: 本科批
+  school_code: '10484'
+  school_name: 新乡学院
+  major_group_code: '101'
+  major_group_name: 历史类普通组
+  included_majors:
+  - 网络与新媒体
+  major_codes: []
+  primary_subject_requirement: 历史
+  elective_subject_requirement: {}
+  accepted_exam_languages:
+  - 英语
+  - 日语
+  public_foreign_languages:
+  - 英语
+  single_subject_requirements: []
+  adjustment_scope: 组内专业
+  source_name: 历史录取数据推断
+  source_url: https://gaokao.chsi.com.cn/
+  as_of: '2026-06-26'
+  confidence: 0.5
+  review_status: needs_review
+- year: 2026
+  track: 历史类
+  batch: 本科批
+  school_code: '14004'
+  school_name: 郑州升达经贸管理学院
+  major_group_code: '101'
+  major_group_name: 历史类普通组
+  included_majors:
+  - 国际经济与贸易
+  major_codes: []
+  primary_subject_requirement: 历史
+  elective_subject_requirement: {}
+  accepted_exam_languages:
+  - 英语
+  - 日语
+  public_foreign_languages:
+  - 英语
+  single_subject_requirements: []
+  adjustment_scope: 组内专业
+  source_name: 历史录取数据推断
+  source_url: https://gaokao.chsi.com.cn/
+  as_of: '2026-06-26'
+  confidence: 0.5
+  review_status: needs_review
+- year: 2026
+  track: 历史类
+  batch: 本科批
+  school_code: '12794'
+  school_name: 黄河科技学院
+  major_group_code: '101'
+  major_group_name: 历史类普通组
+  included_majors:
+  - 翻译
+  - 英语
+  major_codes: []
+  primary_subject_requirement: 历史
+  elective_subject_requirement: {}
+  accepted_exam_languages:
+  - 英语
+  - 日语
+  public_foreign_languages:
+  - 英语
+  single_subject_requirements: []
+  adjustment_scope: 组内专业
+  source_name: 历史录取数据推断
+  source_url: https://gaokao.chsi.com.cn/
+  as_of: '2026-06-26'
+  confidence: 0.5
+  review_status: needs_review
+- year: 2026
+  track: 历史类
+  batch: 本科批
+  school_code: '14009'
+  school_name: 郑州工商学院
+  major_group_code: '101'
+  major_group_name: 历史类普通组
+  included_majors:
+  - 会计学
+  major_codes: []
+  primary_subject_requirement: 历史
+  elective_subject_requirement: {}
+  accepted_exam_languages:
+  - 英语
+  - 日语
+  public_foreign_languages:
+  - 英语
+  single_subject_requirements: []
+  adjustment_scope: 组内专业
+  source_name: 历史录取数据推断
+  source_url: https://gaokao.chsi.com.cn/
+  as_of: '2026-06-26'
+  confidence: 0.5
+  review_status: needs_review
+- year: 2026
+  track: 历史类
+  batch: 本科批
+  school_code: '14002'
+  school_name: 商丘学院
+  major_group_code: '101'
+  major_group_name: 历史类普通组
+  included_majors:
+  - 学前教育
+  major_codes: []
+  primary_subject_requirement: 历史
+  elective_subject_requirement: {}
+  accepted_exam_languages:
+  - 英语
+  - 日语
+  public_foreign_languages:
+  - 英语
+  single_subject_requirements: []
+  adjustment_scope: 组内专业
+  source_name: 历史录取数据推断
+  source_url: https://gaokao.chsi.com.cn/
+  as_of: '2026-06-26'
+  confidence: 0.5
+  review_status: needs_review
+- year: 2026
+  track: 历史类
+  batch: 本科批
+  school_code: '14003'
+  school_name: 郑州西亚斯学院
+  major_group_code: '101'
+  major_group_name: 历史类普通组
+  included_majors:
+  - 英语
+  major_codes: []
+  primary_subject_requirement: 历史
+  elective_subject_requirement: {}
+  accepted_exam_languages:
+  - 英语
+  - 日语
+  public_foreign_languages:
+  - 英语
+  single_subject_requirements: []
+  adjustment_scope: 组内专业
+  source_name: 历史录取数据推断
+  source_url: https://gaokao.chsi.com.cn/
+  as_of: '2026-06-26'
+  confidence: 0.5
+  review_status: needs_review
+- year: 2026
+  track: 历史类
+  batch: 本科批
+  school_code: '10479'
+  school_name: 安阳师范学院
+  major_group_code: '101'
+  major_group_name: 历史类普通组
+  included_majors:
+  - 汉语言文学
+  major_codes: []
+  primary_subject_requirement: 历史
+  elective_subject_requirement: {}
+  accepted_exam_languages:
+  - 英语
+  - 日语
+  public_foreign_languages:
+  - 英语
+  single_subject_requirements: []
+  adjustment_scope: 组内专业
+  source_name: 历史录取数据推断
+  source_url: https://gaokao.chsi.com.cn/
+  as_of: '2026-06-26'
+  confidence: 0.5
+  review_status: needs_review
+- year: 2026
+  track: 历史类
+  batch: 本科批
+  school_code: '10481'
+  school_name: 南阳师范学院
+  major_group_code: '101'
+  major_group_name: 历史类普通组
+  included_majors:
+  - 历史学
+  major_codes: []
+  primary_subject_requirement: 历史
+  elective_subject_requirement: {}
+  accepted_exam_languages:
+  - 英语
+  - 日语
+  public_foreign_languages:
+  - 英语
+  single_subject_requirements: []
+  adjustment_scope: 组内专业
+  source_name: 历史录取数据推断
+  source_url: https://gaokao.chsi.com.cn/
+  as_of: '2026-06-26'
+  confidence: 0.5
+  review_status: needs_review
+- year: 2026
+  track: 历史类
+  batch: 本科批
+  school_code: '10483'
+  school_name: 商丘师范学院
+  major_group_code: '101'
+  major_group_name: 历史类普通组
+  included_majors:
+  - 学前教育
+  major_codes: []
+  primary_subject_requirement: 历史
+  elective_subject_requirement: {}
+  accepted_exam_languages:
+  - 英语
+  - 日语
+  public_foreign_languages:
+  - 英语
+  single_subject_requirements: []
+  adjustment_scope: 组内专业
+  source_name: 历史录取数据推断
+  source_url: https://gaokao.chsi.com.cn/
+  as_of: '2026-06-26'
+  confidence: 0.5
+  review_status: needs_review
+- year: 2026
+  track: 历史类
+  batch: 本科批
+  school_code: '10478'
+  school_name: 周口师范学院
+  major_group_code: '101'
+  major_group_name: 历史类普通组
+  included_majors:
+  - 汉语言文学
+  major_codes: []
+  primary_subject_requirement: 历史
+  elective_subject_requirement: {}
+  accepted_exam_languages:
+  - 英语
+  - 日语
+  public_foreign_languages:
+  - 英语
+  single_subject_requirements: []
+  adjustment_scope: 组内专业
+  source_name: 历史录取数据推断
+  source_url: https://gaokao.chsi.com.cn/
+  as_of: '2026-06-26'
+  confidence: 0.5
+  review_status: needs_review
+- year: 2026
+  track: 历史类
+  batch: 本科批
+  school_code: '10480'
+  school_name: 许昌学院
+  major_group_code: '101'
+  major_group_name: 历史类普通组
+  included_majors:
+  - 行政管理
+  major_codes: []
+  primary_subject_requirement: 历史
+  elective_subject_requirement: {}
+  accepted_exam_languages:
+  - 英语
+  - 日语
+  public_foreign_languages:
+  - 英语
+  single_subject_requirements: []
+  adjustment_scope: 组内专业
+  source_name: 历史录取数据推断
+  source_url: https://gaokao.chsi.com.cn/
+  as_of: '2026-06-26'
+  confidence: 0.5
+  review_status: needs_review
+- year: 2026
+  track: 历史类
+  batch: 本科批
+  school_code: '10485'
+  school_name: 平顶山学院
+  major_group_code: '101'
+  major_group_name: 历史类普通组
+  included_majors:
+  - 网络与新媒体
+  major_codes: []
+  primary_subject_requirement: 历史
+  elective_subject_requirement: {}
+  accepted_exam_languages:
+  - 英语
+  - 日语
+  public_foreign_languages:
+  - 英语
+  single_subject_requirements: []
+  adjustment_scope: 组内专业
+  source_name: 历史录取数据推断
+  source_url: https://gaokao.chsi.com.cn/
+  as_of: '2026-06-26'
+  confidence: 0.5
+  review_status: needs_review
+- year: 2026
+  track: 历史类
+  batch: 本科批
+  school_code: '14005'
+  school_name: 郑州科技学院
+  major_group_code: '101'
+  major_group_name: 历史类普通组
+  included_majors:
+  - 市场营销
+  major_codes: []
+  primary_subject_requirement: 历史
+  elective_subject_requirement: {}
+  accepted_exam_languages:
+  - 英语
+  - 日语
+  public_foreign_languages:
+  - 英语
+  single_subject_requirements: []
+  adjustment_scope: 组内专业
+  source_name: 历史录取数据推断
+  source_url: https://gaokao.chsi.com.cn/
+  as_of: '2026-06-26'
+  confidence: 0.5
+  review_status: needs_review
+- year: 2026
+  track: 历史类
+  batch: 本科批
+  school_code: '14006'
+  school_name: 郑州财经学院
+  major_group_code: '101'
+  major_group_name: 历史类普通组
+  included_majors:
+  - 会计学
+  major_codes: []
+  primary_subject_requirement: 历史
+  elective_subject_requirement: {}
+  accepted_exam_languages:
+  - 英语
+  - 日语
+  public_foreign_languages:
+  - 英语
+  single_subject_requirements: []
+  adjustment_scope: 组内专业
+  source_name: 历史录取数据推断
+  source_url: https://gaokao.chsi.com.cn/
+  as_of: '2026-06-26'
+  confidence: 0.5
+  review_status: needs_review
+- year: 2026
+  track: 历史类
+  batch: 本科批
+  school_code: '10467'
+  school_name: 河南城建学院
+  major_group_code: '101'
+  major_group_name: 历史类普通组
+  included_majors:
+  - 公共事业管理
+  major_codes: []
+  primary_subject_requirement: 历史
+  elective_subject_requirement: {}
+  accepted_exam_languages:
+  - 英语
+  - 日语
+  public_foreign_languages:
+  - 英语
+  single_subject_requirements: []
+  adjustment_scope: 组内专业
+  source_name: 历史录取数据推断
+  source_url: https://gaokao.chsi.com.cn/
+  as_of: '2026-06-26'
+  confidence: 0.5
+  review_status: needs_review
+- year: 2026
+  track: 历史类
+  batch: 本科批
+  school_code: '14007'
+  school_name: 新乡工程学院
+  major_group_code: '101'
+  major_group_name: 历史类普通组
+  included_majors:
+  - 国际经济与贸易
+  major_codes: []
+  primary_subject_requirement: 历史
+  elective_subject_requirement: {}
+  accepted_exam_languages:
+  - 英语
+  - 日语
+  public_foreign_languages:
+  - 英语
+  single_subject_requirements: []
+  adjustment_scope: 组内专业
+  source_name: 历史录取数据推断
+  source_url: https://gaokao.chsi.com.cn/
+  as_of: '2026-06-26'
+  confidence: 0.5
+  review_status: needs_review

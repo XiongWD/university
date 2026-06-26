@@ -18,6 +18,8 @@ export default function HomePage() {
   const [result, setResult] = useState<HenanRecommendationResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [displayBucket, setDisplayBucket] = useState<"全部" | "冲" | "稳" | "保">("全部");
+  // design D1：不推荐院校默认折叠，避免硬塞用户未关注的不可达院校
+  const [showRejected, setShowRejected] = useState(false);
 
   async function handleSubmit(req: AdvisoryRequest) {
     setLoading(true);
@@ -102,8 +104,8 @@ export default function HomePage() {
             当前显示「{displayBucket}」档位
           </div>
 
-          {/* 5 档 buckets */}
-          {visibleBuckets.map((b) => {
+          {/* 可达 buckets（冲/稳/保/需人工复核）：始终展示 */}
+          {visibleBuckets.filter((b) => b.key !== "不推荐").map((b) => {
             const list = result.buckets[b.key] ?? [];
             if (list.length === 0) return null;
             return (
@@ -124,7 +126,6 @@ export default function HomePage() {
                               b.key === "冲" ? "bg-orange-500/20 text-orange-300"
                               : b.key === "稳" ? "bg-emerald-500/20 text-emerald-300"
                               : b.key === "保" ? "bg-sky-500/20 text-sky-300"
-                              : b.key === "不推荐" ? "bg-red-700/30 text-red-200"
                               : "bg-amber-500/20 text-amber-300"
                             }`}>{s.bucket}</span>
                             <span className="font-bold truncate">{s.school_name}</span>
@@ -155,10 +156,56 @@ export default function HomePage() {
             );
           })}
 
+          {/* 不推荐院校：默认折叠（design D1），避免硬塞用户未关注的不可达院校 */}
+          {(() => {
+            const rejected = result.buckets["不推荐"] ?? [];
+            if (rejected.length === 0) return null;
+            return (
+              <div className="mb-6">
+                <button
+                  type="button"
+                  onClick={() => setShowRejected((v) => !v)}
+                  className="flex items-center gap-2 mb-3 px-1 text-sm text-white/50 hover:text-white/70 transition"
+                >
+                  <AlertCircle className="w-4 h-4 text-red-300/70" />
+                  <span>{showRejected ? "收起" : "查看"}不可达院校（不推荐）</span>
+                  <span className="text-xs text-white/35">{rejected.length} 个 · 资格不符或位次差距过大</span>
+                </button>
+                {showRejected && (
+                  <div className="space-y-2">
+                    {rejected.map((s, i) => (
+                      <div key={`${s.school_name}-${i}`} className="glass rounded-xl p-3 text-sm opacity-75">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-red-700/30 text-red-200">不推荐</span>
+                          <span className="font-bold truncate">{s.school_name}</span>
+                          <span className="text-[10px] text-white/50">{s.major_group_code} · {s.major_group_name}</span>
+                        </div>
+                        {s.blocked_reasons && s.blocked_reasons.length > 0 && (
+                          <div className="text-[11px] text-red-300/70 mt-1 space-y-0.5">
+                            {s.blocked_reasons.map((r, j) => <div key={j}>⚠ {r}</div>)}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })()}
+
           {/* 覆盖报告 */}
           {result.coverage && (
             <div className="glass rounded-2xl p-4 text-xs text-white/45 space-y-1">
               <div className="font-bold text-white/60 mb-1">数据覆盖</div>
+              {(() => {
+                const actual = (result.coverage.actual ?? {}) as Record<string, number>;
+                const uniCount = actual.universities_2026 ?? 0;
+                return (
+                  <div className="text-amber-300/70 mb-1">
+                    ⚠ 已覆盖 {uniCount} 所可追溯院校，河南全量（~1500所）待官方源导入后补齐
+                  </div>
+                );
+              })()}
               {Object.entries((result.coverage.quality ?? {}) as Record<string, number>).map(([k, v]) => (
                 <div key={k}>· {k}: {String(v)}</div>
               ))}
