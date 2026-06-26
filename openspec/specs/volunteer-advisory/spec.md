@@ -1,7 +1,8 @@
 # volunteer-advisory Specification
 
 ## Purpose
-TBD - created by archiving change volunteer-advisory-engine. Update Purpose after archive.
+Define the main high-school-application advisory capability: given a student's academic profile, province/year context, rank data, eligibility rules, major-direction market signals, admission history, and family budget, the system recommends explainable major directions and reach/match/safe school options. The capability supports students and parents in志愿填报 simulation and planning without fixed-life narrative, path determinism, payback-period framing, ROI framing, or long-horizon net-income framing.
+
 ## Requirements
 ### Requirement: advisory 主接口契约
 
