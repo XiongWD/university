@@ -31,6 +31,8 @@ data/raw/**/cache/
 data/raw/**/crop/
 data/raw/**/web/
 data/raw/**/out/
+data/raw/henan_2026/sources/
+data/raw/henan_2026/*.html
 
 # IDE / 编辑器
 .idea/

@@ -55,6 +55,9 @@ archived-with: 2026-06-26-henan-real-recommendation-pipeline
 - Modify: `web-ui/src/pages/HomePage.tsx`
 - Modify: `web-ui/src/pages/TargetEvaluationPage.tsx`
 - Modify: `web-ui/src/App.tsx`
+- Create: `scripts/discover_henan_2026_official_sources.py`
+- Create: `scripts/download_henan_2026_catalog_sources.py`
+- Create: `scripts/extract_henan_2026_catalog_pdf.py`
 - Create: `scripts/build_henan_coverage_report.py`
 - Create: `scripts/import_henan_2026_catalog.py`
 - Create: `data/seed/henan/data_coverage_report.json`
@@ -70,6 +73,111 @@ archived-with: 2026-06-26-henan-real-recommendation-pipeline
 - Test: `web-ui/e2e/henan-target-evaluation.spec.ts`
 
 archived-with: 2026-06-26-henan-real-recommendation-pipeline
+---
+
+### Task 0A: Official Full-Volume 2026 Data Acquisition
+
+**Files:**
+- Create: `scripts/discover_henan_2026_official_sources.py`
+- Create: `scripts/download_henan_2026_catalog_sources.py`
+- Create: `scripts/extract_henan_2026_catalog_pdf.py`
+- Create or regenerate: `data/raw/henan_2026/official_sources.json`
+- Create or regenerate: `data/raw/henan_2026/normalized_catalog.csv`
+- Modify: `data/seed/henan/source_registry.yaml`
+
+**Decision:**
+Do not treat 28-school sample expansion as the final target. The primary path is official full-volume acquisition from河南省教育考试院、阳光高考 and official university admission章程/招生计划 pages. If the official catalog is published as PDF, the product must download and parse the PDF instead of waiting for a hand-made CSV.
+
+**Source priority:**
+1. 河南省教育考试院 official 2026招生专业目录 / 志愿填报指南 / 招生计划 PDF or page.
+2. 阳光高考 official招生计划 query pages where publicly accessible.
+3. University official本科招生网 pages and 2026招生章程 for field-level verification: foreign language limits, single-subject limits, tuition/accommodation, physical exam limits.
+4. Third-party volunteer platforms only as discrepancy clues. They must not be marked `verified` unless the row is reconciled back to one of the official sources above.
+
+- [ ] **Step 1: Discover official source URLs**
+
+Implement `scripts/discover_henan_2026_official_sources.py`:
+- crawl only official domains configured in code:
+  - `haeea.cn`
+  - `gaokao.chsi.com.cn`
+  - known university official admissions domains from `universities.yaml`
+- search for keywords:
+  - `2026`
+  - `河南`
+  - `招生专业目录`
+  - `招生计划`
+  - `院校专业组`
+  - `普通本科批`
+  - `招生章程`
+- produce `data/raw/henan_2026/official_sources.json` with:
+  - `url`
+  - `source_domain`
+  - `source_type`: `exam_authority_catalog`, `chsi_plan`, `university_charter`, `university_plan`
+  - `discovered_at`
+  - `download_status`
+  - `parser_status`
+
+- [ ] **Step 2: Download official PDFs/pages**
+
+Implement `scripts/download_henan_2026_catalog_sources.py`:
+- read `official_sources.json`;
+- download PDFs, HTML, and linked attachments into `data/raw/henan_2026/sources/`;
+- record checksum and timestamp;
+- use conservative request rate and retry;
+- do not bypass login, captcha, paywall, or access controls.
+
+Acceptance:
+
+```powershell
+python scripts/discover_henan_2026_official_sources.py --out data/raw/henan_2026/official_sources.json
+python scripts/download_henan_2026_catalog_sources.py --sources data/raw/henan_2026/official_sources.json --out-dir data/raw/henan_2026/sources
+```
+
+- [ ] **Step 3: Parse official catalog into normalized CSV**
+
+Implement `scripts/extract_henan_2026_catalog_pdf.py`:
+- parse official PDF tables with a table parser;
+- handle multi-line school names, group names, major names, plan counts, tuition, remarks;
+- preserve page number and source URL on every row;
+- write `data/raw/henan_2026/normalized_catalog.csv`.
+
+Minimum output columns:
+
+```csv
+source_province,school_origin_province,school_code,school_name,year,batch,track,major_group_code,major_group_name,major_code,major_name,plan_count,primary_subject_requirement,elective_subject_requirement,accepted_exam_languages,public_foreign_languages,tuition,accommodation,remarks,source_name,source_url,source_page,as_of,review_status
+```
+
+- [ ] **Step 4: Reconcile with university章程**
+
+For every parsed school:
+- fetch official university 2026招生章程 when public;
+- extract and reconcile:
+  - foreign language restrictions;
+  - public foreign language teaching language;
+  - single-subject score requirements;
+  - physical examination restrictions;
+  - Chinese-foreign cooperation status;
+  - tuition and accommodation.
+- mark fields as:
+  - `verified`: official catalog + university章程 agree, or university章程 directly provides the value;
+  - `conflict`: official sources disagree and need manual review;
+  - `needs_review`: no official field-level evidence yet.
+
+- [ ] **Step 5: Full-volume readiness rules**
+
+`production_ready` must remain false until:
+- official catalog source is downloaded and checksummed;
+- normalized CSV exists;
+- parser coverage report shows rows for ordinary undergraduate河南招生;
+- every recommendation candidate has source URL and source page;
+- every `稳`/`保` candidate has verified 2026 plan and 2025/2024 historical baseline.
+
+If only a subset has been parsed, UI must say:
+
+```text
+当前已解析官方目录 N 条，已核验院校 M 所；尚未达到河南 2026 全量发布标准。
+```
+
 ---
 
 ### Task 1: Replace Fake Coverage With Real Data Gate

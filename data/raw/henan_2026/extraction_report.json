@@ -1,0 +1,1641 @@
+{
+  "row_count": 0,
+  "issue_count": 327,
+  "issues": [
+    {
+      "source_url": "https://gaokao.chsi.com.cn/beijing/",
+      "local_path": "data\\raw\\henan_2026\\sources\\0001_beijing.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/chongqing/",
+      "local_path": "data\\raw\\henan_2026\\sources\\0002_chongqing.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/fujian/",
+      "local_path": "data\\raw\\henan_2026\\sources\\0003_fujian.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gansu/",
+      "local_path": "data\\raw\\henan_2026\\sources\\0004_gansu.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/bss/202601/20260113/2293448156.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0005_2293448156.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/gkcs/202604/20260423/2293468577.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0006_2293468577.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/gspydy/202512/20251226/2293447220.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0007_2293447220.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/gspydy/202512/20251230/2293447216.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0008_2293447216.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/gspydy/202601/20260122/2293448523.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0009_2293448523.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/gspydy/202601/20260126/2293448693.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0010_2293448693.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/gspydy/202601/20260128/2293448690.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0011_2293448690.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/gzdt/202604/20260422/2293462462.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0012_2293462462.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/gzdt/202604/20260428/2293463153.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0013_2293463153.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/gzdt/202604/20260428/2293468782.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0014_2293468782.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/gzdt/202606/20260602/2293523907.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0015_2293523907.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/gzdt/202606/20260603/2293528823.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0016_2293528823.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/gzdt/202606/20260618/2293826055.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0017_2293826055.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/ksbd/202606/20260603/2293528840.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0018_2293528840.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/ksbd/202606/20260603/2293528842.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0019_2293528842.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/ksbd/202606/20260603/2293528843.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0020_2293528843.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/ksbd/202606/20260605/2293567644.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0021_2293567644.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/ksbd/202606/20260610/2293717198.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0022_2293717198.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/ksbd/202606/20260625/2293847510.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0023_2293847510.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/ksbd/202606/20260625/2293847662.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0024_2293847662.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/qjjh/202604/20260408/2293461669.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0025_2293461669.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/qjjh/202604/20260409/2293461682.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0026_2293461682.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/qjjh/202604/20260409/2293461685.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0027_2293461685.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/qjjh/202604/20260409/2293461686.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0028_2293461686.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/qjjh/202604/20260409/2293461688.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0029_2293461688.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/qjjh/202604/20260409/2293461694.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0030_2293461694.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/qjjh/202604/20260409/2293461696.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0031_2293461696.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/qjjh/202604/20260409/2293461704.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0032_2293461704.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/qjjh/202604/20260409/2293461708.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0033_2293461708.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/qjjh/202604/20260409/2293461735.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0034_2293461735.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/qjjh/202604/20260409/2293461739.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0035_2293461739.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/qjjh/202604/20260409/2293461742.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0036_2293461742.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/qjjh/202604/20260410/2293459679.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0037_2293459679.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/qjjh/202604/20260410/2293459687.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0038_2293459687.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/qjjh/202604/20260410/2293459755.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0039_2293459755.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/qjjh/202604/20260410/2293459760.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0040_2293459760.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/qjjh/202604/20260410/2293459769.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0041_2293459769.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/qjjh/202604/20260410/2293459771.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0042_2293459771.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/qjjh/202604/20260410/2293461767.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0043_2293461767.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/qjjh/202604/20260410/2293461769.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0044_2293461769.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/qjjh/202604/20260411/2293468126.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0045_2293468126.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/qjjh/202604/20260411/2293468128.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0046_2293468128.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/qjjh/202604/20260413/2293468161.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0047_2293468161.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/qjjh/202604/20260413/2293468163.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0048_2293468163.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/qjjh/202604/20260413/2293468179.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0049_2293468179.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/qjjh/202604/20260413/2293468567.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0050_2293468567.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/qjjh/202604/20260414/2293461887.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0051_2293461887.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/qjjh/202604/20260414/2293468130.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0052_2293468130.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/qjjh/202604/20260414/2293468568.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0053_2293468568.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/qjjh/202604/20260415/2293461984.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0054_2293461984.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/ss/202512/20251222/2293443411.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0055_2293443411.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/ss/202606/20260610/2293717289.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0056_2293717289.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/ss/202606/20260610/2293720683.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0057_2293720683.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/ss/202606/20260611/2293726226.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0058_2293726226.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/ss/202606/20260611/2293727759.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0059_2293727759.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/ss/202606/20260612/2293726847.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0060_2293726847.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/ss/202606/20260618/2293826071.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0061_2293826071.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/ss/202606/20260624/2293845984.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0062_2293845984.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/ss/202606/20260626/2293847808.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0063_2293847808.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/tylzs/202510/20251030/2293440472.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0064_2293440472.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/tylzs/202511/20251125/2293443966.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0065_2293443966.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/tylzs/202511/20251126/2293442294.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0066_2293442294.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/tylzs/202603/20260302/2293449140.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0067_2293449140.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/yszy/dt/202510/20251024/2293438594.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0068_2293438594.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/yxzs/202509/20250923/2293431948.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0069_2293431948.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/yxzs/202601/20260104/2293446483.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0070_2293446483.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/yxzs/202601/20260119/2293446940.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0071_2293446940.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/yxzs/202602/20260227/2293449061.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0072_2293449061.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/yxzs/202603/20260309/2293450013.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0073_2293450013.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/yxzs/202603/20260312/2293449444.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0074_2293449444.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/yxzs/202604/20260416/2293495846.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0075_2293495846.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/yxzs/202605/20260511/2293469582.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0076_2293469582.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/yxzs/202605/20260511/2293469682.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0077_2293469682.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/yxzs/202606/20260601/2293521498.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0078_2293521498.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/yxzs/202606/20260608/2293704693.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0079_2293704693.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/yxzs/202606/20260616/2293813771.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0080_2293813771.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/yxzs/202606/20260616/2293813793.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0081_2293813793.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/yxzs/202606/20260622/2293839481.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0082_2293839481.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/yxzs/202606/20260622/2293839482.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0083_2293839482.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/yxzs/202606/20260623/2293843653.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0084_2293843653.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/yxzs/202606/20260623/2293843654.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0085_2293843654.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/yxzs/202606/20260625/2293847492.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0086_2293847492.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/yxzs/202606/20260625/2293847493.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0087_2293847493.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/yxzs/202606/20260625/2293847739.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0088_2293847739.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/yxzs/202606/20260626/2293847865.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0089_2293847865.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/yxzs/202606/20260626/2293847866.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0090_2293847866.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/yxzs/202606/20260626/2293847867.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0091_2293847867.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/yxzs/202606/20260626/2293847870.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0092_2293847870.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zbzrft/zx/202605/20260526/2293490551.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0093_2293490551.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zbzrft/zx/202606/20260607/2293677217.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0094_2293677217.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zbzrft/zx/202606/20260611/2293726525.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0095_2293726525.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zbzrft/zx/202606/20260611/2293726533.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0096_2293726533.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zbzrft/zx/202606/20260615/2293809312.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0097_2293809312.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zbzrft/zx/202606/20260616/2293810947.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0098_2293810947.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zbzrft/zx/202606/20260616/2293811275.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0099_2293811275.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zbzrft/zx/202606/20260616/2293811283.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0100_2293811283.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zbzrft/zx/202606/20260616/2293811290.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0101_2293811290.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zbzrft/zx/202606/20260616/2293812324.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0102_2293812324.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zbzrft/zx/202606/20260616/2293812370.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0103_2293812370.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zbzrft/zx/202606/20260616/2293812453.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0104_2293812453.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zbzrft/zx/202606/20260616/2293813770.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0105_2293813770.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zbzrft/zx/202606/20260616/2293820345.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0106_2293820345.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zbzrft/zx/202606/20260617/2293823230.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0107_2293823230.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zbzrft/zx/202606/20260617/2293823372.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0108_2293823372.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zbzrft/zx/202606/20260618/2293826841.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0109_2293826841.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zbzrft/zx/202606/20260622/2293835013.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0110_2293835013.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zbzrft/zx/202606/20260622/2293835021.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0111_2293835021.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zbzrft/zx/202606/20260622/2293837886.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0112_2293837886.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zbzrft/zx/202606/20260623/2293843289.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0113_2293843289.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zbzrft/zx/202606/20260624/2293844430.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0114_2293844430.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zbzrft/zx/202606/20260624/2293844434.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0115_2293844434.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zbzrft/zx/202606/20260624/2293846511.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0116_2293846511.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zbzrft/zx/202606/20260625/2293847502.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0117_2293847502.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zbzrft/zx/202606/20260625/2293847672.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0118_2293847672.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zbzrft/zx/202606/20260625/2293847680.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0119_2293847680.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zbzrft/zx/202606/20260625/2293847700.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0120_2293847700.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zbzrft/zx/202606/20260625/2293847745.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0121_2293847745.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zbzrft/zx/202606/20260626/2293847340.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0122_2293847340.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/moe/202606/20260604/2293529165.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0123_2293529165.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/moe/202606/20260616/2293810958.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0124_2293810958.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/moe/202606/20260618/2293826010.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0125_2293826010.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/moe/202606/20260618/2293826311.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0126_2293826311.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202504/20250407/2293370938.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0127_2293370938.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202510/20251020/2293439880.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0128_2293439880.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202512/20251212/2293445649.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0129_2293445649.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202512/20251224/2293447470.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0130_2293447470.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202512/20251231/2293446405.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0131_2293446405.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202512/20251231/2293446419.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0132_2293446419.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202601/20260105/2293447614.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0133_2293447614.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202601/20260106/2293447687.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0134_2293447687.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202601/20260106/2293447688.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0135_2293447688.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202601/20260106/2293447959.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0136_2293447959.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202601/20260107/2293447756.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0137_2293447756.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202601/20260107/2293447775.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0138_2293447775.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202601/20260108/2293447936.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0139_2293447936.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202601/20260108/2293447981.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0140_2293447981.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202601/20260108/2293447992.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0141_2293447992.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202601/20260109/2293446707.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0142_2293446707.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202601/20260113/2293446817.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0143_2293446817.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202601/20260114/2293446843.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0144_2293446843.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202601/20260114/2293446858.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0145_2293446858.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202601/20260123/2293448541.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0146_2293448541.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202601/20260123/2293448552.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0147_2293448552.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202601/20260129/2293447295.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0148_2293447295.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202602/20260204/2293448860.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0149_2293448860.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202602/20260204/2293448861.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0150_2293448861.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202602/20260210/2293447435.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0151_2293447435.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202603/20260320/2293451124.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0152_2293451124.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202603/20260325/2293454298.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0153_2293454298.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202604/20260402/2293456834.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0154_2293456834.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202604/20260407/2293461516.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0155_2293461516.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202604/20260407/2293461519.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0156_2293461519.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202604/20260407/2293461523.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0157_2293461523.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202604/20260407/2293461528.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0158_2293461528.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202604/20260408/2293461644.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0159_2293461644.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202604/20260408/2293461648.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0160_2293461648.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202604/20260414/2293468248.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0161_2293468248.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202604/20260415/2293461958.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0162_2293461958.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202604/20260420/2293462393.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0163_2293462393.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202604/20260420/2293462395.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0164_2293462395.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202604/20260421/2293462446.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0165_2293462446.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202604/20260422/2293462466.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0166_2293462466.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202604/20260424/2293468665.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0167_2293468665.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202604/20260427/2293468759.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0168_2293468759.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202604/20260427/2293468760.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0169_2293468760.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202605/20260512/2293469831.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0170_2293469831.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202605/20260513/2293472006.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0171_2293472006.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202605/20260514/2293472019.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0172_2293472019.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202605/20260514/2293472104.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0173_2293472104.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202605/20260519/2293475210.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0174_2293475210.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202605/20260529/2293505726.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0175_2293505726.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202606/20260602/2293523897.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0176_2293523897.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202606/20260602/2293523972.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0177_2293523972.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202606/20260602/2293523977.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0178_2293523977.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202606/20260602/2293523979.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0179_2293523979.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202606/20260602/2293526139.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0180_2293526139.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202606/20260602/2293526141.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0181_2293526141.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202606/20260618/2293826338.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0182_2293826338.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202606/20260618/2293826869.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0183_2293826869.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202606/20260622/2293834682.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0184_2293834682.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202606/20260622/2293834989.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0185_2293834989.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202606/20260622/2293839052.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0186_2293839052.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202606/20260624/2293844300.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0187_2293844300.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202606/20260624/2293844441.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0188_2293844441.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202606/20260624/2293844445.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0189_2293844445.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202606/20260624/2293844447.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0190_2293844447.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202606/20260624/2293844454.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0191_2293844454.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202606/20260624/2293845947.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0192_2293845947.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202606/20260624/2293845973.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0193_2293845973.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202606/20260624/2293845980.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0194_2293845980.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202606/20260625/2293847131.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0195_2293847131.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202606/20260625/2293847211.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0196_2293847211.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202606/20260625/2293847238.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0197_2293847238.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202606/20260625/2293847495.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0198_2293847495.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202606/20260625/2293847511.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0199_2293847511.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202606/20260625/2293847629.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0200_2293847629.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202606/20260625/2293847630.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0201_2293847630.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202606/20260625/2293847635.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0202_2293847635.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202606/20260625/2293847693.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0203_2293847693.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202606/20260625/2293847718.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0204_2293847718.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zc/ss/202606/20260625/2293847748.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0205_2293847748.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zcdh/202511/20251103/2293440521.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0206_2293440521.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zcdh/202511/20251103/2293440536.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0207_2293440536.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zcdh/202601/20260122/2293447189.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0208_2293447189.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zcdh/202602/20260212/2293449503.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0209_2293449503.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zcdh/202604/20260422/2293468465.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0210_2293468465.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zcdh/202604/20260428/2293468784.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0211_2293468784.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zt/2026gkzx.shtml",
+      "local_path": "data\\raw\\henan_2026\\sources\\0212_2026gkzx.shtml",
+      "reason": "unsupported_file_type:.shtml"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zt/2026sdzx.shtml",
+      "local_path": "data\\raw\\henan_2026\\sources\\0213_2026sdzx.shtml",
+      "reason": "unsupported_file_type:.shtml"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zybk/202601/20260107/2293446691.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0214_2293446691.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zybk/202601/20260108/2293446690.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0215_2293446690.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zybk/202601/20260109/2293446697.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0216_2293446697.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zybk/202601/20260113/2293446728.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0217_2293446728.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zybk/202601/20260120/2293447010.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0218_2293447010.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zybk/202602/20260203/2293447336.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0219_2293447336.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zybk/202603/20260302/2293449690.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0220_2293449690.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zybk/202603/20260303/2293449708.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0221_2293449708.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zybk/202603/20260310/2293449379.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0222_2293449379.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zybk/202603/20260317/2293450579.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0223_2293450579.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zybk/202604/20260415/2293461931.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0224_2293461931.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zybk/202604/20260428/2293468793.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0225_2293468793.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zybk/202604/20260430/2293463313.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0226_2293463313.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zybk/202604/20260430/2293463315.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0227_2293463315.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zybk/202604/20260430/2293468944.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0228_2293468944.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zybk/202605/20260514/2293472130.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0229_2293472130.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zybk/202605/20260518/2293475112.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0230_2293475112.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zybk/202605/20260518/2293476376.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0231_2293476376.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zybk/202605/20260525/2293487967-2.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0232_2293487967-2.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zybk/202605/20260525/2293487967-3.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0233_2293487967-3.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zybk/202605/20260525/2293487967-4.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0234_2293487967-4.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zybk/202605/20260525/2293487967-5.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0235_2293487967-5.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zybk/202605/20260525/2293487967-6.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0236_2293487967-6.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zybk/202605/20260525/2293487967.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0237_2293487967.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zybk/202605/20260527/2293527549.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0238_2293527549.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zybk/202606/20260610/2293717199.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0239_2293717199.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zybk/202606/20260612/2293727434.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0240_2293727434.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zybk/202606/20260624/2293845002.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0241_2293845002.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zytb/202606/20260604/2293532098.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0242_2293532098.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zytb/202606/20260610/2293717286.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0243_2293717286.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zytb/202606/20260618/2293826947.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0244_2293826947.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zytb/202606/20260624/2293844455.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0245_2293844455.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkzt/bss2026",
+      "local_path": "data\\raw\\henan_2026\\sources\\0246_bss2026.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkzt/gagx2026",
+      "local_path": "data\\raw\\henan_2026\\sources\\0247_gagx2026.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkzt/gspydd2026",
+      "local_path": "data\\raw\\henan_2026\\sources\\0248_gspydd2026.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkzt/jcxkzs",
+      "local_path": "data\\raw\\henan_2026\\sources\\0249_jcxkzs.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkzt/tbzyzn",
+      "local_path": "data\\raw\\henan_2026\\sources\\0250_tbzyzn.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkzt/tyl2026",
+      "local_path": "data\\raw\\henan_2026\\sources\\0251_tyl2026.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkzt/xzy",
+      "local_path": "data\\raw\\henan_2026\\sources\\0252_xzy.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkzt/ysl2026",
+      "local_path": "data\\raw\\henan_2026\\sources\\0253_ysl2026.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkzt/zbft",
+      "local_path": "data\\raw\\henan_2026\\sources\\0254_zbft.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/guangdong/",
+      "local_path": "data\\raw\\henan_2026\\sources\\0255_guangdong.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/guangxi/",
+      "local_path": "data\\raw\\henan_2026\\sources\\0256_guangxi.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/guizhou/",
+      "local_path": "data\\raw\\henan_2026\\sources\\0257_guizhou.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/hainan/",
+      "local_path": "data\\raw\\henan_2026\\sources\\0258_hainan.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/hebei/",
+      "local_path": "data\\raw\\henan_2026\\sources\\0259_hebei.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/heilongjiang/",
+      "local_path": "data\\raw\\henan_2026\\sources\\0260_heilongjiang.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/henan/",
+      "local_path": "data\\raw\\henan_2026\\sources\\0261_henan.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/hubei/",
+      "local_path": "data\\raw\\henan_2026\\sources\\0262_hubei.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/hunan/",
+      "local_path": "data\\raw\\henan_2026\\sources\\0263_hunan.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/jiangsu/",
+      "local_path": "data\\raw\\henan_2026\\sources\\0264_jiangsu.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/jiangxi/",
+      "local_path": "data\\raw\\henan_2026\\sources\\0265_jiangxi.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/jilin/",
+      "local_path": "data\\raw\\henan_2026\\sources\\0266_jilin.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/liaoning/",
+      "local_path": "data\\raw\\henan_2026\\sources\\0267_liaoning.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/neimenggu/",
+      "local_path": "data\\raw\\henan_2026\\sources\\0268_neimenggu.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/ningxia/",
+      "local_path": "data\\raw\\henan_2026\\sources\\0269_ningxia.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/qinghai/",
+      "local_path": "data\\raw\\henan_2026\\sources\\0270_qinghai.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/sch/",
+      "local_path": "data\\raw\\henan_2026\\sources\\0271_sch.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/sch/search--ss-on,option-qg,searchType-1,start-0.dhtml",
+      "local_path": "data\\raw\\henan_2026\\sources\\0272_search--ss-on_option-qg_searchType-1_start-0.dhtml",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/sch/viewBulletin--infoId-6792613854,categoryId-43478,schId-1301.dhtml",
+      "local_path": "data\\raw\\henan_2026\\sources\\0273_viewBulletin--infoId-6792613854_categoryId-43478_schId-1301.dhtml",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/sch/viewBulletin--infoId-7743346810,categoryId-7721443906,schId-7721443821.dhtml",
+      "local_path": "data\\raw\\henan_2026\\sources\\0274_viewBulletin--infoId-7743346810_categoryId-7721443906_schId-7721443821.dhtml",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/sch/viewBulletin--infoId-7768793903,categoryId-609379008,schId-609378918.dhtml",
+      "local_path": "data\\raw\\henan_2026\\sources\\0275_viewBulletin--infoId-7768793903_categoryId-609379008_schId-609378918.dhtml",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/sch/viewBulletin--infoId-7769171777,categoryId-64885,schId-1834.dhtml",
+      "local_path": "data\\raw\\henan_2026\\sources\\0276_viewBulletin--infoId-7769171777_categoryId-64885_schId-1834.dhtml",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/sch/viewBulletin--schId-609378918,infoId-7768793903,categoryId-609379008.dhtml",
+      "local_path": "data\\raw\\henan_2026\\sources\\0277_viewBulletin--schId-609378918_infoId-7768793903_categoryId-609379008.dhtml",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/sch/viewBulletin--schId-7721443821,infoId-7743346810,categoryId-7721443906.dhtml",
+      "local_path": "data\\raw\\henan_2026\\sources\\0278_viewBulletin--schId-7721443821_infoId-7743346810_categoryId-7721443906.dhtml",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/shaanxi/",
+      "local_path": "data\\raw\\henan_2026\\sources\\0279_shaanxi.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/shandong/",
+      "local_path": "data\\raw\\henan_2026\\sources\\0280_shandong.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/shanghai/",
+      "local_path": "data\\raw\\henan_2026\\sources\\0281_shanghai.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/shanxi/",
+      "local_path": "data\\raw\\henan_2026\\sources\\0282_shanxi.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/sichuan/",
+      "local_path": "data\\raw\\henan_2026\\sources\\0283_sichuan.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/tianjin/",
+      "local_path": "data\\raw\\henan_2026\\sources\\0284_tianjin.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/xinjiang/",
+      "local_path": "data\\raw\\henan_2026\\sources\\0285_xinjiang.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/xizang/",
+      "local_path": "data\\raw\\henan_2026\\sources\\0286_xizang.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/xkkm/",
+      "local_path": "data\\raw\\henan_2026\\sources\\0287_xkkm.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/yunnan/",
+      "local_path": "data\\raw\\henan_2026\\sources\\0288_yunnan.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/z/gkbmfslq/index.jsp",
+      "local_path": "data\\raw\\henan_2026\\sources\\0289_index.jsp",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/z/gkbmfslq/pcx.jsp",
+      "local_path": "data\\raw\\henan_2026\\sources\\0290_pcx.jsp",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/z/gkbmfslq/zytb.jsp",
+      "local_path": "data\\raw\\henan_2026\\sources\\0291_zytb.jsp",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/zhejiang/",
+      "local_path": "data\\raw\\henan_2026\\sources\\0292_zhejiang.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/zxdy/",
+      "local_path": "data\\raw\\henan_2026\\sources\\0293_zxdy.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/zyck/",
+      "local_path": "data\\raw\\henan_2026\\sources\\0294_zyck.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/",
+      "local_path": "data\\raw\\henan_2026\\sources\\0295_source_0295.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/gkcs/202303/20230315/2266307318.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0296_2266307318.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/yxzs/202305/20230509/2284393799.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0297_2284393799.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/yxzs/202505/20250530/2293383232.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0298_2293383232.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/yxzs/202506/20250617/2293390025.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0299_2293390025.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/yxzs/202507/20250703/2293393693.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0300_2293393693.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/yxzs/202606/20260618/2293826849.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0301_2293826849.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/yxzs/202606/20260625/2293847740.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0302_2293847740.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/zbzrft/zx/202606/20260616/2293812331.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0303_2293812331.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/sch/viewBulletin--infoId-6780114515,categoryId-64885,schId-1834.dhtml",
+      "local_path": "data\\raw\\henan_2026\\sources\\0304_viewBulletin--infoId-6780114515_categoryId-64885_schId-1834.dhtml",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/sch/viewBulletin--infoId-6780137363,categoryId-64885,schId-1834.dhtml",
+      "local_path": "data\\raw\\henan_2026\\sources\\0305_viewBulletin--infoId-6780137363_categoryId-64885_schId-1834.dhtml",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/sch/viewBulletin--infoId-7772626036,categoryId-64885,schId-1834.dhtml",
+      "local_path": "data\\raw\\henan_2026\\sources\\0306_viewBulletin--infoId-7772626036_categoryId-64885_schId-1834.dhtml",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/sch/viewBulletin--infoId-7772635279,categoryId-11866,schId-400.dhtml",
+      "local_path": "data\\raw\\henan_2026\\sources\\0307_viewBulletin--infoId-7772635279_categoryId-11866_schId-400.dhtml",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/sch/viewBulletin--infoId-88522,categoryId-11866,schId-400.dhtml",
+      "local_path": "data\\raw\\henan_2026\\sources\\0308_viewBulletin--infoId-88522_categoryId-11866_schId-400.dhtml",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/sch/viewBulletin--schId-1834,infoId-7772626036,categoryId-64885.dhtml",
+      "local_path": "data\\raw\\henan_2026\\sources\\0309_viewBulletin--schId-1834_infoId-7772626036_categoryId-64885.dhtml",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/gkcs/202303/20230315/2266235549.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0310_2266235549.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/gkxx/ksbd/202606/20260605/2293530398.html",
+      "local_path": "data\\raw\\henan_2026\\sources\\0311_2293530398.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/sch/viewBulletin--infoId-3070997173,categoryId-64885,schId-1834.dhtml",
+      "local_path": "data\\raw\\henan_2026\\sources\\0312_viewBulletin--infoId-3070997173_categoryId-64885_schId-1834.dhtml",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/sch/viewBulletin--infoId-3203593520,categoryId-64885,schId-1834.dhtml",
+      "local_path": "data\\raw\\henan_2026\\sources\\0313_viewBulletin--infoId-3203593520_categoryId-64885_schId-1834.dhtml",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/sch/viewBulletin--infoId-4497568178,categoryId-64885,schId-1834.dhtml",
+      "local_path": "data\\raw\\henan_2026\\sources\\0314_viewBulletin--infoId-4497568178_categoryId-64885_schId-1834.dhtml",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/sch/viewBulletin--infoId-5569156361,categoryId-64885,schId-1834.dhtml",
+      "local_path": "data\\raw\\henan_2026\\sources\\0315_viewBulletin--infoId-5569156361_categoryId-64885_schId-1834.dhtml",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/sch/viewBulletin--infoId-6780161798,categoryId-64885,schId-1834.dhtml",
+      "local_path": "data\\raw\\henan_2026\\sources\\0316_viewBulletin--infoId-6780161798_categoryId-64885_schId-1834.dhtml",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/sch/viewBulletin--infoId-7719387933,categoryId-64885,schId-1834.dhtml",
+      "local_path": "data\\raw\\henan_2026\\sources\\0317_viewBulletin--infoId-7719387933_categoryId-64885_schId-1834.dhtml",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/sch/viewBulletin--infoId-7771986764,categoryId-43478,schId-1301.dhtml",
+      "local_path": "data\\raw\\henan_2026\\sources\\0318_viewBulletin--infoId-7771986764_categoryId-43478_schId-1301.dhtml",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/sch/viewBulletin--schId-1301,infoId-7771986764,categoryId-43478.dhtml",
+      "local_path": "data\\raw\\henan_2026\\sources\\0319_viewBulletin--schId-1301_infoId-7771986764_categoryId-43478.dhtml",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/",
+      "local_path": "data\\raw\\henan_2026\\sources\\0320_zhangcheng.html",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--method-index,lb-1.dhtml",
+      "local_path": "data\\raw\\henan_2026\\sources\\0321_listVerifedZszc--method-index_lb-1.dhtml",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listZszc--schId-1301.dhtml",
+      "local_path": "data\\raw\\henan_2026\\sources\\0322_listZszc--schId-1301.dhtml",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listZszc--schId-1834.dhtml",
+      "local_path": "data\\raw\\henan_2026\\sources\\0323_listZszc--schId-1834.dhtml",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listZszc--schId-384.dhtml",
+      "local_path": "data\\raw\\henan_2026\\sources\\0324_listZszc--schId-384.dhtml",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listZszc--schId-400.dhtml",
+      "local_path": "data\\raw\\henan_2026\\sources\\0325_listZszc--schId-400.dhtml",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listZszc--schId-609378918.dhtml",
+      "local_path": "data\\raw\\henan_2026\\sources\\0326_listZszc--schId-609378918.dhtml",
+      "reason": "no_parseable_catalog_table"
+    },
+    {
+      "source_url": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listZszc--schId-7721443821.dhtml",
+      "local_path": "data\\raw\\henan_2026\\sources\\0327_listZszc--schId-7721443821.dhtml",
+      "reason": "no_parseable_catalog_table"
+    }
+  ]
+}
