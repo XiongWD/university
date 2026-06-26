@@ -2,6 +2,8 @@
 comet_change: volunteer-advisory-engine
 role: technical-design
 canonical_spec: openspec
+archived-with: 2026-06-26-volunteer-advisory-engine
+status: final
 ---
 
 # Design Doc: volunteer-advisory-engine（拆分项 B — advisory 主接口 + 专业方向主链路）
