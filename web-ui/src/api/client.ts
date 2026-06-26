@@ -43,7 +43,7 @@ export function recommend(req: RecommendRequest): Promise<VolunteerTable> {
   });
 }
 
-// POST /volunteer/life-trajectory（志愿推荐+费用+就业+回本集成）
+// POST /volunteer/life-trajectory（deprecated，志愿推荐+费用+就业参考）
 export function lifeTrajectory(req: RecommendRequest): Promise<LifeTrajectory> {
   return request<LifeTrajectory>("/volunteer/life-trajectory", {
     method: "POST",
@@ -103,7 +103,7 @@ export function estimateCost(school: string, years?: number): Promise<CostEstima
   return request(`/universities/${encodeURIComponent(school)}/cost${q}`);
 }
 
-// POST /volunteer/life-paths（V2.2 人生路径）
+// POST /volunteer/life-paths（deprecated）
 export function lifePaths(req: LifePathsRequest): Promise<LifePathResult> {
   return request<LifePathResult>("/volunteer/life-paths", {
     method: "POST",

@@ -116,7 +116,7 @@ export interface CostEstimate {
   note: string | null;
 }
 
-// ===== 人生轨迹（志愿推荐+费用+就业+回本集成）=====
+// ===== 志愿推荐集成（志愿+费用+就业参考）=====
 export interface CostSummary {
   tuition_total: number;
   accommodation_total: number;
@@ -180,7 +180,7 @@ export interface LifeTrajectory {
   source_note: string;
 }
 
-// ===== V2.2 人生路径 =====
+// ===== 志愿推荐请求（遗留）=====
 export interface LifePathsRequest {
   province?: string;
   total_score: number;
