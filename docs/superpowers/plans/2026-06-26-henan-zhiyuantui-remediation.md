@@ -2,6 +2,7 @@
 change: henan-real-recommendation-pipeline
 design-doc: docs/superpowers/specs/2026-06-26-henan-real-recommendation-pipeline-design.md
 base-ref: 96202ecad9afc5e86c65acd311aa5890910c64fb
+archived-with: 2026-06-26-henan-real-recommendation-pipeline
 ---
 
 # 河南志愿推产品重构修复 Implementation Plan
@@ -24,6 +25,7 @@ base-ref: 96202ecad9afc5e86c65acd311aa5890910c64fb
 - 首页推荐和目标评估必须复用同一个 `build_henan_candidates(...)` 候选生成器。
 - 旧 advisory/target 接口保留兼容，不作为河南志愿推新主链路继续扩展。
 
+archived-with: 2026-06-26-henan-real-recommendation-pipeline
 ---
 
 ## Current Failure Evidence
@@ -35,6 +37,7 @@ base-ref: 96202ecad9afc5e86c65acd311aa5890910c64fb
 - `data/seed/henan/data_coverage_report.example.json` 写的是示例数字，不是实际覆盖报告。
 - 全量测试通过只能说明样例链路未崩溃，不能证明河南志愿推验收通过。
 
+archived-with: 2026-06-26-henan-real-recommendation-pipeline
 ---
 
 ## File Structure
@@ -66,6 +69,7 @@ base-ref: 96202ecad9afc5e86c65acd311aa5890910c64fb
 - Test: `web-ui/e2e/henan-recommendation.spec.ts`
 - Test: `web-ui/e2e/henan-target-evaluation.spec.ts`
 
+archived-with: 2026-06-26-henan-real-recommendation-pipeline
 ---
 
 ### Task 1: Replace Fake Coverage With Real Data Gate
@@ -207,6 +211,7 @@ Expected:
 - Tests pass.
 - Current report shows low actual coverage and blocks recommendation readiness until real data is imported.
 
+archived-with: 2026-06-26-henan-real-recommendation-pipeline
 ---
 
 ### Task 2: Import Real 2026 Henan Catalog Data
@@ -370,6 +375,7 @@ All ordinary undergraduate Henan plan counts imported.
 All records retain source_url and review_status.
 ```
 
+archived-with: 2026-06-26-henan-real-recommendation-pipeline
 ---
 
 ### Task 2B: Import 2025/2024 Historical Admission Baselines
@@ -452,6 +458,7 @@ Expected:
 - Recommendation readiness fails if 2026 catalog exists but historical rank baseline is missing.
 - No candidate can enter `稳` or `保` without verified 2025/2024 historical support.
 
+archived-with: 2026-06-26-henan-real-recommendation-pipeline
 ---
 
 ### Task 3: Implement Real Henan Candidate Generation
@@ -604,6 +611,7 @@ python -m pytest tests/engine/test_henan_candidate_generation.py tests/engine/te
 
 Expected: pass, and `build_henan_candidates()` no longer returns an unconditional empty list.
 
+archived-with: 2026-06-26-henan-real-recommendation-pipeline
 ---
 
 ### Task 4: Add Henan Recommendation API
@@ -696,6 +704,7 @@ python -m pytest tests/api/test_henan_recommendation_api.py tests/api/test_henan
 
 Expected: pass.
 
+archived-with: 2026-06-26-henan-real-recommendation-pipeline
 ---
 
 ### Task 5: Wire Homepage To Henan Recommendation API
@@ -773,6 +782,7 @@ npm.cmd run build
 
 Expected: TypeScript build passes.
 
+archived-with: 2026-06-26-henan-real-recommendation-pipeline
 ---
 
 ### Task 6: Fix Target Evaluation To Use Real Candidates
@@ -845,6 +855,7 @@ npm.cmd run build
 
 Expected: pass.
 
+archived-with: 2026-06-26-henan-real-recommendation-pipeline
 ---
 
 ### Task 7: Remove Or Hide Standalone Cost Page
@@ -865,6 +876,7 @@ Expected: pass.
 
 Expected: no standalone cost page in navigation or route table.
 
+archived-with: 2026-06-26-henan-real-recommendation-pipeline
 ---
 
 ### Task 8: Add Browser Acceptance Tests
@@ -891,6 +903,7 @@ npx.cmd playwright test web-ui/e2e/henan-recommendation.spec.ts web-ui/e2e/henan
 
 Expected: all pass after Playwright browser is installed.
 
+archived-with: 2026-06-26-henan-real-recommendation-pipeline
 ---
 
 ### Task 9: Final Verification

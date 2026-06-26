@@ -17,6 +17,6 @@ verification_report: docs/superpowers/reports/2026-06-26-henan-real-recommendati
 branch_status: handled
 created_at: 2026-06-26
 verified_at: 2026-06-26
-archived: false
+archived: true
 handoff_context: openspec/changes/henan-real-recommendation-pipeline/.comet/handoff/design-context.json
 handoff_hash: 6e931bff272c883de0ab5c7a3d9a24f06812ea69a6e1d69a49013deb0189ed7c

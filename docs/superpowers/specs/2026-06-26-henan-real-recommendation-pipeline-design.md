@@ -2,6 +2,8 @@
 comet_change: henan-real-recommendation-pipeline
 role: technical-design
 canonical_spec: openspec
+archived-with: 2026-06-26-henan-real-recommendation-pipeline
+status: final
 ---
 
 # Design Doc: henan-real-recommendation-pipeline
