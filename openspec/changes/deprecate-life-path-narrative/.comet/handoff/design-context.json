@@ -1,0 +1,14 @@
+{
+  "change": "deprecate-life-path-narrative",
+  "phase": "design",
+  "mode": "compact",
+  "canonical_spec": "openspec",
+  "generated_by": "comet-handoff.sh",
+  "context_hash": "5982573f06d9704e10a1269ea36bed88d4974cc05d54ce1bd3aad7801c94db6a",
+  "files": [
+    { "path": "openspec/changes/deprecate-life-path-narrative/proposal.md", "sha256": "05640cb9bbc902db655becf33d2eae25b0537dba9d5271b71aae37c0d2573d9f" },
+    { "path": "openspec/changes/deprecate-life-path-narrative/design.md", "sha256": "cfa3a4d18c260cf9e557eef519f72fc2e16ed65799b9f42a500a7801ac608c80" },
+    { "path": "openspec/changes/deprecate-life-path-narrative/tasks.md", "sha256": "b77952c2562aaba348c50b8196b096dcac1e725cac965ce8efd54f1552551a03" },
+    { "path": "openspec/changes/deprecate-life-path-narrative/specs/narrative-policy/spec.md", "sha256": "583f9c55230793369f5519388bc1ffc2b856ba3be25f0c7973925d1e08a3e7d0" }
+  ]
+}
