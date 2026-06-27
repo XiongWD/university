@@ -41,6 +41,11 @@ _FILE_META: dict[str, dict] = {
         "confidence": 0.95,
         "as_of": date(2026, 6, 25),
     },
+    "henan_2024_score_rank.csv": {
+        "source": "河南省教育考试院2024(OCR自阳光高考图片版,累计单调清洗)",
+        "confidence": 0.9,
+        "as_of": date(2024, 6, 25),
+    },
 }
 
 # CSV 真实列名 → 内部字段
