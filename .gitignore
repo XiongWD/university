@@ -8,7 +8,10 @@ __pycache__/
 venv/
 env/
 .pytest_cache/
-.pytest-tmp/
+# 修正：原 `.pytest-tmp/` 只精确匹配无后缀目录，导致 .pytest-tmp-xxx/ 漏网
+.pytest-tmp*/
+.pytest-state/
+.codegraph/
 .mypy_cache/
 .ruff_cache/
 *.egg-info/
@@ -23,7 +26,7 @@ data/*.db-journal
 # 本地开发服务日志（scripts/dev.ps1 生成，不入库）
 logs/
 
-# OCR 中间产物（可由 PDF 重新生成，不入库）
+# OCR / 抓取中间产物（可由脚本重新生成，不入库）
 # 保留：原始 PDF（溯源依据）+ REVIEW_NEEDED.md（复核清单）
 data/raw/**/img/
 data/raw/**/ocr/
@@ -31,7 +34,13 @@ data/raw/**/cache/
 data/raw/**/crop/
 data/raw/**/web/
 data/raw/**/out/
-data/raw/henan_2026/sources/
+# sources 从 henan_2026 单点升级为通配，覆盖 henan_2024/sources/ 等网页快照
+data/raw/**/sources/
+# 抓取缓存与 pipeline 产物（school_list_api.json、*_merged.json/csv、验证报告等）
+data/raw/**/policy_cache/
+data/raw/henan_2026/*.json
+data/raw/henan_2026/*.csv
+data/raw/henan_2026/*.png
 data/raw/henan_2026/*.html
 
 # IDE / 编辑器
@@ -48,9 +57,18 @@ desktop.ini
 # 前端（web-ui change 用，预留）
 node_modules/
 
+# 前端 e2e 调试截图（带 _screenshot- 前缀）
+web-ui/e2e/_screenshot-*
+
 # 本地配置
 .env
 .env.local
+
+# 备份文件
+*.bak
+
+# 种子区抓取中间产物
+data/seed/henan/*_from_scrape.yaml
 
 # nul 文件（Windows 误创建）
 nul
