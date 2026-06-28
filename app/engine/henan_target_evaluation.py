@@ -13,6 +13,78 @@ from __future__ import annotations
 REACHABLE_BUCKETS = {"冲", "稳", "保"}
 
 
+def _classify_unreachable(item: dict) -> str:
+    """把单个不推荐候选归因到一类：hard_block（资格阻断）/ rank_gap（位次不达标）/ data_missing（数据不足）。
+
+    依据 build_henan_candidates 的输出：qualified=False 即资格层阻断；qualified=True 但
+    bucket=不推荐 是位次差比超阈值；bucket=需人工复核 是缺 verified 历史/计划基线。
+    """
+    if not item.get("qualified", True):
+        return "hard_block"
+    bucket = item.get("bucket")
+    if bucket == "需人工复核":
+        return "data_missing"
+    return "rank_gap"
+
+
+def _summarize_unreachable_reasons(profile: dict, scoped: list[dict]) -> list[str]:
+    """汇总院校级不推荐的原因（design §9.3），区分资格阻断与位次/数据不达标。
+
+    与旧逻辑的区别：旧版只聚合 blocked_reasons，会丢失「位次不够」这个最常见主因，
+    导致用户误以为只是语种/选科问题。新版按分类汇总，并把位次差比主因前置。
+    """
+    reasons: list[str] = ["没有达到冲稳保条件的专业或专业组"]
+
+    # 按原因分类统计专业组数
+    by_kind: dict[str, list[dict]] = {"hard_block": [], "rank_gap": [], "data_missing": []}
+    for item in scoped:
+        by_kind[_classify_unreachable(item)].append(item)
+
+    # 主因优先：位次不达标（最常见，且多数专业组会落在这里）
+    student_rank = profile.get("rank")
+    rank_gap_items = by_kind["rank_gap"]
+    if rank_gap_items:
+        # 取该校参考位次最低（最好进）的那个组作为"最接近"参照
+        best = min(
+            rank_gap_items,
+            key=lambda it: (it.get("bucket_detail") or {}).get("adjusted_min_rank") or float("inf"),
+        )
+        detail = best.get("bucket_detail") or {}
+        adj = detail.get("adjusted_min_rank")
+        ratio = detail.get("rank_gap_ratio")
+        group_desc = f"{best.get('major_group_code', '?')}/{best.get('major_name', '?')}"
+        if adj and student_rank:
+            base = f"位次差距过大：考生位次 {student_rank}，而 {group_desc} 参考录取位次约 {int(adj)}"
+            if ratio is not None:
+                base += f"（位次差比 {ratio * 100:+.1f}%，超过 15% 不推荐阈值）"
+            base += f"；该校共有 {len(rank_gap_items)} 个专业组因分数暂不够"
+            reasons.append(base)
+        else:
+            reasons.append(f"位次差距过大：{group_desc} 当前分数暂达不到参考录取位次（共 {len(rank_gap_items)} 个专业组）")
+
+    # 资格硬阻断：去重列出具体原因（语种/选科/单科/体检/专项）
+    hard_items = by_kind["hard_block"]
+    if hard_items:
+        seen: set[str] = set()
+        ordered: list[str] = []
+        for reason in (r for it in hard_items for r in (it.get("blocked_reasons") or [])):
+            if reason not in seen:
+                seen.add(reason)
+                ordered.append(reason)
+        prefix = f"资格不符（{len(hard_items)} 个专业组）：" if len(hard_items) > 1 else "资格不符："
+        reasons.append(prefix + "；".join(ordered))
+
+    # 数据不足：缺 verified 历史/计划，无法判定冲稳保
+    missing_items = by_kind["data_missing"]
+    if missing_items:
+        sample_missing = (missing_items[0].get("missing_data_items") or ["未提供"])
+        reasons.append(
+            f"数据待核验（{len(missing_items)} 个专业组）：{sample_missing[0]}，暂无法判定冲稳保"
+        )
+
+    return reasons
+
+
 def evaluate_target_school(
     profile: dict,
     target_school: str,
@@ -52,9 +124,7 @@ def evaluate_target_school(
 
     # 无任何可达专业/专业组 → 院校级不推荐（design §9.3）
     if not reachable:
-        reasons = ["没有达到冲稳保条件的专业或专业组"]
-        blocked = [reason for item in scoped for reason in item.get("blocked_reasons", [])]
-        reasons.extend(sorted(set(blocked)))
+        reasons = _summarize_unreachable_reasons(profile, scoped)
         return {
             "school_name": target_school,
             "overall_bucket": "不推荐",
