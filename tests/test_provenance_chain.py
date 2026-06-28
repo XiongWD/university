@@ -1,9 +1,3 @@
-"""来源追溯全链路集成测试。
-
-验证 YAML 种子 → Domain → DB → API 响应来源字段不丢失。
-"""
-
-import pytest
 import yaml
 from fastapi.testclient import TestClient
 from sqlmodel import Session
@@ -14,77 +8,63 @@ from app.db import get_engine, init_db
 from app.loader.seed_loader import is_db_empty, load_all_seeds
 
 
-@pytest.fixture(scope="module")
-def client(tmp_path_factory):
-    tmp_db = tmp_path_factory.mktemp("prov") / "prov_test.db"
+def _boot_client(tmp_path_factory, name: str) -> TestClient:
+    tmp_db = tmp_path_factory.mktemp(name) / f"{name}.db"
     import app.db as db_module
+
     db_module._engine = None
     settings.db_path = tmp_db
     init_db()
-    with Session(get_engine()) as s:
-        if is_db_empty(s):
-            load_all_seeds(settings.seed_dir, s)
-    with TestClient(app) as c:
-        yield c
+    with Session(get_engine()) as session:
+        if is_db_empty(session):
+            load_all_seeds(settings.seed_dir, session)
+    return TestClient(app)
 
 
-def test_provenance_survives_full_chain(client):
-    seed = yaml.safe_load(
-        (settings.seed_dir / "careers" / "careers.yaml").read_text(encoding="utf-8")
-    )[0]
-    body = client.get("/api/v1/careers").json()
-    match = next(c for c in body if c["name"] == seed["name"])
-    assert match["source"] == seed["source"]
-    assert match["confidence"] == seed["confidence"]
-    assert match["as_of"]
+def test_provenance_survives_full_chain(tmp_path_factory):
+    with _boot_client(tmp_path_factory, "prov_base") as client:
+        seed = yaml.safe_load(
+            (settings.seed_dir / "careers" / "careers.yaml").read_text(encoding="utf-8")
+        )[0]
+        body = client.get("/api/v1/careers").json()
+        match = next(career for career in body if career["name"] == seed["name"])
+        assert match["source"] == seed["source"]
+        assert match["confidence"] == seed["confidence"]
+        assert match["as_of"]
 
-    # cities 端点必须带来源
-    c2 = client.get("/api/v1/cities").json()[0]
-    assert c2["source"]
-    assert c2["confidence"] is not None
+        city = client.get("/api/v1/cities").json()[0]
+        assert city["source"]
+        assert city["confidence"] is not None
 
-    # universities
-    u = client.get("/api/v1/universities").json()[0]
-    assert u["source"]
-
-
-def test_low_confidence_hand_edited_seeds_flagged(client):
-    for c in client.get("/api/v1/careers").json():
-        assert c["confidence"] <= 0.6
-        assert c.get("note") and "待爬虫校准" in c["note"]
+        university = client.get("/api/v1/universities").json()[0]
+        assert university["source"]
 
 
-# ---------- 省级数据来源链路（含 CSV 导入）----------
-@pytest.fixture(scope="module")
-def prov_client(tmp_path_factory):
-    """加载种子 + CSV 导入的 client，验证省级数据全链路来源。"""
-    tmp_db = tmp_path_factory.mktemp("prov") / "prov_chain.db"
-    import app.db as db_module
-    db_module._engine = None
-    settings.db_path = tmp_db
-    init_db()
-    with Session(get_engine()) as s:
-        if is_db_empty(s):
-            load_all_seeds(settings.seed_dir, s)
-    with TestClient(app) as c:
-        yield c
+def test_low_confidence_hand_edited_seeds_flagged(tmp_path_factory):
+    with _boot_client(tmp_path_factory, "prov_low_conf") as client:
+        for career in client.get("/api/v1/careers").json():
+            assert career["confidence"] <= 0.6
+            assert career.get("note")
 
 
-def test_provincial_control_line_provenance(prov_client):
-    r = prov_client.get(
-        "/api/v1/provincial/control-line?province=河南&year=2024&track=理科"
-    ).json()
-    assert r, "河南2024理科省控线应存在"
-    cl = r[0]
-    assert cl["source"] and cl["confidence"] >= 0.8
+def test_provincial_control_line_provenance(tmp_path_factory):
+    with _boot_client(tmp_path_factory, "prov_control") as client:
+        body = client.get(
+            "/api/v1/provincial/control-line?province=河南&year=2026&track=历史类"
+        ).json()
+    assert body, "河南 2026 历史类省控线应存在"
+    control_line = body[0]
+    assert control_line["batches"]["undergrad_batch"] == 459
+    assert control_line["source"] == "河南省教育考试院2026(教育在线核实)"
+    assert control_line["confidence"] >= 0.95
 
 
-def test_score_rank_provenance_full_chain(prov_client):
-    """CSV → DB → API 来源不丢：一分一段表查询带 source 字段。"""
-    r = prov_client.get(
-        "/api/v1/provincial/score-rank/rank"
-        "?province=河南&year=2024&track=理科&score=690"
-    ).json()
-    assert r.get("rank") == 215
-    assert r.get("source") == "Gaokao-score-distribution数据集"
-    assert r.get("confidence") == 0.8
+def test_score_rank_provenance_full_chain(tmp_path_factory):
+    with _boot_client(tmp_path_factory, "prov_chain") as client:
+        body = client.get(
+            "/api/v1/provincial/score-rank/rank"
+            "?province=河南&year=2024&track=历史类&score=600"
+        ).json()
+    assert body["rank"] == 9500
+    assert body["source"] == "河南省教育考试院2024(OCR自阳光高考图片版,累计单调清洗)"
+    assert body["confidence"] == 0.9

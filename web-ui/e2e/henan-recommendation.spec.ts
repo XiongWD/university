@@ -18,17 +18,16 @@ test.describe("河南志愿推首页推荐", () => {
     // 默认表单已预填，直接提交
     await page.getByRole("button", { name: /生成志愿表|生成中/ }).click();
 
-    // 数据就绪 banner 或档位标题至少出现一个（数据未就绪时显示 banner）
-    const readyBanner = page.getByText("推荐数据未完全就绪");
-    const bucketHeading = page.getByRole("heading", { name: /^(冲|稳|保|不推荐|需人工复核)$/ });
-    await expect(readyBanner.or(bucketHeading.first())).toBeVisible({ timeout: 15000 });
+    // 结果区候选总数行（提交成功必然出现）
+    await expect(page.getByText(/共\s*\d+\s*个院校专业组候选/)).toBeVisible({ timeout: 15000 });
   });
 
   test("点击冲档位只显示冲", async ({ page }) => {
     await page.goto("/");
-    await page.getByRole("button", { name: "冲", exact: true }).click();
+    // 档位按钮可访问名为 "冲只看冲刺志愿"（label+desc，div 间含空格）
+    await page.getByRole("button", { name: /^冲\s*只看冲刺志愿/ }).click();
     await page.getByRole("button", { name: /生成志愿表|生成中/ }).click();
-    // 冲档位标题应可见（或空态——但档位筛选按钮存在即证明交互生效）
-    await expect(page.getByRole("button", { name: "冲", exact: true })).toBeVisible();
+    // 当前档位提示出现「冲」
+    await expect(page.getByText(/当前显示「冲」档位/)).toBeVisible({ timeout: 15000 });
   });
 });

@@ -3,8 +3,6 @@ import { Loader2, Calendar } from "lucide-react";
 import { getControlLine, ApiError } from "../api/client";
 import type { ControlLine } from "../api/types";
 
-const PROVINCES = ["河南", "广东"];
-const TRACKS = ["物理类", "历史类", "理科", "文科"];
 const YEARS = [2026, 2025, 2024];
 
 const BATCH_LABELS: { key: keyof ControlLine["batches"]; label: string }[] = [
@@ -16,9 +14,7 @@ const BATCH_LABELS: { key: keyof ControlLine["batches"]; label: string }[] = [
 ];
 
 export default function ControlLinePage() {
-  const [province, setProvince] = useState("河南");
   const [year, setYear] = useState(2026);
-  const [track, setTrack] = useState("物理类");
   const [loading, setLoading] = useState(false);
   const [lines, setLines] = useState<ControlLine[]>([]);
   const [queried, setQueried] = useState(false);
@@ -29,7 +25,7 @@ export default function ControlLinePage() {
     setError(null);
     setQueried(true);
     try {
-      const r = await getControlLine(province, year, track);
+      const r = await getControlLine("河南", year, "历史类");
       setLines(r);
     } catch (e) {
       setError(e instanceof ApiError ? e.message : "查询失败");
@@ -50,15 +46,12 @@ export default function ControlLinePage() {
       </div>
 
       <div className="glass rounded-3xl p-6 shadow-xl space-y-4">
-        <div className="grid grid-cols-3 gap-3">
-          <select value={province} onChange={(e) => setProvince(e.target.value)} className="bg-white/10 border border-white/15 rounded-xl px-3 py-2.5 text-sm">
-            {PROVINCES.map((p) => <option key={p} className="bg-slate-800">{p}</option>)}
-          </select>
+        <div className="grid grid-cols-2 gap-3">
+          <div className="bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white/80">
+            河南 / 历史类
+          </div>
           <select value={year} onChange={(e) => setYear(Number(e.target.value))} className="bg-white/10 border border-white/15 rounded-xl px-3 py-2.5 text-sm">
             {YEARS.map((y) => <option key={y} value={y} className="bg-slate-800">{y}年</option>)}
-          </select>
-          <select value={track} onChange={(e) => setTrack(e.target.value)} className="bg-white/10 border border-white/15 rounded-xl px-3 py-2.5 text-sm">
-            {TRACKS.map((t) => <option key={t} className="bg-slate-800">{t}</option>)}
           </select>
         </div>
 

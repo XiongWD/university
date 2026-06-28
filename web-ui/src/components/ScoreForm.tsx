@@ -2,19 +2,6 @@ import { useState } from "react";
 import { Search, Loader2 } from "lucide-react";
 import type { AdvisoryRequest } from "../api/types";
 
-const PROVINCES = ["河南", "广东"];
-const TRACKS_BY_PROVINCE: Record<string, { label: string; value: string }[]> = {
-  河南: [
-    { label: "物理类", value: "物理类" },
-    { label: "历史类", value: "历史类" },
-    { label: "理科(2024及以前)", value: "理科" },
-    { label: "文科(2024及以前)", value: "文科" },
-  ],
-  广东: [
-    { label: "物理类", value: "物理类" },
-    { label: "历史类", value: "历史类" },
-  ],
-};
 // 河南志愿推：策略改为 冲/稳/保 + 全部（design §7.2，去掉"中"）。
 // 显示档位 display_bucket 作为前端筛选；risk_preference 仍提交后端兼容值。
 const BUCKET_OPTIONS: { value: "全部" | "冲" | "稳" | "保"; label: string; desc: string }[] = [
@@ -23,7 +10,9 @@ const BUCKET_OPTIONS: { value: "全部" | "冲" | "稳" | "保"; label: string; 
   { value: "稳", label: "稳", desc: "只看稳妥志愿" },
   { value: "保", label: "保", desc: "只看保底志愿" },
 ];
-const YEARS = [2026, 2025, 2024];  // 2026优先（当年最新一分一段表）
+const FIXED_PROVINCE = "河南";
+const FIXED_TRACK = "历史类";
+const FIXED_YEAR = 2026;
 
 interface Props {
   loading: boolean;
@@ -34,10 +23,7 @@ const FOREIGN_LANGS = ["英语", "日语", "俄语", "德语", "法语", "西班
 const ELECTIVES = ["物理", "化学", "生物", "政治", "历史", "地理"];
 
 export default function ScoreForm({ loading, onSubmit }: Props) {
-  const [province, setProvince] = useState("河南");
   const [totalScore, setTotalScore] = useState(480);
-  const [track, setTrack] = useState("历史类");
-  const [dataYear, setDataYear] = useState(2026);  // 默认当年最新
   const [displayBucket, setDisplayBucket] = useState<"全部" | "冲" | "稳" | "保">("全部");
   // 选科/外语/单科（填报硬门槛）
   const [foreignLang, setForeignLang] = useState("日语");  // 默认日语(用户弟弟场景)
@@ -47,8 +33,11 @@ export default function ScoreForm({ loading, onSubmit }: Props) {
   // 河南志愿推新增：关注院校 / 兴趣专业（design §7.3）
   const [focusedSchoolsText, setFocusedSchoolsText] = useState("");
   const [interestMajorsText, setInterestMajorsText] = useState("");
-
-  const tracks = TRACKS_BY_PROVINCE[province] || [];
+  // 排序与偏好（problem2/3/4）
+  const [sortMode, setSortMode] = useState<"rank" | "probability">("rank");
+  const [preferLocal, setPreferLocal] = useState(false);
+  const [preferPublic, setPreferPublic] = useState(false);
+  const [preferSameLanguageMajor, setPreferSameLanguageMajor] = useState(false);
 
   function toggleElective(s: string) {
     setElectives((prev) =>
@@ -63,12 +52,12 @@ export default function ScoreForm({ loading, onSubmit }: Props) {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     onSubmit({
-      province,
+      province: FIXED_PROVINCE,
       total_score: totalScore,
-      data_year: dataYear,
+      data_year: FIXED_YEAR,
       // 仍提交后端兼容的 risk_preference（冲/稳），新增 display_bucket 做前端筛选
       risk_preference: displayBucket === "冲" ? "冲" : displayBucket === "保" ? "稳" : "中",
-      primary_subject: track.includes("历史") ? "历史" : "物理",
+      primary_subject: "历史",
       math_score: mathScore,
       exam_foreign_language: foreignLang,
       foreign_language_score: foreignScore,
@@ -78,6 +67,11 @@ export default function ScoreForm({ loading, onSubmit }: Props) {
       focused_schools: splitWords(focusedSchoolsText),
       interest_majors: splitWords(interestMajorsText),
       display_bucket: displayBucket,
+      // 排序与偏好（problem2/3/4）
+      sort_mode: sortMode,
+      prefer_local: preferLocal,
+      prefer_public: preferPublic,
+      prefer_same_language_major: preferSameLanguageMajor,
     });
   }
 
@@ -90,26 +84,6 @@ export default function ScoreForm({ loading, onSubmit }: Props) {
       <p className="text-sm text-white/50 mb-6">填写分数与偏好，一键生成冲稳保志愿表</p>
 
       <div className="grid grid-cols-2 gap-4">
-        {/* 省份 */}
-        <label className="block">
-          <span className="text-xs text-white/60 mb-1.5 block">省份</span>
-          <select
-            value={province}
-            onChange={(e) => {
-              setProvince(e.target.value);
-              const t = TRACKS_BY_PROVINCE[e.target.value];
-              if (t && !t.find((x) => x.value === track)) setTrack(t[0].value);
-            }}
-            className="w-full bg-white/10 border border-white/15 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-pink-400"
-          >
-            {PROVINCES.map((p) => (
-              <option key={p} value={p} className="bg-slate-800">
-                {p}
-              </option>
-            ))}
-          </select>
-        </label>
-
         {/* 高考总分 */}
         <label className="block">
           <span className="text-xs text-white/60 mb-1.5 block">高考总分</span>
@@ -123,36 +97,20 @@ export default function ScoreForm({ loading, onSubmit }: Props) {
           />
         </label>
 
-        {/* 科类 */}
+        {/* 适用范围 */}
         <label className="block">
-          <span className="text-xs text-white/60 mb-1.5 block">科类</span>
-          <select
-            value={track}
-            onChange={(e) => setTrack(e.target.value)}
-            className="w-full bg-white/10 border border-white/15 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-pink-400"
-          >
-            {tracks.map((t) => (
-              <option key={t.value} value={t.value} className="bg-slate-800">
-                {t.label}
-              </option>
-            ))}
-          </select>
+          <span className="text-xs text-white/60 mb-1.5 block">适用范围</span>
+          <div className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white/80">
+            {FIXED_PROVINCE} / {FIXED_YEAR} / {FIXED_TRACK} / 普通本科批
+          </div>
         </label>
 
-        {/* 数据年份 */}
+        {/* 推荐单位 */}
         <label className="block">
-          <span className="text-xs text-white/60 mb-1.5 block">参考数据年份</span>
-          <select
-            value={dataYear}
-            onChange={(e) => setDataYear(Number(e.target.value))}
-            className="w-full bg-white/10 border border-white/15 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-pink-400"
-          >
-            {YEARS.map((y) => (
-              <option key={y} value={y} className="bg-slate-800">
-                {y} 年
-              </option>
-            ))}
-          </select>
+          <span className="text-xs text-white/60 mb-1.5 block">推荐单位</span>
+          <div className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white/80">
+            院校专业组（组内 1-6 个专业）
+          </div>
         </label>
       </div>
 
@@ -260,6 +218,67 @@ export default function ScoreForm({ loading, onSubmit }: Props) {
           ))}
         </div>
         <p className="text-[10px] text-white/30 mt-2">"冲/稳/保"是产品辅助填报策略，非河南省教育考试院官方比例</p>
+      </div>
+
+      {/* 排序方式 + 偏好（problem2/3/4） */}
+      <div className="mt-5 pt-5 border-t border-white/10">
+        <span className="text-xs text-white/60 mb-2 block">48志愿草案排序方式</span>
+        <div className="grid grid-cols-2 gap-2 mb-3">
+          <button
+            type="button"
+            onClick={() => setSortMode("rank")}
+            className={`py-2.5 rounded-lg text-xs font-bold transition border ${
+              sortMode === "rank"
+                ? "bg-gradient-to-br from-emerald-500 to-teal-500 border-transparent text-white shadow-lg"
+                : "bg-white/5 border-white/15 text-white/60 hover:bg-white/10"
+            }`}
+          >
+            <div>位次匹配度</div>
+            <div className="text-[10px] font-normal opacity-70 mt-0.5">按位次差比排序（默认）</div>
+          </button>
+          <button
+            type="button"
+            onClick={() => setSortMode("probability")}
+            className={`py-2.5 rounded-lg text-xs font-bold transition border ${
+              sortMode === "probability"
+                ? "bg-gradient-to-br from-emerald-500 to-teal-500 border-transparent text-white shadow-lg"
+                : "bg-white/5 border-white/15 text-white/60 hover:bg-white/10"
+            }`}
+          >
+            <div>成功率优先</div>
+            <div className="text-[10px] font-normal opacity-70 mt-0.5">成功率高的排前面</div>
+          </button>
+        </div>
+        <div className="flex flex-wrap gap-3">
+          <label className="flex items-center gap-1.5 text-xs text-white/60 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={preferLocal}
+              onChange={(e) => setPreferLocal(e.target.checked)}
+              className="w-3.5 h-3.5 rounded accent-emerald-500"
+            />
+            优先省内院校
+          </label>
+          <label className="flex items-center gap-1.5 text-xs text-white/60 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={preferPublic}
+              onChange={(e) => setPreferPublic(e.target.checked)}
+              className="w-3.5 h-3.5 rounded accent-emerald-500"
+            />
+            优先公办院校
+          </label>
+          <label className="flex items-center gap-1.5 text-xs text-white/60 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={preferSameLanguageMajor}
+              onChange={(e) => setPreferSameLanguageMajor(e.target.checked)}
+              className="w-3.5 h-3.5 rounded accent-emerald-500"
+            />
+            按高考语种优先推荐同语种专业
+          </label>
+        </div>
+        <p className="text-[10px] text-white/30 mt-2">排序方式与偏好影响 48 志愿草案内的挑选顺序，同档位内生效；开启同语种偏好后，仅在未填写兴趣专业时，用高考语种作为隐式专业偏好。</p>
       </div>
 
       <button

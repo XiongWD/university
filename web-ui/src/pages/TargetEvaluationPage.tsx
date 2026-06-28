@@ -32,10 +32,8 @@ export default function TargetEvaluationPage() {
   const [options, setOptions] = useState<HenanOptions | null>(null);
 
   // 考生信息
-  const [track, setTrack] = useState("历史类");
   const [score, setScore] = useState(540);
   const [rank, setRank] = useState<number | "">("");
-  const [primarySubject, setPrimarySubject] = useState("历史");
   const [electives, setElectives] = useState<string[]>(["政治", "地理"]);
   const [foreignLang, setForeignLang] = useState("日语");
   const [foreignScore, setForeignScore] = useState(110);
@@ -94,14 +92,18 @@ export default function TargetEvaluationPage() {
       const data = await evaluateHenanTarget({
         score,
         rank: rank === "" ? null : rank,
-        track,
+        track: "历史类",
         source_province: "河南",
         target_school: targetSchool,
         target_majors: targetMajors,
         target_group: targetGroup || null,
         exam_foreign_language: foreignLang,
-        primary_subject: primarySubject,
+        primary_subject: "历史",
         elective_subjects: effectiveElectives,
+        subject_scores_detail: {
+          数学: mathScore,
+          外语: foreignScore,
+        },
         obey_adjustment: obeyAdjustment,
       });
       setResult(data);
@@ -111,12 +113,6 @@ export default function TargetEvaluationPage() {
     } finally {
       setLoading(false);
     }
-  }
-
-  // 切换科类时同步首选科目
-  function changeTrack(t: string) {
-    setTrack(t);
-    setPrimarySubject(t.includes("历史") ? "历史" : "物理");
   }
 
   const inputCls = "bg-white/10 rounded-xl px-3 py-2 text-sm w-full focus:outline-none focus:ring-1 focus:ring-pink-400/50";
@@ -190,11 +186,10 @@ export default function TargetEvaluationPage() {
 
         <div className="pt-5 border-t border-white/10 grid grid-cols-1 sm:grid-cols-2 gap-4">
           <label className="block">
-            <span className="text-xs text-white/60 mb-1.5 block">科类</span>
-            <select value={track} onChange={(e) => changeTrack(e.target.value)} className={selectCls}>
-              <option value="历史类" className="bg-slate-800">历史类</option>
-              <option value="物理类" className="bg-slate-800">物理类</option>
-            </select>
+            <span className="text-xs text-white/60 mb-1.5 block">适用范围</span>
+            <div className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-sm text-white/80">
+              河南 / 2026 / 历史类 / 普通本科批
+            </div>
           </label>
           <label className="block">
             <span className="text-xs text-white/60 mb-1.5 block">高考总分</span>
@@ -268,6 +263,22 @@ export default function TargetEvaluationPage() {
 
       {result && (
         <div className="animate-slide-up space-y-4">
+          {(!result.production_ready || (result.coverage_notes?.length ?? 0) > 0) && (
+            <div className="glass rounded-2xl p-4 border border-amber-400/30 flex items-start gap-2 text-sm text-amber-200">
+              <AlertCircle className="w-5 h-5 shrink-0" />
+              <div>
+                <p className="font-medium">
+                  {result.production_ready ? "评估数据存在额外风险提示" : "评估数据未达到 production_ready"}
+                </p>
+                {(result.coverage_notes?.length ?? 0) > 0 && (
+                  <div className="text-amber-200/70 text-xs mt-0.5 space-y-0.5">
+                    {result.coverage_notes?.map((note, index) => <div key={index}>• {note}</div>)}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
           {/* 总结 */}
           <div className="glass rounded-3xl p-6 shadow-xl">
             <div className="flex items-center gap-2 mb-2">

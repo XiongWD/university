@@ -3,15 +3,11 @@ import { ArrowLeftRight, Loader2 } from "lucide-react";
 import { scoreToRank, rankToScore, ApiError } from "../api/client";
 import type { RankResponse } from "../api/types";
 
-const PROVINCES = ["河南", "广东"];
-const TRACKS = ["物理类", "历史类", "理科", "文科"];
 const YEARS = [2026, 2025, 2024];
 
 export default function RankPage() {
   const [mode, setMode] = useState<"s2r" | "r2s">("s2r");
-  const [province, setProvince] = useState("河南");
   const [year, setYear] = useState(2025);
-  const [track, setTrack] = useState("物理类");
   const [value, setValue] = useState("");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<RankResponse | (RankResponse & { score: number | null }) | null>(null);
@@ -29,8 +25,8 @@ export default function RankPage() {
     try {
       const r =
         mode === "s2r"
-          ? await scoreToRank(province, year, track, v)
-          : await rankToScore(province, year, track, v);
+          ? await scoreToRank("河南", year, "历史类", v)
+          : await rankToScore("河南", year, "历史类", v);
       setResult(r);
     } catch (e) {
       setError(e instanceof ApiError ? e.message : "查询失败");
@@ -77,15 +73,12 @@ export default function RankPage() {
           </button>
         </div>
 
-        <div className="grid grid-cols-3 gap-3">
-          <select value={province} onChange={(e) => setProvince(e.target.value)} className="bg-white/10 border border-white/15 rounded-xl px-3 py-2.5 text-sm">
-            {PROVINCES.map((p) => <option key={p} className="bg-slate-800">{p}</option>)}
-          </select>
+        <div className="grid grid-cols-2 gap-3">
+          <div className="bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white/80">
+            河南 / 历史类
+          </div>
           <select value={year} onChange={(e) => setYear(Number(e.target.value))} className="bg-white/10 border border-white/15 rounded-xl px-3 py-2.5 text-sm">
             {YEARS.map((y) => <option key={y} value={y} className="bg-slate-800">{y}年</option>)}
-          </select>
-          <select value={track} onChange={(e) => setTrack(e.target.value)} className="bg-white/10 border border-white/15 rounded-xl px-3 py-2.5 text-sm">
-            {TRACKS.map((t) => <option key={t} className="bg-slate-800">{t}</option>)}
           </select>
         </div>
 

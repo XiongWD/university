@@ -56,7 +56,7 @@ def test_2025_group_level_rank_returned_when_major_level_missing():
 
 
 def test_2025_2024_weighted_trend_only_when_2025_group_missing():
-    """2025 专业组和专业级都缺失，但 2024 组级存在时，加权趋势用 2024 为主。"""
+    """2024 单年同校历史在无 2025 命中时，应退化为推断校级兜底。"""
     history = [
         _hist(year=2024, min_rank=22000, data_granularity="major_group", major_name=None),
     ]
@@ -64,9 +64,10 @@ def test_2025_2024_weighted_trend_only_when_2025_group_missing():
         history, school_code="10459", group_code="101", major_names=["法学"],
         track="历史类", batch="本科批",
     )
-    # 只有 2024，无 2025 → 不满足加权(需两组) → 2024 单独不作为高置信保底
-    # 但校级兜底也缺 → 应返回 None（2024 不单独支撑）
-    assert baseline is None
+    assert baseline is not None
+    assert baseline["adjusted_min_rank"] == 22000
+    assert baseline["year"] == 2024
+    assert baseline["data_granularity"] == "school_inferred"
 
 
 def test_missing_verified_history_returns_none():
@@ -90,6 +91,56 @@ def test_school_level_fallback_is_low_confidence():
     )
     assert baseline is not None
     assert baseline["data_granularity"] == "school"
+
+
+def test_inferred_school_fallback_uses_same_school_verified_2025_history():
+    history = [
+        _hist(
+            year=2025,
+            major_group_code="201",
+            major_group_name="history-group-201",
+            major_name=None,
+            min_rank=22000,
+            data_granularity="major_group",
+        ),
+        _hist(
+            year=2025,
+            major_group_code="202",
+            major_group_name="history-group-202",
+            major_name=None,
+            min_rank=18000,
+            data_granularity="major_group",
+        ),
+    ]
+    baseline = find_best_historical_baseline(
+        history, school_code="10459", group_code="999", major_names=["journalism"],
+        track="历史类", batch="本科批",
+    )
+    assert baseline is not None
+    assert baseline["adjusted_min_rank"] == 18000
+    assert baseline["year"] == 2025
+    assert baseline["data_granularity"] == "school_inferred"
+
+
+def test_inferred_school_fallback_uses_verified_2024_history_when_2025_missing():
+    history = [
+        _hist(
+            year=2024,
+            major_group_code="301",
+            major_group_name="history-group-301",
+            major_name=None,
+            min_rank=26000,
+            data_granularity="major_group",
+        ),
+    ]
+    baseline = find_best_historical_baseline(
+        history, school_code="10459", group_code="999", major_names=["journalism"],
+        track="历史类", batch="本科批",
+    )
+    assert baseline is not None
+    assert baseline["adjusted_min_rank"] == 26000
+    assert baseline["year"] == 2024
+    assert baseline["data_granularity"] == "school_inferred"
 
 
 def test_importer_rejects_verified_row_without_min_rank(tmp_path):

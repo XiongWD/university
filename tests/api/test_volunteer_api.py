@@ -1,5 +1,3 @@
-"""志愿填报引擎 API 端到端测试。"""
-import pytest
 from fastapi.testclient import TestClient
 from sqlmodel import Session
 
@@ -9,140 +7,190 @@ from app.db import get_engine, init_db
 from app.loader.seed_loader import is_db_empty, load_all_seeds
 
 
-@pytest.fixture(scope="module")
-def client(tmp_path_factory):
+def _boot_client(tmp_path_factory):
     tmp_db = tmp_path_factory.mktemp("vol_api") / "vol_api.db"
     import app.db as db_module
+
     db_module._engine = None
     settings.db_path = tmp_db
     init_db()
-    with Session(get_engine()) as s:
-        if is_db_empty(s):
-            load_all_seeds(settings.seed_dir, s)
-    with TestClient(app) as c:
-        yield c
+    with Session(get_engine()) as session:
+        if is_db_empty(session):
+            load_all_seeds(settings.seed_dir, session)
+    return TestClient(app)
 
 
-# ===== POST /volunteer/recommend =====
-def test_recommend_returns_three_buckets(client):
-    """推荐端点返回冲稳保三档结构。"""
-    r = client.post("/api/v1/volunteer/recommend", json={
-        "province": "河南", "total_score": 543, "track": "理科", "data_year": 2024,
-    })
-    assert r.status_code == 200
-    body = r.json()
+def test_recommend_returns_three_buckets(tmp_path_factory):
+    with _boot_client(tmp_path_factory) as client:
+        response = client.post(
+            "/api/v1/volunteer/recommend",
+            json={
+                "province": "河南",
+                "total_score": 543,
+                "track": "历史类",
+                "data_year": 2026,
+            },
+        )
+    assert response.status_code == 200
+    body = response.json()
     assert "sprint" in body and "stable" in body and "safe" in body
-    assert body["track"] == "理科"
-    assert body["data_year"] == 2024
-    assert "2024" in body["source_note"]
+    assert body["track"] == "历史类"
+    assert body["data_year"] == 2025
+    assert "2025" in body["source_note"]
 
 
-def test_recommend_contains_real_school(client):
-    """543分(河师大附近)考生，应能匹配到河南农业大学(保)。"""
-    r = client.post("/api/v1/volunteer/recommend", json={
-        "province": "河南", "total_score": 543, "track": "理科", "data_year": 2024,
-    })
-    body = r.json()
+def test_recommend_contains_real_school(tmp_path_factory):
+    with _boot_client(tmp_path_factory) as client:
+        response = client.post(
+            "/api/v1/volunteer/recommend",
+            json={
+                "province": "河南",
+                "total_score": 543,
+                "track": "历史类",
+                "data_year": 2026,
+            },
+        )
+    body = response.json()
     all_schools = [s["school"] for s in body["sprint"] + body["stable"] + body["safe"]]
-    assert "河南农业大学" in all_schools
+    assert "信阳农林学院" in all_schools
 
 
-def test_recommend_risk_preference_changes_quotas(client):
-    """不同风险偏好返回的各档数量不同。"""
-    body_safe = client.post("/api/v1/volunteer/recommend", json={
-        "province": "河南", "total_score": 543, "track": "理科",
-        "data_year": 2024, "risk_preference": "稳",
-    }).json()
-    body_aggr = client.post("/api/v1/volunteer/recommend", json={
-        "province": "河南", "total_score": 543, "track": "理科",
-        "data_year": 2024, "risk_preference": "冲",
-    }).json()
-    # 稳型考生保档配额(5) >= 冲型考生保档配额(2)
-    assert len(body_safe["safe"]) >= len(body_aggr["safe"])
+def test_recommend_risk_preference_changes_quotas(tmp_path_factory):
+    with _boot_client(tmp_path_factory) as client:
+        body_safe = client.post(
+            "/api/v1/volunteer/recommend",
+            json={
+                "province": "河南",
+                "total_score": 543,
+                "track": "历史类",
+                "data_year": 2026,
+                "risk_preference": "稳",
+            },
+        ).json()
+        body_aggressive = client.post(
+            "/api/v1/volunteer/recommend",
+            json={
+                "province": "河南",
+                "total_score": 543,
+                "track": "历史类",
+                "data_year": 2026,
+                "risk_preference": "冲",
+            },
+        ).json()
+    assert len(body_safe["safe"]) >= len(body_aggressive["safe"])
 
 
-def test_recommend_empty_when_no_data(client):
-    """无录取数据的省份/年份 → 返回空三档（不报错）。"""
-    r = client.post("/api/v1/volunteer/recommend", json={
-        "province": "不存在省", "total_score": 600, "track": "理科", "data_year": 2024,
-    })
-    assert r.status_code == 200
-    body = r.json()
+def test_recommend_empty_when_no_data(tmp_path_factory):
+    with _boot_client(tmp_path_factory) as client:
+        response = client.post(
+            "/api/v1/volunteer/recommend",
+            json={
+                "province": "不存在省",
+                "total_score": 600,
+                "track": "历史类",
+                "data_year": 2026,
+            },
+        )
+    assert response.status_code == 200
+    body = response.json()
     assert body["sprint"] == [] and body["stable"] == [] and body["safe"] == []
 
 
-def test_recommend_suggestion_has_probability(client):
-    """每条建议应含录取概率估算。"""
-    r = client.post("/api/v1/volunteer/recommend", json={
-        "province": "河南", "total_score": 543, "track": "理科", "data_year": 2024,
-    })
-    body = r.json()
-    all_sug = body["sprint"] + body["stable"] + body["safe"]
-    assert len(all_sug) > 0
-    for s in all_sug:
-        assert 0 <= s["probability"]["probability"] <= 1
-        assert s["last_year_rank"] > 0
+def test_recommend_suggestion_has_probability(tmp_path_factory):
+    with _boot_client(tmp_path_factory) as client:
+        response = client.post(
+            "/api/v1/volunteer/recommend",
+            json={
+                "province": "河南",
+                "total_score": 543,
+                "track": "历史类",
+                "data_year": 2026,
+            },
+        )
+    body = response.json()
+    all_suggestions = body["sprint"] + body["stable"] + body["safe"]
+    assert len(all_suggestions) > 0
+    for suggestion in all_suggestions:
+        assert 0 <= suggestion["probability"]["probability"] <= 1
+        assert suggestion["last_year_rank"] > 0
 
 
-# ===== GET /volunteer/admissions =====
-def test_admissions_filter_by_track(client):
-    """按 track 过滤录取数据。"""
-    r = client.get("/api/v1/volunteer/admissions", params={"province": "河南", "track": "理科"})
-    assert r.status_code == 200
-    for a in r.json():
-        assert a["track"] == "理科"
+def test_admissions_filter_by_track(tmp_path_factory):
+    with _boot_client(tmp_path_factory) as client:
+        response = client.get(
+            "/api/v1/volunteer/admissions",
+            params={"province": "河南", "track": "历史类"},
+        )
+    assert response.status_code == 200
+    for admission in response.json():
+        assert admission["track"] == "历史类"
 
 
-def test_admissions_filter_by_score_range(client):
-    """按分数范围筛选（如 530-600 分可报学校）。"""
-    r = client.get("/api/v1/volunteer/admissions", params={
-        "province": "河南", "track": "理科", "year": 2024,
-        "min_score": 530, "max_score": 600,
-    })
-    assert r.status_code == 200
-    for a in r.json():
-        assert 530 <= a["min_score"] <= 600
+def test_admissions_filter_by_score_range(tmp_path_factory):
+    with _boot_client(tmp_path_factory) as client:
+        response = client.get(
+            "/api/v1/volunteer/admissions",
+            params={
+                "province": "河南",
+                "track": "历史类",
+                "year": 2025,
+                "min_score": 530,
+                "max_score": 600,
+            },
+        )
+    assert response.status_code == 200
+    for admission in response.json():
+        assert 530 <= admission["min_score"] <= 600
 
 
-def test_admissions_empty_ok(client):
-    r = client.get("/api/v1/volunteer/admissions", params={"school": "不存在的学校"})
-    assert r.status_code == 200
-    assert r.json() == []
+def test_admissions_empty_ok(tmp_path_factory):
+    with _boot_client(tmp_path_factory) as client:
+        response = client.get(
+            "/api/v1/volunteer/admissions", params={"school": "不存在的学校"}
+        )
+    assert response.status_code == 200
+    assert response.json() == []
 
 
-# ===== deprecated 端点仍可运行（narrative-policy：回归可用性）=====
-def test_life_trajectory_deprecated_still_runs(client):
-    """/life-trajectory 端点已 deprecated，但仍需返回 2xx 且结构完整（主链路不再生成 payback）。"""
-    r = client.post("/api/v1/volunteer/life-trajectory", json={
-        "province": "河南", "total_score": 543, "track": "理科", "data_year": 2024,
-    })
-    assert r.status_code == 200
-    body = r.json()
-    # 结构完整
+def test_life_trajectory_deprecated_still_runs(tmp_path_factory):
+    with _boot_client(tmp_path_factory) as client:
+        response = client.post(
+            "/api/v1/volunteer/life-trajectory",
+            json={
+                "province": "河南",
+                "total_score": 543,
+                "track": "历史类",
+                "data_year": 2026,
+            },
+        )
+    assert response.status_code == 200
+    body = response.json()
     assert "sprint" in body and "stable" in body and "safe" in body
-    # 回本已从主链路切断（narrative-policy：主流程不生成回本数据）
     for bucket in ("sprint", "stable", "safe"):
         for item in body[bucket]:
             assert item["payback"] is None
-    # deprecated 标记可见
     assert "deprecated" in body["source_note"]
 
 
-def test_life_paths_deprecated_still_runs(client):
-    """/life-paths 端点已 deprecated，但仍需返回 2xx 且结构完整。"""
-    r = client.post("/api/v1/volunteer/life-paths", json={
-        "total_score": 543, "primary_subject": "历史",
-        "math_score": 75, "exam_foreign_language": "日语",
-        "foreign_language_score": 120, "english_actual_level": "basic",
-        "elective_subjects": ["政治", "地理"],
-        "family_annual_income": 80000, "family_savings": 20000,
-        "max_annual_education_budget": 25000,
-    })
-    assert r.status_code == 200
-    body = r.json()
-    # 结构完整（paths + notes）
+def test_life_paths_deprecated_still_runs(tmp_path_factory):
+    with _boot_client(tmp_path_factory) as client:
+        response = client.post(
+            "/api/v1/volunteer/life-paths",
+            json={
+                "total_score": 543,
+                "primary_subject": "历史",
+                "math_score": 75,
+                "exam_foreign_language": "日语",
+                "foreign_language_score": 120,
+                "english_actual_level": "basic",
+                "elective_subjects": ["政治", "地理"],
+                "family_annual_income": 80000,
+                "family_savings": 20000,
+                "max_annual_education_budget": 25000,
+            },
+        )
+    assert response.status_code == 200
+    body = response.json()
     assert "paths" in body
     assert "notes" in body
-    # deprecated 标记可见
-    assert any("deprecated" in n for n in body["notes"])
-
+    assert any("deprecated" in note for note in body["notes"])

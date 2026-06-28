@@ -16,27 +16,25 @@ _state = {"seed_loaded": False}
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """启动时若 DB 空则自动加载种子，并触发一分一段表 CSV 导入（缺失降级）。"""
+    """启动时若 DB 空则自动加载种子，并只导入河南主链路所需一分一段表。"""
     init_db()
     with get_session() as s:
         if is_db_empty(s):
             load_all_seeds(settings.seed_dir, s)
-        # 一分一段表 CSV 运行时导入（CSV 缺失降级为空，不阻断启动）
-        # - gaokao_raw.csv: 历史数据集(至2024, 文/理科)
-        # - henan_2024_score_rank.csv: 河南2024(物理类/历史类, OCR自阳光高考图片版)
-        # - henan_2025_score_rank.csv: 河南2025(物理类/历史类, OCR自官方PDF)
-        # - henan_2026_score_rank.csv: 河南2026(物理类/历史类, OCR自官方PDF)
-        for csv_name in ["gaokao_raw.csv", "henan_2024_score_rank.csv", "henan_2025_score_rank.csv", "henan_2026_score_rank.csv"]:
+        # 主链路范围：河南 2026 历史类普通本科批。
+        # 运行时仅导入河南 2024/2025/2026 一分一段表；
+        # 不再把广东或通用旧 gaokao_raw.csv 灌入主程序数据库。
+        for csv_name in ["henan_2024_score_rank.csv", "henan_2025_score_rank.csv", "henan_2026_score_rank.csv"]:
             import_score_rank_csv(
                 settings.data_dir / "datasets" / csv_name,
-                s, ["河南", "广东"], [2022, 2023, 2024, 2025, 2026],
+                s, ["河南"], [2024, 2025, 2026],
             )
         _state["seed_loaded"] = True
     yield
     _state["seed_loaded"] = False
 
 
-app = FastAPI(title="高考志愿专业推荐 — 数据底座", lifespan=lifespan)
+app = FastAPI(title="河南志愿推 — 河南 2026 历史类普通本科批", lifespan=lifespan)
 
 # CORS：前端 dev (Vite 5173) 跨域调用
 app.add_middleware(

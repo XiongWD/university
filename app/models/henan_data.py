@@ -13,6 +13,10 @@ class SourceStamped(BaseModel):
 
     source_name: str
     source_url: str
+    source_api_endpoint: str = ""
+    source_params: str = ""
+    source_page: str = ""
+    source_response_checksum: str = ""
     as_of: str
     confidence: float = Field(ge=0, le=1)
     review_status: str = "verified"
@@ -84,6 +88,10 @@ class HenanProgramGroup(SourceStamped):
     single_subject_requirements: list[dict] = []
     oral_test_required: bool = False
     adjustment_scope: str = ""  # 调剂范围（仅组内）
+    # 体检/专项限制（design §4.3 扩展）
+    physical_restrictions: str = ""  # 辨色力异常 / 身高要求 / 视力要求 / 听说要求
+    special_qualification_type: str = ""  # 高校专项 / 地方专项 / 国家专项 / 公费师范 / 定向医学生 / 中外合作 / 高收费
+    remarks: str = ""
 
 
 class HenanEnrollmentPlan(SourceStamped):
@@ -103,6 +111,12 @@ class HenanEnrollmentPlan(SourceStamped):
     accommodation: int | None = None
     batch: str
     track: str
+    # 资格链扩展字段（design §4.4 扩展）
+    campus: str = ""  # 办学地点
+    physical_restrictions: str = ""  # 体检限制文本
+    special_qualification_type: str = ""  # 专项类型
+    accepted_exam_languages: str = ""  # 接受外语语种
+    remarks: str = ""
 
 
 class HenanCostProfile(SourceStamped):

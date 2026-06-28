@@ -138,6 +138,11 @@ export interface LifePathsRequest {
   focused_schools?: string[];
   interest_majors?: string[];
   display_bucket?: "全部" | "冲" | "稳" | "保";
+  // 排序与偏好（problem2/3/4）
+  sort_mode?: "rank" | "probability";
+  prefer_local?: boolean;
+  prefer_public?: boolean;
+  prefer_same_language_major?: boolean;
 }
 
 export interface SchoolOption {
@@ -266,38 +271,102 @@ export interface HenanOptions {
   schools: { code: string; name: string }[];
   majors: { school: string; major: string; group: string }[];
   groups: { school: string; code: string; name: string; track: string }[];
+  scope?: {
+    source_province: "河南";
+    year: 2026;
+    track: "历史类";
+    batch: "本科批";
+  };
+  data_ready?: boolean;
+  pilot_ready?: boolean;
+  production_ready?: boolean;
+  coverage_status?: string;
+  coverage_notes?: string[];
+  coverage?: Record<string, unknown>;
+  data_evidence?: Record<string, unknown>;
 }
 
 // ===== 河南志愿推：志愿推荐（首页主链路）=====
 export interface HenanRecommendationRequest {
   score: number;
   rank?: number | null;
-  track: string;
-  source_province?: string;
-  primary_subject: string;
+  track: "历史类";
+  source_province?: "河南";
+  primary_subject: "历史";
   elective_subjects?: string[];
   exam_foreign_language?: string;
+  subject_scores_detail?: Record<string, number>;
   strategy?: "自动" | "保守" | "均衡" | "积极";
+  // 排序与偏好（problem2/3/4）
+  sort_mode?: "rank" | "probability";
+  prefer_local?: boolean;
+  prefer_public?: boolean;
+  interest_majors?: string[];
 }
 
 export interface HenanRecommendationResult {
   data_ready: boolean;
+  pilot_ready: boolean;
+  production_ready: boolean;
+  coverage_status: string;
+  coverage_notes: string[];
   readiness_errors: string[];
   coverage: Record<string, unknown>;
+  data_evidence: Record<string, unknown>;
   buckets: Record<"冲" | "稳" | "保" | "不推荐" | "需人工复核", HenanTargetItem[]>;
+  volunteer_table?: HenanVolunteerTable | null;
+  language_restriction_summary?: LanguageRestrictionSummary | null;
+}
+
+// 语种限制汇总（日语考生顶部提示）
+export interface LanguageRestrictionSummary {
+  exam_foreign_language: string;
+  hard_blocked_count: number;   // 要求英语语种，不可录取
+  soft_warning_count: number;   // 可录取但公共外语仅开英语
+  missing_data_count: number;   // 缺少公共外语语种数据
+  same_language_major_group_count: number; // 检出的同语种专业组数量
+  reachable_same_language_major_group_count: number; // 当前可达结果中的同语种专业组数量
+  note: string;
+}
+
+// 冲稳保计算明细（位次差比 + 阈值 + 成功率）
+export interface BucketDetail {
+  student_rank: number | null;
+  adjusted_min_rank: number | null;
+  rank_gap_ratio: number | null;
+  admission_probability: number;   // 投档成功率 0-1
+  baseline_year: number | null;
+  baseline_granularity: string | null;
+  confidence: number;
+  thresholds: Record<string, string>;
+  formula: string;
+}
+
+// 48 志愿草案（策略感知的配额与排序）
+export interface HenanVolunteerTable {
+  policy_count: number;
+  strategy_used: string;          // 自动 / 积极 / 保守 / 均衡
+  sort_mode: string;              // rank(位次差比) | probability(成功率)
+  prefer_local: boolean;          // 省内优先
+  prefer_public: boolean;         // 公办优先
+  quota: Record<"冲" | "稳" | "保", [number, number]>;
+  used: Record<"冲" | "稳" | "保", number>;
+  total: number;
+  items: HenanTargetItem[];
 }
 
 export interface HenanTargetEvaluationRequest {
   score: number;
   rank?: number | null;
-  track: string;
-  source_province?: string;
+  track: "历史类";
+  source_province?: "河南";
   target_school: string;
   target_majors?: string[];
   target_group?: string | null;
   exam_foreign_language?: string;
-  primary_subject?: string;
+  primary_subject?: "历史";
   elective_subjects?: string[];
+  subject_scores_detail?: Record<string, number>;
   obey_adjustment?: boolean;
 }
 
@@ -314,9 +383,30 @@ export interface HenanTargetItem {
   bucket_reason?: string;
   blocked_reasons?: string[];
   warnings?: string[];
+  missing_data_items?: string[];
   selected_majors?: string[];
   plan_count?: number;
   review_status?: string;
+  data_evidence?: Record<string, unknown>;
+  // 费用（问题3）：真实学费/住宿费 + 城市生活费 + 4年合计
+  tuition?: number | null;
+  accommodation?: number | null;
+  accommodation_is_estimate?: boolean;
+  living_cost_per_year?: number;
+  school_system_years?: number;
+  four_year_total?: number;
+  // 学校性质（问题4）：公办/民办/中外 + 省内/省外 + 985/211
+  school_ownership?: string;
+  school_province?: string;
+  school_city?: string;
+  school_level?: string;
+  school_tags?: string[];
+  is_henan_local?: boolean;
+  // 冲稳保计算明细（问题2）+ 投档成功率（problem1）
+  admission_probability?: number;
+  bucket_detail?: BucketDetail;
+  // 语种限制（日语考生场景）
+  language_restriction?: { level: "hard_blocked" | "soft_warning" | "missing_data" | "none"; note: string };
 }
 
 export interface HenanTargetEvaluationResult {
@@ -324,4 +414,11 @@ export interface HenanTargetEvaluationResult {
   overall_bucket: string;    // 可评估 / 不推荐
   items: HenanTargetItem[];
   reasons: string[];
+  data_ready?: boolean;
+  pilot_ready?: boolean;
+  production_ready?: boolean;
+  coverage_status?: string;
+  coverage_notes?: string[];
+  coverage?: Record<string, unknown>;
+  data_evidence?: Record<string, unknown>;
 }

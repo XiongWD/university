@@ -1,14 +1,24 @@
 {
   "actual": {
-    "universities_2026": 1110,
-    "program_groups_2026": 2355,
-    "enrollment_plans_henan_2026": 8266
+    "universities_2026": 1096,
+    "program_groups_2026": 2100,
+    "enrollment_plans_henan_2026": 7863
   },
   "quality": {
-    "verified_program_groups_2026": 200,
-    "verified_enrollment_plans_2026": 600,
-    "nonzero_enrollment_plans_2026": 8266,
-    "verified_2025_history": 923,
-    "verified_2024_history": 1078
+    "verified_program_groups_2026": 2100,
+    "verified_enrollment_plans_2026": 7863,
+    "nonzero_enrollment_plans_2026": 7863,
+    "scoped_unverified_groups_2026": 0,
+    "scoped_unverified_plans_2026": 0,
+    "excluded_special_groups_2026": 255,
+    "excluded_special_plans_2026": 403,
+    "verified_2025_history": 3135,
+    "verified_2024_history": 3139,
+    "verified_2025_major_group_history": 2069,
+    "verified_2024_major_group_history": 2071,
+    "single_subject_requirement_groups_2026": 83,
+    "public_foreign_language_groups_2026": 31,
+    "accommodation_plans_2026": 1023,
+    "official_catalog_source_ready": 0
   }
 }
