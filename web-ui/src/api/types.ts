@@ -422,3 +422,43 @@ export interface HenanTargetEvaluationResult {
   coverage?: Record<string, unknown>;
   data_evidence?: Record<string, unknown>;
 }
+
+// ============================================================================
+// AI 分析相关类型
+// ============================================================================
+
+/** AI 志愿推荐请求 */
+export interface AIRecommendationRequest {
+  score: number;
+  rank?: number | null;
+  track: "历史类";
+  source_province: "河南";
+  primary_subject: "历史";
+  elective_subjects: string[];
+  exam_foreign_language: string;
+  subject_scores_detail: Record<string, number>;
+  obey_adjustment: boolean;
+  extra_preferences: string;  // 额外偏好（如"省内优先、不选民办"）
+}
+
+/** AI 目标评估请求 */
+export interface AITargetEvaluationRequest {
+  score: number;
+  rank?: number | null;
+  track: "历史类";
+  source_province: "河南";
+  target_school: string;
+  target_majors: string[];
+  target_group?: string | null;
+  primary_subject: "历史";
+  elective_subjects: string[];
+  exam_foreign_language: string;
+  subject_scores_detail: Record<string, number>;
+  obey_adjustment: boolean;
+}
+
+/** SSE 流中的单个事件数据 */
+export interface SSEChunk {
+  delta?: string;
+  error?: string;
+}

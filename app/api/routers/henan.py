@@ -43,6 +43,59 @@ router = APIRouter(prefix="/henan", tags=["henan"])
 
 _SEED_DIR = Path("data/seed")
 _SUPPORTED_SOURCE_PROVINCE = "河南"
+
+# /options 接口的进程级缓存（首次加载 ~7s，后续秒回）
+# 数据源是静态 seed YAML，进程生命周期内不会变化，可安全缓存
+_OPTIONS_CACHE: dict | None = None
+
+
+@router.get("/options")
+def options():
+    """返回目标评估页联动所需的院校/专业/专业组下拉选项。
+
+    首次调用从磁盘解析 ~12MB YAML（约 7 秒），结果缓存在进程内存中，
+    后续调用直接返回缓存，避免页面刷新时重复加载。
+    """
+    global _OPTIONS_CACHE
+    if _OPTIONS_CACHE is not None:
+        return _OPTIONS_CACHE
+
+    universities = load_henan_universities(_SEED_DIR)
+    plans = load_henan_enrollment_plans(_SEED_DIR)
+    groups = load_henan_program_groups(_SEED_DIR)
+    groups, plans = filter_henan_history_regular_scope(groups, plans)
+    universities = filter_henan_history_regular_universities(universities, groups)
+    coverage, readiness = _build_status_payload()
+
+    school_items = sorted(
+        { (u.school_code, u.school_name) for u in universities },
+        key=lambda x: (x[1], x[0]),
+    )
+    major_items = sorted(
+        { (p.school_name, p.major_name, p.major_group_code) for p in plans },
+        key=lambda x: (x[0], x[1], x[2]),
+    )
+    group_items = sorted(
+        { (g.school_name, g.major_group_code, g.major_group_name, g.track) for g in groups },
+        key=lambda x: (x[0], x[1]),
+    )
+    payload = {
+        "schools": [{"code": code, "name": name} for code, name in school_items],
+        "majors": [{"school": school, "major": major, "group": group} for school, major, group in major_items],
+        "groups": [{"school": school, "code": code, "name": name, "track": track} for school, code, name, track in group_items],
+        "scope": {
+            "source_province": _SUPPORTED_SOURCE_PROVINCE,
+            "year": 2026,
+            "track": _SUPPORTED_TRACK,
+            "batch": "本科批",
+        },
+        "coverage": coverage,
+        "data_evidence": build_henan_data_evidence(coverage),
+        **readiness,
+    }
+
+    _OPTIONS_CACHE = payload
+    return payload
 _SUPPORTED_TRACK = "历史类"
 
 
@@ -131,44 +184,6 @@ def _resolve_rank_from_score(
     ).all()
     entries = [score_rank_entry_to_domain(row) for row in entry_rows]
     return convert_score_to_rank(entries, score)
-
-
-@router.get("/options")
-def options():
-    """返回目标评估页联动所需的院校/专业/专业组下拉选项。"""
-    universities = load_henan_universities(_SEED_DIR)
-    plans = load_henan_enrollment_plans(_SEED_DIR)
-    groups = load_henan_program_groups(_SEED_DIR)
-    groups, plans = filter_henan_history_regular_scope(groups, plans)
-    universities = filter_henan_history_regular_universities(universities, groups)
-    coverage, readiness = _build_status_payload()
-
-    school_items = sorted(
-        { (u.school_code, u.school_name) for u in universities },
-        key=lambda x: (x[1], x[0]),
-    )
-    major_items = sorted(
-        { (p.school_name, p.major_name, p.major_group_code) for p in plans },
-        key=lambda x: (x[0], x[1], x[2]),
-    )
-    group_items = sorted(
-        { (g.school_name, g.major_group_code, g.major_group_name, g.track) for g in groups },
-        key=lambda x: (x[0], x[1]),
-    )
-    return {
-        "schools": [{"code": code, "name": name} for code, name in school_items],
-        "majors": [{"school": school, "major": major, "group": group} for school, major, group in major_items],
-        "groups": [{"school": school, "code": code, "name": name, "track": track} for school, code, name, track in group_items],
-        "scope": {
-            "source_province": _SUPPORTED_SOURCE_PROVINCE,
-            "year": 2026,
-            "track": _SUPPORTED_TRACK,
-            "batch": "本科批",
-        },
-        "coverage": coverage,
-        "data_evidence": build_henan_data_evidence(coverage),
-        **readiness,
-    }
 
 
 class HenanRecommendationRequest(BaseModel):

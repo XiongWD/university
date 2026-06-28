@@ -22,6 +22,9 @@ import type {
   HenanTargetEvaluationResult,
   HenanRecommendationRequest,
   HenanRecommendationResult,
+  AIRecommendationRequest,
+  AITargetEvaluationRequest,
+  SSEChunk,
 } from "./types";
 
 const BASE = "/api/v1";
@@ -141,4 +144,84 @@ export function listUniversities(
 export function estimateCost(school: string, years?: number): Promise<CostEstimate | null> {
   const q = years ? `?years=${years}` : "";
   return request(`/universities/${encodeURIComponent(school)}/cost${q}`);
+}
+
+// ============================================================================
+// SSE 流式 AI 调用（非标准 JSON 响应，需手动处理 ReadableStream）
+// ============================================================================
+
+/**
+ * 通用 SSE 流式读取器
+ * 调用后端 SSE 端点，逐条 yield 解析后的 SSEChunk
+ */
+export async function* streamSSE(
+  path: string,
+  body: unknown,
+  signal?: AbortSignal,
+): AsyncGenerator<SSEChunk, void, undefined> {
+  const res = await fetch(`${BASE}${path}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+    signal,
+  });
+
+  if (!res.ok) {
+    const text = await res.text().catch(() => res.statusText);
+    throw new ApiError(text || `AI 服务请求失败 (${res.status})`, res.status);
+  }
+
+  const reader = res.body?.getReader();
+  if (!reader) {
+    throw new ApiError("AI 服务未返回流式响应", 500);
+  }
+
+  const decoder = new TextDecoder("utf-8");
+  let buffer = "";
+
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+
+      buffer += decoder.decode(value, { stream: true });
+      // SSE 事件以 \n\n 分隔
+      const lines = buffer.split("\n\n");
+      // 保留最后一个可能不完整的片段
+      buffer = lines.pop() ?? "";
+
+      for (const line of lines) {
+        const trimmed = line.trim();
+        if (!trimmed || !trimmed.startsWith("data: ")) continue;
+
+        const jsonStr = trimmed.slice(6); // 去掉 "data: " 前缀
+        if (jsonStr === "[DONE]") return;
+
+        try {
+          const chunk: SSEChunk = JSON.parse(jsonStr);
+          yield chunk;
+        } catch {
+          // 忽略解析失败的行
+        }
+      }
+    }
+  } finally {
+    reader.releaseLock();
+  }
+}
+
+/** POST /henan/ai/recommend — AI 志愿推荐（SSE 流式） */
+export function streamAiRecommend(
+  req: AIRecommendationRequest,
+  signal?: AbortSignal,
+): AsyncGenerator<SSEChunk, void, undefined> {
+  return streamSSE("/henan/ai/recommend", req, signal);
+}
+
+/** POST /henan/ai/evaluate — AI 目标评估（SSE 流式） */
+export function streamAiEvaluate(
+  req: AITargetEvaluationRequest,
+  signal?: AbortSignal,
+): AsyncGenerator<SSEChunk, void, undefined> {
+  return streamSSE("/henan/ai/evaluate", req, signal);
 }
