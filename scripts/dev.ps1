@@ -95,9 +95,10 @@ function Invoke-Start {
         try { npm install } finally { Pop-Location }
     }
 
-    # 后端：python -m uvicorn app.api.main:app --host 127.0.0.1 --port 8000
+    # 后端：python -m uvicorn app.api.main:app --host 0.0.0.0 --port 8000
+    # 0.0.0.0 允许局域网访问（手机/平板直连 http://<本机IP>:8000）
     $bePid = Start-BgProcess $ProjectRoot $BackendLog 'python' `
-        '-m uvicorn app.api.main:app --host 127.0.0.1 --port 8000'
+        '-m uvicorn app.api.main:app --host 0.0.0.0 --port 8000'
     Set-Content -Path $BackendPid -Value $bePid
     Write-Ok "后端已启动 (uvicorn :8000, PID $bePid) -> $BackendLog"
 
@@ -123,8 +124,23 @@ function Invoke-Start {
     else { Write-Warn '后端 30s 内未响应（可能仍在加载种子数据，查看日志确认）' }
 
     Write-Section '访问地址'
-    Write-Host '  前端: http://localhost:5173/'
-    Write-Host '  后端: http://127.0.0.1:8000/docs'
+    # 获取本机局域网 IPv4（用于提示手机/平板访问地址）
+    $lanIp = $null
+    try {
+        $lanIp = (Get-NetIPAddress -AddressFamily IPv4 -ErrorAction Stop |
+            Where-Object { $_.IPAddress -notlike '127.*' -and $_.IPAddress -notlike '169.*' -and $_.PrefixOrigin -eq 'Dhcp' } |
+            Select-Object -First 1).IPAddress
+    } catch { }
+    Write-Host '  本机访问:'
+    Write-Host '    前端: http://localhost:5173/'
+    Write-Host '    后端: http://127.0.0.1:8000/docs'
+    if ($lanIp) {
+        Write-Host '  局域网访问（手机/平板同 WiFi）:' -ForegroundColor Green
+        Write-Host "    前端: http://$lanIp`:5173/" -ForegroundColor Green
+        Write-Host "    后端: http://$lanIp`:8000/docs" -ForegroundColor Green
+    } else {
+        Write-Warn '未检测到局域网 IPv4（DHCP），仅本机可访问'
+    }
     Write-Host '  日志: .\logs\backend.log | .\logs\frontend.log'
     Write-Host '  状态: .\scripts\dev.ps1 status'
     Write-Host '  停止: .\scripts\dev.ps1 stop'

@@ -37,14 +37,13 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="河南志愿推 — 河南 2026 历史类普通本科批", lifespan=lifespan)
 
-# CORS：前端 dev (Vite 5173) 跨域调用
+# CORS：前端 dev (Vite 5173) 跨域调用。
+# 前端 API 用相对路径 /api 经 vite proxy 转发（同源，不触发 CORS），
+# 此处放开是为允许局域网设备直连后端或生产单端口部署场景。
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",  # Vite dev server
-        "http://127.0.0.1:5173",
-    ],
-    allow_credentials=True,
+    allow_origins=["*"],
+    allow_credentials=False,  # allow_origins=["*"] 时必须 False
     allow_methods=["*"],
     allow_headers=["*"],
 )
