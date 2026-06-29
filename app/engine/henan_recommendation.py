@@ -11,6 +11,178 @@
 """
 from __future__ import annotations
 
+import csv
+from functools import lru_cache
+from pathlib import Path
+
+
+@lru_cache(maxsize=6)
+def _load_score_rank_entries(year: int, track: str = "历史类") -> tuple[tuple[int, int], ...]:
+    """从一分一段表 CSV 加载指定年份/科类的 (score, cumulative_rank) 列表（按分数降序）。
+
+    用于年度归一化的等位分换算。返回 tuple 便于 lru_cache + 排序后二分查找。
+    文件：data/datasets/henan_{year}_score_rank.csv（河南历史类）。
+    """
+    path = Path("data/datasets") / f"henan_{year}_score_rank.csv"
+    if not path.exists():
+        return ()
+    rows: list[tuple[int, int]] = []
+    with path.open(encoding="utf-8-sig", newline="") as f:
+        for r in csv.DictReader(f):
+            if r.get("综合") != track or r.get("省级行政区") != "河南":
+                continue
+            try:
+                score = int(r["最高分"])
+                cumu = int(r["累计"])
+                rows.append((score, cumu))
+            except (ValueError, KeyError):
+                continue
+    rows.sort(key=lambda x: x[0], reverse=True)  # 分数降序（位次升序）
+    return tuple(rows)
+
+
+def _rank_to_score(entries: tuple[tuple[int, int], ...], rank: int) -> int | None:
+    """位次 → 分数（就近匹配，无插值，精度±0.5分）。仅作诊断/展示用。"""
+    if not entries or rank <= 0:
+        return None
+    best_score, best_diff = None, None
+    for score, cumu in entries:
+        diff = abs(cumu - rank)
+        if best_diff is None or diff < best_diff:
+            best_score, best_diff = score, diff
+    return best_score
+
+
+def _score_to_rank(entries: tuple[tuple[int, int], ...], score: int) -> int | None:
+    """分数 → 位次（就近匹配）。仅作诊断/展示用。"""
+    if not entries or score <= 0:
+        return None
+    best_rank, best_diff = None, None
+    for s, cumu in entries:
+        diff = abs(s - score)
+        if best_diff is None or diff < best_diff:
+            best_rank, best_diff = cumu, diff
+    return best_rank
+
+
+# 同口径年份（3+1+2 历史类、合并本科批）：仅这些年份之间可做百分位归一化
+# 2024 是传统文理科口径（文科≠历史类、一本/二本≠合并本科批），口径断裂，不参与
+_SAME_CALIBER_YEARS = {2025, 2026}
+
+
+def normalize_rank_to_target_year(
+    history_rank: int, history_year: int, target_year: int = 2026
+) -> dict:
+    """把历史年份的录取位次，归一化到目标年份(2026)的等效口径。
+
+    核心方法：**累计百分位映射**（保持考生在群体中的相对竞争位置），而非同分跨年映射。
+      历史位次 R_hist → 历史百分位 P = R_hist / N_hist → 目标年等效位次 R_target = P × N_target
+
+    为什么用百分位而非"同分映射"：
+      同分映射（历史位次→历史分数→目标年同分位次）保留了裸分，会被试卷难度污染——
+      2025年500分与2026年500分不代表相同竞争水平。百分位才保持相对位置。
+
+    返回 dict（保留原始值+归一化方法+置信度，不静默回退）：
+      normalized_rank: 用于判档的归一化后位次
+      raw_rank: 历史原始位次（不被覆盖）
+      same_score_reference_rank: 同分跨年映射位次（仅诊断，不进判档）
+      method: "percentile" | "raw" （百分位映射 | 口径不一致降级用原始）
+      confidence: "high" | "medium" | "low"
+      fallback_reason: 降级原因（仅 method="raw" 时有值）
+    """
+    result = {
+        "normalized_rank": history_rank, "raw_rank": history_rank,
+        "same_score_reference_rank": None, "method": "raw",
+        "confidence": "low", "fallback_reason": None,
+    }
+
+    if history_rank <= 0 or history_year == target_year:
+        result["method"] = "raw"
+        result["confidence"] = "high"  # 同年无需归一化
+        result["fallback_reason"] = "同年位次无需归一化"
+        return result
+
+    n_hist = _total_candidates(history_year)
+    n_target = _total_candidates(target_year)
+
+    # 口径校验：仅同口径年份（3+1+2历史类）做百分位归一化
+    if history_year not in _SAME_CALIBER_YEARS or target_year not in _SAME_CALIBER_YEARS:
+        result["method"] = "raw"
+        result["confidence"] = "low"
+        result["fallback_reason"] = f"{history_year}与{target_year}年口径不一致（如旧高考文科vs新高考历史类），使用原始位次"
+        # 仍计算同分映射作诊断参考
+        result["same_score_reference_rank"] = _same_score_map(history_rank, history_year, target_year)
+        return result
+
+    if not n_hist or not n_target:
+        result["method"] = "raw"
+        result["confidence"] = "low"
+        result["fallback_reason"] = f"缺{history_year}或{target_year}年考生规模数据"
+        return result
+
+    # 主路径：累计百分位映射 R_target = R_hist / N_hist × N_target
+    percentile = history_rank / n_hist
+    normalized = round(percentile * n_target)
+    # 边界约束：1 ≤ normalized ≤ N_target
+    normalized = max(1, min(normalized, n_target))
+
+    result["normalized_rank"] = normalized
+    result["method"] = "percentile"
+    result["confidence"] = "high"
+    # 同分映射作诊断（对比两种口径差异，差越大置信越低）
+    result["same_score_reference_rank"] = _same_score_map(history_rank, history_year, target_year)
+    return result
+
+
+def _same_score_map(history_rank: int, history_year: int, target_year: int) -> int | None:
+    """同分跨年映射（诊断用）：历史位次→历史分数→目标年同分位次。不进判档。"""
+    hist_entries = _load_score_rank_entries(history_year)
+    target_entries = _load_score_rank_entries(target_year)
+    if not hist_entries or not target_entries:
+        return None
+    hist_score = _rank_to_score(hist_entries, history_rank)
+    if hist_score is None:
+        return None
+    return _score_to_rank(target_entries, hist_score)
+
+
+def _fallback_scale_rank(rank: int, from_year: int, to_year: int) -> int:
+    """[已弃用主路径] 按考生规模比例折算位次。保留供诊断/兼容。"""
+    from_total = _total_candidates(from_year)
+    to_total = _total_candidates(to_year)
+    if from_total and to_total:
+        return round(rank * to_total / from_total)
+    return rank
+
+
+@lru_cache(maxsize=6)
+def _total_candidates(year: int, track: str = "历史类") -> int:
+    """历史类考生总数（近似=一分一段表最大累计位次）。
+
+    口径说明：2025/2026 是 3+1+2 历史类一分一段表（统计到104分），口径一致；
+    2024 是传统文理科（统计到200分），口径与2025/2026断裂，不混用。
+    """
+    entries = _load_score_rank_entries(year, track)
+    return entries[-1][1] if entries else 0  # 最低分档的累计位次
+
+
+@lru_cache(maxsize=8)
+def _load_undergrad_batch_line(year: int, track: str) -> int | None:
+    """读取河南某年某科类普通本科批控制线（control_line/henan.yaml）。"""
+    import yaml
+    path = Path("data/seed/provincial/control_line/henan.yaml")
+    if not path.exists():
+        return None
+    data = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    # data 是 list[dict]，每项含 province/year/track/batches
+    for item in data if isinstance(data, list) else [data]:
+        if (item.get("province") == "河南" and item.get("year") == year
+                and item.get("track") == track):
+            batches = item.get("batches") or {}
+            return batches.get("undergrad_batch")
+    return None
+
+
 # ── 冷启动五档阈值（advantage = H参考位次 − R考生位次；位次数字越小=分数越高）──
 # advantage < 0：目标门槛比考生高（更难录，属于冲/搏）
 # advantage > 0：考生位次优于门槛（更易录，属于保/垫）
@@ -37,51 +209,67 @@ def _clamp(value: float, lo: float | None, hi: float | None) -> float:
     return value
 
 
-def classify_admission_tier(student_rank: int, adjusted_rank: int) -> str:
-    """根据考生位次与参考录取位次，判定录取档位（搏/冲/稳/保/垫）。
+def _round_half_up(x: float) -> int:
+    """ROUND_HALF_UP 四舍五入为整数（银行家 round 会偶数向下，这里统一向上半进）。"""
+    import math
+    return int(math.floor(x + 0.5)) if x >= 0 else -int(math.floor(-x + 0.5))
 
-    advantage = adjusted_rank − student_rank（>0 表示考生优于门槛）。
-    每档的 advantage 区间由比例边界 ×R 决定，并对区间宽度做 clamp：
-      - 高分段(R小)：比例区间过窄 → 扩展到 min_gap（避免档位太挤）
-      - 低分段(R大)：比例区间过宽 → 压缩到 max_gap（避免档位太松）
-    分界线从稳档两侧向外推导，保证各档连续不重叠。
+
+def compute_tier_boundaries(student_rank: int) -> dict:
+    """计算五档整数边界（ROUND_HALF_UP，clamp 约束档位宽度，从稳档中心向两侧累加）。
+
+    返回 dict（统一边界对象，判档/API/前端/测试共用，禁止重新计算）：
+      reach_floor:  超冲/搏分界（A）= -20%R，ROUND_HALF_UP
+      reach_sprint: 搏/冲分界（B）
+      sprint_stable:冲/稳分界（C）= -3%R
+      stable_safe:  稳/保分界（D）= +5%R
+      safe_fallback:保/垫分界（E）
+    半开区间：超冲<A, 搏[A,B), 冲[B,C), 稳[C,D), 保[D,E), 垫[E,+∞)
     """
-    advantage = adjusted_rank - student_rank
     R = student_rank
-    # 稳档中心 = advantage 0。各档分界线 = 比例×R，clamp 到绝对跨度
-    # 冲/搏（advantage<0，门槛更高）：分界线负向
-    # 保/垫（advantage>0，考生更优）：分界线正向
+    # 原始比例边界 → ROUND_HALF_UP 整数
+    c = _round_half_up(-0.03 * R)   # 冲稳分界 C
+    d = _round_half_up(0.05 * R)    # 稳保分界 D
+    # 各档宽度 clamp（min,max）：先算比例宽度，再 clamp
+    # 冲档宽度 = |C - (-10%R)|，clamp[300,10000]
+    reach_sprint_raw = _round_half_up(-0.10 * R)
+    sprint_w = min(10000, max(300, abs(c - reach_sprint_raw)))
+    b = c - sprint_w                 # 搏冲分界 B = C - 冲档宽度
+    # 搏档宽度 = |-20%R - (-10%R)| = 10%R，clamp[300,10000]
+    reach_floor_raw = _round_half_up(-0.20 * R)
+    gamble_w = min(10000, max(300, abs(reach_floor_raw - reach_sprint_raw)))
+    a = b - gamble_w                 # 超冲搏分界 A = B - 搏档宽度
+    # 保档宽度 = |15%R - 5%R| = 10%R，clamp[1500,20000]
+    safe_fallback_raw = _round_half_up(0.15 * R)
+    safe_w = min(20000, max(1500, abs(safe_fallback_raw - d)))
+    e = d + safe_w                   # 保垫分界 E = D + 保档宽度
+    return {"reach_floor": a, "reach_sprint": b, "sprint_stable": c,
+            "stable_safe": d, "safe_fallback": e, "R": R}
 
-    def clamped_boundary(ratio: float, min_gap: float | None, max_gap: float | None, sign: int) -> float:
-        """计算分界线 = ratio×R，clamp 使其绝对值在 [min_gap, max_gap]。"""
-        raw = ratio * R
-        boundary = abs(raw)
-        if max_gap is not None:
-            boundary = min(boundary, max_gap)
-        if min_gap is not None:
-            boundary = max(boundary, min_gap)
-        return sign * boundary
 
-    # 各档分界线（从稳档向外，保证连续不重叠）
-    # 冲稳分界 = -3%R；稳保 = +5%R；保垫 = +15%R；搏冲 = -10%R；搏下界 = -20%R
-    sprint_stable = clamped_boundary(0.03, 300, 10000, -1)
-    stable_safe = clamped_boundary(0.05, 300, 6000, +1)
-    safe_fallback = clamped_boundary(0.15, 1500, 20000, +1)
-    reach_sprint = clamped_boundary(0.10, None, None, -1)       # 搏/冲分界
-    reach_floor = clamped_boundary(0.20, 300, 10000, -1)        # 搏档下界，差超20%R不再判搏
+def classify_admission_tier(student_rank: int, adjusted_rank: int) -> tuple[str, dict]:
+    """根据考生位次与参考录取位次，判定录取档位（超冲/搏/冲/稳/保/垫）。
 
-    # advantage < reach_floor（差太远，匹配度过低）→ 返回特殊标记，调用方归"需人工复核"
-    if advantage < reach_floor:
-        return "需人工复核"
-    if advantage < reach_sprint:
-        return "搏"
-    if advantage < sprint_stable:
-        return "冲"
-    if advantage < stable_safe:
-        return "稳"
-    if advantage < safe_fallback:
-        return "保"
-    return "垫"
+    边界用 ROUND_HALF_UP 整数，互斥半开区间，判档与展示共用同一边界对象。
+    返回 (档位, {advantage, bounds, R})。
+    """
+    advantage = adjusted_rank - student_rank  # 整数（位次均为整数）
+    bounds = compute_tier_boundaries(student_rank)
+    a, b, c, d, e = (bounds["reach_floor"], bounds["reach_sprint"],
+                     bounds["sprint_stable"], bounds["stable_safe"], bounds["safe_fallback"])
+    if advantage < a:
+        tier = "超冲"   # (-∞, A)
+    elif advantage < b:
+        tier = "搏"     # [A, B)
+    elif advantage < c:
+        tier = "冲"     # [B, C)
+    elif advantage < d:
+        tier = "稳"     # [C, D)
+    elif advantage < e:
+        tier = "保"     # [D, E)
+    else:
+        tier = "垫"     # [E, +∞)
+    return tier, {"advantage": advantage, "bounds": bounds, "R": student_rank}
 
 
 def _lookup_subject_score(profile: dict, subject: str) -> int | None:
@@ -225,7 +413,20 @@ def classify_henan_bucket(student_rank: int, historical_rank: int | None, policy
     """
     if historical_rank is None or historical_rank <= 0 or student_rank <= 0:
         return "不推荐"
-    return classify_admission_tier(student_rank, historical_rank)
+    tier, _ = classify_admission_tier(student_rank, historical_rank)
+    return tier
+
+
+def _risk_level(bucket: str) -> str:
+    """档位→风险等级文字（未经回测校准，不展示精确概率）。"""
+    return {
+        "超冲": "录取希望极低",
+        "搏": "机会较低",
+        "冲": "有一定机会",
+        "稳": "匹配度较高",
+        "保": "录取优势较明显",
+        "垫": "录取优势很明显",
+    }.get(bucket, "—")
 
 
 def estimate_admission_probability(bucket: str, rank_gap_ratio: float | None, confidence: float) -> float:
@@ -292,16 +493,22 @@ def classify_group_bucket(
         return {"eligibility_status": "uncertain", "admission_tier": None,
                 "recommendation_status": "conditional", "bucket": "需人工复核"}
 
-    # ── 第2层：录取档位（位次匹配，五档 clamp 阈值）──
-    tier = classify_admission_tier(student_rank, adjusted_rank)
-    # 差太远（advantage < -20%R）→ 匹配度过低，归需人工复核而非搏档（避免搏档泛滥）
-    if tier == "需人工复核":
-        return {"eligibility_status": "uncertain", "admission_tier": None,
-                "recommendation_status": "conditional", "bucket": "需人工复核"}
+    # ── 第2层：录取档位（位次匹配，五档+超冲，严格半开区间）──
+    tier, tier_detail = classify_admission_tier(student_rank, adjusted_rank)
+    # 超冲（advantage < 搏档下界A）：资格可报，但目标门槛明显高于当前位次
+    # 推荐状态由适配因素决定（冷启动无适配问题设 conditional），不因超冲设 not_recommended
+    if tier == "超冲":
+        return {"eligibility_status": "eligible", "admission_tier": "超冲",
+                "recommendation_status": "conditional", "bucket": "超冲",
+                "tier_detail": tier_detail,
+                "visibility_status": "hidden_by_default",
+                "hide_reason_code": "extreme_reach",
+                "can_manually_include": True}
 
     # ── 第3层：推荐适配（冷启动：资格通过即 recommended）──
     return {"eligibility_status": "eligible", "admission_tier": tier,
-            "recommendation_status": "recommended", "bucket": tier}
+            "recommendation_status": "recommended", "bucket": tier,
+            "tier_detail": tier_detail}
 
 
 def get_bucket_quota(policy_count: int, strategy: str, profile: dict) -> dict[str, tuple[int, int]]:
@@ -396,6 +603,17 @@ def build_henan_candidates(profile: dict) -> list[dict]:
     history = load_henan_admission_history(seed_dir)
     universities = load_henan_universities(seed_dir)
     city_monthly_mid = load_city_living_cost(seed_dir)
+
+    # ── 本科线资格门：低于本科控制线不生成常规本科五档 ──
+    # 2026历史类本科线459（control_line/henan.yaml）。线下考生不具备常规本科填报资格，
+    # 应引导至专科批 + 关注本科征集志愿，而非给出虚假的本科搏/冲/稳/保/垫。
+    student_score = profile.get("score") or 0
+    undergrad_line = _load_undergrad_batch_line(2026, "历史类")
+    if undergrad_line and student_score < undergrad_line:
+        profile["_batch_ineligible"] = True
+        profile["_batch_gap"] = undergrad_line - student_score
+        return []  # 不生成常规本科候选（API 层据此输出线下提示）
+
     groups, plans = filter_henan_history_regular_scope(groups, plans)
     history = filter_henan_history_regular_history(history, groups)
 
@@ -463,6 +681,10 @@ def build_henan_candidates(profile: dict) -> list[dict]:
             admission_tier = None
             recommendation_status = "not_recommended"
             data_confidence = "low"
+            norm = {"method": "raw", "confidence": "high", "raw_rank": None,
+                    "same_score_reference_rank": None, "fallback_reason": None}
+            tier_detail = None
+            visibility_status, hide_reason_code, can_manually_include = "visible", None, False
         elif baseline is None or not has_verified_history:
             # design D2/I1：资格通过但缺 verified 历史基线 → 需人工复核（不得稳/保，也不混为不推荐）
             bucket = "需人工复核"
@@ -470,27 +692,58 @@ def build_henan_candidates(profile: dict) -> list[dict]:
             admission_tier = None
             recommendation_status = "conditional"
             data_confidence = "low"
+            norm = {"method": "raw", "confidence": "high", "raw_rank": None,
+                    "same_score_reference_rank": None, "fallback_reason": None}
+            tier_detail = None
+            visibility_status, hide_reason_code, can_manually_include = "visible", None, False
         else:
-            # 三层状态判定（有 verified 历史基线才进入风险层）
-            verdict = classify_group_bucket(
-                student_rank=student_rank,
-                adjusted_rank=baseline["adjusted_min_rank"],
-                has_2025_history=has_verified_history
-                    and baseline.get("data_granularity") in ("major", "major_group", "major_group_trend"),
-                has_2026_plan=has_2026_plan,
-                has_verified_group=has_verified_group,
-                confidence=group.confidence,
-            )
-            bucket = verdict["bucket"]
-            eligibility_status = verdict["eligibility_status"]
-            admission_tier = verdict["admission_tier"]
-            recommendation_status = verdict["recommendation_status"]
-            # 数据置信度：有专业组级 verified 历史为 high，校级/单年为 medium，无历史为 low
-            data_confidence = "high" if baseline.get("data_granularity") in ("major", "major_group", "major_group_trend") else ("medium" if baseline else "low")
-            # 缺计划或未核验组的可达档位降级为需人工复核
-            if bucket in {"搏", "冲", "稳", "保", "垫"} and (not has_2026_plan or not has_verified_group):
+            # —— 年度归一化（百分位映射）必须在判档之前 ——
+            # 解决跨年位次不可比：用归一化后的2026等效位次判档，非原始历史位次
+            raw_min_rank = baseline.get("adjusted_min_rank")
+            baseline_year = baseline.get("year")
+            if raw_min_rank and raw_min_rank > 0 and baseline_year and baseline_year != 2026:
+                norm = normalize_rank_to_target_year(raw_min_rank, baseline_year, 2026)
+                normalized_rank = norm["normalized_rank"]
+            else:
+                normalized_rank = raw_min_rank
+                norm = {"method": "raw", "confidence": "high", "raw_rank": raw_min_rank,
+                        "same_score_reference_rank": None, "fallback_reason": None}
+
+            # 2024旧口径数据（method=raw 因口径断裂）：不参与确定性五档，标需人工复核
+            if norm.get("method") == "raw" and baseline_year == 2024:
                 bucket = "需人工复核"
                 eligibility_status = "uncertain"
+                admission_tier = None
+                recommendation_status = "conditional"
+                data_confidence = "low"
+                tier_detail = None
+                visibility_status, hide_reason_code, can_manually_include = "visible", None, False
+            else:
+                # 三层状态判定（用归一化后的2026等效位次）
+                verdict = classify_group_bucket(
+                    student_rank=student_rank,
+                    adjusted_rank=normalized_rank,
+                    has_2025_history=has_verified_history
+                        and baseline.get("data_granularity") in ("major", "major_group", "major_group_trend"),
+                    has_2026_plan=has_2026_plan,
+                    has_verified_group=has_verified_group,
+                    confidence=group.confidence,
+                )
+                bucket = verdict["bucket"]
+                eligibility_status = verdict["eligibility_status"]
+                admission_tier = verdict["admission_tier"]
+                recommendation_status = verdict["recommendation_status"]
+                tier_detail = verdict.get("tier_detail")  # 五档边界详情（供核对/前端展示）
+                # 超冲可见性控制（其他档位默认可见）
+                visibility_status = verdict.get("visibility_status", "visible")
+                hide_reason_code = verdict.get("hide_reason_code")
+                can_manually_include = verdict.get("can_manually_include", False)
+                # 数据置信度：有专业组级 verified 历史为 high，校级/单年为 medium
+                data_confidence = "high" if baseline.get("data_granularity") in ("major", "major_group", "major_group_trend") else ("medium" if baseline else "low")
+                # 缺计划或未核验组的可达档位降级为需人工复核
+                if bucket in {"搏", "冲", "稳", "保", "垫"} and (not has_2026_plan or not has_verified_group):
+                    bucket = "需人工复核"
+                    eligibility_status = "uncertain"
                 admission_tier = None
 
         # —— 费用与学校性质（design §4.4/§4.5，问题3/问题4）——
@@ -518,8 +771,9 @@ def build_henan_candidates(profile: dict) -> list[dict]:
         accommodation_annual = accommodation if accommodation else ACCOMMODATION_ESTIMATE
         four_year_total = (tuition_annual + accommodation_annual + living_cost_per_year) * years
 
-        # —— 冲稳保计算明细（问题2）：位次差比 + 阈值 + 成功率 + 本组计算链 ——
-        adjusted_min_rank = baseline.get("adjusted_min_rank") if baseline else None
+        # —— 冲稳保计算明细：位次差比（基于归一化后的位次）+ 成功率 ——
+        # 归一化已在上方 classify 前完成（norm/normalized_rank），此处复用
+        adjusted_min_rank = norm.get("normalized_rank") or norm.get("raw_rank")
         rank_gap_ratio = (
             round((student_rank - adjusted_min_rank) / adjusted_min_rank, 4)
             if (adjusted_min_rank and adjusted_min_rank > 0 and student_rank > 0)
@@ -532,8 +786,18 @@ def build_henan_candidates(profile: dict) -> list[dict]:
             "adjusted_min_rank": adjusted_min_rank,
             "rank_gap_ratio": rank_gap_ratio,
             "admission_probability": admission_probability,
+            # 风险等级（未经回测校准，不展示精确概率，用定性区间）
+            "risk_level": _risk_level(bucket),
             "baseline_year": baseline.get("year") if baseline else None,
             "baseline_granularity": baseline.get("data_granularity") if baseline else None,
+            # 年度归一化元信息（不静默回退，前端可见计算口径）
+            "raw_historical_rank": norm.get("raw_rank"),
+            "normalization_method": norm.get("method"),
+            "normalization_confidence": norm.get("confidence"),
+            "same_score_reference_rank": norm.get("same_score_reference_rank"),
+            "fallback_reason": norm.get("fallback_reason"),
+            # 五档边界详情（advantage + 各分界线，供核对/前端展示计算过程）
+            "tier_detail": tier_detail,
             "confidence": group.confidence,
             "thresholds": {
                 "搏": "参考位次比考生高 10%R 以上（门槛更高，搏一搏）",
@@ -562,6 +826,10 @@ def build_henan_candidates(profile: dict) -> list[dict]:
             "admission_tier": admission_tier,
             "recommendation_status": recommendation_status,
             "data_confidence": data_confidence,
+            # 可见性控制（超冲默认隐藏但可手动加入）
+            "visibility_status": visibility_status,
+            "hide_reason_code": hide_reason_code,
+            "can_manually_include": can_manually_include,
             "group_bucket": bucket,
             "major_bucket": bucket,
             "qualified": ok,

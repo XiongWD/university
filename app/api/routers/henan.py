@@ -235,11 +235,49 @@ def recommendation(req: HenanRecommendationRequest, session: Session = Depends(g
     except ValueError as exc:
         return _build_scope_not_ready(str(exc), coverage)
 
-    buckets: dict[str, list] = {"搏": [], "冲": [], "稳": [], "保": [], "垫": [], "不推荐": [], "需人工复核": []}
+    # 本科线资格门：低于本科线不生成常规本科五档，输出线下提示
+    if profile.get("_batch_ineligible"):
+        gap = profile.get("_batch_gap", 0)
+        undergrad_line = 459  # 2026历史类本科批控制线
+        return {
+            "data_ready": True,
+            "pilot_ready": coverage.get("pilot_ready", False),
+            "production_ready": coverage.get("production_ready", False),
+            "coverage_status": coverage.get("coverage_status", "pilot_ready"),
+            "coverage": coverage.get("coverage", {}),
+            "data_evidence": coverage.get("data_evidence", {}),
+            "score": req.score,
+            "batch_eligibility": "ineligible",
+            "batch_message": (
+                f"当前成绩 {req.score} 分低于普通本科批控制线 {undergrad_line} 分（差 {gap} 分），"
+                f"不具备常规本科批填报资格。建议重点规划高职专科批，"
+                f"同时关注后续本科征集志愿及官方是否允许降分填报。"
+            ),
+            "buckets": {"搏": [], "冲": [], "稳": [], "保": [], "垫": [], "不推荐": [], "需人工复核": []},
+            "volunteer_table": None,
+        }
+
+    # 分类池：保留全部候选的档位统计（含超冲，不截断），用于验证五档分类合理性
+    _ALL_TIERS = ["超冲", "搏", "冲", "稳", "保", "垫", "需人工复核", "不推荐"]
+    classification_pool: dict[str, list] = {t: [] for t in _ALL_TIERS}
     for item in candidates:
-        buckets.setdefault(item["bucket"], []).append(item)
-    for bucket in ("搏", "冲", "稳", "保", "垫"):
-        buckets[bucket] = sort_henan_bucket_candidates(buckets[bucket], profile)
+        classification_pool.setdefault(item["bucket"], []).append(item)
+    classification_pool_counts = {t: len(classification_pool[t]) for t in _ALL_TIERS}
+
+    # 展示池：超冲默认不展示（资格可报但门槛明显过高）；其余档位排序+限量
+    _DISPLAY_TIERS = ("搏", "冲", "稳", "保", "垫")
+    buckets: dict[str, list] = {"搏": [], "冲": [], "稳": [], "保": [], "垫": [], "不推荐": [], "需人工复核": []}
+    for bucket in _DISPLAY_TIERS:
+        buckets[bucket] = sort_henan_bucket_candidates(classification_pool[bucket], profile)
+    # 不推荐/需人工复核 直接转（不排序，让用户看到资格/数据问题）
+    buckets["不推荐"] = classification_pool["不推荐"]
+    buckets["需人工复核"] = classification_pool["需人工复核"]
+
+    # 展示池限量：分类池全保留，展示池按档位截断（搏10/冲20/稳30/保25/垫15）
+    _DISPLAY_CAP = {"搏": 10, "冲": 20, "稳": 30, "保": 25, "垫": 15}
+    for bucket, cap in _DISPLAY_CAP.items():
+        if len(buckets[bucket]) > cap:
+            buckets[bucket] = buckets[bucket][:cap]
 
     # 48 志愿草案（design §8.4，问题1）：策略感知的配额与排序
     policies = load_henan_policy(_SEED_DIR)
@@ -260,6 +298,10 @@ def recommendation(req: HenanRecommendationRequest, session: Session = Depends(g
         "coverage": coverage,
         "data_evidence": build_henan_data_evidence(coverage),
         "buckets": buckets,
+        "classification_pool_counts": classification_pool_counts,
+        "boundary_rounding_method": "round_half_up",
+        "display_sort_basis": "省内优先→公办优先→专业匹配→语种适配→位次安全度→费用",
+        "display_pool_caps": {"搏": 10, "冲": 20, "稳": 30, "保": 25, "垫": 15},
         "volunteer_table": volunteer_table,
         "language_restriction_summary": language_restriction_summary,
     }

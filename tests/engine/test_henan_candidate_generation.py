@@ -21,7 +21,7 @@ def test_build_henan_candidates_returns_groups_when_verified_data_exists():
     assert len(candidates) > 0
     assert all(item["volunteer_unit"] == "院校专业组" for item in candidates)
     assert all("major_group_code" in item for item in candidates)
-    assert all(item["bucket"] in {"搏", "冲", "稳", "保", "垫", "不推荐", "需人工复核"} for item in candidates)
+    assert all(item["bucket"] in {"超冲", "搏", "冲", "稳", "保", "垫", "不推荐", "需人工复核"} for item in candidates)
 
 
 def test_build_henan_candidates_excludes_zero_plan_from_reachable_buckets():
@@ -133,7 +133,7 @@ def test_missing_history_uses_needs_human_review_not_reject():
     tsinghua = [c for c in candidates if c["school_name"] == "清华大学"]
     assert len(tsinghua) >= 1
     for c in tsinghua:
-        assert c["bucket"] in {"搏", "冲", "稳", "保", "垫", "需人工复核", "不推荐"}, \
+        assert c["bucket"] in {"超冲", "搏", "冲", "稳", "保", "垫", "需人工复核", "不推荐"}, \
             f"清华大学应被判档，实际 {c['bucket']}"
 def test_build_henan_candidates_filters_to_regular_undergrad_history_scope(monkeypatch):
     profile = {
