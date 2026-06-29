@@ -117,20 +117,33 @@ function filterTitle(filters: StatFilter[]) {
     .join(" + ");
 }
 
+// 模块级缓存：跨路由切换保留推荐结果（HomePage 卸载后 state 丢失，用模块变量兜底恢复）。
+// 组件重新挂载时从这些变量懒初始化，返回推荐页无需重新提交表单。
+const _cache: {
+  result: HenanRecommendationResult | null;
+  lastFormReq: AdvisoryRequest | null;
+  currentProfile: Record<string, unknown>;
+  displayBucket: "全部" | "冲" | "稳" | "保";
+} = { result: null, lastFormReq: null, currentProfile: {}, displayBucket: "全部" };
+
 export default function HomePage() {
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<HenanRecommendationResult | null>(null);
+  const [result, setResult] = useState<HenanRecommendationResult | null>(_cache.result);
   const [error, setError] = useState<string | null>(null);
-  const [displayBucket, setDisplayBucket] = useState<"全部" | "冲" | "稳" | "保">("全部");
+  const [displayBucket, setDisplayBucket] = useState<"全部" | "冲" | "稳" | "保">(_cache.displayBucket);
   // design D1：不推荐院校默认折叠，避免硬塞用户未关注的不可达院校
   const [showRejected, setShowRejected] = useState(false);
   const [showAlgorithm, setShowAlgorithm] = useState(false);
   // 缓存最近一次提交的表单数据，供 AI 分析使用
-  const [lastFormReq, setLastFormReq] = useState<AdvisoryRequest | null>(null);
+  const [lastFormReq, setLastFormReq] = useState<AdvisoryRequest | null>(_cache.lastFormReq);
   // 当前考生档案（加入志愿组时传给后端重新校验）
-  const [currentProfile, setCurrentProfile] = useState<Record<string, unknown>>({});
+  const [currentProfile, setCurrentProfile] = useState<Record<string, unknown>>(_cache.currentProfile);
   const [statFilters, setStatFilters] = useState<StatFilter[] | null>(null);
   const [statPage, setStatPage] = useState(0);
+
+  // 同步 result/displayBucket/lastFormReq/currentProfile 到模块缓存（卸载后可恢复）
+  useEffect(() => { _cache.result = result; }, [result]);
+  useEffect(() => { _cache.displayBucket = displayBucket; }, [displayBucket]);
 
   useEffect(() => {
     if (!result || displayBucket === "全部") return;
@@ -145,7 +158,7 @@ export default function HomePage() {
     setDisplayBucket(req.display_bucket ?? "全部");
     setLastFormReq(req);  // 缓存表单数据供 AI 分析使用
     // 保存当前考生档案（加入志愿组时传给后端重新校验）
-    setCurrentProfile({
+    const profile = {
       score: req.total_score,
       rank: null,
       track: "历史类",
@@ -157,7 +170,10 @@ export default function HomePage() {
         数学: req.math_score ?? 0,
         外语: req.foreign_language_score ?? 0,
       },
-    });
+    };
+    setCurrentProfile(profile);
+    _cache.lastFormReq = req;  // 同步模块缓存
+    _cache.currentProfile = profile;
     try {
       // 映射档位选择到推荐策略：冲→积极，保→保守，稳/全部→自动（design §8.4）
       const strategyMap: Record<string, "自动" | "保守" | "积极" | "均衡"> = {

@@ -7,7 +7,7 @@ import {
   SortableContext, useSortable, verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { Layers, Flame, Rocket, ShieldCheck, Anchor, Shield, Trash2, AlertTriangle } from "lucide-react";
+import { Layers, Flame, Rocket, ShieldCheck, Anchor, Shield, Trash2, AlertTriangle, HelpCircle } from "lucide-react";
 import { useVolunteerStore } from "../store/volunteerStore";
 import VolunteerItemRow from "../components/VolunteerItemRow";
 import { TIER_STYLE } from "../components/volunteerTier";
@@ -29,13 +29,14 @@ function SortableRow({ item }: { item: UserVolunteerItem }) {
   );
 }
 
-/** 分区配置（按规划档位分区，视觉组织） */
+/** 分区配置（按规划档位分区，视觉组织）。含待复核区兜底数据状态项 */
 const TIER_ZONES = [
   { tier: "搏", icon: Flame, label: "搏档" },
   { tier: "冲", icon: Rocket, label: "冲档" },
   { tier: "稳", icon: ShieldCheck, label: "稳档" },
   { tier: "保", icon: Anchor, label: "保档" },
   { tier: "垫", icon: Shield, label: "垫档" },
+  { tier: "需人工复核", icon: HelpCircle, label: "待复核（数据不足）" },
 ] as const;
 
 export default function MyGroupsPage() {
@@ -91,6 +92,12 @@ export default function MyGroupsPage() {
       if (TIER_ZONES.some((tz) => tz.tier === z)) targetTier = z;
     }
 
+    // 「需人工复核」是数据状态（非规划档位），不可通过拖拽设为 planned_tier。
+    // 若拖入待复核区，保持原 planned_tier 不变（只调整顺序）。
+    const isReviewTier = targetTier === "需人工复核";
+    const planTier = isReviewTier ? activeItem.planned_tier : targetTier;
+    const newPlannedTier = !isReviewTier && planTier === activeItem.latest_algorithm_tier ? null : planTier;
+
     // 重新计算全局顺序：移除 active，插到目标位置
     const withoutActive = items.filter((it) => it.id !== activeId);
     let insertIndex: number;
@@ -102,7 +109,6 @@ export default function MyGroupsPage() {
       const lastInTier = [...withoutActive].reverse().find((it) => it.effective_tier === targetTier);
       insertIndex = lastInTier ? withoutActive.indexOf(lastInTier) + 1 : withoutActive.length;
     }
-    const newPlannedTier = targetTier === activeItem.latest_algorithm_tier ? null : targetTier;
     const moved = { ...activeItem, planned_tier: newPlannedTier, effective_tier: targetTier };
     const reordered = [...withoutActive];
     reordered.splice(insertIndex, 0, moved);
@@ -176,12 +182,14 @@ export default function MyGroupsPage() {
           <div className="space-y-3">
             {TIER_ZONES.map((zone) => {
               const zoneItems = (byTier[zone.tier] ?? []).sort((a, b) => a.sort_order - b.sort_order);
+              const isReviewZone = zone.tier === "需人工复核";
               return (
                 <div key={zone.tier} className="glass rounded-2xl p-3">
                   <div className="flex items-center gap-2 mb-2 px-1">
                     <zone.icon className={`w-4 h-4 ${
                       zone.tier === "搏" ? "text-orange-300" : zone.tier === "冲" ? "text-amber-300"
-                      : zone.tier === "稳" ? "text-emerald-300" : zone.tier === "保" ? "text-sky-300" : "text-indigo-300"
+                      : zone.tier === "稳" ? "text-emerald-300" : zone.tier === "保" ? "text-sky-300"
+                      : zone.tier === "垫" ? "text-indigo-300" : "text-white/50"
                     }`} />
                     <h3 className="font-bold text-sm text-white/85">{zone.label}</h3>
                     <span className="text-xs text-white/40">{zoneItems.length}</span>
@@ -195,7 +203,7 @@ export default function MyGroupsPage() {
                       </SortableContext>
                     ) : (
                       <div className="text-[11px] text-white/25 py-2 px-2 border border-dashed border-white/10 rounded-lg text-center">
-                        拖入{zone.tier}档
+                        {isReviewZone ? "数据不足的志愿显示在此" : `拖入${zone.tier}档`}
                       </div>
                     )}
                   </div>
