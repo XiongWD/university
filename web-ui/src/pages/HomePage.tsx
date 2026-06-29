@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { AlertCircle, Rocket, ShieldCheck, Anchor, HelpCircle, Calculator } from "lucide-react";
+import { AlertCircle, Rocket, ShieldCheck, Anchor, HelpCircle, Calculator, Flame, Shield } from "lucide-react";
 import ScoreForm from "../components/ScoreForm";
 import HenanItemCard, { fmtMoney, fmtRank } from "../components/HenanItemCard";
 import AIAnalysisPanel from "../components/AIAnalysisPanel";
@@ -8,10 +8,12 @@ import type { AdvisoryRequest, HenanRecommendationResult, HenanTargetItem } from
 
 // 5 档 bucket 渲染配置（design D2，去掉"中"，新增需人工复核）
 const BUCKETS = [
-  { key: "冲" as const, label: "冲", icon: Rocket, color: "text-orange-300", desc: "有希望但冒险" },
-  { key: "稳" as const, label: "稳", icon: ShieldCheck, color: "text-emerald-300", desc: "匹配度较高" },
-  { key: "保" as const, label: "保", icon: Anchor, color: "text-sky-300", desc: "稳妥兜底" },
-  { key: "不推荐" as const, label: "不推荐", icon: AlertCircle, color: "text-red-300", desc: "资格不符或位次差距过大" },
+  { key: "搏" as const, label: "搏", icon: Flame, color: "text-rose-300", desc: "录取希望渺茫，搏一搏" },
+  { key: "冲" as const, label: "冲", icon: Rocket, color: "text-orange-300", desc: "略高于竞争位次，有希望" },
+  { key: "稳" as const, label: "稳", icon: ShieldCheck, color: "text-emerald-300", desc: "位次匹配，录取概率较高" },
+  { key: "保" as const, label: "保", icon: Anchor, color: "text-sky-300", desc: "位次有优势，稳妥" },
+  { key: "垫" as const, label: "垫", icon: Shield, color: "text-indigo-300", desc: "明显兜底，防止滑档" },
+  { key: "不推荐" as const, label: "不推荐", icon: AlertCircle, color: "text-red-300", desc: "资格不符（选科/语种/单科）" },
   { key: "需人工复核" as const, label: "需人工复核", icon: HelpCircle, color: "text-amber-300", desc: "数据待核验" },
 ];
 

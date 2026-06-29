@@ -10,11 +10,13 @@ import AIAnalysisPanel from "../components/AIAnalysisPanel";
 const FOREIGN_LANGS = ["英语", "日语", "俄语", "德语", "法语", "西班牙语"];
 const ELECTIVES = ["物理", "化学", "生物", "政治", "历史", "地理"];
 
-// 冲稳保档位配色（与首页一致）
+// 冲稳保垫档位配色（与首页一致）
 const BUCKET_STYLE: Record<string, string> = {
+  搏: "bg-rose-500/20 text-rose-300",
   冲: "bg-orange-500/20 text-orange-300",
   稳: "bg-emerald-500/20 text-emerald-300",
   保: "bg-sky-500/20 text-sky-300",
+  垫: "bg-indigo-500/20 text-indigo-300",
   不推荐: "bg-red-700/30 text-red-200",
   可评估: "bg-white/15 text-white/80",
 };
@@ -350,7 +352,7 @@ export default function TargetEvaluationPage() {
           {/* 按冲稳保分组：单校聚合卡片（学校共性信息只显示一次，专业组作为子表） */}
           {result.items.length > 0 && (
             <div className="space-y-3">
-              {(["冲", "稳", "保"] as const).map((bucket) => {
+              {(["搏", "冲", "稳", "保", "垫"] as const).map((bucket) => {
                 const items = result.items.filter((it) => it.bucket === bucket);
                 if (items.length === 0) return null;
                 return (

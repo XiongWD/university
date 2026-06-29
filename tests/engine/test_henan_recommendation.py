@@ -101,54 +101,46 @@ def test_single_subject_requirement_blocks_low_score():
 
 
 def test_bucket_classification():
-    assert classify_henan_bucket(student_rank=52000, historical_rank=50000, policy_mode="冲") == "冲"
-    assert classify_henan_bucket(student_rank=49000, historical_rank=50000, policy_mode="稳") == "稳"
-    assert classify_henan_bucket(student_rank=40000, historical_rank=50000, policy_mode="保") == "保"
+    # 五档绝对位次差（与 classify_admission_tier 一致）
+    assert classify_henan_bucket(student_rank=73822, historical_rank=70000, policy_mode="冲") == "冲"
+    assert classify_henan_bucket(student_rank=73822, historical_rank=73822, policy_mode="稳") == "稳"
+    assert classify_henan_bucket(student_rank=73822, historical_rank=80000, policy_mode="保") == "保"
+    assert classify_henan_bucket(student_rank=73822, historical_rank=100000, policy_mode="垫") == "垫"
 
 
 def test_group_bucket_requires_2026_plan_and_verified_group():
-    assert classify_group_bucket(
-        student_rank=40000,
-        adjusted_rank=50000,
-        has_2025_history=True,
-        has_2026_plan=False,
-        has_verified_group=True,
-        confidence=0.9,
-    ) == "不推荐"
-    assert classify_group_bucket(
-        student_rank=40000,
-        adjusted_rank=50000,
-        has_2025_history=True,
-        has_2026_plan=True,
-        has_verified_group=False,
-        confidence=0.9,
-    ) == "不推荐"
+    # 资格层不通过 → ineligible → "不推荐"（位次差不改变资格）
+    r1 = classify_group_bucket(
+        student_rank=40000, adjusted_rank=50000, has_2025_history=True,
+        has_2026_plan=False, has_verified_group=True, confidence=0.9)
+    assert r1["bucket"] == "不推荐" and r1["eligibility_status"] == "ineligible"
+    r2 = classify_group_bucket(
+        student_rank=40000, adjusted_rank=50000, has_2025_history=True,
+        has_2026_plan=True, has_verified_group=False, confidence=0.9)
+    assert r2["bucket"] == "不推荐" and r2["eligibility_status"] == "ineligible"
 
 
-def test_group_bucket_does_not_mark_safe_without_2025_history_or_confidence():
-    assert classify_group_bucket(
-        student_rank=40000,
-        adjusted_rank=50000,
-        has_2025_history=False,
-        has_2026_plan=True,
-        has_verified_group=True,
-        confidence=0.9,
-    ) == "稳"
-    assert classify_group_bucket(
-        student_rank=40000,
-        adjusted_rank=50000,
-        has_2025_history=True,
-        has_2026_plan=True,
-        has_verified_group=True,
-        confidence=0.5,
-    ) == "稳"
+def test_group_bucket_eligible_uses_admission_tier():
+    # 资格通过后，纯按位次匹配判 admission_tier（五档 clamp）
+    R = 50000
+    # 冲：门槛比考生高（advantage<0），-10%R=-5000 ≤ advantage < -3%R=-1500
+    assert classify_group_bucket(R, 46000, True, True, True, 0.9)["bucket"] == "冲"
+    # 稳：基本匹配 -3%R ≤ advantage < +5%R
+    assert classify_group_bucket(R, 50000, True, True, True, 0.9)["bucket"] == "稳"
+    # 保：考生优于门槛 +5%R ≤ advantage < +15%R
+    assert classify_group_bucket(R, 56000, True, True, True, 0.9)["bucket"] == "保"
+    # 垫：考生远优于门槛 advantage ≥ +15%R
+    assert classify_group_bucket(R, 70000, True, True, True, 0.9)["bucket"] == "垫"
+    # 搏：门槛远高于考生 advantage < -10%R
+    assert classify_group_bucket(R, 40000, True, True, True, 0.9)["bucket"] == "搏"
 
 
-def test_group_bucket_uses_rank_gap_thresholds():
-    assert classify_group_bucket(58000, 50000, True, True, True, 0.9) == "不推荐"
-    assert classify_group_bucket(54000, 50000, True, True, True, 0.9) == "冲"
-    assert classify_group_bucket(49500, 50000, True, True, True, 0.9) == "稳"
-    assert classify_group_bucket(43000, 50000, True, True, True, 0.9) == "保"
+def test_group_bucket_returns_three_layer_status():
+    # 三层状态完整性：eligible + admission_tier + recommended
+    r = classify_group_bucket(50000, 50000, True, True, True, 0.9)
+    assert r["eligibility_status"] == "eligible"
+    assert r["admission_tier"] == "稳"
+    assert r["recommendation_status"] == "recommended"
 
 
 def test_bucket_quota_for_balanced_48_volunteers():

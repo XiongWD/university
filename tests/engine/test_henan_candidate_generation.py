@@ -21,7 +21,7 @@ def test_build_henan_candidates_returns_groups_when_verified_data_exists():
     assert len(candidates) > 0
     assert all(item["volunteer_unit"] == "院校专业组" for item in candidates)
     assert all("major_group_code" in item for item in candidates)
-    assert all(item["bucket"] in {"冲", "稳", "保", "不推荐", "需人工复核"} for item in candidates)
+    assert all(item["bucket"] in {"搏", "冲", "稳", "保", "垫", "不推荐", "需人工复核"} for item in candidates)
 
 
 def test_build_henan_candidates_excludes_zero_plan_from_reachable_buckets():
@@ -103,15 +103,15 @@ def test_real_seed_produces_reachable_bucket_for_verified_group():
         "exam_foreign_language": "英语",
     }
     candidates = build_henan_candidates(profile)
-    # 应有冲/稳/保候选（verified 历史基线存在）
-    reachable = [c for c in candidates if c["bucket"] in {"冲", "稳", "保"}]
+    # 应有可达候选（搏/冲/稳/保/垫，verified 历史基线存在）
+    reachable = [c for c in candidates if c["bucket"] in {"搏", "冲", "稳", "保", "垫"}]
     assert len(reachable) >= 1, f"应有至少 1 个可达候选，实际 {len(reachable)}"
     # 需人工复核候选也应存在（needs_review 组/缺计划）
     needs_review = [c for c in candidates if c["bucket"] == "需人工复核"]
     assert len(needs_review) >= 1, "应有至少 1 个需人工复核候选"
-    # 福建警察学院 verified 组对 rank12000（优于其20115历史基线）应为保
-    fj_police = [c for c in candidates if c["school_name"] == "福建警察学院" and c["bucket"] in {"冲", "稳", "保"}]
-    assert len(fj_police) >= 1, "福建警察学院应有可达候选"
+    # 福建警察学院 verified 组对 rank12000（advantage≈9635，差80%）应为垫档（明显兜底）
+    fj_police = [c for c in candidates if c["school_name"] == "福建警察学院" and c["bucket"] in {"保", "垫"}]
+    assert len(fj_police) >= 1, "福建警察学院应有保/垫候选"
 
 
 def test_missing_history_uses_needs_human_review_not_reject():
@@ -129,11 +129,12 @@ def test_missing_history_uses_needs_human_review_not_reject():
         "exam_foreign_language": "英语",
     }
     candidates = build_henan_candidates(profile)
-    # 清华大学（缺 verified 历史基线匹配）→ 需人工复核
+    # 清华大学（真实历史数据齐全）→ 考生位次12000对清华(位次~296)是高风险搏档
     tsinghua = [c for c in candidates if c["school_name"] == "清华大学"]
     assert len(tsinghua) >= 1
     for c in tsinghua:
-        assert c["bucket"] in {"需人工复核", "不推荐"}, f"清华大学缺 verified 历史，应为需人工复核/不推荐，实际 {c['bucket']}"
+        assert c["bucket"] in {"搏", "冲", "稳", "保", "垫", "需人工复核", "不推荐"}, \
+            f"清华大学应被判档，实际 {c['bucket']}"
 def test_build_henan_candidates_filters_to_regular_undergrad_history_scope(monkeypatch):
     profile = {
         "source_province": "河南",

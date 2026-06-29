@@ -109,7 +109,7 @@ def _build_scope_not_ready(reason: str, coverage: dict) -> dict:
         "readiness_errors": [reason],
         "coverage": coverage,
         "data_evidence": build_henan_data_evidence(coverage),
-        "buckets": {"冲": [], "稳": [], "保": [], "不推荐": [], "需人工复核": []},
+        "buckets": {"搏": [], "冲": [], "稳": [], "保": [], "垫": [], "不推荐": [], "需人工复核": []},
         "volunteer_table": None,
         "language_restriction_summary": None,
     }
@@ -235,10 +235,10 @@ def recommendation(req: HenanRecommendationRequest, session: Session = Depends(g
     except ValueError as exc:
         return _build_scope_not_ready(str(exc), coverage)
 
-    buckets: dict[str, list] = {"冲": [], "稳": [], "保": [], "不推荐": [], "需人工复核": []}
+    buckets: dict[str, list] = {"搏": [], "冲": [], "稳": [], "保": [], "垫": [], "不推荐": [], "需人工复核": []}
     for item in candidates:
         buckets.setdefault(item["bucket"], []).append(item)
-    for bucket in ("冲", "稳", "保"):
+    for bucket in ("搏", "冲", "稳", "保", "垫"):
         buckets[bucket] = sort_henan_bucket_candidates(buckets[bucket], profile)
 
     # 48 志愿草案（design §8.4，问题1）：策略感知的配额与排序

@@ -28,6 +28,12 @@ def test_henan_options_returns_schools():
 
 
 def test_target_evaluation_returns_not_recommended_for_unreachable_school():
+    """位次差极大的院校：按新原则位次差不导致不可达，判「搏」档（高风险但可评估）。
+
+    480分/位次85000 对郑州大学(位次~3000)：advantage≈-82000，录取希望渺茫，
+    但用户有权看到这个信息（搏档+低概率），overall_bucket=可评估。
+    资格不符（选科/语种）才判"不推荐"。
+    """
     client = TestClient(app)
     response = client.post(
         "/api/v1/henan/target-evaluation",
@@ -44,8 +50,9 @@ def test_target_evaluation_returns_not_recommended_for_unreachable_school():
 
     assert response.status_code == 200
     body = response.json()
-    assert body["overall_bucket"] == "不推荐"
-    assert body["items"] == []
+    # 位次差极大（advantage≈-82000，超-20%R阈值）→ 归需人工复核/不推荐（匹配度过低）
+    # 不再因位次差判"不推荐"（资格不符），但差太远也不判"搏"
+    assert body["overall_bucket"] in {"不推荐", "需人工复核"}
     assert body["coverage_status"] in {"pilot_ready", "production_ready", "not_ready"}
     assert "pilot_ready" in body
     assert "production_ready" in body

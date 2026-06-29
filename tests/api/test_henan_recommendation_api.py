@@ -23,7 +23,7 @@ def test_henan_recommendation_returns_data_readiness_and_buckets():
     assert "coverage_status" in body
     assert body["coverage_status"] in {"not_ready", "pilot_ready", "production_ready"}
     assert "buckets" in body
-    assert set(body["buckets"].keys()) == {"冲", "稳", "保", "不推荐", "需人工复核"}
+    assert set(body["buckets"].keys()) == {"搏", "冲", "稳", "保", "垫", "不推荐", "需人工复核"}
     assert "coverage" in body
     assert "data_evidence" in body
     assert "coverage_notes" in body

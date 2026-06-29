@@ -10,7 +10,7 @@ app/engine/target_evaluation.py（/target/evaluate）并行，旧链路保留。
 from __future__ import annotations
 
 # 可达档位（design §8.3）：只有这三个才算"可评估"
-REACHABLE_BUCKETS = {"冲", "稳", "保"}
+REACHABLE_BUCKETS = {"搏", "冲", "稳", "保", "垫"}
 
 
 def _classify_unreachable(item: dict) -> str:
@@ -115,7 +115,7 @@ def evaluate_target_school(
     if target_group:
         scoped = [item for item in scoped if item.get("major_group_code") == target_group]
 
-    # 可达：资格通过且档位为冲/稳/保
+    # 可达：资格通过且档位为搏/冲/稳/保/垫（位次差不导致不可达，仅影响档位）
     reachable = [
         item
         for item in scoped

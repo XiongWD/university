@@ -3,11 +3,13 @@ import { Calculator, MapPin } from "lucide-react";
 import type { HenanTargetItem } from "../api/types";
 import { fmtMoney, fmtRank, fmtBaselineGranularity, OWNERSHIP_STYLE } from "./HenanItemCard";
 
-// 冲稳保档位徽章配色
+// 冲稳保垫档位徽章配色
 const BUCKET_STYLE: Record<string, string> = {
+  搏: "bg-rose-500/20 text-rose-300",
   冲: "bg-orange-500/20 text-orange-300",
   稳: "bg-emerald-500/20 text-emerald-300",
   保: "bg-sky-500/20 text-sky-300",
+  垫: "bg-indigo-500/20 text-indigo-300",
 };
 
 interface Props {
@@ -78,7 +80,7 @@ export default function TargetSchoolCard({ items, bucketKey }: Props) {
           <span className="text-white/25">·</span>
           <span>{detail.baseline_year ? `${detail.baseline_year}年` : ""}录取位次 <b className="text-white/90">{fmtRank(detail.adjusted_min_rank)}</b></span>
           <span className="text-white/25">·</span>
-          <span>位次差比 <b className={bucketKey === "冲" ? "text-orange-300" : bucketKey === "稳" ? "text-emerald-300" : "text-sky-300"}>
+          <span>位次差比 <b className={bucketKey === "搏" ? "text-rose-300" : bucketKey === "冲" ? "text-orange-300" : bucketKey === "稳" ? "text-emerald-300" : bucketKey === "垫" ? "text-indigo-300" : "text-sky-300"}>
             {detail.rank_gap_ratio !== null && detail.rank_gap_ratio !== undefined ? `${(detail.rank_gap_ratio * 100).toFixed(1)}%` : "—"}
           </b></span>
         </div>
@@ -108,7 +110,7 @@ export default function TargetSchoolCard({ items, bucketKey }: Props) {
               <div>公式：{detail.formula}</div>
               <div>考生位次 <b className="text-white/80">{fmtRank(detail.student_rank)}</b> − 参考位次 <b className="text-white/80">{fmtRank(detail.adjusted_min_rank)}</b>
                 {detail.baseline_year ? `（${detail.baseline_year}年${fmtBaselineGranularity(detail.baseline_granularity)}）` : ""}</div>
-              <div>位次差比 = <b className={bucketKey === "冲" ? "text-orange-300" : bucketKey === "稳" ? "text-emerald-300" : "text-sky-300"}>
+              <div>位次差比 = <b className={bucketKey === "搏" ? "text-rose-300" : bucketKey === "冲" ? "text-orange-300" : bucketKey === "稳" ? "text-emerald-300" : bucketKey === "垫" ? "text-indigo-300" : "text-sky-300"}>
                 {detail.rank_gap_ratio !== null && detail.rank_gap_ratio !== undefined ? `${(detail.rank_gap_ratio * 100).toFixed(1)}%` : "—"}
               </b> → 判定 <b className="text-white/80">{head.bucket}</b> · 投档成功率 <b className="text-emerald-300">
                 {typeof detail.admission_probability === "number" && detail.admission_probability > 0 ? `${Math.round(detail.admission_probability * 100)}%` : "—"}

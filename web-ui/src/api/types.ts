@@ -313,7 +313,7 @@ export interface HenanRecommendationResult {
   readiness_errors: string[];
   coverage: Record<string, unknown>;
   data_evidence: Record<string, unknown>;
-  buckets: Record<"冲" | "稳" | "保" | "不推荐" | "需人工复核", HenanTargetItem[]>;
+  buckets: Record<"搏" | "冲" | "稳" | "保" | "垫" | "不推荐" | "需人工复核", HenanTargetItem[]>;
   volunteer_table?: HenanVolunteerTable | null;
   language_restriction_summary?: LanguageRestrictionSummary | null;
 }
@@ -375,7 +375,12 @@ export interface HenanTargetItem {
   major_name: string;
   major_group_code: string;
   major_group_name?: string;
-  bucket: string;            // 冲 / 稳 / 保 / 不推荐 / 需人工复核
+  bucket: string;            // 搏 / 冲 / 稳 / 保 / 垫 / 不推荐 / 需人工复核
+  // 三层状态（design §8.3 重构）
+  eligibility_status?: "eligible" | "ineligible" | "uncertain";
+  admission_tier?: "搏" | "冲" | "稳" | "保" | "垫" | null;
+  recommendation_status?: "recommended" | "conditional" | "not_recommended";
+  data_confidence?: "high" | "medium" | "low";
   group_bucket?: string;
   major_bucket?: string;
   rank_gap?: number;

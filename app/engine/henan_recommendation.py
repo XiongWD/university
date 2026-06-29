@@ -1,17 +1,87 @@
 """河南志愿推推荐引擎（design §3、§8）。
 
 主链路：资格先行 → 位次风险 → 冲稳保分桶 → 48 志愿草案。
-分桶分两层：资格层（省控线/计划/选科/语种/单科）不通过直接「不推荐」；
-风险层用位次差比（不用裸分）。不输出伪精确概率，只用 冲/稳/保/不推荐 档位。
+分桶分三层状态：
+  1. eligibility_status（报考资格）：硬过滤（选科/语种/单科/体检），不通过→不可报
+  2. admission_tier（录取档位）：搏/冲/稳/保/垫，纯位次匹配，用 clamp 阈值
+  3. recommendation_status（推荐适配）：用户偏好（冷启动暂全设 recommended）
+核心规则：位次差只影响 admission_tier，不得改变 eligibility_status。
 
 注意：这是河南志愿推的新主链路，与旧 advisory（冲/中/稳）并行，旧链路保留不删。
 """
 from __future__ import annotations
 
-# design §8.3：风险层默认分桶阈值（rank_gap_ratio = 考生位次相对参考位次的偏离）
-REACH_RATIO = 0.03       # > 3% 偏后 → 冲
-SAFE_DROP_RATIO = -0.10  # 优于参考 10% 以上 → 保
-HARD_NOT_RECOMMEND = 0.15  # 偏后超 15% → 不推荐
+# ── 冷启动五档阈值（advantage = H参考位次 − R考生位次；位次数字越小=分数越高）──
+# advantage < 0：目标门槛比考生高（更难录，属于冲/搏）
+# advantage > 0：考生位次优于门槛（更易录，属于保/垫）
+# 每档用 [比例边界, clamp(min绝对跨度, max绝对跨度)] 双重约束，避免高分段档位太挤、低分段太松
+TIER_THRESHOLDS = {
+    # 档位: (advantage下界比例, advantage上界比例, min绝对跨度, max绝对跨度)
+    # 搏/冲有上限保护：差太远（超过20%R）的院校不判搏，归需人工复核（匹配度过低）
+    "搏":  (-0.20,   -0.10, 300,    10000),   # -20%R ≤ advantage < -10%R，差最多20%
+    "冲":  (-0.10,   -0.03, 300,    10000),   # -10%R ≤ advantage < -3%R，clamp[300,10000]
+    "稳":  (-0.03,    0.05, 300,     6000),   # -3%R ≤ advantage < +5%R，clamp[300,6000]
+    "保":  ( 0.05,    0.15, 1500,   20000),   # +5%R ≤ advantage < +15%R，clamp[1500,20000]
+    "垫":  ( 0.15,    None, 3000,    None),   # advantage ≥ +15%R，min3000，不截断上界
+}
+# 档位顺序（用于排序/展示）
+TIER_ORDER = ["搏", "冲", "稳", "保", "垫"]
+
+
+def _clamp(value: float, lo: float | None, hi: float | None) -> float:
+    """将 value 限制在 [lo, hi] 区间（None 表示不限）。"""
+    if lo is not None and value < lo:
+        return lo
+    if hi is not None and value > hi:
+        return hi
+    return value
+
+
+def classify_admission_tier(student_rank: int, adjusted_rank: int) -> str:
+    """根据考生位次与参考录取位次，判定录取档位（搏/冲/稳/保/垫）。
+
+    advantage = adjusted_rank − student_rank（>0 表示考生优于门槛）。
+    每档的 advantage 区间由比例边界 ×R 决定，并对区间宽度做 clamp：
+      - 高分段(R小)：比例区间过窄 → 扩展到 min_gap（避免档位太挤）
+      - 低分段(R大)：比例区间过宽 → 压缩到 max_gap（避免档位太松）
+    分界线从稳档两侧向外推导，保证各档连续不重叠。
+    """
+    advantage = adjusted_rank - student_rank
+    R = student_rank
+    # 稳档中心 = advantage 0。各档分界线 = 比例×R，clamp 到绝对跨度
+    # 冲/搏（advantage<0，门槛更高）：分界线负向
+    # 保/垫（advantage>0，考生更优）：分界线正向
+
+    def clamped_boundary(ratio: float, min_gap: float | None, max_gap: float | None, sign: int) -> float:
+        """计算分界线 = ratio×R，clamp 使其绝对值在 [min_gap, max_gap]。"""
+        raw = ratio * R
+        boundary = abs(raw)
+        if max_gap is not None:
+            boundary = min(boundary, max_gap)
+        if min_gap is not None:
+            boundary = max(boundary, min_gap)
+        return sign * boundary
+
+    # 各档分界线（从稳档向外，保证连续不重叠）
+    # 冲稳分界 = -3%R；稳保 = +5%R；保垫 = +15%R；搏冲 = -10%R；搏下界 = -20%R
+    sprint_stable = clamped_boundary(0.03, 300, 10000, -1)
+    stable_safe = clamped_boundary(0.05, 300, 6000, +1)
+    safe_fallback = clamped_boundary(0.15, 1500, 20000, +1)
+    reach_sprint = clamped_boundary(0.10, None, None, -1)       # 搏/冲分界
+    reach_floor = clamped_boundary(0.20, 300, 10000, -1)        # 搏档下界，差超20%R不再判搏
+
+    # advantage < reach_floor（差太远，匹配度过低）→ 返回特殊标记，调用方归"需人工复核"
+    if advantage < reach_floor:
+        return "需人工复核"
+    if advantage < reach_sprint:
+        return "搏"
+    if advantage < sprint_stable:
+        return "冲"
+    if advantage < stable_safe:
+        return "稳"
+    if advantage < safe_fallback:
+        return "保"
+    return "垫"
 
 
 def _lookup_subject_score(profile: dict, subject: str) -> int | None:
@@ -148,21 +218,14 @@ def _parse_height_requirement(text: str) -> int | None:
 
 
 def classify_henan_bucket(student_rank: int, historical_rank: int | None, policy_mode: str) -> str:
-    """按位次差比分桶（design §8.3 基础口径）。
+    """按绝对位次差分桶（design §8.3 基础口径，与 classify_group_bucket 统一判档口径）。
 
-    ratio = (student_rank - historical_rank) / historical_rank
-    正数表示考生位次更靠后、风险更高。policy_mode 当前仅作语义占位，阈值统一。
+    复用 classify_admission_tier 的五档 clamp 阈值，policy_mode 仅作语义占位。
+    遗留函数：仅单测引用，生产主链路用 classify_group_bucket。
     """
     if historical_rank is None or historical_rank <= 0 or student_rank <= 0:
         return "不推荐"
-    ratio = (student_rank - historical_rank) / historical_rank
-    if ratio > 0.12:
-        return "不推荐"
-    if ratio > REACH_RATIO:
-        return "冲"
-    if ratio >= SAFE_DROP_RATIO:
-        return "稳"
-    return "保"
+    return classify_admission_tier(student_rank, historical_rank)
 
 
 def estimate_admission_probability(bucket: str, rank_gap_ratio: float | None, confidence: float) -> float:
@@ -178,6 +241,9 @@ def estimate_admission_probability(bucket: str, rank_gap_ratio: float | None, co
     if rank_gap_ratio is None:
         return 0.0
     r = rank_gap_ratio
+    if bucket == "垫":
+        # 兜底：考生位次远优于门槛，录取近乎必然
+        return round(min(0.999, 0.99 + confidence * 0.005), 3) if confidence < 0.7 else 0.999
     if bucket == "保":
         # ratio 越负越稳：-0.10→92%，-0.30→99%
         prob = min(0.99, 0.92 + min(0.07, max(0.0, (-r - 0.10)) * 0.35))
@@ -189,6 +255,9 @@ def estimate_admission_probability(bucket: str, rank_gap_ratio: float | None, co
         # 0.03→60%，0.15→25%（区间内线性）
         prob = 0.60 - (r - 0.03) / (0.15 - 0.03) * (0.60 - 0.25)
         prob = max(0.25, min(0.60, prob))
+    elif bucket == "搏":
+        # 门槛比考生高 10% 以上：录取概率较低 5-15%
+        prob = max(0.05, min(0.15, 0.15 - max(0.0, -r - 0.10) * 0.5))
     else:
         # 不推荐 / 需人工复核：资格未通过或数据不足
         return 0.0
@@ -204,29 +273,35 @@ def classify_group_bucket(
     has_2026_plan: bool,
     has_verified_group: bool,
     confidence: float,
-) -> str:
-    """专业组级分桶（design §8.3 修正规则）。
+) -> dict:
+    """专业组级三层状态判定（design §8.3 重构）。
 
-    比 classify_henan_bucket 更严格：必须有 2026 河南计划、专业组已核验；
-    缺 2025 历史或置信度不足时不得判「保」。
+    返回 dict：
+      eligibility_status: eligible | ineligible | uncertain  （报考资格，硬过滤）
+      admission_tier:     搏 | 冲 | 稳 | 保 | 垫 | null        （录取档位，位次匹配）
+      recommendation_status: recommended | conditional | not_recommended
+      bucket: 中文档位（eligible→admission_tier，ineligible→"不推荐"，uncertain→"需人工复核"）
+
+    核心规则：位次差只影响 admission_tier，不得改变 eligibility_status。
     """
-    # 资格层：缺计划或缺专业组核验 → 不推荐（design §2.3 上线门禁）
+    # ── 第1层：报考资格（硬过滤）──
     if not has_2026_plan or not has_verified_group:
-        return "不推荐"
+        return {"eligibility_status": "ineligible", "admission_tier": None,
+                "recommendation_status": "not_recommended", "bucket": "不推荐"}
     if adjusted_rank is None or adjusted_rank <= 0 or student_rank <= 0:
-        return "不推荐"
+        return {"eligibility_status": "uncertain", "admission_tier": None,
+                "recommendation_status": "conditional", "bucket": "需人工复核"}
 
-    rank_gap_ratio = (student_rank - adjusted_rank) / adjusted_rank
-    if rank_gap_ratio > HARD_NOT_RECOMMEND:
-        return "不推荐"
-    if rank_gap_ratio > REACH_RATIO:
-        return "冲"
-    if rank_gap_ratio >= SAFE_DROP_RATIO:
-        return "稳"
-    # 保：需 2025 历史可用 + 置信度达标，否则降为稳（design §8.3 修正规则）
-    if not has_2025_history or confidence < 0.7:
-        return "稳"
-    return "保"
+    # ── 第2层：录取档位（位次匹配，五档 clamp 阈值）──
+    tier = classify_admission_tier(student_rank, adjusted_rank)
+    # 差太远（advantage < -20%R）→ 匹配度过低，归需人工复核而非搏档（避免搏档泛滥）
+    if tier == "需人工复核":
+        return {"eligibility_status": "uncertain", "admission_tier": None,
+                "recommendation_status": "conditional", "bucket": "需人工复核"}
+
+    # ── 第3层：推荐适配（冷启动：资格通过即 recommended）──
+    return {"eligibility_status": "eligible", "admission_tier": tier,
+            "recommendation_status": "recommended", "bucket": tier}
 
 
 def get_bucket_quota(policy_count: int, strategy: str, profile: dict) -> dict[str, tuple[int, int]]:
@@ -384,22 +459,39 @@ def build_henan_candidates(profile: dict) -> list[dict]:
 
         if not ok:
             bucket = "不推荐"
+            eligibility_status = "ineligible"
+            admission_tier = None
+            recommendation_status = "not_recommended"
+            data_confidence = "low"
         elif baseline is None or not has_verified_history:
             # design D2/I1：资格通过但缺 verified 历史基线 → 需人工复核（不得稳/保，也不混为不推荐）
             bucket = "需人工复核"
+            eligibility_status = "uncertain"
+            admission_tier = None
+            recommendation_status = "conditional"
+            data_confidence = "low"
         else:
-            # 分桶（有 verified 历史基线才进入风险层）
-            bucket = classify_group_bucket(
+            # 三层状态判定（有 verified 历史基线才进入风险层）
+            verdict = classify_group_bucket(
                 student_rank=student_rank,
                 adjusted_rank=baseline["adjusted_min_rank"],
-                has_2025_history=has_verified_history and baseline.get("year") == 2025,
+                has_2025_history=has_verified_history
+                    and baseline.get("data_granularity") in ("major", "major_group", "major_group_trend"),
                 has_2026_plan=has_2026_plan,
                 has_verified_group=has_verified_group,
                 confidence=group.confidence,
             )
+            bucket = verdict["bucket"]
+            eligibility_status = verdict["eligibility_status"]
+            admission_tier = verdict["admission_tier"]
+            recommendation_status = verdict["recommendation_status"]
+            # 数据置信度：有专业组级 verified 历史为 high，校级/单年为 medium，无历史为 low
+            data_confidence = "high" if baseline.get("data_granularity") in ("major", "major_group", "major_group_trend") else ("medium" if baseline else "low")
             # 缺计划或未核验组的可达档位降级为需人工复核
-            if bucket in {"冲", "稳", "保"} and (not has_2026_plan or not has_verified_group):
+            if bucket in {"搏", "冲", "稳", "保", "垫"} and (not has_2026_plan or not has_verified_group):
                 bucket = "需人工复核"
+                eligibility_status = "uncertain"
+                admission_tier = None
 
         # —— 费用与学校性质（design §4.4/§4.5，问题3/问题4）——
         lead_plan = group_plans[0] if group_plans else None
@@ -444,12 +536,14 @@ def build_henan_candidates(profile: dict) -> list[dict]:
             "baseline_granularity": baseline.get("data_granularity") if baseline else None,
             "confidence": group.confidence,
             "thresholds": {
-                "冲": f"位次差比 > {REACH_RATIO}",
-                "稳": f"位次差比 ∈ [{SAFE_DROP_RATIO}, {REACH_RATIO}]",
-                "保": f"位次差比 < {SAFE_DROP_RATIO}（且需2025 verified历史 + 置信度≥0.7）",
-                "不推荐": f"位次差比 > {HARD_NOT_RECOMMEND} 或资格层未通过",
+                "搏": "参考位次比考生高 10%R 以上（门槛更高，搏一搏）",
+                "冲": "参考位次比考生高 3%~10%R（clamp 300~10000名）",
+                "稳": "考生与参考位次基本匹配，-3%~+5%R（clamp 300~6000名）",
+                "保": "考生位次优于参考 5%~15%R（clamp 1500~20000名）",
+                "垫": "考生位次优于参考 15%R 以上（兜底，min 3000名）",
+                "不推荐": "资格层未通过（选科/语种/单科/体检不符）",
             },
-            "formula": "rank_gap_ratio = (考生位次 − 参考位次) / 参考位次",
+            "formula": "advantage = 参考位次 − 考生位次；advantage>0 表示考生更易录取",
         }
 
         candidates.append({
@@ -463,6 +557,11 @@ def build_henan_candidates(profile: dict) -> list[dict]:
             "track": group.track,
             "batch": group.batch,
             "bucket": bucket,
+            # 三层状态（design §8.3 重构）
+            "eligibility_status": eligibility_status,
+            "admission_tier": admission_tier,
+            "recommendation_status": recommendation_status,
+            "data_confidence": data_confidence,
             "group_bucket": bucket,
             "major_bucket": bucket,
             "qualified": ok,
