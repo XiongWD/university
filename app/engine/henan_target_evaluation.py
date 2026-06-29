@@ -127,8 +127,40 @@ def evaluate_target_school(
         if item.get("qualified", True) and item.get("bucket") == "超冲"
     ]
 
+    # 资格链专业级下沉：reachable 中是否存在 partially_eligible 组（部分专业可报、部分不可报）
+    # 若存在，overall_bucket 标为"部分专业可评估"，如实告知有专业级限制（如英语专业限英语）
+    has_partial = any(
+        it.get("group_eligibility_status") == "partially_eligible"
+        for it in reachable
+    )
+
     # 有五档可达 → 可评估
     if reachable:
+        if has_partial:
+            # 汇总该校所有 partially_eligible 组的可报/不可报专业，给出明确提示
+            reportable: list[str] = []
+            blocked_detail: list[str] = []
+            for it in reachable:
+                if it.get("group_eligibility_status") != "partially_eligible":
+                    continue
+                reportable.extend(it.get("eligible_majors") or [])
+                for m in it.get("ineligible_majors") or []:
+                    blocked_detail.append(m.get("major", ""))
+            reportable_uniq = sorted(set(reportable))
+            blocked_uniq = sorted(set(blocked_detail))
+            partial_note = (
+                f"日语考生可报{('、'.join(reportable_uniq)) if reportable_uniq else '（详见专业列表）'}"
+                f"等不限语种专业；"
+                + ("英语专业等仅招英语语种考生，不可报"
+                   if "英语" in blocked_uniq else f"{('、'.join(blocked_uniq))}不可报")
+                + "。建议仅选可报专业，并核对学校专业调剂规则"
+            )
+            return {
+                "school_name": target_school,
+                "overall_bucket": "部分专业可评估",
+                "items": reachable,
+                "reasons": [partial_note],
+            }
         return {
             "school_name": target_school,
             "overall_bucket": "可评估",

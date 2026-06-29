@@ -88,10 +88,15 @@ export default function HenanItemCard({ s, bucketKey, index, showCalc }: Props) 
             {(s.school_tags ?? []).map((t) => (
               <span key={t} className="text-[11px] px-1.5 py-0.5 rounded bg-indigo-500/15 text-indigo-300">{t}</span>
             ))}
-            {/* 语种限制标签（日语考生场景）：hard_blocked 不可录取 / soft_warning 英语适应风险 */}
+            {/* 语种限制标签（日语考生场景）：hard_blocked 不可录取 / partial 部分专业可报 / soft_warning 英语适应风险 */}
             {s.language_restriction && s.language_restriction.level === "hard_blocked" && (
               <span className="text-[11px] px-1.5 py-0.5 rounded bg-red-500/20 text-red-300" title={s.language_restriction.note}>
                 英语限·不可录取
+              </span>
+            )}
+            {s.language_restriction && s.language_restriction.level === "partial" && (
+              <span className="text-[11px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300" title={s.language_restriction.note}>
+                部分专业限英语
               </span>
             )}
             {s.language_restriction && s.language_restriction.level === "soft_warning" && (
@@ -107,6 +112,22 @@ export default function HenanItemCard({ s, bucketKey, index, showCalc }: Props) 
           </div>
           {s.selected_majors && s.selected_majors.length > 0 && (
             <div className="text-xs text-white/50 mt-0.5">组内专业：{s.selected_majors.join("、")}</div>
+          )}
+          {/* 资格链专业级下沉：partially_eligible 组展示可报/不可报专业分区 */}
+          {s.group_eligibility_status === "partially_eligible" && (
+            <div className="mt-1 text-[11px] space-y-0.5">
+              {s.eligible_majors && s.eligible_majors.length > 0 && (
+                <div className="text-emerald-300/85">✅ 可报：{s.eligible_majors.join("、")}</div>
+              )}
+              {s.ineligible_majors && s.ineligible_majors.length > 0 && (
+                <div className="text-red-300/80">
+                  ⚠ 不可报：{s.ineligible_majors.map((m) => `${m.major}（${m.reasons.join("；")}）`).join("、")}
+                </div>
+              )}
+              {s.uncertain_majors && s.uncertain_majors.length > 0 && (
+                <div className="text-white/45">？语种待核：{s.uncertain_majors.join("、")}</div>
+              )}
+            </div>
           )}
           {/* 费用（问题3）：学费/住宿费/生活费 + 4年合计 */}
           <div className="text-[13px] text-white/60 mt-1 flex items-center gap-1 flex-wrap">

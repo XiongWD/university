@@ -124,6 +124,7 @@ def _summarize_language_restriction(exam_foreign_language: str, candidates: list
     hard = counts.get("hard_blocked", 0)
     soft = counts.get("soft_warning", 0)
     missing = counts.get("missing_data", 0)
+    partial = counts.get("partial", 0)
     same_language_major_group_count = sum(
         1
         for c in candidates
@@ -135,11 +136,13 @@ def _summarize_language_restriction(exam_foreign_language: str, candidates: list
         if c.get("bucket") in {"冲", "稳", "保"}
         and any(exam_foreign_language in str(x) for x in (c.get("selected_majors") or []))
     )
-    if hard == 0 and soft == 0 and missing == 0 and reachable_same_language_major_group_count > 0:
+    if hard == 0 and soft == 0 and missing == 0 and partial == 0 and reachable_same_language_major_group_count > 0:
         return None
     parts: list[str] = []
     if hard:
-        parts.append(f"{hard} 个专业组要求英语语种，已置为“不推荐”")
+        parts.append(f"{hard} 个专业组整组要求英语语种，已置为“不推荐”")
+    if partial:
+        parts.append(f"{partial} 个专业组部分专业限英语语种（如英语专业），其余专业仍可填报")
     if soft:
         parts.append(f"{soft} 个专业组明确仅开英语公共外语，存在入学后英语适应风险")
     if missing:
@@ -149,6 +152,7 @@ def _summarize_language_restriction(exam_foreign_language: str, candidates: list
     return {
         "exam_foreign_language": exam_foreign_language,
         "hard_blocked_count": hard,
+        "partial_count": partial,
         "soft_warning_count": soft,
         "missing_data_count": missing,
         "same_language_major_group_count": same_language_major_group_count,

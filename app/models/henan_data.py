@@ -88,6 +88,11 @@ class HenanProgramGroup(SourceStamped):
     single_subject_requirements: list[dict] = []
     oral_test_required: bool = False
     adjustment_scope: str = ""  # 调剂范围（仅组内）
+    # 语种规则作用域标记（资格链专业级下沉，design §3.4/§8.2）：
+    # True = 组内各专业语种规则不一致，组级 accepted/required 已置空，
+    #         运行时必须按专业级 plan.accepted_exam_languages 逐专业判断；
+    # False = 组内全专业规则一致，组级字段即为有效限制。
+    has_mixed_language_rules: bool = False
     # 体检/专项限制（design §4.3 扩展）
     physical_restrictions: str = ""  # 辨色力异常 / 身高要求 / 视力要求 / 听说要求
     special_qualification_type: str = ""  # 高校专项 / 地方专项 / 国家专项 / 公费师范 / 定向医学生 / 中外合作 / 高收费

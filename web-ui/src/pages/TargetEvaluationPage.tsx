@@ -21,6 +21,7 @@ const BUCKET_STYLE: Record<string, string> = {
   不推荐: "bg-red-700/30 text-red-200",
   可评估: "bg-white/15 text-white/80",
   "可评估（超冲）": "bg-rose-500/15 text-rose-200",
+  "部分专业可评估": "bg-amber-500/20 text-amber-300",
 };
 
 function BucketBadge({ bucket }: { bucket: string }) {
@@ -348,7 +349,9 @@ export default function TargetEvaluationPage() {
               <div className="text-sm text-white/70 space-y-1">
                 <p>共评估 {result.items.length} 个专业/专业组，按冲稳保垫档位列出。</p>
                 {result.reasons && result.reasons.length > 0 && (
-                  <p className="text-rose-300/80 text-[13px]">⚠ {result.reasons.join("；")}</p>
+                  <p className={`text-[13px] ${
+                    result.overall_bucket === "部分专业可评估" ? "text-amber-300/90" : "text-rose-300/80"
+                  }`}>⚠ {result.reasons.join("；")}</p>
                 )}
               </div>
             )}

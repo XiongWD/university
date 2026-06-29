@@ -308,6 +308,256 @@ def _classify_language_restriction(profile: dict, group) -> dict:
     return {"level": "none", "note": ""}
 
 
+def _classify_language_restriction_from_aggregation(
+    profile: dict, group_elig_status: str,
+    eligible_majors: list[str], ineligible_majors: list[dict],
+) -> dict:
+    """基于专业级资格聚合结果的语种标注（资格链下沉后，比旧 group 级判断更精确）。
+
+    返回 {level, note}：
+    - partial: 组内部分专业可报、部分不可报（如英语专业限英语，俄语不限）→ 列出可报/不可报
+    - hard_blocked: 整组所有专业都不可报（含考生语种之外的硬限制）
+    - soft_warning: 全组可报但公共外语有适应风险
+    - missing_data: 全组可报但公共外语语种未知
+    - none: 英语考生或无限制
+    """
+    lang = profile.get("exam_foreign_language")
+    if lang == "英语":
+        return {"level": "none", "note": ""}
+
+    if group_elig_status == "partially_eligible":
+        reportable = "、".join(eligible_majors) if eligible_majors else "无"
+        blocked_names = "、".join(m["major"] for m in ineligible_majors) if ineligible_majors else "无"
+        return {
+            "level": "partial",
+            "note": f"部分专业可报：{lang}考生可报{reportable}；不可报{blocked_names}"
+                    f"（限英语语种）。建议仅选可报专业，并核对调剂规则",
+        }
+    if group_elig_status == "ineligible":
+        blocked_names = "、".join(m["major"] for m in ineligible_majors) if ineligible_majors else ""
+        return {"level": "hard_blocked",
+                "note": f"整组专业均不招收{lang}考生" + (f"（{blocked_names}）" if blocked_names else "")}
+    if group_elig_status == "uncertain":
+        return {"level": "missing_data", "note": "该组语种要求未采集，无法确认是否符合，建议核实招生章程"}
+    # eligible：全组可报，但仍可能需提示公共外语适应
+    return {"level": "none", "note": ""}
+
+
+def _resolve_major_language_rule(group, major_plan) -> dict:
+    """解析单个专业的生效语种规则（专业级覆盖语义）。
+
+    优先级（design：专业规则 > 组规则，但保守覆盖）：
+      1. major_plan.accepted_exam_languages 非空（已核验硬限制）→ restricted
+      2. major_plan.remarks 解析（normalize_language_rule）：restricted / unrestricted / unknown
+      3. group.accepted_exam_languages 非空（仅全专业一致组有值）→ restricted
+      4. 否则 unknown
+
+    覆盖语义：major 的明确规则（restricted/unrestricted）覆盖 group；
+              major 为 unknown（未采集）时不覆盖 group 的明确限制（保守）。
+
+    返回 normalize_language_rule 兼容结构 {rule_status, accepted, required}。
+    """
+    from app.loader.henan_language_rule import normalize_language_rule
+
+    # 1. 专业级已核验硬限制语种
+    if major_plan is not None:
+        acc = (getattr(major_plan, "accepted_exam_languages", "") or "").strip()
+        if acc:
+            langs = [a.strip() for a in acc.split("|") if a.strip()]
+            return {"rule_status": "restricted", "accepted": langs,
+                    "required": langs[0] if len(langs) == 1 else None}
+        # 2. remark 解析
+        remark = getattr(major_plan, "remarks", "") or ""
+        rule = normalize_language_rule(remark)
+        if rule["rule_status"] != "unknown":
+            return rule  # 专业级明确规则（restricted/unrestricted）覆盖 group
+
+    # 3. 组级（仅全专业一致组有值）
+    group_accepted = getattr(group, "accepted_exam_languages", None) or []
+    if group_accepted:
+        return {"rule_status": "restricted", "accepted": list(group_accepted),
+                "required": getattr(group, "required_exam_language", None)}
+    # 4. 未知
+    return {"rule_status": "unknown", "accepted": [], "required": None}
+
+
+def check_major_language_eligibility(profile: dict, group, major_plan) -> tuple[str, list[str], list[str]]:
+    """单个专业的语种资格判断（资格链专业级下沉）。
+
+    返回 (status, hard_failures, warnings)：
+      status: "eligible" | "ineligible" | "uncertain"
+        - eligible: 考生语种被接受 / 专业明确不限 / 无限制
+        - ineligible: 专业/组明确限制某语种且不含考生语种（有证据的硬阻断）
+        - uncertain: 语种规则未知（未采集），不能自动杀
+    """
+    lang = profile.get("exam_foreign_language")
+    # 英语考生不受语种限制影响
+    if lang == "英语":
+        return ("eligible", [], [])
+
+    rule = _resolve_major_language_rule(group, major_plan)
+    failures: list[str] = []
+    warnings: list[str] = []
+
+    if rule["rule_status"] == "restricted":
+        accepted = rule["accepted"]
+        required = rule["required"]
+        if required == "英语" and lang != "英语":
+            major_name = getattr(major_plan, "major_name", "") if major_plan else ""
+            failures.append(f"{major_name}专业要求英语语种，{lang}考生不可报"
+                            if major_name else f"要求英语语种，{lang}考生不可报")
+        elif accepted and lang not in accepted:
+            major_name = getattr(major_plan, "major_name", "") if major_plan else ""
+            failures.append(f"{major_name}专业仅接受{'/'.join(accepted)}语种，{lang}考生不可报"
+                            if major_name else f"仅接受{'/'.join(accepted)}语种，{lang}考生不可报")
+        else:
+            return ("eligible", [], [])
+        return ("ineligible", failures, warnings)
+
+    if rule["rule_status"] == "unrestricted":
+        return ("eligible", [], [])
+
+    # unknown：语种规则未采集，保守降级 uncertain（不硬阻，但提示复核）
+    return ("uncertain", [],
+            ["该专业语种要求未采集，无法确认是否符合，建议核实招生章程"])
+
+
+def aggregate_group_eligibility(profile: dict, group, group_plans: list) -> dict:
+    """专业组级资格聚合（资格链专业级下沉，design §8.1/§8.2）。
+
+    先做组级硬过滤（首选/再选科目、体检、专项、单科），通过后逐专业判断语种，
+    最后按"组内是否至少存在一个可报专业"聚合为组级状态。
+
+    返回:
+        {
+            "status": "eligible" | "partially_eligible" | "ineligible" | "uncertain",
+            "blocked_reasons": list[str],      # 组级硬阻断原因（首选/再选/体检/专项）
+            "warnings": list[str],             # 软提示
+            "eligible_majors": list[str],      # 可报专业名
+            "ineligible_majors": list[dict],   # [{major, reasons}] 不可报专业及原因
+            "uncertain_majors": list[str],     # 语种未知专业名
+        }
+    """
+    # ── 第1步：组级硬过滤（非语种，作用于整组）──
+    group_blocked: list[str] = []
+    group_warnings: list[str] = []
+
+    if group.primary_subject_requirement and profile.get("primary_subject") != group.primary_subject_requirement:
+        group_blocked.append(f"首选科目要求{group.primary_subject_requirement}")
+
+    require = (group.elective_subject_requirement or {}).get("require", [])
+    for subject in require:
+        if subject not in profile.get("elective_subjects", []):
+            group_blocked.append(f"再选科目要求包含{subject}")
+
+    # 单科要求（组级）
+    for requirement in group.single_subject_requirements or []:
+        subject = requirement.get("subject")
+        min_score = requirement.get("min_score")
+        if not subject or not isinstance(min_score, int):
+            continue
+        score = _lookup_subject_score(profile, subject)
+        if subject == "英语" and profile.get("exam_foreign_language") != "英语":
+            group_blocked.append(f"英语单科要求 {min_score} 分，非英语语种考生不符合")
+            continue
+        if score is None:
+            group_blocked.append(f"缺少{subject}单科成绩，无法校验最低 {min_score} 分要求")
+            continue
+        if score < min_score:
+            group_blocked.append(f"{subject}单科 {score} 分，未达到最低 {min_score} 分要求")
+
+    # 体检限制（组级）
+    for restriction_text in [group.physical_restrictions or ""]:
+        if not restriction_text:
+            continue
+        if "辨色力异常" in restriction_text and profile.get("color_vision") == "异常":
+            group_blocked.append("辨色力异常不符招生要求")
+        if "身高要求" in restriction_text:
+            required_height = _parse_height_requirement(restriction_text)
+            if required_height and profile.get("height", 0) < required_height:
+                group_blocked.append(f"身高须达到{required_height}cm以上")
+        if "视力要求" in restriction_text and profile.get("vision_corrected") is False:
+            group_blocked.append("视力不符招生要求")
+
+    # 专项类型限制（组级）
+    spec_type = group.special_qualification_type or ""
+    if spec_type:
+        student_quals = profile.get("special_qualifications", [])
+        spec_map = {"高校专项": "高校专项", "地方专项": "地方专项",
+                    "国家专项": "国家专项", "公费师范": "公费师范",
+                    "定向医学生": "定向医学生"}
+        need = spec_map.get(spec_type)
+        if need and need not in student_quals:
+            group_blocked.append(f"须具备{need}资格")
+
+    # 组级硬阻断 → 整组不可报，无需逐专业判断语种
+    if group_blocked:
+        return {"status": "ineligible", "blocked_reasons": group_blocked,
+                "warnings": group_warnings,
+                "eligible_majors": [], "ineligible_majors": [], "uncertain_majors": []}
+
+    # ── 第2步：逐专业语种判断（专业级下沉）──
+    # 建立 major_name → plan 索引
+    plans_by_name = {p.major_name: p for p in group_plans} if group_plans else {}
+    included = group.included_majors or []
+    # 若 included_majors 为空但有 plans，用 plans 的专业名兜底
+    if not included and group_plans:
+        included = list(plans_by_name.keys())
+
+    eligible_majors: list[str] = []
+    ineligible_majors: list[dict] = []
+    uncertain_majors: list[str] = []
+    all_warnings: list[str] = []
+
+    for major_name in included:
+        major_plan = plans_by_name.get(major_name)
+        status, failures, warnings = check_major_language_eligibility(profile, group, major_plan)
+        if status == "eligible":
+            eligible_majors.append(major_name)
+        elif status == "ineligible":
+            ineligible_majors.append({"major": major_name, "reasons": failures})
+        else:  # uncertain
+            uncertain_majors.append(major_name)
+            all_warnings.extend(warnings)
+
+    # 日语公共外语软提示（仅英语考生不受影响，已在上层返回）
+    if profile.get("exam_foreign_language") == "日语":
+        pubfl = group.public_foreign_languages or []
+        if pubfl and "日语" not in pubfl:
+            all_warnings.append(
+                f"英语适应风险：本专业组可录取日语考生，但公共外语仅开{'/'.join(pubfl)}。"
+                "入学后英语课程、四六级、部分学位/留学要求需自行适应，建议英语基础尚可者填报"
+            )
+        elif not pubfl and (eligible_majors or uncertain_majors):
+            # 公共外语语种未提供：只要该组有可报或语种待核的专业（非整组硬阻），就提示数据缺失
+            all_warnings.append("语种数据缺失：未提供公共外语语种，暂无法确认日语考生入学后的课程语种适配")
+
+    # ── 第3步：组级状态聚合（情况A-D）──
+    has_eligible = len(eligible_majors) > 0
+    has_ineligible = len(ineligible_majors) > 0
+    has_uncertain = len(uncertain_majors) > 0
+
+    if has_eligible and has_ineligible:
+        status = "partially_eligible"
+    elif has_eligible and not has_ineligible:
+        status = "eligible"
+    elif not has_eligible and has_ineligible and not has_uncertain:
+        status = "ineligible"
+    elif not has_eligible and has_uncertain:
+        status = "uncertain"
+    else:
+        # 兜底：无 included_majors 且无 plans，无法判断专业级 → 用旧 check_henan_eligibility 兜底
+        ok, blocked, warns = check_henan_eligibility(profile, group)
+        status = "eligible" if ok else "ineligible"
+        group_blocked = blocked
+        all_warnings = warns
+
+    return {"status": status, "blocked_reasons": group_blocked,
+            "warnings": all_warnings,
+            "eligible_majors": eligible_majors, "ineligible_majors": ineligible_majors,
+            "uncertain_majors": uncertain_majors}
+
+
 def check_henan_eligibility(profile: dict, group) -> tuple[bool, list[str], list[str]]:
     """资格先行（design §8.1、§8.2）：首选/再选/语种/体检/专项硬过滤 + 日语软风险提示。
 
@@ -639,16 +889,24 @@ def build_henan_candidates(profile: dict) -> list[dict]:
         if group.track != profile.get("track"):
             continue
 
-        # 资格层
-        ok, blocked, warnings = check_henan_eligibility(profile, group)
-
-        # 2026 计划校验
+        # 2026 计划校验（提前到资格判断之前，供专业级语种聚合用）
         group_plans = plans_by_key.get(
             (group.school_code, group.major_group_code, group.track, group.batch), []
         )
         has_2026_plan = any(p.plan_count > 0 and p.review_status == "verified" for p in group_plans)
         has_verified_group = group.review_status == "verified"
         plan_count = sum(p.plan_count for p in group_plans)
+
+        # 资格层（专业级下沉：语种按专业判断，组级聚合 partially_eligible）
+        agg = aggregate_group_eligibility(profile, group, group_plans)
+        group_elig_status = agg["status"]
+        blocked = agg["blocked_reasons"]
+        warnings = agg["warnings"]
+        eligible_majors = agg["eligible_majors"]
+        ineligible_majors = agg["ineligible_majors"]
+        uncertain_majors = agg["uncertain_majors"]
+        # 兼容旧 ok 语义：ineligible → 不通过；其余（eligible/partially_eligible/uncertain）→ 通过资格门
+        ok = group_elig_status != "ineligible"
 
         # 历史位次基线
         baseline = find_best_historical_baseline(
@@ -745,6 +1003,10 @@ def build_henan_candidates(profile: dict) -> list[dict]:
                     bucket = "需人工复核"
                     eligibility_status = "uncertain"
                 admission_tier = None
+                # 资格链专业级下沉：partially_eligible 组进五档参与排序，
+                # 但 eligibility_status 标记为 partially_eligible（卡片据此展示可报/不可报专业分区）
+                if group_elig_status == "partially_eligible":
+                    eligibility_status = "partially_eligible"
 
         # —— 费用与学校性质（design §4.4/§4.5，问题3/问题4）——
         lead_plan = group_plans[0] if group_plans else None
@@ -857,7 +1119,13 @@ def build_henan_candidates(profile: dict) -> list[dict]:
             "accepted_exam_languages": group.accepted_exam_languages,
             "public_foreign_languages": group.public_foreign_languages,
             # 语种限制结构化标注（日语考生场景）：hard_blocked=不可报 / soft_warning=可报但英语适应风险 / none
-            "language_restriction": _classify_language_restriction(profile, group),
+            "language_restriction": _classify_language_restriction_from_aggregation(
+                profile, group_elig_status, eligible_majors, ineligible_majors),
+            # 资格链专业级下沉（design §8.1/§8.2）：组级资格状态 + 可报/不可报专业明细
+            "group_eligibility_status": group_elig_status,
+            "eligible_majors": eligible_majors,
+            "ineligible_majors": ineligible_majors,
+            "uncertain_majors": uncertain_majors,
             "single_subject_requirements": group.single_subject_requirements,
             "physical_restrictions": group.physical_restrictions or (group_plans[0].physical_restrictions if group_plans else ""),
             "special_qualification_type": group.special_qualification_type or (group_plans[0].special_qualification_type if group_plans else ""),

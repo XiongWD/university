@@ -398,7 +398,7 @@ export interface HenanTargetItem {
   major_group_name?: string;
   bucket: string;            // 搏 / 冲 / 稳 / 保 / 垫 / 不推荐 / 需人工复核
   // 三层状态（design §8.3 重构）
-  eligibility_status?: "eligible" | "ineligible" | "uncertain";
+  eligibility_status?: "eligible" | "partially_eligible" | "ineligible" | "uncertain";
   admission_tier?: "超冲" | "搏" | "冲" | "稳" | "保" | "垫" | null;
   recommendation_status?: "recommended" | "conditional" | "not_recommended";
   data_confidence?: "high" | "medium" | "low";
@@ -436,12 +436,17 @@ export interface HenanTargetItem {
   admission_probability?: number;
   bucket_detail?: BucketDetail;
   // 语种限制（日语考生场景）
-  language_restriction?: { level: "hard_blocked" | "soft_warning" | "missing_data" | "none"; note: string };
+  language_restriction?: { level: "hard_blocked" | "soft_warning" | "missing_data" | "partial" | "none"; note: string };
+  // 资格链专业级下沉（design §8.1/§8.2）：组级资格状态 + 可报/不可报专业明细
+  group_eligibility_status?: "eligible" | "partially_eligible" | "ineligible" | "uncertain";
+  eligible_majors?: string[];
+  ineligible_majors?: { major: string; reasons: string[] }[];
+  uncertain_majors?: string[];
 }
 
 export interface HenanTargetEvaluationResult {
   school_name: string;
-  overall_bucket: string;    // 可评估 / 不推荐
+  overall_bucket: string;    // 可评估 / 部分专业可评估 / 可评估（超冲） / 不推荐
   items: HenanTargetItem[];
   reasons: string[];
   data_ready?: boolean;
