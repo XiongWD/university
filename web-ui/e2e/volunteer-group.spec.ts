@@ -29,6 +29,8 @@ async function submitRecommendation(page: Page) {
   await page.goto("/");
   await page.getByRole("button", { name: /生成志愿表|生成中/ }).click();
   await expect(page.getByText(/共\s*\d+\s*个院校专业组候选/)).toBeVisible({ timeout: 20000 });
+  // 等 dock-count 渲染（确保 store loadGroup 异步完成，避免上个测试残留数据污染）
+  await expect(page.getByTestId("dock-count")).toBeVisible({ timeout: 5000 });
 }
 
 /** dock 数量（testid 定位，唯一稳定） */

@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { GripVertical, MoreVertical, Trash2, RefreshCw, ChevronDown, ChevronRight, Wallet } from "lucide-react";
 import type { UserVolunteerItem } from "../api/types";
 import { useVolunteerStore } from "../store/volunteerStore";
@@ -86,12 +87,12 @@ export default function VolunteerItemRow({ item, index, dragHandleProps }: Props
           >
             <MoreVertical className="w-3.5 h-3.5" />
           </button>
-          {menuOpen && menuPos && (
+          {menuOpen && menuPos && createPortal(
             <>
-              <div className="fixed inset-0 z-40" onClick={() => setMenuOpen(false)} />
+              <div className="fixed inset-0 z-[100]" onClick={() => setMenuOpen(false)} />
               <div
                 data-testid="item-menu-panel"
-                className="fixed z-50 w-44 glass rounded-lg p-1 shadow-xl text-[12px]"
+                className="fixed z-[101] w-44 glass rounded-lg p-1 shadow-xl text-[12px] bg-slate-950/95 ring-1 ring-white/15"
                 style={{ top: menuPos.top, right: menuPos.right }}
               >
                 <div className="px-2 py-1 text-white/40 text-[10px]">规划档位</div>
@@ -126,7 +127,8 @@ export default function VolunteerItemRow({ item, index, dragHandleProps }: Props
                   <Trash2 className="w-3 h-3" />移出志愿组
                 </button>
               </div>
-            </>
+            </>,
+            document.body,
           )}
         </div>
       </div>
