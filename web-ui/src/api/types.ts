@@ -314,6 +314,12 @@ export interface HenanRecommendationResult {
   coverage: Record<string, unknown>;
   data_evidence: Record<string, unknown>;
   buckets: Record<"搏" | "冲" | "稳" | "保" | "垫" | "不推荐" | "需人工复核", HenanTargetItem[]>;
+  classification_pool_counts?: Record<string, number>;  // 分类池原始数量（含超冲，不截断）
+  boundary_rounding_method?: string;                    // round_half_up
+  display_sort_basis?: string;                          // 展示池档内排序依据
+  display_pool_caps?: Record<string, number>;           // 展示池各档上限
+  batch_eligibility?: "eligible" | "ineligible";        // 本科线资格门
+  batch_message?: string;                               // 线下提示
   volunteer_table?: HenanVolunteerTable | null;
   language_restriction_summary?: LanguageRestrictionSummary | null;
 }
@@ -334,12 +340,27 @@ export interface BucketDetail {
   student_rank: number | null;
   adjusted_min_rank: number | null;
   rank_gap_ratio: number | null;
-  admission_probability: number;   // 投档成功率 0-1
+  admission_probability: number;   // 投档成功率 0-1（内部用，展示优先用 risk_level）
+  risk_level?: string;             // 风险等级文字（未经回测，替代精确概率展示）
   baseline_year: number | null;
   baseline_granularity: string | null;
   confidence: number;
   thresholds: Record<string, string>;
   formula: string;
+  // 年度归一化元信息
+  raw_historical_rank?: number | null;
+  normalization_method?: string;
+  normalization_confidence?: string;
+  same_score_reference_rank?: number | null;
+  fallback_reason?: string | null;
+  // 五档整数边界详情（判档/API/前端共用对象，禁止重新计算）
+  tier_detail?: {
+    advantage: number;
+    bounds: {
+      reach_floor: number; reach_sprint: number; sprint_stable: number;
+      stable_safe: number; safe_fallback: number; R: number;
+    };
+  };
 }
 
 // 48 志愿草案（策略感知的配额与排序）
@@ -378,9 +399,13 @@ export interface HenanTargetItem {
   bucket: string;            // 搏 / 冲 / 稳 / 保 / 垫 / 不推荐 / 需人工复核
   // 三层状态（design §8.3 重构）
   eligibility_status?: "eligible" | "ineligible" | "uncertain";
-  admission_tier?: "搏" | "冲" | "稳" | "保" | "垫" | null;
+  admission_tier?: "超冲" | "搏" | "冲" | "稳" | "保" | "垫" | null;
   recommendation_status?: "recommended" | "conditional" | "not_recommended";
   data_confidence?: "high" | "medium" | "low";
+  // 可见性控制（超冲默认隐藏但可手动加入）
+  visibility_status?: "visible" | "hidden_by_default";
+  hide_reason_code?: string | null;
+  can_manually_include?: boolean;
   group_bucket?: string;
   major_bucket?: string;
   rank_gap?: number;

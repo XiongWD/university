@@ -55,21 +55,23 @@ export default function HenanItemCard({ s, bucketKey, index, showCalc }: Props) 
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2 flex-wrap">
             <span className={`text-[11px] font-bold px-1.5 py-0.5 rounded ${
-              bucketKey === "搏" ? "bg-rose-500/20 text-rose-300"
-              : bucketKey === "冲" ? "bg-orange-500/20 text-orange-300"
+              bucketKey === "超冲" ? "bg-rose-500/20 text-rose-300"
+              : bucketKey === "搏" ? "bg-orange-500/20 text-orange-300"
+              : bucketKey === "冲" ? "bg-amber-500/20 text-amber-300"
               : bucketKey === "稳" ? "bg-emerald-500/20 text-emerald-300"
               : bucketKey === "保" ? "bg-sky-500/20 text-sky-300"
               : bucketKey === "垫" ? "bg-indigo-500/20 text-indigo-300"
-              : "bg-amber-500/20 text-amber-300"
+              : "bg-red-500/20 text-red-300"
             }`}>{s.bucket}</span>
-            {/* 投档成功率徽章（problem1）：可达档位才显示 */}
-            {typeof s.admission_probability === "number" && s.admission_probability > 0 && (
+            {/* 风险等级徽章：优先用 risk_level（定性，未经回测不展示精确概率） */}
+            {detail?.risk_level && (
               <span className={`text-[11px] font-bold px-1.5 py-0.5 rounded ${
-                s.admission_probability >= 0.9 ? "bg-sky-500/20 text-sky-300"
-                : s.admission_probability >= 0.6 ? "bg-emerald-500/20 text-emerald-300"
-                : s.admission_probability >= 0.4 ? "bg-amber-500/20 text-amber-300"
-                : "bg-orange-500/20 text-orange-300"
-              }`}>成功率 {Math.round(s.admission_probability * 100)}%</span>
+                bucketKey === "搏" || bucketKey === "超冲" ? "bg-rose-500/15 text-rose-300/90"
+                : bucketKey === "冲" ? "bg-orange-500/15 text-orange-300/90"
+                : bucketKey === "稳" ? "bg-emerald-500/15 text-emerald-300/90"
+                : bucketKey === "保" || bucketKey === "垫" ? "bg-sky-500/15 text-sky-300/90"
+                : "bg-white/10 text-white/60"
+              }`}>{detail.risk_level}</span>
             )}
             <span className="font-bold truncate">{s.school_name}</span>
             <span className="text-[11px] text-white/50">{s.major_group_code} · {s.major_group_name}</span>
@@ -146,10 +148,10 @@ export default function HenanItemCard({ s, bucketKey, index, showCalc }: Props) 
               <div>公式：{detail.formula}</div>
               <div>考生位次 <b className="text-white/70">{fmtRank(detail.student_rank)}</b> − 参考位次 <b className="text-white/70">{fmtRank(detail.adjusted_min_rank)}</b>
                 {detail.baseline_year ? `（${detail.baseline_year}年${fmtBaselineGranularity(detail.baseline_granularity)}）` : ""}</div>
-              <div>位次差比 = <b className={bucketKey === "搏" ? "text-rose-300" : bucketKey === "冲" ? "text-orange-300" : bucketKey === "稳" ? "text-emerald-300" : bucketKey === "垫" ? "text-indigo-300" : "text-sky-300"}>
+              <div>位次差比 = <b className={bucketKey === "超冲" ? "text-rose-300" : bucketKey === "搏" ? "text-orange-300" : bucketKey === "冲" ? "text-amber-300" : bucketKey === "稳" ? "text-emerald-300" : bucketKey === "垫" ? "text-indigo-300" : "text-sky-300"}>
                 {detail.rank_gap_ratio !== null && detail.rank_gap_ratio !== undefined ? `${(detail.rank_gap_ratio * 100).toFixed(1)}%` : "—"}
-              </b> → 判定 <b className="text-white/70">{s.bucket}</b> · 投档成功率 <b className="text-emerald-300">
-                {typeof detail.admission_probability === "number" && detail.admission_probability > 0 ? `${Math.round(detail.admission_probability * 100)}%` : "—"}
+              </b> → 判定 <b className="text-white/70">{s.bucket}</b> · 风险等级 <b className="text-emerald-300">
+                {detail.risk_level ?? "—"}
               </b></div>
               <div className="text-white/35">置信度 {detail.confidence?.toFixed?.(2) ?? detail.confidence}{detail.confidence < 0.7 ? "（&lt;0.7，成功率已打折）" : ""}</div>
             </div>

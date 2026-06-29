@@ -387,6 +387,22 @@ def target_evaluation(req: HenanTargetEvaluationRequest, session: Session = Depe
                 "coverage_notes": ["非全量覆盖：当前请求缺少可用位次，无法进入目标评估。"],
             }
     candidates = build_henan_candidates(profile)
+    # 本科线资格门：低于本科线不生成常规本科目标评估，输出线下提示
+    if profile.get("_batch_ineligible"):
+        gap = profile.get("_batch_gap", 0)
+        undergrad_line = 459
+        return {
+            "school_name": req.target_school,
+            "overall_bucket": "不推荐",
+            "items": [],
+            "reasons": [
+                f"当前成绩 {req.score} 分低于普通本科批控制线 {undergrad_line} 分（差 {gap} 分），"
+                f"不具备常规本科批填报资格。建议重点规划高职专科批，"
+                f"同时关注后续本科征集志愿。"
+            ],
+            "batch_eligibility": "ineligible",
+            **readiness,
+        }
     result = evaluate_target_school(
         profile=profile,
         target_school=req.target_school,

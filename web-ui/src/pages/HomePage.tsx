@@ -417,10 +417,29 @@ export default function HomePage() {
             );
           })()}
 
-          {/* 档位筛选提示 */}
+          {/* 本科线资格门提示 */}
+          {result.batch_eligibility === "ineligible" && result.batch_message && (
+            <div className="glass rounded-xl p-4 border border-red-400/30">
+              <div className="flex items-start gap-2">
+                <AlertCircle className="w-5 h-5 text-red-300 shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-sm text-red-200 font-medium">未达普通本科批控制线</p>
+                  <p className="text-[13px] text-red-200/80 mt-1">{result.batch_message}</p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* 档位筛选提示（含分类池原始数量） */}
           <div className="text-xs text-white/40 px-1">
-            共 {Object.values(result.buckets).reduce((s, l) => s + l.length, 0)} 个院校专业组候选 ·
-            当前显示「{displayBucket}」档位
+            共 {Object.values(result.buckets).reduce((s, l) => s + l.length, 0)} 个院校专业组候选（展示池）·
+            {result.classification_pool_counts && (
+              <span className="text-white/30">
+                {" "}分类池原始：{Object.entries(result.classification_pool_counts)
+                  .filter(([, n]) => n > 0).map(([k, n]) => `${k}:${n}`).join(" · ")}
+              </span>
+            )}
+            {" · "}当前显示「{displayBucket}」档位
           </div>
 
           {/* 可达 buckets（冲/稳/保/需人工复核）：始终展示。选档位时锚定到对应区 */}

@@ -50,9 +50,9 @@ def test_target_evaluation_returns_not_recommended_for_unreachable_school():
 
     assert response.status_code == 200
     body = response.json()
-    # 位次差极大（advantage≈-82000，超-20%R阈值）→ 归需人工复核/不推荐（匹配度过低）
-    # 不再因位次差判"不推荐"（资格不符），但差太远也不判"搏"
-    assert body["overall_bucket"] in {"不推荐", "需人工复核"}
+    # 位次差极大（advantage≈-82000，超-20%R阈值）→ 超冲（可评估超冲，如实告知差距大）
+    # 用户主动查该校应看到超冲信息，不再笼统判"不推荐"
+    assert body["overall_bucket"] in {"可评估（超冲）", "不推荐", "需人工复核"}
     assert body["coverage_status"] in {"pilot_ready", "production_ready", "not_ready"}
     assert "pilot_ready" in body
     assert "production_ready" in body

@@ -121,20 +121,34 @@ def evaluate_target_school(
         for item in scoped
         if item.get("qualified", True) and item.get("bucket") in REACHABLE_BUCKETS
     ]
+    # 超冲候选（资格eligible但门槛明显过高）：用户主动查该校时应如实展示差距信息
+    extreme_reach = [
+        item for item in scoped
+        if item.get("qualified", True) and item.get("bucket") == "超冲"
+    ]
 
-    # 无任何可达专业/专业组 → 院校级不推荐（design §9.3）
-    if not reachable:
-        reasons = _summarize_unreachable_reasons(profile, scoped)
+    # 有五档可达 → 可评估
+    if reachable:
         return {
             "school_name": target_school,
-            "overall_bucket": "不推荐",
-            "items": [],
-            "reasons": reasons,
+            "overall_bucket": "可评估",
+            "items": reachable,
+            "reasons": [],
+        }
+    # 仅有超冲（无五档可达）→ 可评估（超冲），如实告知差距大
+    if extreme_reach:
+        return {
+            "school_name": target_school,
+            "overall_bucket": "可评估（超冲）",
+            "items": extreme_reach,
+            "reasons": ["目标院校录取门槛明显高于当前位次（超冲），录取希望较低，建议谨慎"],
         }
 
+    # 无任何可达（含超冲）→ 院校级不推荐（design §9.3）
+    reasons = _summarize_unreachable_reasons(profile, scoped)
     return {
         "school_name": target_school,
-        "overall_bucket": "可评估",
-        "items": reachable,
-        "reasons": [],
+        "overall_bucket": "不推荐",
+        "items": [],
+        "reasons": reasons,
     }

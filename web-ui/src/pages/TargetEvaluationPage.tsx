@@ -12,13 +12,15 @@ const ELECTIVES = ["物理", "化学", "生物", "政治", "历史", "地理"];
 
 // 冲稳保垫档位配色（与首页一致）
 const BUCKET_STYLE: Record<string, string> = {
-  搏: "bg-rose-500/20 text-rose-300",
-  冲: "bg-orange-500/20 text-orange-300",
+  超冲: "bg-rose-500/20 text-rose-300",
+  搏: "bg-orange-500/20 text-orange-300",
+  冲: "bg-amber-500/20 text-amber-300",
   稳: "bg-emerald-500/20 text-emerald-300",
   保: "bg-sky-500/20 text-sky-300",
   垫: "bg-indigo-500/20 text-indigo-300",
   不推荐: "bg-red-700/30 text-red-200",
   可评估: "bg-white/15 text-white/80",
+  "可评估（超冲）": "bg-rose-500/15 text-rose-200",
 };
 
 function BucketBadge({ bucket }: { bucket: string }) {
@@ -343,16 +345,19 @@ export default function TargetEvaluationPage() {
                 </p>
               </div>
             ) : (
-              <p className="text-sm text-white/70">
-                共评估 {result.items.length} 个可达专业/专业组，按冲稳保档位列出。
-              </p>
+              <div className="text-sm text-white/70 space-y-1">
+                <p>共评估 {result.items.length} 个专业/专业组，按冲稳保垫档位列出。</p>
+                {result.reasons && result.reasons.length > 0 && (
+                  <p className="text-rose-300/80 text-[13px]">⚠ {result.reasons.join("；")}</p>
+                )}
+              </div>
             )}
           </div>
 
           {/* 按冲稳保分组：单校聚合卡片（学校共性信息只显示一次，专业组作为子表） */}
           {result.items.length > 0 && (
             <div className="space-y-3">
-              {(["搏", "冲", "稳", "保", "垫"] as const).map((bucket) => {
+              {(["超冲", "搏", "冲", "稳", "保", "垫"] as const).map((bucket) => {
                 const items = result.items.filter((it) => it.bucket === bucket);
                 if (items.length === 0) return null;
                 return (
