@@ -407,6 +407,7 @@ export interface HenanTargetEvaluationRequest {
 
 export interface HenanTargetItem {
   school_name: string;
+  school_code?: string;       // 院校代码（后端 candidate dict 输出，加入志愿组用）
   major_name: string;
   major_group_code: string;
   major_group_name?: string;
@@ -517,4 +518,81 @@ export interface AITargetEvaluationRequest {
 export interface SSEChunk {
   delta?: string;
   error?: string;
+}
+
+// ============================================================================
+// 我的志愿组（志愿编排工作台）
+// ============================================================================
+
+/** 志愿项（院校专业组）。双轨档位：algorithm_at_add 审计 + latest_algorithm GET重算 + planned 用户规划 */
+export interface UserVolunteerItem {
+  id: number;
+  group_id: number;
+  school_code: string;
+  school_name: string;
+  major_group_code: string;
+  major_group_name: string;
+  algorithm_tier_at_add: string;    // 添加时算法档位（审计快照）
+  latest_algorithm_tier: string;    // GET 重算的当前档位
+  algorithm_changed: boolean;       // 当前 != 添加时（提示用）
+  planned_tier: string | null;      // 用户规划档位（搏/冲/稳/保/垫）；null=用算法档
+  effective_tier: string;           // planned or latest（展示/统计用）
+  sort_order: number;
+  eligibility_status: "eligible" | "partially_eligible" | "ineligible" | "uncertain";
+  is_henan_local?: boolean | null;
+  school_ownership?: string | null;
+  four_year_total?: number | null;
+}
+
+export interface StructureHint {
+  code: string;
+  message: string;
+  severity: "info" | "warning";
+}
+
+export interface VolunteerStats {
+  total: number;
+  by_effective_tier: Record<string, number>;
+  by_algorithm_tier: Record<string, number>;
+  local_count: number;
+  out_of_province_count: number;
+  public_count: number;
+  private_count: number;
+  structure_hints: StructureHint[];
+}
+
+export interface UserVolunteerGroup {
+  id: number;
+  owner_key: string;
+  name: string;
+  version: number;
+  manually_reordered: boolean;
+  profile_snapshot: Record<string, unknown>;
+  items: UserVolunteerItem[];
+  stats: VolunteerStats;
+}
+
+/** 添加志愿请求（仅传稳定标识 + 考生档案，服务端重新校验） */
+export interface AddVolunteerItemRequest {
+  school_code: string;
+  major_group_code: string;
+  profile: Record<string, unknown>;
+}
+
+/** 原子布局更新（跨档拖拽专用） */
+export interface LayoutItem {
+  item_id: number;
+  planned_tier: string | null;
+  sort_order: number;
+}
+export interface ApplyLayoutRequest {
+  items: LayoutItem[];
+  version: number;
+}
+
+/** 409 冲突响应 */
+export interface ConflictResponse {
+  error: "version_conflict";
+  message: string;
+  latest_group?: UserVolunteerGroup;
 }

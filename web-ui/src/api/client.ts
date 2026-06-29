@@ -25,6 +25,10 @@ import type {
   AIRecommendationRequest,
   AITargetEvaluationRequest,
   SSEChunk,
+  UserVolunteerGroup,
+  AddVolunteerItemRequest,
+  ApplyLayoutRequest,
+  ConflictResponse,
 } from "./types";
 
 const BASE = "/api/v1";
@@ -224,4 +228,71 @@ export function streamAiEvaluate(
   signal?: AbortSignal,
 ): AsyncGenerator<SSEChunk, void, undefined> {
   return streamSSE("/henan/ai/evaluate", req, signal);
+}
+
+// ============================================================================
+// 我的志愿组（志愿编排工作台）
+// ============================================================================
+
+/** 志愿组操作结果：成功返回 group，409 冲突返回 ConflictResponse（含最新 group） */
+export type VolunteerResult =
+  | { ok: true; group: UserVolunteerGroup }
+  | { ok: false; conflict: ConflictResponse };
+
+/** 统一处理志愿组写操作：200→成功，409→冲突（带最新group），其他→抛 ApiError */
+async function volunteerRequest(path: string, init: RequestInit): Promise<VolunteerResult> {
+  const res = await fetch(`${BASE}${path}`, {
+    headers: { "Content-Type": "application/json" },
+    ...init,
+  });
+  if (res.status === 409) {
+    const body = (await res.json().catch(() => ({}))) as ConflictResponse;
+    return { ok: false, conflict: body };
+  }
+  if (!res.ok) {
+    const text = await res.text().catch(() => res.statusText);
+    throw new ApiError(text || `请求失败 (${res.status})`, res.status);
+  }
+  const group = (await res.json()) as UserVolunteerGroup;
+  return { ok: true, group };
+}
+
+/** GET /my-volunteers — 获取志愿组（重算 latest_algorithm_tier + stats） */
+export function getMyVolunteers(): Promise<UserVolunteerGroup> {
+  return request<UserVolunteerGroup>("/my-volunteers");
+}
+
+/** POST /my-volunteers/items — 添加志愿（服务端重新校验） */
+export function addVolunteerItem(req: AddVolunteerItemRequest): Promise<VolunteerResult> {
+  return volunteerRequest("/my-volunteers/items", {
+    method: "POST", body: JSON.stringify(req),
+  });
+}
+
+/** PATCH /my-volunteers/layout — 原子布局更新（跨档拖拽专用） */
+export function applyVolunteerLayout(req: ApplyLayoutRequest): Promise<VolunteerResult> {
+  return volunteerRequest("/my-volunteers/layout", {
+    method: "PATCH", body: JSON.stringify(req),
+  });
+}
+
+/** PATCH /my-volunteers/items/{id}/tier — 单改规划档位（null=恢复算法档） */
+export function updateVolunteerTier(itemId: number, plannedTier: string | null, version: number): Promise<VolunteerResult> {
+  return volunteerRequest(`/my-volunteers/items/${itemId}/tier`, {
+    method: "PATCH", body: JSON.stringify({ planned_tier: plannedTier, version }),
+  });
+}
+
+/** DELETE /my-volunteers/items/{id} — 删除单个志愿（version 走 query） */
+export function deleteVolunteerItem(itemId: number, version: number): Promise<VolunteerResult> {
+  return volunteerRequest(`/my-volunteers/items/${itemId}?version=${version}`, {
+    method: "DELETE",
+  });
+}
+
+/** POST /my-volunteers/clear — 清空全部 */
+export function clearVolunteers(version: number): Promise<VolunteerResult> {
+  return volunteerRequest("/my-volunteers/clear", {
+    method: "POST", body: JSON.stringify({ confirm: true, version }),
+  });
 }
