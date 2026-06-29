@@ -50,13 +50,13 @@ def test_2025_group_level_rank_returned_when_major_level_missing():
         history, school_code="10459", group_code="101", major_names=["法学"],
         track="历史类", batch="本科批",
     )
-    # 2025 组级存在 → 直接返回，不走加权
-    assert baseline["adjusted_min_rank"] == 20000
-    assert baseline["data_granularity"] == "major_group"
+    # 2025+2024 组级都在 → 用加权趋势（20000*0.7 + 22000*0.3 = 20600），比单年更稳定
+    assert baseline["adjusted_min_rank"] == 20600
+    assert baseline["data_granularity"] == "major_group_trend"
 
 
 def test_2025_2024_weighted_trend_only_when_2025_group_missing():
-    """2024 单年同校历史在无 2025 命中时，应退化为推断校级兜底。"""
+    """仅有 2024 专业组级时，应直接用 2024 专业组级（比校级精确）。"""
     history = [
         _hist(year=2024, min_rank=22000, data_granularity="major_group", major_name=None),
     ]
@@ -67,7 +67,7 @@ def test_2025_2024_weighted_trend_only_when_2025_group_missing():
     assert baseline is not None
     assert baseline["adjusted_min_rank"] == 22000
     assert baseline["year"] == 2024
-    assert baseline["data_granularity"] == "school_inferred"
+    assert baseline["data_granularity"] == "major_group"
 
 
 def test_missing_verified_history_returns_none():

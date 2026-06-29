@@ -126,7 +126,8 @@ _HISTORY_INDEX_KEY: tuple[int, int] | None = None
 def _build_history_index(history: list[HenanAdmissionHistory]) -> dict:
     """建立历史录取的预索引，加速 find_best_historical_baseline。"""
     global _HISTORY_INDEX, _HISTORY_INDEX_KEY
-    cache_key = (id(history), len(history))
+    # 缓存键用首个元素的 id + 长度，避免测试间不同 history 对象因 id 复用而命中错误缓存
+    cache_key = (id(history[0]) if history else 0, len(history))
     if _HISTORY_INDEX is not None and _HISTORY_INDEX_KEY == cache_key:
         return _HISTORY_INDEX
 
@@ -195,7 +196,7 @@ def find_best_historical_baseline(
             "data_granularity": "school_inferred",
         }
 
-    # 1. 2025 专业级
+    # 1. 2025 专业级（最精确，单年即可定）
     for h in same_school_track:
         if h.year == 2025 and h.data_granularity == "major" and h.major_name in major_names:
             rank = _verified_rank(h)
@@ -203,15 +204,7 @@ def find_best_historical_baseline(
                 return {"adjusted_min_rank": rank, "year": 2025,
                         "review_status": h.review_status, "data_granularity": "major"}
 
-    # 2. 2025 专业组级
-    for h in same_school_track:
-        if h.year == 2025 and h.data_granularity == "major_group" and h.major_group_code == group_code:
-            rank = _verified_rank(h)
-            if rank:
-                return {"adjusted_min_rank": rank, "year": 2025,
-                        "review_status": h.review_status, "data_granularity": "major_group"}
-
-    # 3. 2025+2024 加权趋势（专业组级两组都有）
+    # 2. 2025+2024 专业组级加权趋势（两年都有时优先用，比单年更稳定）
     r2025 = next((_verified_rank(h) for h in same_school_track
                   if h.year == 2025 and h.data_granularity == "major_group"
                   and h.major_group_code == group_code), None)
@@ -219,12 +212,22 @@ def find_best_historical_baseline(
                   if h.year == 2024 and h.data_granularity == "major_group"
                   and h.major_group_code == group_code), None)
     if r2025 and r2024:
-        # 2025 权重 0.7，2024 权重 0.3
+        # 2025 权重 0.7，2024 权重 0.3（近年权重更高，但纳入历史趋势降噪）
         weighted = round(r2025 * 0.7 + r2024 * 0.3)
         return {"adjusted_min_rank": weighted, "year": 2025,
                 "review_status": "verified", "data_granularity": "major_group_trend"}
 
-    # 4. 2025 校级兜底（低置信）
+    # 3. 仅 2025 专业组级（2024 缺失时的单年兜底）
+    if r2025:
+        return {"adjusted_min_rank": r2025, "year": 2025,
+                "review_status": "verified", "data_granularity": "major_group"}
+
+    # 4. 仅 2024 专业组级（2025 缺失时用上一年，比校级精确）
+    if r2024:
+        return {"adjusted_min_rank": r2024, "year": 2024,
+                "review_status": "verified", "data_granularity": "major_group"}
+
+    # 5. 2025 校级兜底（低置信）
     for h in same_school_track:
         if h.year == 2025 and h.data_granularity in ("school", "school_batch") and not h.major_group_code:
             rank = _verified_rank(h)
