@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { GripVertical, MoreVertical, Trash2, RefreshCw, ChevronDown, ChevronRight, Wallet } from "lucide-react";
 import type { UserVolunteerItem } from "../api/types";
 import { useVolunteerStore } from "../store/volunteerStore";
@@ -18,6 +18,18 @@ export default function VolunteerItemRow({ item, index, dragHandleProps }: Props
   const requestDelete = useVolunteerStore((s) => s.requestDelete);
   const [menuOpen, setMenuOpen] = useState(false);
   const [expanded, setExpanded] = useState(false);
+  // 菜单 fixed 定位（脱离 Dock overflow 容器，防裁剪看不见）
+  const menuBtnRef = useRef<HTMLButtonElement>(null);
+  const [menuPos, setMenuPos] = useState<{ top: number; right: number } | null>(null);
+
+  const openMenu = () => {
+    const rect = menuBtnRef.current?.getBoundingClientRect();
+    if (rect) {
+      // 菜单宽 176px(w-44)，右对齐按钮右边缘，顶部在按钮下方
+      setMenuPos({ top: rect.bottom + 4, right: window.innerWidth - rect.right });
+    }
+    setMenuOpen((v) => !v);
+  };
 
   const tierStyle = TIER_STYLE[item.effective_tier] ?? "bg-white/10 text-white/50";
   const ownership = item.school_ownership ?? "";
@@ -62,21 +74,26 @@ export default function VolunteerItemRow({ item, index, dragHandleProps }: Props
         {partialElig && (
           <span className="text-[10px] px-1 py-0.5 rounded bg-amber-500/15 text-amber-200/80 shrink-0">部分可报</span>
         )}
-        {/* 更多菜单 */}
+        {/* 更多菜单（fixed 定位，脱离 Dock overflow 容器，防裁剪看不见） */}
         <div className="relative ml-auto shrink-0">
           <button
             type="button"
             data-testid="item-menu"
-            onClick={() => setMenuOpen((v) => !v)}
+            ref={menuBtnRef}
+            onClick={openMenu}
             className="text-white/30 hover:text-white/60 p-0.5"
             aria-label="更多操作"
           >
             <MoreVertical className="w-3.5 h-3.5" />
           </button>
-          {menuOpen && (
+          {menuOpen && menuPos && (
             <>
               <div className="fixed inset-0 z-40" onClick={() => setMenuOpen(false)} />
-              <div className="absolute right-0 top-6 z-50 w-44 glass rounded-lg p-1 shadow-xl text-[12px]">
+              <div
+                data-testid="item-menu-panel"
+                className="fixed z-50 w-44 glass rounded-lg p-1 shadow-xl text-[12px]"
+                style={{ top: menuPos.top, right: menuPos.right }}
+              >
                 <div className="px-2 py-1 text-white/40 text-[10px]">规划档位</div>
                 {PLANNABLE_TIERS.map((t) => (
                   <button
