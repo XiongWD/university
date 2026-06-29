@@ -79,6 +79,7 @@ export default function VolunteerItemRow({ item, index, dragHandleProps, compact
       <div className="relative shrink-0">
         <button
           type="button"
+          data-testid="item-menu"
           onClick={() => setMenuOpen((v) => !v)}
           className="text-white/30 hover:text-white/60 p-0.5"
           aria-label="更多操作"
@@ -122,6 +123,7 @@ export default function VolunteerItemRow({ item, index, dragHandleProps, compact
               <div className="border-t border-white/10 my-1" />
               <button
                 type="button"
+                data-testid="remove-item"
                 onClick={() => {
                   requestDelete(item.id);
                   setMenuOpen(false);

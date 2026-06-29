@@ -1,0 +1,212 @@
+import { test, expect, type Page } from "@playwright/test";
+
+// 我的志愿组（志愿编排工作台）端到端验收。
+// 前置：后端 8000（含 my-volunteers 路由）+ 前端 5173 已启动。
+// UI 元素用 data-testid 定位（稳定），关键状态用 API 验证。
+
+const BACKEND = "http://127.0.0.1:8000/api/v1/my-volunteers";
+const PROFILE = {
+  source_province: "河南", score: 480, rank: 60000, track: "历史类",
+  primary_subject: "历史", elective_subjects: ["政治", "地理"], exam_foreign_language: "日语",
+};
+
+async function clearGroup() {
+  const res = await fetch(`${BACKEND}`);
+  const g = await res.json();
+  await fetch(`${BACKEND}/clear`, {
+    method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ confirm: true, version: g.version }),
+  });
+}
+
+async function getItemCount(): Promise<number> {
+  const res = await fetch(`${BACKEND}`);
+  const g = await res.json();
+  return g.items?.length ?? 0;
+}
+
+async function submitRecommendation(page: Page) {
+  await page.goto("/");
+  await page.getByRole("button", { name: /生成志愿表|生成中/ }).click();
+  await expect(page.getByText(/共\s*\d+\s*个院校专业组候选/)).toBeVisible({ timeout: 20000 });
+}
+
+/** dock 数量（testid 定位，唯一稳定） */
+const dockCount = (page: Page) => page.getByTestId("dock-count");
+
+test.describe("我的志愿组（志愿编排工作台）", () => {
+  test.beforeEach(async () => { await clearGroup(); });
+
+  test("提交推荐后显示志愿组悬浮窗", async ({ page }) => {
+    await submitRecommendation(page);
+    await expect(page.getByText("我的志愿组").first()).toBeVisible();
+    await expect(dockCount(page)).toContainText("0/48");
+  });
+
+  test("点击「加入志愿组」加入第一个志愿", async ({ page }) => {
+    const vBefore = (await (await fetch(`${BACKEND}`)).json()).version;
+    await submitRecommendation(page);
+    await page.getByTestId("add-volunteer").first().click();
+    await expect(page.getByText("已加入志愿组")).toBeVisible({ timeout: 5000 });
+    await expect(dockCount(page)).toContainText("1/48", { timeout: 5000 });
+    await expect.poll(() => getItemCount(), { timeout: 5000 }).toBe(1);
+    const vAfter = (await (await fetch(`${BACKEND}`)).json()).version;
+    expect(vAfter).toBe(vBefore + 1);  // version 递增
+  });
+
+  test("已加入的志愿显示「已加入」标记", async ({ page }) => {
+    await submitRecommendation(page);
+    await page.getByTestId("add-volunteer").first().click();
+    await expect(page.getByText("已加入志愿组")).toBeVisible();
+    await expect(page.getByTestId("added-badge").first()).toBeVisible({ timeout: 5000 });
+  });
+
+  test("同一院校专业组不重复添加", async ({ page }) => {
+    await submitRecommendation(page);
+    await page.getByTestId("add-volunteer").first().click();
+    await expect(page.getByText("已加入志愿组")).toBeVisible();
+    await expect.poll(() => getItemCount(), { timeout: 5000 }).toBe(1);
+    const res = await fetch(`${BACKEND}`);
+    const g = await res.json();
+    const codes = g.items.map((it: { school_code: string; major_group_code: string }) =>
+      `${it.school_code}-${it.major_group_code}`);
+    expect(new Set(codes).size).toBe(codes.length);
+  });
+
+  test("资格不符的卡片显示「不可加入」（ineligible 不可加入志愿组）", async ({ page }) => {
+    await submitRecommendation(page);
+    // 展开「不推荐」折叠区
+    await page.getByRole("button", { name: /查看不可达院校/ }).click();
+    // ineligible 卡片显示「不可加入」标记（非按钮）
+    await expect(page.getByTestId("add-disabled").first()).toBeVisible({ timeout: 8000 });
+    // API 层双重验证：ineligible 院校专业组加入被服务端拒绝
+    const res = await fetch(`${BACKEND}/items`, {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ school_code: "NOTEXIST", major_group_code: "999", profile: PROFILE }),
+    });
+    expect(res.status).toBe(400);
+  });
+
+  test("志愿编排页显示已加入的志愿", async ({ page }) => {
+    await fetch(`${BACKEND}/items`, {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ school_code: "2535", major_group_code: "759266", profile: PROFILE }),
+    });
+    await page.goto("/my-groups");
+    await expect(page.getByRole("heading", { name: "志愿编排" })).toBeVisible();
+    await expect(page.getByText("哈尔滨石油学院", { exact: true }).first()).toBeVisible({ timeout: 15000 });
+    expect(await getItemCount()).toBe(1);
+  });
+
+  test("志愿编排页分区显示档位标题", async ({ page }) => {
+    await fetch(`${BACKEND}/items`, {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ school_code: "2535", major_group_code: "759266", profile: PROFILE }),
+    });
+    await page.goto("/my-groups");
+    await expect(page.getByText("哈尔滨石油学院", { exact: true }).first()).toBeVisible({ timeout: 15000 });
+    await expect(page.getByRole("heading", { name: /垫档/ })).toBeVisible();
+  });
+
+  test("加入 2 个志愿后悬浮窗显示数量", async ({ page }) => {
+    await fetch(`${BACKEND}/items`, {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ school_code: "2535", major_group_code: "759266", profile: PROFILE }),
+    });
+    const rec = await fetch("http://127.0.0.1:8000/api/v1/henan/recommendation", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(PROFILE),
+    });
+    const recData = await rec.json();
+    const second = recData.buckets["垫"]?.find(
+      (it: { school_code: string; major_group_code: string }) => it.school_code !== "2535",
+    );
+    if (second) {
+      await fetch(`${BACKEND}/items`, {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ school_code: second.school_code, major_group_code: second.major_group_code, profile: PROFILE }),
+      });
+    }
+    await submitRecommendation(page);
+    await expect(dockCount(page)).toContainText("2/48", { timeout: 10000 });
+    expect(await getItemCount()).toBe(2);
+  });
+
+  test("清空志愿组（悬浮窗）", async ({ page }) => {
+    await fetch(`${BACKEND}/items`, {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ school_code: "2535", major_group_code: "759266", profile: PROFILE }),
+    });
+    await submitRecommendation(page);
+    await expect(dockCount(page)).toContainText("1/48", { timeout: 10000 });
+    await page.locator('button[aria-label="清空"]').click();
+    await page.waitForTimeout(300);
+    await page.getByTestId("confirm-clear").click();
+    await expect(page.getByText("已清空志愿组")).toBeVisible({ timeout: 5000 });
+    await expect.poll(() => getItemCount(), { timeout: 5000 }).toBe(0);
+  });
+
+  test("移出志愿组后显示撤销，点击撤销恢复", async ({ page }) => {
+    await fetch(`${BACKEND}/items`, {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ school_code: "2535", major_group_code: "759266", profile: PROFILE }),
+    });
+    await submitRecommendation(page);
+    await expect(dockCount(page)).toContainText("1/48", { timeout: 10000 });
+    await page.getByTestId("item-menu").first().click();
+    await page.waitForTimeout(300);
+    await page.getByTestId("remove-item").click();
+    await expect(page.getByTestId("undo-delete")).toBeVisible({ timeout: 5000 });
+    await expect(dockCount(page)).toContainText("0/48", { timeout: 5000 });
+    await page.getByTestId("undo-delete").click();
+    await expect(page.getByText("已撤销删除")).toBeVisible({ timeout: 5000 });
+    await expect(dockCount(page)).toContainText("1/48", { timeout: 5000 });
+  });
+
+  test("移出志愿组 5 秒后真正删除（API 验证）", async ({ page }) => {
+    test.setTimeout(20000);
+    await fetch(`${BACKEND}/items`, {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ school_code: "2535", major_group_code: "759266", profile: PROFILE }),
+    });
+    await submitRecommendation(page);
+    await page.getByTestId("item-menu").first().click();
+    await page.waitForTimeout(300);
+    await page.getByTestId("remove-item").click();
+    await expect(page.getByTestId("undo-delete")).toBeVisible({ timeout: 5000 });
+    await expect(dockCount(page)).toContainText("0/48", { timeout: 5000 });
+    await expect.poll(() => getItemCount(), { timeout: 9000 }).toBe(0);
+  });
+
+  test("刷新页面后志愿组数据恢复（服务端持久化）", async ({ page }) => {
+    await fetch(`${BACKEND}/items`, {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ school_code: "2535", major_group_code: "759266", profile: PROFILE }),
+    });
+    await submitRecommendation(page);
+    await expect(dockCount(page)).toContainText("1/48", { timeout: 10000 });
+    await expect(page.getByText("哈尔滨石油学院", { exact: true }).first()).toBeVisible({ timeout: 10000 });
+    await page.reload();
+    await submitRecommendation(page);
+    await expect(page.getByText("哈尔滨石油学院", { exact: true }).first()).toBeVisible({ timeout: 10000 });
+    await expect(dockCount(page)).toContainText("1/48", { timeout: 10000 });
+  });
+
+  test("导航到志愿编排页", async ({ page }) => {
+    await page.goto("/");
+    await page.getByRole("link", { name: /志愿编排/ }).click();
+    await expect(page).toHaveURL(/\/my-groups/);
+    await expect(page.getByRole("heading", { name: "志愿编排" })).toBeVisible();
+  });
+
+  test("切换页面后悬浮窗仍常驻", async ({ page }) => {
+    await fetch(`${BACKEND}/items`, {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ school_code: "2535", major_group_code: "759266", profile: PROFILE }),
+    });
+    await submitRecommendation(page);
+    await expect(dockCount(page)).toContainText("1/48", { timeout: 10000 });
+    await page.getByRole("link", { name: /位次工具/ }).click();
+    await expect(page.getByText("我的志愿组").first()).toBeVisible({ timeout: 5000 });
+  });
+});

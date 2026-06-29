@@ -95,12 +95,12 @@ export default function VolunteerDock() {
   }
 
   return (
-    <div className="hidden md:flex fixed right-3 top-24 z-30 w-[380px] max-w-[calc(100vw-1.5rem)] max-h-[75vh] flex-col rounded-2xl bg-slate-950/85 shadow-2xl shadow-black/30 ring-1 ring-white/10 backdrop-blur-md">
+    <div data-testid="volunteer-dock" className="hidden md:flex fixed right-3 top-24 z-30 w-[380px] max-w-[calc(100vw-1.5rem)] max-h-[75vh] flex-col rounded-2xl bg-slate-950/85 shadow-2xl shadow-black/30 ring-1 ring-white/10 backdrop-blur-md">
       {/* 顶部标题 + 折叠 */}
       <div className="flex items-center gap-2 p-3 border-b border-white/10">
         <Layers className="w-4 h-4 text-indigo-300 shrink-0" />
         <span className="font-bold text-sm text-white/90">我的志愿组</span>
-        <span className="text-[11px] text-white/40">{items.length}/48</span>
+        <span data-testid="dock-count" className="text-[11px] text-white/40">{items.length}/48</span>
         <button
           type="button"
           onClick={() => setCollapsed(true)}
@@ -175,6 +175,7 @@ export default function VolunteerDock() {
             <button
               key={id}
               type="button"
+              data-testid="undo-delete"
               onClick={() => useVolunteerStore.getState().undoDelete(Number(id))}
               className="w-full text-[11px] text-sky-300/80 hover:text-sky-200 text-left truncate"
             >
@@ -198,6 +199,7 @@ export default function VolunteerDock() {
             <>
               <button
                 type="button"
+                data-testid="confirm-clear"
                 onClick={() => { void clearAll(); setConfirmClear(false); }}
                 className="text-[11px] px-2 py-2 rounded-lg bg-red-500/25 text-red-200 hover:bg-red-500/35"
               >

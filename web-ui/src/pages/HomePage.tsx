@@ -18,14 +18,14 @@ function AddVolunteerButton({ item, profile }: { item: HenanTargetItem; profile:
 
   if (ineligible) {
     return (
-      <span className="absolute top-2 right-2 text-[10px] px-1.5 py-0.5 rounded bg-red-500/15 text-red-300/60 pointer-events-none">
+      <span data-testid="add-disabled" className="absolute top-2 right-2 text-[10px] px-1.5 py-0.5 rounded bg-red-500/15 text-red-300/60 pointer-events-none">
         不可加入
       </span>
     );
   }
   if (isAdded) {
     return (
-      <span className="absolute top-2 right-2 text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 flex items-center gap-0.5">
+      <span data-testid="added-badge" className="absolute top-2 right-2 text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 flex items-center gap-0.5">
         <Check className="w-3 h-3" />已加入
       </span>
     );
@@ -33,6 +33,7 @@ function AddVolunteerButton({ item, profile }: { item: HenanTargetItem; profile:
   return (
     <button
       type="button"
+      data-testid="add-volunteer"
       disabled={saving}
       onClick={(e) => {
         e.stopPropagation();
@@ -571,7 +572,10 @@ export default function HomePage() {
                 {showRejected && (
                   <div className="space-y-2">
                     {rejected.map((s, i) => (
-                      <HenanItemCard key={`${s.school_name}-${i}`} s={s} bucketKey="不推荐" index={i} showCalc />
+                      <div key={`${s.school_name}-${i}`} className="relative">
+                        <HenanItemCard s={s} bucketKey="不推荐" index={i} showCalc />
+                        <AddVolunteerButton item={s} profile={currentProfile} />
+                      </div>
                     ))}
                   </div>
                 )}
