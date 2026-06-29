@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, type CSSProperties } from "react";
 import {
   DndContext, PointerSensor, useSensor, useSensors, closestCenter, type DragEndEvent,
 } from "@dnd-kit/core";
@@ -21,16 +21,21 @@ import type { LayoutItem, UserVolunteerItem } from "../api/types";
  * 移动端：本组件 hidden md:block，移动端用底部抽屉（MyGroupsPage 或独立组件）
  */
 
-/** 可拖拽包装行（dnd-kit useSortable） */
+/** 可拖拽包装行（dnd-kit useSortable）。拖拽中浮起高亮，不变透明（防看不见） */
 function SortableRow({ item, index }: { item: UserVolunteerItem; index: number }) {
   const { setNodeRef, attributes, listeners, transform, transition, isDragging } = useSortable({ id: item.id });
-  const style = {
+  // 拖拽视觉：提升层级 + 阴影浮起 + 略放大，保持完全可见（不用透明度，避免看不见）
+  const style: CSSProperties = {
     transform: CSS.Transform.toString(transform),
     transition,
-    opacity: isDragging ? 0.5 : 1,
+    opacity: 1,
+    zIndex: isDragging ? 50 : "auto",
+    position: isDragging ? "relative" : "static",
+    boxShadow: isDragging ? "0 8px 24px rgba(0,0,0,0.4)" : "none",
+    scale: isDragging ? "1.02" : "1",
   };
   return (
-    <div ref={setNodeRef} style={style}>
+    <div ref={setNodeRef} style={style} className={isDragging ? "rounded-lg ring-2 ring-indigo-400/50" : ""}>
       <VolunteerItemRow item={item} index={index} dragHandleProps={{ ...attributes, ...listeners }} />
     </div>
   );
