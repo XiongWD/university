@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Layers, X, ChevronRight } from "lucide-react";
 import { useVolunteerStore } from "../store/volunteerStore";
 import { TIER_STYLE } from "./volunteerTier";
@@ -12,7 +11,6 @@ import { TIER_STYLE } from "./volunteerTier";
 export default function MobileVolunteerBar() {
   const group = useVolunteerStore((s) => s.group);
   const [open, setOpen] = useState(false);
-  const navigate = useNavigate();
 
   const items = group?.items ?? [];
   const stats = group?.stats;
@@ -68,10 +66,10 @@ export default function MobileVolunteerBar() {
           <div className="p-3 border-t border-white/10">
             <button
               type="button"
-              onClick={() => { setOpen(false); navigate("/my-groups"); }}
+              onClick={() => setOpen(false)}
               className="w-full text-sm py-2.5 rounded-lg bg-indigo-500/25 text-indigo-200 hover:bg-indigo-500/35 font-medium"
             >
-              前往志愿编排（完整拖拽） →
+              完成
             </button>
           </div>
         </div>

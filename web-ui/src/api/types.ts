@@ -539,9 +539,22 @@ export interface UserVolunteerItem {
   effective_tier: string;           // planned or latest（展示/统计用）
   sort_order: number;
   eligibility_status: "eligible" | "partially_eligible" | "ineligible" | "uncertain";
+  // 对比字段（GET 重算，支持对比决策）
   is_henan_local?: boolean | null;
   school_ownership?: string | null;
+  school_city?: string | null;
   four_year_total?: number | null;
+  tuition_per_year?: number | null;  // 学费/年
+  accommodation?: number | null;     // 住宿费/年
+  plan_count?: number | null;        // 2026河南计划人数
+  selected_majors?: string[] | null; // 组内专业
+  // 位次对比 + 计算公式（展开详情用）
+  student_rank?: number | null;
+  reference_rank?: number | null;
+  advantage?: number | null;
+  advantage_ratio?: number | null;
+  baseline_year?: number | null;
+  risk_level?: string | null;
 }
 
 export interface StructureHint {

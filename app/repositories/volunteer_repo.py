@@ -93,16 +93,13 @@ def _item_to_domain(row: UserVolunteerItemRow, candidate: dict | None) -> UserVo
     if candidate:
         latest_tier = candidate.get("bucket") or snap.get("algorithm_tier", "需复核")
         eligibility = candidate.get("group_eligibility_status") or snap.get("eligibility_status", "uncertain")
-        is_local = candidate.get("is_henan_local")
-        ownership = candidate.get("school_ownership")
-        four_year = candidate.get("four_year_total")
+        detail = candidate.get("bucket_detail") or {}
     else:
         latest_tier = snap.get("algorithm_tier", "需复核")
         eligibility = snap.get("eligibility_status", "uncertain")
-        is_local = snap.get("is_henan_local")
-        ownership = snap.get("school_ownership")
-        four_year = snap.get("four_year_total")
+        detail = {}
 
+    src = candidate if candidate else snap
     planned = row.planned_tier
     effective = planned if planned in _PLANNABLE_TIERS else latest_tier
     return UserVolunteerItem(
@@ -116,9 +113,22 @@ def _item_to_domain(row: UserVolunteerItemRow, candidate: dict | None) -> UserVo
         effective_tier=effective,
         sort_order=row.sort_order,
         eligibility_status=eligibility,
-        is_henan_local=is_local,
-        school_ownership=ownership,
-        four_year_total=four_year,
+        # 对比字段（candidate 重算或快照兜底）
+        is_henan_local=src.get("is_henan_local"),
+        school_ownership=src.get("school_ownership"),
+        school_city=src.get("school_city"),
+        four_year_total=src.get("four_year_total"),
+        tuition_per_year=src.get("tuition"),
+        accommodation=src.get("accommodation"),
+        plan_count=src.get("plan_count"),
+        selected_majors=src.get("selected_majors"),
+        # 位次对比 + 计算公式（从 bucket_detail 拍平）
+        student_rank=detail.get("student_rank"),
+        reference_rank=detail.get("reference_rank") or detail.get("adjusted_min_rank"),
+        advantage=detail.get("advantage"),
+        advantage_ratio=detail.get("advantage_ratio"),
+        baseline_year=detail.get("baseline_year"),
+        risk_level=detail.get("risk_level"),
     )
 
 
@@ -205,13 +215,20 @@ def add_item(
     # 插入位置：按档位策略（不粗暴放末尾）
     sort_order = _compute_insert_position(count, algorithm_tier, group.manually_reordered)
 
-    # 生成添加时快照（审计用）
+    # 生成添加时快照（审计用 + 重算失败兜底显示）
+    detail = candidate.get("bucket_detail") or {}
     snapshot = {
         "algorithm_tier": algorithm_tier,
         "eligibility_status": eligibility,
         "is_henan_local": candidate.get("is_henan_local"),
         "school_ownership": candidate.get("school_ownership"),
+        "school_city": candidate.get("school_city"),
         "four_year_total": candidate.get("four_year_total"),
+        "tuition": candidate.get("tuition"),
+        "accommodation": candidate.get("accommodation"),
+        "plan_count": candidate.get("plan_count"),
+        "selected_majors": candidate.get("selected_majors"),
+        "bucket_detail": detail,
     }
     # 把新项之后的所有项 sort_order +1（保持连续）
     _shift_after(session, group.id, sort_order, delta=1)

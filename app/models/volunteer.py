@@ -69,10 +69,22 @@ class UserVolunteerItem(BaseModel):
     effective_tier: str  # planned_tier or latest_algorithm_tier（展示/统计用）
     sort_order: int
     eligibility_status: str  # 当前资格状态（GET 重算：eligible/partially_eligible/uncertain/ineligible）
-    # 拍平展示字段（GET 重算）
+    # 拍平展示字段（GET 重算）——支持对比决策（学费/位次/计算公式）
     is_henan_local: Optional[bool] = None
     school_ownership: Optional[str] = None
+    school_city: Optional[str] = None
     four_year_total: Optional[int] = None
+    tuition_per_year: Optional[int] = None  # 学费/年
+    accommodation: Optional[int] = None  # 住宿费/年
+    plan_count: Optional[int] = None  # 2026河南计划人数
+    selected_majors: Optional[list[str]] = None  # 组内专业（对比用）
+    # 位次对比 + 计算公式（GET 重算，供展开详情对比）
+    student_rank: Optional[int] = None
+    reference_rank: Optional[int] = None  # 归一化后参考录取位次
+    advantage: Optional[int] = None  # 参考位次 − 考生位次
+    advantage_ratio: Optional[float] = None  # advantage / 考生位次
+    baseline_year: Optional[int] = None  # 参考数据年份
+    risk_level: Optional[str] = None  # 风险等级文字
 
 
 class StructureHint(BaseModel):

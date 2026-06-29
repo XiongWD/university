@@ -1,5 +1,4 @@
 import { useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import {
   DndContext, PointerSensor, useSensor, useSensors, closestCenter, type DragEndEvent,
 } from "@dnd-kit/core";
@@ -43,7 +42,6 @@ export default function VolunteerDock() {
   const applyLayout = useVolunteerStore((s) => s.applyLayout);
   const clearAll = useVolunteerStore((s) => s.clearAll);
   const pendingDeletes = useVolunteerStore((s) => s.pendingDeletes);
-  const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
   const [confirmClear, setConfirmClear] = useState(false);
 
@@ -188,13 +186,7 @@ export default function VolunteerDock() {
       {/* 底部操作 */}
       {items.length > 0 && (
         <div className="p-2.5 border-t border-white/10 flex items-center gap-2">
-          <button
-            type="button"
-            onClick={() => navigate("/my-groups")}
-            className="flex-1 text-xs px-3 py-2 rounded-lg bg-indigo-500/20 text-indigo-200 hover:bg-indigo-500/30 transition font-medium"
-          >
-            志愿编排 →
-          </button>
+          <span className="text-[10px] text-white/30 flex-1">点击项展开位次对比 · 拖动手柄排序</span>
           {confirmClear ? (
             <>
               <button

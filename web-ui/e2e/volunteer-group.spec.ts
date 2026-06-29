@@ -87,25 +87,34 @@ test.describe("我的志愿组（志愿编排工作台）", () => {
     expect(res.status).toBe(400);
   });
 
-  test("志愿编排页显示已加入的志愿", async ({ page }) => {
+  test("悬浮窗志愿项显示中等密度信息（专业组+学费+4年合计）", async ({ page }) => {
     await fetch(`${BACKEND}/items`, {
       method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ school_code: "2535", major_group_code: "759266", profile: PROFILE }),
     });
-    await page.goto("/my-groups");
-    await expect(page.getByRole("heading", { name: "志愿编排" })).toBeVisible();
-    await expect(page.getByText("哈尔滨石油学院", { exact: true }).first()).toBeVisible({ timeout: 15000 });
+    await submitRecommendation(page);
+    await expect(dockCount(page)).toContainText("1/48", { timeout: 10000 });
+    // 校名 + 专业组代码
+    await expect(page.getByTestId("volunteer-dock").getByText("哈尔滨石油学院", { exact: true })).toBeVisible({ timeout: 10000 });
+    await expect(page.getByTestId("volunteer-dock").getByText("759266").first()).toBeVisible();
+    // 学费/年 + 4年合计
+    await expect(page.getByTestId("volunteer-dock").getByText(/\/年/)).toBeVisible();
+    await expect(page.getByTestId("volunteer-dock").getByText(/4年≈/)).toBeVisible();
     expect(await getItemCount()).toBe(1);
   });
 
-  test("志愿编排页分区显示档位标题", async ({ page }) => {
+  test("悬浮窗志愿项可展开查看位次对比+计算公式", async ({ page }) => {
     await fetch(`${BACKEND}/items`, {
       method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ school_code: "2535", major_group_code: "759266", profile: PROFILE }),
     });
-    await page.goto("/my-groups");
-    await expect(page.getByText("哈尔滨石油学院", { exact: true }).first()).toBeVisible({ timeout: 15000 });
-    await expect(page.getByRole("heading", { name: /垫档/ })).toBeVisible();
+    await submitRecommendation(page);
+    await expect(dockCount(page)).toContainText("1/48", { timeout: 10000 });
+    // 点击展开按钮（ChevronRight → 展开）
+    await page.getByTestId("volunteer-dock").getByRole("button", { name: "展开详情" }).first().click();
+    // 展开后显示位次对比 + 计算公式
+    await expect(page.getByTestId("volunteer-dock").getByText(/位次优势/)).toBeVisible({ timeout: 5000 });
+    await expect(page.getByTestId("volunteer-dock").getByText(/考生位次/)).toBeVisible();
   });
 
   test("加入 2 个志愿后悬浮窗显示数量", async ({ page }) => {
@@ -192,11 +201,10 @@ test.describe("我的志愿组（志愿编排工作台）", () => {
     await expect(dockCount(page)).toContainText("1/48", { timeout: 10000 });
   });
 
-  test("导航到志愿编排页", async ({ page }) => {
+  test("导航栏无独立编排页（志愿组是临时笔记本，不单独成页）", async ({ page }) => {
     await page.goto("/");
-    await page.getByRole("link", { name: /志愿编排/ }).click();
-    await expect(page).toHaveURL(/\/my-groups/);
-    await expect(page.getByRole("heading", { name: "志愿编排" })).toBeVisible();
+    // 不应有「志愿编排」导航项（已删除独立编排页）
+    await expect(page.getByRole("link", { name: /志愿编排/ })).toHaveCount(0);
   });
 
   test("切换页面后悬浮窗仍常驻", async ({ page }) => {
