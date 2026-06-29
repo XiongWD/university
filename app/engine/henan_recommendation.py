@@ -511,14 +511,23 @@ def aggregate_group_eligibility(profile: dict, group, group_plans: list) -> dict
 
     for major_name in included:
         major_plan = plans_by_name.get(major_name)
-        status, failures, warnings = check_major_language_eligibility(profile, group, major_plan)
+        status, failures, _warnings = check_major_language_eligibility(profile, group, major_plan)
         if status == "eligible":
             eligible_majors.append(major_name)
         elif status == "ineligible":
             ineligible_majors.append({"major": major_name, "reasons": failures})
         else:  # uncertain
             uncertain_majors.append(major_name)
-            all_warnings.extend(warnings)
+            # 注意：uncertain 的"语种未采集"是组级共性，不在此逐专业累加（防重复刷屏），
+            # 循环后统一生成一条（见下方 uncertain_majors 块）
+
+    # uncertain 语种未采集警告：组级合并一条（带数量），而非逐专业重复
+    if uncertain_majors:
+        names_preview = "、".join(uncertain_majors[:3])
+        more = f" 等{len(uncertain_majors)}个专业" if len(uncertain_majors) > 3 else ""
+        all_warnings.append(
+            f"{names_preview}{more}的语种要求未采集，无法确认是否符合，建议核实招生章程"
+        )
 
     # 日语公共外语软提示（仅英语考生不受影响，已在上层返回）
     if profile.get("exam_foreign_language") == "日语":
