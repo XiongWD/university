@@ -220,3 +220,79 @@ def test_eligible_tiered_no_review_reason(monkeypatch):
     assert c["bucket"] in {"搏", "冲", "稳", "保", "垫"}
     assert c["review_reason_code"] is None
     assert c["admission_predictable"] is True
+
+
+def test_review_reason_codes_multiple_gaps(monkeypatch):
+    """同一候选可同时缺多项数据 → review_reason_codes 含多个，primary 是最高优先级。"""
+    from app.engine.henan_recommendation import build_henan_candidates
+    # 同时缺2025历史 + 2026计划未核验（plan review_status 改 needs_review）
+    group = HenanProgramGroup.model_validate({
+        "year": 2026, "track": "历史类", "batch": "本科批", "school_code": "993",
+        "school_name": "测试大学G3", "major_group_code": "G3", "major_group_name": "测试大学G3-G3",
+        "included_majors": ["测试专业"], "major_codes": ["m-G3"],
+        "primary_subject_requirement": "历史", "elective_subject_requirement": {},
+        "accepted_exam_languages": [], "public_foreign_languages": [],
+        "single_subject_requirements": [], "adjustment_scope": "组内专业",
+        "physical_restrictions": "", "special_qualification_type": "",
+        "source_name": "test", "source_url": "https://example.com",
+        "as_of": "2026-06-27T00:00:00+00:00", "confidence": 0.5, "review_status": "needs_review",
+    })
+    plan = HenanEnrollmentPlan.model_validate({
+        "year": 2026, "source_province": "河南", "school_origin_province": "河南",
+        "is_henan_local_school": True, "school_code": "993", "school_name": "测试大学G3",
+        "major_group_code": "G3", "major_name": "测试专业", "plan_count": 2, "tuition": 5000,
+        "accommodation": 1000, "batch": "本科批", "track": "历史类", "campus": "",
+        "physical_restrictions": "", "special_qualification_type": "",
+        "accepted_exam_languages": "", "remarks": "",
+        "source_name": "test", "source_url": "https://example.com",
+        "as_of": "2026-06-27T00:00:00+00:00", "confidence": 0.5, "review_status": "needs_review",
+    })
+    _setup(monkeypatch, [group], [plan], history=[])  # 完全缺历史
+
+    c = build_henan_candidates(_profile(rank=73822))[0]
+    assert c["bucket"] == "需人工复核"
+    codes = c["review_reason_codes"]
+    # 应同时含 缺2025位次 + 专业组未核验（group needs_review）+ 计划未核验（plan needs_review）
+    assert "missing_verified_2025_rank" in codes
+    assert "unverified_2026_group" in codes
+    assert len(codes) >= 2
+    # 主因是最高优先级（缺2025位次）
+    assert c["primary_review_reason_code"] == "missing_verified_2025_rank"
+    assert c["review_reason_code"] == "missing_verified_2025_rank"  # 兼容字段=主因
+
+
+def test_importer_aggregates_language_rule_not_setdefault():
+    """导入器聚合逻辑：组内全专业一致才生成组级，混合规则组级置空（防 setdefault 首条污染）。
+    验证 import_henan_2026_catalog.py 已采用的聚合函数行为正确。"""
+    from collections import defaultdict
+    from app.loader.henan_language_rule import aggregate_group_language_rule, normalize_language_rule
+
+    # 模拟导入器的 split_pipe + 聚合（与 import_henan_2026_catalog.py 一致）
+    def split_pipe(v):
+        return [x.strip() for x in (v or "").split("|") if x.strip()]
+
+    # 构造同组四个专业：英语限英语、法学不限（空remark）、英语A限英语、英语B限英语
+    rows = [
+        {"major_group": "G1", "acc": "英语", "remark": "（只招英语语种的考生）"},  # 限英语
+        {"major_group": "G1", "acc": "", "remark": ""},                            # 法学不限（空）
+        {"major_group": "G2", "acc": "英语", "remark": "（只招英语语种的考生）"},  # 限英语
+        {"major_group": "G2", "acc": "英语", "remark": "（只招英语语种的考生）"},  # 限英语
+    ]
+    group_major_rules = defaultdict(list)
+    for row in rows:
+        acc = split_pipe(row["acc"])
+        if acc:
+            group_major_rules[row["major_group"]].append(
+                {"rule_status": "restricted", "accepted": acc, "required": acc[0]})
+        else:
+            group_major_rules[row["major_group"]].append(normalize_language_rule(row["remark"]))
+
+    # G1：英语限英语 + 法学不限 → 混合 → 组级置空
+    agg_g1 = aggregate_group_language_rule(group_major_rules["G1"])
+    assert agg_g1["has_mixed_language_rules"] is True
+    assert agg_g1["accepted_exam_languages"] == []
+
+    # G2：两个专业都限英语 → 全一致 → 组级限英语
+    agg_g2 = aggregate_group_language_rule(group_major_rules["G2"])
+    assert agg_g2["has_mixed_language_rules"] is False
+    assert agg_g2["accepted_exam_languages"] == ["英语"]

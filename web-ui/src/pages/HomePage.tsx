@@ -420,7 +420,9 @@ export default function HomePage() {
           {/* 需复核原因汇总（需人工复核≠不符合，主要是数据证据不足） */}
           {result.review_summary && result.review_summary.total > 0 && (() => {
             const rs = result.review_summary;
-            const reasonEntries = Object.entries(rs.by_reason).filter(([, n]) => n > 0);
+            // 用主因计数（by_primary 不重叠，总数相加=复核总数，直观）；
+            // by_reason（全部缺口，可重叠）供调试，不在此主展示避免困惑
+            const reasonEntries = Object.entries(rs.by_primary || rs.by_reason).filter(([, n]) => n > 0);
             return (
               <div className="glass rounded-2xl p-4 border border-amber-400/30 flex items-start gap-2 text-sm text-amber-200">
                 <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />

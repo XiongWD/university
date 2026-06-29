@@ -3,12 +3,23 @@
 接受从官方目录人工/OCR 标准化的 CSV，产 universities/program_groups/enrollment_plans。
 保留 source_url/as_of/review_status 每行可追溯。供后续全量增量导入用。
 当前 seed 用方案 A 已核实的核心校真实数据手工构造。
+
+语种规则专业级聚合（资格链 P0 修复）：
+  语种限制是专业级属性，不能从首个专业"上卷"为整组级。
+  本导入器逐专业收集语种规则，全部专业读完后调用 aggregate_group_language_rule
+  聚合——仅当组内全专业规则一致才生成组级硬限制，混合规则组级置空 +
+  has_mixed_language_rules=True（运行时走专业级判断）。避免再次制造污染数据。
 """
 import csv
 import sys
+from collections import defaultdict
 from pathlib import Path
 
 import yaml
+
+# 统一的专业级语种规则聚合（数据层与运行时共用同一套口径，避免漂移）
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from app.loader.henan_language_rule import aggregate_group_language_rule, normalize_language_rule
 
 
 def split_pipe(value: str) -> list[str]:
@@ -23,6 +34,8 @@ def main() -> None:
 
     universities: dict[str, dict] = {}
     groups: dict[tuple, dict] = {}
+    # 每个专业组内各专业的语种规则（专业级收集，最后统一聚合，避免 setdefault 首条污染）
+    group_major_rules: dict[tuple, list[dict]] = defaultdict(list)
     plans: list[dict] = []
 
     for row in rows:
@@ -47,6 +60,18 @@ def main() -> None:
             "review_status": row["review_status"],
         }
         key = (row["year"], row["track"], school_code, row["major_group_code"])
+        # 专业级语种规则收集（不在此处决定组级，避免首条污染）
+        major_lang_raw = row.get("accepted_exam_languages", "") or ""
+        major_lang = split_pipe(major_lang_raw)
+        if major_lang:
+            # CSV 已核验的硬限制语种（如"英语"）→ restricted
+            group_major_rules[key].append(
+                {"rule_status": "restricted", "accepted": major_lang, "required": major_lang[0]}
+            )
+        else:
+            # 用 remark 重新解析（区分 unrestricted / unknown）
+            group_major_rules[key].append(normalize_language_rule(row.get("remarks", "")))
+
         group = groups.setdefault(key, {
             "year": int(row["year"]),
             "track": row["track"],
@@ -59,7 +84,9 @@ def main() -> None:
             "major_codes": [],
             "primary_subject_requirement": row["primary_subject_requirement"],
             "elective_subject_requirement": yaml.safe_load(row["elective_subject_requirement"] or "{}") or {},
-            "accepted_exam_languages": split_pipe(row["accepted_exam_languages"]),
+            # 组级语种字段留空，待全部专业收集后统一聚合（见循环后聚合块）
+            "accepted_exam_languages": [],
+            "required_exam_language": None,
             "public_foreign_languages": split_pipe(row["public_foreign_languages"]),
             "single_subject_requirements": [],
             "adjustment_scope": "组内专业",
@@ -111,6 +138,21 @@ def main() -> None:
             "review_status": row["review_status"],
         })
 
+    # 专业级语种规则聚合（资格链 P0 修复）：全部专业读完后，按组聚合语种规则。
+    # 仅当组内全专业规则一致才生成组级硬限制；混合规则组级置空 + has_mixed_language_rules。
+    mixed_count = 0
+    restricted_count = 0
+    for key, group in groups.items():
+        major_rules = group_major_rules.get(key, [])
+        agg = aggregate_group_language_rule(major_rules)
+        group["accepted_exam_languages"] = agg["accepted_exam_languages"]
+        group["required_exam_language"] = agg["required_exam_language"]
+        group["has_mixed_language_rules"] = agg["has_mixed_language_rules"]
+        if agg["has_mixed_language_rules"]:
+            mixed_count += 1
+        if agg["accepted_exam_languages"]:
+            restricted_count += 1
+
     out_dir = Path("data/seed/henan")
     (out_dir / "universities.yaml").write_text(
         yaml.safe_dump(list(universities.values()), allow_unicode=True, sort_keys=False), encoding="utf-8")
@@ -119,6 +161,8 @@ def main() -> None:
     (out_dir / "enrollment_plans_2026.yaml").write_text(
         yaml.safe_dump(plans, allow_unicode=True, sort_keys=False), encoding="utf-8")
     print(f"imported {len(universities)} universities, {len(groups)} groups, {len(plans)} plans")
+    print(f"  语种规则聚合：组级硬限制 {restricted_count} 组（全专业一致），"
+          f"混合规则（组级置空+走专业级）{mixed_count} 组")
 
 
 if __name__ == "__main__":

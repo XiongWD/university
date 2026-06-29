@@ -276,18 +276,28 @@ def recommendation(req: HenanRecommendationRequest, session: Session = Depends(g
         "unverified_2026_group": "2026专业组结构未核验",
         "other_review_needed": "其他数据待核验",
     }
-    review_counts: dict[str, int] = {code: 0 for code in review_reason_labels}
-    for item in classification_pool["需人工复核"]:
-        code = item.get("review_reason_code") or "other_review_needed"
-        review_counts[code] = review_counts.get(code, 0) + 1
+    review_items = classification_pool["需人工复核"]
+    # by_reason：全部缺口计数（一个组可同时缺多项，计数可重叠，数据治理用）
+    by_reason: dict[str, int] = {code: 0 for code in review_reason_labels}
+    # by_primary：主因计数（不重叠，用户主展示用）
+    by_primary: dict[str, int] = {code: 0 for code in review_reason_labels}
+    for item in review_items:
+        codes = item.get("review_reason_codes") or []
+        for code in codes:
+            by_reason[code] = by_reason.get(code, 0) + 1
+        primary = item.get("primary_review_reason_code") or codes[0] if codes else "other_review_needed"
+        by_primary[primary] = by_primary.get(primary, 0) + 1
+    total = len(review_items)
+    top_primary = max(by_primary, key=by_primary.get) if total > 0 else None
     review_summary = {
-        "total": len(classification_pool["需人工复核"]),
-        "by_reason": review_counts,
+        "total": total,
+        "by_reason": by_reason,          # 全部缺口计数（重叠）
+        "by_primary": by_primary,        # 主因计数（不重叠）
         "labels": review_reason_labels,
         "note": (
-            f"需复核共 {len(classification_pool['需人工复核'])} 个专业组，主要是数据证据不足"
-            f"（非资格不符）。最大原因：{review_reason_labels[max(review_counts, key=review_counts.get)]}"
-            if classification_pool["需人工复核"] else "无需复核专业组"
+            f"需复核共 {total} 个专业组，主要是数据证据不足（非资格不符）。"
+            f"最大主因：{review_reason_labels[top_primary]}"
+            if total > 0 else "无需复核专业组"
         ),
     }
 

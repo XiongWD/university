@@ -987,29 +987,31 @@ def build_henan_candidates(profile: dict) -> list[dict]:
         # —— 需复核原因细分（design：需人工复核≠不符合，需告知用户具体缺什么数据）——
         # 区分"不能报"（ineligible）与"暂时算不出"（uncertain/需人工复核），
         # 让用户明白是资格硬阻还是数据证据不足。
-        review_reason_code: str | None = None
+        review_reason_codes: list[str] = []
         review_reason: str | None = None
         eligibility_known = group_elig_status != "uncertain"  # 资格是否已明确（eligible/partially_eligible/ineligible=已知）
         admission_predictable = bucket in {"超冲", "搏", "冲", "稳", "保", "垫"}
         if bucket == "需人工复核":
-            # 细分需复核原因（优先级：缺2025同口径位次 > 2024旧口径 > 2026计划/专业组未核验）
+            # 收集全部数据缺口（多原因，非只取首个）——便于数据治理看到完整缺口清单
             if baseline is None or not has_verified_history:
-                review_reason_code = "missing_verified_2025_rank"
-                review_reason = ("资格暂无问题，但缺少2025同口径院校专业组最低录取位次，"
-                                 "无法严谨判定搏/冲/稳/保/垫，需补充数据后复核")
-            elif baseline.get("year") == 2024:
-                review_reason_code = "only_2024_old_regime"
-                review_reason = ("仅有2024旧文科口径数据（≠新高考历史类），口径断裂不可直接判档，"
-                                 "待2025同口径数据补齐后复核")
-            elif not has_2026_plan:
-                review_reason_code = "missing_verified_2026_plan"
-                review_reason = "2026河南招生计划未核验，无法确认本组2026是否招生"
-            elif not has_verified_group:
-                review_reason_code = "unverified_2026_group"
-                review_reason = "2026专业组结构未核验，无法确认选科/语种等限制是否最新"
-            else:
-                review_reason_code = "other_review_needed"
-                review_reason = "数据证据不足，需人工复核"
+                review_reason_codes.append("missing_verified_2025_rank")
+            if baseline is not None and baseline.get("year") == 2024:
+                review_reason_codes.append("only_2024_old_regime")
+            if not has_2026_plan:
+                review_reason_codes.append("missing_verified_2026_plan")
+            if not has_verified_group:
+                review_reason_codes.append("unverified_2026_group")
+            if not review_reason_codes:
+                review_reason_codes.append("other_review_needed")
+            # 主因（最高优先级），用于卡片主展示 + 向后兼容 review_reason_code 单值字段
+            primary_code = review_reason_codes[0]
+            review_reason = {
+                "missing_verified_2025_rank": "资格暂无问题，但缺少2025同口径院校专业组最低录取位次，无法严谨判定搏/冲/稳/保/垫，需补充数据后复核",
+                "only_2024_old_regime": "仅有2024旧文科口径数据（≠新高考历史类），口径断裂不可直接判档，待2025同口径数据补齐后复核",
+                "missing_verified_2026_plan": "2026河南招生计划未核验，无法确认本组2026是否招生",
+                "unverified_2026_group": "2026专业组结构未核验，无法确认选科/语种等限制是否最新",
+                "other_review_needed": "数据证据不足，需人工复核",
+            }[primary_code]
 
         # —— 费用与学校性质（design §4.4/§4.5，问题3/问题4）——
         lead_plan = group_plans[0] if group_plans else None
@@ -1143,7 +1145,9 @@ def build_henan_candidates(profile: dict) -> list[dict]:
             "special_qualification_type": group.special_qualification_type or (group_plans[0].special_qualification_type if group_plans else ""),
             "missing_data_items": missing_data_items,
             # 需复核原因细分（design：需人工复核≠不符合，让用户明白缺什么数据）
-            "review_reason_code": review_reason_code,
+            "review_reason_codes": review_reason_codes,           # 全部数据缺口列表（数据治理用）
+            "primary_review_reason_code": review_reason_codes[0] if review_reason_codes else None,
+            "review_reason_code": review_reason_codes[0] if review_reason_codes else None,  # 兼容旧字段=主因
             "review_reason": review_reason,
             "eligibility_known": eligibility_known,
             "admission_predictable": admission_predictable,

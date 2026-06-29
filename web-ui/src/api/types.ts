@@ -328,7 +328,8 @@ export interface HenanRecommendationResult {
 // 需复核原因汇总（需人工复核≠不符合，主要是数据证据不足）
 export interface ReviewSummary {
   total: number;                                           // 需复核专业组总数
-  by_reason: Record<string, number>;                       // 各原因计数
+  by_reason: Record<string, number>;                       // 全部缺口计数（一个组可缺多项，可重叠）
+  by_primary: Record<string, number>;                      // 主因计数（不重叠）
   labels: Record<string, string>;                          // 原因代码→中文标签
   note: string;                                            // 顶部提示文案
 }
@@ -456,7 +457,9 @@ export interface HenanTargetItem {
   ineligible_majors?: { major: string; reasons: string[] }[];
   uncertain_majors?: string[];
   // 需复核原因细分（design：需人工复核≠不符合，告知用户具体缺什么数据）
-  review_reason_code?: string | null;
+  review_reason_codes?: string[];                // 全部数据缺口列表（数据治理用）
+  primary_review_reason_code?: string | null;    // 主因（最高优先级）
+  review_reason_code?: string | null;            // 兼容旧字段=主因
   review_reason?: string | null;
   eligibility_known?: boolean;
   admission_predictable?: boolean;
