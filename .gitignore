@@ -42,6 +42,7 @@ data/raw/henan_2026/*.json
 data/raw/henan_2026/*.csv
 data/raw/henan_2026/*.png
 data/raw/henan_2026/*.html
+data/raw/henan_2026/*/
 
 # IDE / 编辑器
 .idea/
