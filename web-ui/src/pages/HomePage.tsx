@@ -1,10 +1,49 @@
 import { useEffect, useState } from "react";
-import { AlertCircle, Rocket, ShieldCheck, Anchor, HelpCircle, Calculator, Flame, Shield } from "lucide-react";
+import { AlertCircle, Rocket, ShieldCheck, Anchor, HelpCircle, Calculator, Flame, Shield, Plus, Check } from "lucide-react";
 import ScoreForm from "../components/ScoreForm";
 import HenanItemCard, { fmtMoney, fmtRank } from "../components/HenanItemCard";
 import AIAnalysisPanel from "../components/AIAnalysisPanel";
 import { henanRecommendation, streamAiRecommend, ApiError } from "../api/client";
 import type { AdvisoryRequest, HenanRecommendationResult, HenanTargetItem } from "../api/types";
+import { useVolunteerStore } from "../store/volunteerStore";
+
+/** 加入志愿组按钮（零侵入 HenanItemCard，外层绝对定位右上角）。
+ * ineligible 禁用 + 显示原因；已加入显示 ✓。
+ */
+function AddVolunteerButton({ item, profile }: { item: HenanTargetItem; profile: Record<string, unknown> }) {
+  const isAdded = useVolunteerStore((s) => s.isAdded(item.school_code ?? "", item.major_group_code));
+  const addItem = useVolunteerStore((s) => s.addItem);
+  const saving = useVolunteerStore((s) => s.saving);
+  const ineligible = item.group_eligibility_status === "ineligible";
+
+  if (ineligible) {
+    return (
+      <span className="absolute top-2 right-2 text-[10px] px-1.5 py-0.5 rounded bg-red-500/15 text-red-300/60 pointer-events-none">
+        不可加入
+      </span>
+    );
+  }
+  if (isAdded) {
+    return (
+      <span className="absolute top-2 right-2 text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 flex items-center gap-0.5">
+        <Check className="w-3 h-3" />已加入
+      </span>
+    );
+  }
+  return (
+    <button
+      type="button"
+      disabled={saving}
+      onClick={(e) => {
+        e.stopPropagation();
+        void addItem(item, profile);
+      }}
+      className="absolute top-2 right-2 text-[10px] px-1.5 py-0.5 rounded bg-indigo-500/25 text-indigo-200 hover:bg-indigo-500/40 transition flex items-center gap-0.5 disabled:opacity-50"
+    >
+      <Plus className="w-3 h-3" />加入志愿组
+    </button>
+  );
+}
 
 // 5 档 bucket 渲染配置（design D2，去掉"中"，新增需人工复核）
 const BUCKETS = [
@@ -87,6 +126,8 @@ export default function HomePage() {
   const [showAlgorithm, setShowAlgorithm] = useState(false);
   // 缓存最近一次提交的表单数据，供 AI 分析使用
   const [lastFormReq, setLastFormReq] = useState<AdvisoryRequest | null>(null);
+  // 当前考生档案（加入志愿组时传给后端重新校验）
+  const [currentProfile, setCurrentProfile] = useState<Record<string, unknown>>({});
   const [statFilters, setStatFilters] = useState<StatFilter[] | null>(null);
   const [statPage, setStatPage] = useState(0);
 
@@ -102,6 +143,20 @@ export default function HomePage() {
     setError(null);
     setDisplayBucket(req.display_bucket ?? "全部");
     setLastFormReq(req);  // 缓存表单数据供 AI 分析使用
+    // 保存当前考生档案（加入志愿组时传给后端重新校验）
+    setCurrentProfile({
+      score: req.total_score,
+      rank: null,
+      track: "历史类",
+      source_province: "河南",
+      primary_subject: "历史",
+      elective_subjects: req.elective_subjects,
+      exam_foreign_language: req.exam_foreign_language || "英语",
+      subject_scores_detail: {
+        数学: req.math_score ?? 0,
+        外语: req.foreign_language_score ?? 0,
+      },
+    });
     try {
       // 映射档位选择到推荐策略：冲→积极，保→保守，稳/全部→自动（design §8.4）
       const strategyMap: Record<string, "自动" | "保守" | "积极" | "均衡"> = {
@@ -483,7 +538,10 @@ export default function HomePage() {
                 {list.length > 0 ? (
                   <div className="space-y-2">
                     {list.map((s, i) => (
-                      <HenanItemCard key={`${s.school_name}-${i}`} s={s} bucketKey={b.key} index={i} showCalc />
+                      <div key={`${s.school_name}-${i}`} className="relative">
+                        <HenanItemCard s={s} bucketKey={b.key} index={i} showCalc />
+                        <AddVolunteerButton item={s} profile={currentProfile} />
+                      </div>
                     ))}
                   </div>
                 ) : (
