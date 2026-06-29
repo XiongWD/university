@@ -218,3 +218,24 @@ def test_profile_snapshot_recompute(tmp_path_factory):
         # latest_algorithm_tier 应由当前引擎重算（与 algorithm_tier_at_add 一致，因同档案）
         assert it["latest_algorithm_tier"] == it["algorithm_tier_at_add"]
         assert it["algorithm_changed"] is False
+
+
+def test_profile_without_rank_still_tiers_correctly(tmp_path_factory):
+    """回归：profile.rank 缺失（仅 score）时，重算应用 score 反查补全 rank，
+    正确判档而非错误降级为「需人工复核」。
+
+    根因：加入志愿组时前端 profile.rank 可能为 null，若重算不补全 rank，
+    build_henan_candidates 因 rank=0 无法判档 → 全部降级需人工复核（加入前是稳/保）。
+    """
+    with _boot_client(tmp_path_factory) as client:
+        # profile.rank 缺失（仅 score），模拟前端只填分数未填位次
+        profile_no_rank = {k: v for k, v in _PROFILE.items() if k != "rank"}
+        client.post("/api/v1/my-volunteers/items", json={
+            "school_code": "2535", "major_group_code": "759266", "profile": profile_no_rank,
+        })
+        g = client.get("/api/v1/my-volunteers").json()
+        it = g["items"][0]
+        # rank 缺失也必须判出明确档位（垫/保/稳/冲/搏），不能是「需人工复核」
+        assert it["latest_algorithm_tier"] in {"搏", "冲", "稳", "保", "垫"}, \
+            f"rank 缺失时应补全后判档，实际降级为 {it['latest_algorithm_tier']!r}"
+        assert it["algorithm_tier_at_add"] in {"搏", "冲", "稳", "保", "垫"}

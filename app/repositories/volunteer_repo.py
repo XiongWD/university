@@ -60,6 +60,25 @@ def _recompute_candidates(profile: dict) -> list[dict]:
         return []  # 档案无效或本科线不达标 → 无法重算，返回空（item 降级显示添加时快照）
 
 
+def _ensure_rank(session: Session, profile: dict) -> dict:
+    """补全考生档案的 rank（位次）。
+
+    根因修复：推荐页 build_henan_candidates 需要 rank 才能判档，但加入志愿组时
+    前端存的 profile_snapshot.rank 可能为 null（score 已填但位次未补全）。
+    recommendation 端点会用 score 反查一分一段表补 rank，志愿组重算必须做同样的补全，
+    否则 rank 缺失 → 无法判档 → 错误降级为「需人工复核」（加入前是稳/保，加入后变需复核）。
+    """
+    if not profile.get("rank") and profile.get("score"):
+        try:
+            from app.api.routers.henan import _resolve_rank_from_score
+            rank = _resolve_rank_from_score(session, int(profile["score"]))
+            if rank:
+                profile = {**profile, "rank": rank}
+        except Exception:
+            pass
+    return profile
+
+
 def _find_candidate(candidates: list[dict], school_code: str, group_code: str) -> dict | None:
     """从候选列表中找指定院校专业组。"""
     for c in candidates:
@@ -108,6 +127,7 @@ def _group_to_domain(
 ) -> UserVolunteerGroup:
     """Row → Domain group（含 items + stats）。recompute=True 时用 profile_snapshot 重算展示字段。"""
     profile = json.loads(group_row.profile_snapshot) if group_row.profile_snapshot else {}
+    profile = _ensure_rank(session, profile)  # 补全 rank（防 rank 缺失误判为需人工复核）
     candidates = _recompute_candidates(profile) if (recompute and profile) else []
     cand_by_key = {(str(c.get("school_code")), str(c.get("major_group_code"))): c for c in candidates}
 
@@ -150,6 +170,7 @@ def add_item(
         group.profile_snapshot = json.dumps(profile, ensure_ascii=False)
 
     # 重新校验：跑推荐引擎找该专业组
+    profile = _ensure_rank(session, profile)  # 补全 rank（防 rank 缺失误判为需人工复核）
     candidates = _recompute_candidates(profile)
     candidate = _find_candidate(candidates, school_code, major_group_code)
     if not candidate:
