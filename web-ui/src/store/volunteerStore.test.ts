@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { useVolunteerStore } from "./volunteerStore";
-import type { UserVolunteerGroup, UserVolunteerItem } from "../api/types";
+import type { HenanTargetItem, UserVolunteerGroup, UserVolunteerItem } from "../api/types";
 
 // mock client API（store 单测不依赖真实网络，专注数据一致性逻辑）
 vi.mock("../api/client", () => ({
@@ -38,10 +38,10 @@ const mockGroup = (items: UserVolunteerItem[] = []): UserVolunteerGroup => ({
   },
 });
 
-const targetItem = {
+const targetItem: HenanTargetItem = {
   school_name: "测试大学", school_code: "2535", major_group_code: "G1",
-  major_group_name: "测试大学-G1", bucket: "稳",
-  group_eligibility_status: "eligible" as const,
+  major_name: "测试专业", major_group_name: "测试大学-G1", bucket: "稳",
+  group_eligibility_status: "eligible",
   is_henan_local: false, school_ownership: "公办", four_year_total: 40000,
 };
 

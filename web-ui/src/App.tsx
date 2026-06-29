@@ -8,6 +8,7 @@ import TargetEvaluationPage from "./pages/TargetEvaluationPage";
 import MyGroupsPage from "./pages/MyGroupsPage";
 import Toaster from "./components/Toaster";
 import VolunteerDock from "./components/VolunteerDock";
+import MobileVolunteerBar from "./components/MobileVolunteerBar";
 import { useVolunteerStore } from "./store/volunteerStore";
 
 const navItems = [
@@ -75,6 +76,8 @@ export default function App() {
 
       {/* 悬浮志愿组（跨页面常驻，桌面端） */}
       <VolunteerDock />
+      {/* 移动端底部志愿栏（< md） */}
+      <MobileVolunteerBar />
       {/* Toast 通知（跨页面常驻） */}
       <Toaster />
 
