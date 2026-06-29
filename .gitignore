@@ -49,6 +49,42 @@ data/raw/henan_2026/*/
 .vscode/
 *.swp
 *.swo
+# 其他 AI 编辑器/工具的配置目录（本项目仅用 zcode，保留 .agents；其余不入库）
+.agent/
+.amazonq/
+.augment/
+.bob/
+.claude/
+.cline/
+.clinerules/
+.codebuddy/
+.codegraph/
+.codex/
+.comet/
+.continue/
+.cospec/
+.crush/
+.cursor/
+.factory/
+.forge/
+.gemini/
+.iflow/
+.junie/
+.kilocode/
+.kimi/
+.kiro/
+.lingma/
+.opencode/
+.pi/
+.qoder/
+.qwen/
+.roo/
+.trae/
+.windsurf/
+# 通用 agent/AI 工具目录（按需补充）
+.copilot/
+.gemini/
+.github/copilot/
 
 # OS
 .DS_Store
