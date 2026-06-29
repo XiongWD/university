@@ -48,3 +48,70 @@ class VolunteerTable(BaseModel):
     stable: list[VolunteerSuggestion]
     safe: list[VolunteerSuggestion]
     source_note: str  # 数据来源与时效说明，如"基于2024历年数据预测"
+
+
+# ── 我的志愿组（用户手动编排，持久化，design：志愿编排工作台）──────────────
+
+
+class UserVolunteerItem(BaseModel):
+    """志愿项（院校专业组）。展示字段由 GET 时用当前推荐引擎重算，非依赖添加时快照。"""
+
+    id: int
+    group_id: int
+    school_code: str
+    school_name: str
+    major_group_code: str
+    major_group_name: str
+    algorithm_tier_at_add: str  # 添加时算法档位（审计快照，不变）
+    latest_algorithm_tier: str  # GET 时用 profile_snapshot 重算的当前档位
+    algorithm_changed: bool  # 当前档位 != 添加时（数据/规则变化时提示，不覆盖规划档）
+    planned_tier: Optional[str] = None  # 用户规划档位（搏/冲/稳/保/垫）；null=用算法档
+    effective_tier: str  # planned_tier or latest_algorithm_tier（展示/统计用）
+    sort_order: int
+    eligibility_status: str  # 当前资格状态（GET 重算：eligible/partially_eligible/uncertain/ineligible）
+    # 拍平展示字段（GET 重算）
+    is_henan_local: Optional[bool] = None
+    school_ownership: Optional[str] = None
+    four_year_total: Optional[int] = None
+
+
+class StructureHint(BaseModel):
+    """志愿组结构平衡提示（温和，非官方要求，标注可配置）。"""
+
+    code: str
+    message: str
+    severity: str = "info"  # info / warning
+
+
+class VolunteerStats(BaseModel):
+    """志愿组统计（档位/地域/性质 + 温和结构提示）。"""
+
+    total: int
+    by_effective_tier: dict[str, int]  # effective_tier 统计（规划优先）
+    by_algorithm_tier: dict[str, int]
+    local_count: int
+    out_of_province_count: int
+    public_count: int
+    private_count: int
+    structure_hints: list[StructureHint] = []
+
+
+class UserVolunteerGroup(BaseModel):
+    """志愿方案（含 items + stats）。"""
+
+    id: int
+    owner_key: str
+    name: str
+    version: int
+    manually_reordered: bool
+    profile_snapshot: dict
+    items: list[UserVolunteerItem]
+    stats: VolunteerStats
+
+
+class VolunteerConflictError(Exception):
+    """乐观锁冲突（version 不符），HTTP 层映射为 409。"""
+
+    def __init__(self, message: str, latest_group: "UserVolunteerGroup | None" = None):
+        super().__init__(message)
+        self.latest_group = latest_group

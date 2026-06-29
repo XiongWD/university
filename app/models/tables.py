@@ -4,10 +4,10 @@
 或存为 JSON 字符串列（list/复合结构）。
 """
 
-from datetime import date
+from datetime import date, datetime
 from typing import Optional
 
-from sqlmodel import SQLModel, Field
+from sqlmodel import Field, SQLModel, UniqueConstraint
 
 
 def _confidence_check(v: float) -> float:
@@ -227,3 +227,41 @@ class ScoreRankEntryRow(SQLModel, table=True):
     score: int
     count_at: int
     cumulative_rank: int
+
+
+# ── 我的志愿组（用户级持久化，design：志愿编排工作台）──────────────────────
+# 单用户 MVP：owner_key 固定 "default"，唯一约束保证只有一条方案。
+class UserVolunteerGroupRow(SQLModel, table=True):
+    """志愿方案（单用户单方案）。绑定考生档案快照，服务端据此重新校验资格/档位。"""
+
+    __tablename__ = "user_volunteer_groups"
+    __table_args__ = (UniqueConstraint("owner_key", name="uq_group_owner"),)
+    id: Optional[int] = Field(default=None, primary_key=True)
+    owner_key: str = "default"
+    name: str = "我的志愿组"
+    profile_snapshot: str = "{}"  # JSON：绑定的考生档案（score/rank/语种/选科），服务端校验依据
+    manually_reordered: bool = False  # 是否手动排序过（决定新志愿插入策略，防破坏梯度）
+    version: int = 1  # 乐观锁，防多标签页覆盖
+    created_at: datetime
+    updated_at: datetime
+
+
+class UserVolunteerItemRow(SQLModel, table=True):
+    """志愿项（院校专业组）。算法档位存审计快照，GET 时重算当前值；规划档位由用户调整。"""
+
+    __tablename__ = "user_volunteer_items"
+    __table_args__ = (
+        UniqueConstraint("group_id", "school_code", "major_group_code", name="uq_item_group_school"),
+    )
+    id: Optional[int] = Field(default=None, primary_key=True)
+    group_id: int = Field(foreign_key="user_volunteer_groups.id", ondelete="CASCADE")
+    # 不存 owner_key（通过 group 关联，避免冗余+不一致）
+    school_code: str
+    school_name: str
+    major_group_code: str
+    major_group_name: str
+    algorithm_tier_at_add: str  # 添加时算法档位（审计快照，不变）
+    planned_tier: Optional[str] = None  # 用户规划档位（搏/冲/稳/保/垫/null=null用算法档）
+    sort_order: int  # 全局唯一顺序（0-47），编排页分区只是视觉，底层始终连续
+    source_snapshot: str = "{}"  # JSON：添加时证据快照（审计，非显示来源）
+    added_at: datetime
