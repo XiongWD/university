@@ -157,7 +157,7 @@ export default function HenanItemCard({ s, bucketKey, index, showCalc }: Props) 
           </div>
         )}
       </div>
-      {/* 冲稳保计算链（问题2）：可展开查看本组位次差比计算 */}
+      {/* 冲稳保计算链（问题2）：可展开查看本组位次优势计算（统一 advantage 口径） */}
       {showCalc && detail && (
         <div className="mt-1.5">
           <button type="button" onClick={() => setCalcOpen((v) => !v)}
@@ -167,14 +167,15 @@ export default function HenanItemCard({ s, bucketKey, index, showCalc }: Props) 
           {calcOpen && (
             <div className="text-[10px] text-white/50 mt-1 bg-white/5 rounded-lg p-2 space-y-0.5 font-mono">
               <div>公式：{detail.formula}</div>
-              <div>考生位次 <b className="text-white/70">{fmtRank(detail.student_rank)}</b> − 参考位次 <b className="text-white/70">{fmtRank(detail.adjusted_min_rank)}</b>
+              <div>参考位次 <b className="text-white/70">{fmtRank(detail.reference_rank ?? detail.adjusted_min_rank)}</b> − 考生位次 <b className="text-white/70">{fmtRank(detail.student_rank)}</b>
                 {detail.baseline_year ? `（${detail.baseline_year}年${fmtBaselineGranularity(detail.baseline_granularity)}）` : ""}</div>
-              <div>位次差比 = <b className={bucketKey === "超冲" ? "text-rose-300" : bucketKey === "搏" ? "text-orange-300" : bucketKey === "冲" ? "text-amber-300" : bucketKey === "稳" ? "text-emerald-300" : bucketKey === "垫" ? "text-indigo-300" : "text-sky-300"}>
-                {detail.rank_gap_ratio !== null && detail.rank_gap_ratio !== undefined ? `${(detail.rank_gap_ratio * 100).toFixed(1)}%` : "—"}
-              </b> → 判定 <b className="text-white/70">{s.bucket}</b> · 风险等级 <b className="text-emerald-300">
-                {detail.risk_level ?? "—"}
-              </b></div>
-              <div className="text-white/35">置信度 {detail.confidence?.toFixed?.(2) ?? detail.confidence}{detail.confidence < 0.7 ? "（&lt;0.7，成功率已打折）" : ""}</div>
+              <div>位次优势 = <b className={bucketKey === "超冲" ? "text-rose-300" : bucketKey === "搏" ? "text-orange-300" : bucketKey === "冲" ? "text-amber-300" : bucketKey === "稳" ? "text-emerald-300" : bucketKey === "垫" ? "text-indigo-300" : "text-sky-300"}>
+                {detail.advantage !== null && detail.advantage !== undefined ? `${detail.advantage >= 0 ? "+" : ""}${detail.advantage.toLocaleString("zh-CN")}` : "—"}
+              </b>（相对考生位次
+                <b className="ml-1">
+                  {detail.advantage_ratio !== null && detail.advantage_ratio !== undefined ? `${(detail.advantage_ratio * 100).toFixed(1)}%` : "—"}
+                </b>，负=目标更难）→ 判定 <b className="text-white/70">{s.bucket}</b> · 风险等级 <b className="text-emerald-300">{detail.risk_level ?? "—"}</b></div>
+              <div className="text-white/35">置信度 {detail.confidence?.toFixed?.(2) ?? detail.confidence}</div>
             </div>
           )}
         </div>
@@ -189,7 +190,17 @@ export default function HenanItemCard({ s, bucketKey, index, showCalc }: Props) 
           {s.warnings.map((w, j) => <div key={j}>⚠ {w}</div>)}
         </div>
       )}
-      {s.missing_data_items && s.missing_data_items.length > 0 && (
+      {/* 需复核原因细分（design：需人工复核≠不符合，告知用户具体缺什么数据） */}
+      {s.bucket === "需人工复核" && s.review_reason && (
+        <div className="text-[11px] text-amber-200/85 mt-1 space-y-0.5">
+          <div>📋 {s.review_reason}</div>
+          <div className="text-white/40">
+            {s.eligibility_known === false ? "资格待核" : "资格暂无问题"}，但{` `}
+            {s.admission_predictable === false ? "录取难度暂无法预测" : "可预测"}
+          </div>
+        </div>
+      )}
+      {s.missing_data_items && s.missing_data_items.length > 0 && s.bucket !== "需人工复核" && (
         <div className="text-[11px] text-amber-200/80 mt-1 space-y-0.5">
           {s.missing_data_items.map((item, j) => <div key={j}>缺：{item}</div>)}
         </div>

@@ -322,6 +322,15 @@ export interface HenanRecommendationResult {
   batch_message?: string;                               // 线下提示
   volunteer_table?: HenanVolunteerTable | null;
   language_restriction_summary?: LanguageRestrictionSummary | null;
+  review_summary?: ReviewSummary;                          // 需复核原因细分统计
+}
+
+// 需复核原因汇总（需人工复核≠不符合，主要是数据证据不足）
+export interface ReviewSummary {
+  total: number;                                           // 需复核专业组总数
+  by_reason: Record<string, number>;                       // 各原因计数
+  labels: Record<string, string>;                          // 原因代码→中文标签
+  note: string;                                            // 顶部提示文案
 }
 
 // 语种限制汇总（日语考生顶部提示）
@@ -338,9 +347,13 @@ export interface LanguageRestrictionSummary {
 // 冲稳保计算明细（位次差比 + 阈值 + 成功率）
 export interface BucketDetail {
   student_rank: number | null;
-  adjusted_min_rank: number | null;
-  rank_gap_ratio: number | null;
-  admission_probability: number;   // 投档成功率 0-1（内部用，展示优先用 risk_level）
+  reference_rank?: number | null;     // 归一化后参考录取位次（advantage 口径）
+  adjusted_min_rank: number | null;   // 兼容旧字段（同 reference_rank）
+  advantage?: number | null;          // 参考位次 − 考生位次（负=目标更难，正=考生更优）
+  advantage_ratio?: number | null;    // advantage / 考生位次R（判档同口径比例）
+  rank_gap_ratio: number | null;      // 已废弃（旧口径，方向相反），恒 null
+  admission_probability: number;      // 已停用（未经回测），恒 null，展示用 risk_level
+  calculation_version?: string;       // 口径版本标记（henan_tier_v1）
   risk_level?: string;             // 风险等级文字（未经回测，替代精确概率展示）
   baseline_year: number | null;
   baseline_granularity: string | null;
@@ -442,6 +455,11 @@ export interface HenanTargetItem {
   eligible_majors?: string[];
   ineligible_majors?: { major: string; reasons: string[] }[];
   uncertain_majors?: string[];
+  // 需复核原因细分（design：需人工复核≠不符合，告知用户具体缺什么数据）
+  review_reason_code?: string | null;
+  review_reason?: string | null;
+  eligibility_known?: boolean;
+  admission_predictable?: boolean;
 }
 
 export interface HenanTargetEvaluationResult {

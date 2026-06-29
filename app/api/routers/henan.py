@@ -268,6 +268,29 @@ def recommendation(req: HenanRecommendationRequest, session: Session = Depends(g
         classification_pool.setdefault(item["bucket"], []).append(item)
     classification_pool_counts = {t: len(classification_pool[t]) for t in _ALL_TIERS}
 
+    # 需复核原因细分统计（design：需人工复核≠不符合，需告知用户具体缺什么数据）
+    review_reason_labels = {
+        "missing_verified_2025_rank": "缺2025同口径录取位次",
+        "only_2024_old_regime": "仅有2024旧文科数据",
+        "missing_verified_2026_plan": "2026招生计划未核验",
+        "unverified_2026_group": "2026专业组结构未核验",
+        "other_review_needed": "其他数据待核验",
+    }
+    review_counts: dict[str, int] = {code: 0 for code in review_reason_labels}
+    for item in classification_pool["需人工复核"]:
+        code = item.get("review_reason_code") or "other_review_needed"
+        review_counts[code] = review_counts.get(code, 0) + 1
+    review_summary = {
+        "total": len(classification_pool["需人工复核"]),
+        "by_reason": review_counts,
+        "labels": review_reason_labels,
+        "note": (
+            f"需复核共 {len(classification_pool['需人工复核'])} 个专业组，主要是数据证据不足"
+            f"（非资格不符）。最大原因：{review_reason_labels[max(review_counts, key=review_counts.get)]}"
+            if classification_pool["需人工复核"] else "无需复核专业组"
+        ),
+    }
+
     # 展示池：超冲默认不展示（资格可报但门槛明显过高）；其余档位排序+限量
     _DISPLAY_TIERS = ("搏", "冲", "稳", "保", "垫")
     buckets: dict[str, list] = {"搏": [], "冲": [], "稳": [], "保": [], "垫": [], "不推荐": [], "需人工复核": []}
@@ -308,6 +331,7 @@ def recommendation(req: HenanRecommendationRequest, session: Session = Depends(g
         "display_pool_caps": {"搏": 10, "冲": 20, "稳": 30, "保": 25, "垫": 15},
         "volunteer_table": volunteer_table,
         "language_restriction_summary": language_restriction_summary,
+        "review_summary": review_summary,
     }
 
 

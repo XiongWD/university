@@ -417,6 +417,30 @@ export default function HomePage() {
             );
           })()}
 
+          {/* 需复核原因汇总（需人工复核≠不符合，主要是数据证据不足） */}
+          {result.review_summary && result.review_summary.total > 0 && (() => {
+            const rs = result.review_summary;
+            const reasonEntries = Object.entries(rs.by_reason).filter(([, n]) => n > 0);
+            return (
+              <div className="glass rounded-2xl p-4 border border-amber-400/30 flex items-start gap-2 text-sm text-amber-200">
+                <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
+                <div>
+                  <p className="font-medium">📋 数据待复核 · 共 {rs.total} 个专业组</p>
+                  <p className="text-amber-200/75 text-xs mt-1 leading-relaxed">
+                    「需人工复核」表示<b className="text-amber-100">资格暂无问题</b>，但招生/历史数据不足，暂无法严谨判定冲稳保档位（并非不符合报考条件）。
+                  </p>
+                  <div className="text-[11px] mt-1.5 flex flex-wrap gap-2">
+                    {reasonEntries.map(([code, n]) => (
+                      <span key={code} className="px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-200/90">
+                        {rs.labels[code] ?? code} {n}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            );
+          })()}
+
           {/* 本科线资格门提示 */}
           {result.batch_eligibility === "ineligible" && result.batch_message && (
             <div className="glass rounded-xl p-4 border border-red-400/30">

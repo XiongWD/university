@@ -680,41 +680,17 @@ def _risk_level(bucket: str) -> str:
 
 
 def estimate_admission_probability(bucket: str, rank_gap_ratio: float | None, confidence: float) -> float:
-    """估算投档成功率（0-1，problem1：成功率可见）。
+    """[已废弃] 估算投档成功率。
 
-    基于 rank_gap_ratio（考生位次相对参考位次偏离）分段校准，覆盖冲稳保三档：
-    - 保（ratio < -0.10）：位次明显优于参考，成功率 92-99%
-    - 稳（-0.10 ≤ ratio ≤ 0.03）：位次接近，成功率 60-92%
-    - 冲（0.03 < ratio ≤ 0.15）：位次略靠后，成功率 25-60%
-    ratio 越优概率越高，并按置信度衰减（confidence<0.7 打 0.85 折）。
-    无 ratio（资格层/历史缺失）时返回 0。
+    废弃原因：
+      1. 基于旧 rank_gap_ratio（考生−参考/参考位次），方向与判档 advantage 相反；
+      2. 精确概率未经历史回测校准，易误导；
+      3. 现已改用 risk_level（定性区间）展示。
+
+    保留函数体仅为兼容旧测试/调用方，生产链路不再调用（admission_probability 恒为 null）。
+    新代码请用 _risk_level(bucket) 或 advantage_ratio。
     """
-    if rank_gap_ratio is None:
-        return 0.0
-    r = rank_gap_ratio
-    if bucket == "垫":
-        # 兜底：考生位次远优于门槛，录取近乎必然
-        return round(min(0.999, 0.99 + confidence * 0.005), 3) if confidence < 0.7 else 0.999
-    if bucket == "保":
-        # ratio 越负越稳：-0.10→92%，-0.30→99%
-        prob = min(0.99, 0.92 + min(0.07, max(0.0, (-r - 0.10)) * 0.35))
-    elif bucket == "稳":
-        # -0.10→92%，0.03→60%（区间内线性）
-        prob = 0.92 - (r - (-0.10)) / (0.03 - (-0.10)) * (0.92 - 0.60)
-        prob = max(0.60, min(0.92, prob))
-    elif bucket == "冲":
-        # 0.03→60%，0.15→25%（区间内线性）
-        prob = 0.60 - (r - 0.03) / (0.15 - 0.03) * (0.60 - 0.25)
-        prob = max(0.25, min(0.60, prob))
-    elif bucket == "搏":
-        # 门槛比考生高 10% 以上：录取概率较低 5-15%
-        prob = max(0.05, min(0.15, 0.15 - max(0.0, -r - 0.10) * 0.5))
-    else:
-        # 不推荐 / 需人工复核：资格未通过或数据不足
-        return 0.0
-    if confidence < 0.7:
-        prob *= 0.85
-    return round(prob, 3)
+    return 0.0
 
 
 def classify_group_bucket(
@@ -1008,6 +984,33 @@ def build_henan_candidates(profile: dict) -> list[dict]:
                 if group_elig_status == "partially_eligible":
                     eligibility_status = "partially_eligible"
 
+        # —— 需复核原因细分（design：需人工复核≠不符合，需告知用户具体缺什么数据）——
+        # 区分"不能报"（ineligible）与"暂时算不出"（uncertain/需人工复核），
+        # 让用户明白是资格硬阻还是数据证据不足。
+        review_reason_code: str | None = None
+        review_reason: str | None = None
+        eligibility_known = group_elig_status != "uncertain"  # 资格是否已明确（eligible/partially_eligible/ineligible=已知）
+        admission_predictable = bucket in {"超冲", "搏", "冲", "稳", "保", "垫"}
+        if bucket == "需人工复核":
+            # 细分需复核原因（优先级：缺2025同口径位次 > 2024旧口径 > 2026计划/专业组未核验）
+            if baseline is None or not has_verified_history:
+                review_reason_code = "missing_verified_2025_rank"
+                review_reason = ("资格暂无问题，但缺少2025同口径院校专业组最低录取位次，"
+                                 "无法严谨判定搏/冲/稳/保/垫，需补充数据后复核")
+            elif baseline.get("year") == 2024:
+                review_reason_code = "only_2024_old_regime"
+                review_reason = ("仅有2024旧文科口径数据（≠新高考历史类），口径断裂不可直接判档，"
+                                 "待2025同口径数据补齐后复核")
+            elif not has_2026_plan:
+                review_reason_code = "missing_verified_2026_plan"
+                review_reason = "2026河南招生计划未核验，无法确认本组2026是否招生"
+            elif not has_verified_group:
+                review_reason_code = "unverified_2026_group"
+                review_reason = "2026专业组结构未核验，无法确认选科/语种等限制是否最新"
+            else:
+                review_reason_code = "other_review_needed"
+                review_reason = "数据证据不足，需人工复核"
+
         # —— 费用与学校性质（design §4.4/§4.5，问题3/问题4）——
         lead_plan = group_plans[0] if group_plans else None
         tuition = getattr(lead_plan, "tuition", None) if lead_plan else None
@@ -1033,21 +1036,28 @@ def build_henan_candidates(profile: dict) -> list[dict]:
         accommodation_annual = accommodation if accommodation else ACCOMMODATION_ESTIMATE
         four_year_total = (tuition_annual + accommodation_annual + living_cost_per_year) * years
 
-        # —— 冲稳保计算明细：位次差比（基于归一化后的位次）+ 成功率 ——
-        # 归一化已在上方 classify 前完成（norm/normalized_rank），此处复用
+        # —— 冲稳保计算明细：统一口径（advantage = 参考位次 − 考生位次，负值=更难）——
+        # 判档用 classify_admission_tier 的 advantage（参考−考生），展示口径必须与之一致。
+        # advantage_ratio = advantage / 考生位次R（分母用考生位次，与判档边界口径一致）。
+        # 旧 rank_gap_ratio=(考生−参考)/参考 已废弃：方向相反、分母不同，与判档逻辑矛盾。
         adjusted_min_rank = norm.get("normalized_rank") or norm.get("raw_rank")
-        rank_gap_ratio = (
-            round((student_rank - adjusted_min_rank) / adjusted_min_rank, 4)
-            if (adjusted_min_rank and adjusted_min_rank > 0 and student_rank > 0)
+        tier_advantage = (tier_detail or {}).get("advantage")
+        advantage_ratio = (
+            round(tier_advantage / student_rank, 4)
+            if (tier_advantage is not None and student_rank > 0)
             else None
         )
-        # 投档成功率（problem1）：基于位次差比与档位分段校准
-        admission_probability = estimate_admission_probability(bucket, rank_gap_ratio, group.confidence)
+        # admission_probability 停用：未经回测校准且方向曾与新判档相反，仅保留 risk_level。
+        # 字段保留为 null（兼容旧 API 消费方），内部排序已不依赖它（用 bucket/risk_level）。
+        admission_probability = None
         bucket_detail = {
             "student_rank": student_rank if student_rank > 0 else None,
-            "adjusted_min_rank": adjusted_min_rank,
-            "rank_gap_ratio": rank_gap_ratio,
-            "admission_probability": admission_probability,
+            "reference_rank": adjusted_min_rank,  # 归一化后参考录取位次（语义更清晰，替代旧 adjusted_min_rank）
+            "adjusted_min_rank": adjusted_min_rank,  # 保留旧字段名兼容
+            "advantage": tier_advantage,  # 参考位次 − 考生位次（负=目标更难，正=考生更优）
+            "advantage_ratio": advantage_ratio,  # advantage / 考生位次R（判档同口径比例）
+            "rank_gap_ratio": None,  # 已废弃（旧口径），置 null 防误用
+            "admission_probability": admission_probability,  # 已停用，保留 null 兼容
             # 风险等级（未经回测校准，不展示精确概率，用定性区间）
             "risk_level": _risk_level(bucket),
             "baseline_year": baseline.get("year") if baseline else None,
@@ -1061,15 +1071,17 @@ def build_henan_candidates(profile: dict) -> list[dict]:
             # 五档边界详情（advantage + 各分界线，供核对/前端展示计算过程）
             "tier_detail": tier_detail,
             "confidence": group.confidence,
+            "calculation_version": "henan_tier_v1",  # 口径版本标记，便于前端/测试识别
             "thresholds": {
-                "搏": "参考位次比考生高 10%R 以上（门槛更高，搏一搏）",
-                "冲": "参考位次比考生高 3%~10%R（clamp 300~10000名）",
-                "稳": "考生与参考位次基本匹配，-3%~+5%R（clamp 300~6000名）",
-                "保": "考生位次优于参考 5%~15%R（clamp 1500~20000名）",
-                "垫": "考生位次优于参考 15%R 以上（兜底，min 3000名）",
+                "超冲": "位次优势 < 搏档下界 A（目标门槛远高于考生，录取希望极低）",
+                "搏": "A ≤ 位次优势 < B（参考位次比考生高 10%~20%R）",
+                "冲": "B ≤ 位次优势 < C（参考位次比考生高 3%~10%R）",
+                "稳": "C ≤ 位次优势 < D（考生与参考位次基本匹配，-3%~+5%R）",
+                "保": "D ≤ 位次优势 < E（考生位次优于参考 5%~15%R）",
+                "垫": "位次优势 ≥ E（考生位次远优于参考，兜底）",
                 "不推荐": "资格层未通过（选科/语种/单科/体检不符）",
             },
-            "formula": "advantage = 参考位次 − 考生位次；advantage>0 表示考生更易录取",
+            "formula": "位次优势 = 参考位次 − 考生位次；优势>0 表示考生更易录取，<0 表示目标更难",
         }
 
         candidates.append({
@@ -1130,6 +1142,11 @@ def build_henan_candidates(profile: dict) -> list[dict]:
             "physical_restrictions": group.physical_restrictions or (group_plans[0].physical_restrictions if group_plans else ""),
             "special_qualification_type": group.special_qualification_type or (group_plans[0].special_qualification_type if group_plans else ""),
             "missing_data_items": missing_data_items,
+            # 需复核原因细分（design：需人工复核≠不符合，让用户明白缺什么数据）
+            "review_reason_code": review_reason_code,
+            "review_reason": review_reason,
+            "eligibility_known": eligibility_known,
+            "admission_predictable": admission_predictable,
             "review_status": "verified" if (has_verified_group and has_2026_plan) else "needs_review",
             "bucket_reason": "按2026河南专业组、招生计划、选科语种和历史位次综合判断",
             "data_evidence": {
