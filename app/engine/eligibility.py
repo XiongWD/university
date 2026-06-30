@@ -21,6 +21,16 @@ from app.models.eligibility import (
     SubjectScoreRule,
 )
 
+# 科目名归一化：标准全称 ← 简称（政治↔思想政治、生物↔生物学），避免简称/全称不一致误判。
+# 与 app/engine/henan_recommendation.py:norm_subject 保持同口径（独立定义避免循环 import）。
+_SUBJECT_ALIASES = {"政治": "思想政治", "生物": "生物学"}
+
+
+def _norm_subject(name: str) -> str:
+    if not name:
+        return ""
+    return _SUBJECT_ALIASES.get(name.strip(), name.strip())
+
 
 def _check_exam_language(
     student: StudentAcademicProfile, rule: AdmissionOfferingRule
@@ -123,16 +133,17 @@ def _check_elective_subjects(
     require = es.get("require", [])  # 必须含的科目
     any_of = es.get("any_of", [])  # 至少含其一
 
-    student_set = set(student.elective_subjects)
+    # 科目名归一化（政治↔思想政治、生物↔生物学），两侧统一到全称再比较
+    student_set = {_norm_subject(s) for s in student.elective_subjects}
     for r in require:
-        if r not in student_set:
+        if _norm_subject(r) not in student_set:
             return (
                 False,
                 f"该专业要求再选含{r}，考生再选为{'+'.join(student.elective_subjects) or '无'}",
                 BlockedField.ELECTIVE_SUBJECT,
             )
     if any_of:
-        if not any(a in student_set for a in any_of):
+        if not any(_norm_subject(a) in student_set for a in any_of):
             return (
                 False,
                 f"该专业要求再选至少含{'/'.join(any_of)}之一，"

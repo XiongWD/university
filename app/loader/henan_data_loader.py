@@ -178,24 +178,6 @@ def find_best_historical_baseline(
             return None
         return h.min_rank
 
-    def _inferred_school_baseline(year: int) -> dict | None:
-        ranks = [
-            rank
-            for h in same_school_track
-            if h.year == year
-            for rank in [_verified_rank(h)]
-            if rank
-        ]
-        if not ranks:
-            return None
-        # Use the toughest same-school cutoff as a conservative fallback.
-        return {
-            "adjusted_min_rank": min(ranks),
-            "year": year,
-            "review_status": "verified",
-            "data_granularity": "school_inferred",
-        }
-
     # 1. 2025 专业级（最精确，单年即可定）
     for h in same_school_track:
         if h.year == 2025 and h.data_granularity == "major" and h.major_name in major_names:
@@ -227,20 +209,6 @@ def find_best_historical_baseline(
         return {"adjusted_min_rank": r2024, "year": 2024,
                 "review_status": "verified", "data_granularity": "major_group"}
 
-    # 5. 2025 校级兜底（低置信）
-    for h in same_school_track:
-        if h.year == 2025 and h.data_granularity in ("school", "school_batch") and not h.major_group_code:
-            rank = _verified_rank(h)
-            if rank:
-                return {"adjusted_min_rank": rank, "year": 2025,
-                        "review_status": h.review_status, "data_granularity": "school"}
-
-    inferred_2025 = _inferred_school_baseline(2025)
-    if inferred_2025:
-        return inferred_2025
-
-    inferred_2024 = _inferred_school_baseline(2024)
-    if inferred_2024:
-        return inferred_2024
-
+    # 不使用学校级/同校其他专业组兜底。学校最低位次不代表目标专业组或组内专业，
+    # 用于判档会制造“看似稳妥”的误判；缺精确历史时交给推荐引擎标记为需人工复核。
     return None

@@ -36,10 +36,10 @@ export default function TargetSchoolCard({ items, bucketKey }: Props) {
   // —— 共性提取（同校同档位通常一致）——
   const ownership = head.school_ownership || "";
   const detail = head.bucket_detail;
-  // 检测共性字段是否组间一致；不一致则降级到子表
-  const adjRanks = new Set(items.map((it) => (it.bucket_detail || {}).adjusted_min_rank ?? null));
+  // 检测共性字段是否组间一致；不一致则降级到子表（口径与展示一致：reference_rank）
+  const refRanks = new Set(items.map((it) => (it.bucket_detail || {}).reference_rank ?? (it.bucket_detail || {}).adjusted_min_rank ?? null));
   const studentRanks = new Set(items.map((it) => (it.bucket_detail || {}).student_rank ?? null));
-  const rankCommon = adjRanks.size === 1 && studentRanks.size === 1;
+  const rankCommon = refRanks.size === 1 && studentRanks.size === 1;
   // 学费/4年费用按组显示（不提取共性——17/35 校同校不同组学费不同）
   const prob = head.admission_probability;
   const lang = head.language_restriction;
@@ -81,9 +81,9 @@ export default function TargetSchoolCard({ items, bucketKey }: Props) {
           <span className="text-white/25">·</span>
           <span>{detail.baseline_year ? `${detail.baseline_year}年` : ""}录取位次 <b className="text-white/90">{fmtRank(detail.adjusted_min_rank)}</b></span>
           <span className="text-white/25">·</span>
-          <span>位次差比 <b className={bucketKey === "超冲" ? "text-rose-300" : bucketKey === "搏" ? "text-orange-300" : bucketKey === "冲" ? "text-amber-300" : bucketKey === "稳" ? "text-emerald-300" : bucketKey === "垫" ? "text-indigo-300" : "text-sky-300"}>
-            {detail.rank_gap_ratio !== null && detail.rank_gap_ratio !== undefined ? `${(detail.rank_gap_ratio * 100).toFixed(1)}%` : "—"}
-          </b></span>
+          <span>位次优势 <b className={bucketKey === "超冲" ? "text-rose-300" : bucketKey === "搏" ? "text-orange-300" : bucketKey === "冲" ? "text-amber-300" : bucketKey === "稳" ? "text-emerald-300" : bucketKey === "垫" ? "text-indigo-300" : "text-sky-300"}>
+            {detail.advantage_ratio !== null && detail.advantage_ratio !== undefined ? `${(detail.advantage_ratio * 100).toFixed(1)}%` : "—"}
+          </b>（负=目标更难）</span>
         </div>
       )}
 
@@ -109,14 +109,15 @@ export default function TargetSchoolCard({ items, bucketKey }: Props) {
           {calcOpen && (
             <div className="text-[11px] text-white/60 mt-1 bg-white/5 rounded-lg p-2 space-y-0.5 font-mono">
               <div>公式：{detail.formula}</div>
-              <div>考生位次 <b className="text-white/80">{fmtRank(detail.student_rank)}</b> − 参考位次 <b className="text-white/80">{fmtRank(detail.adjusted_min_rank)}</b>
+              <div>参考位次 <b className="text-white/80">{fmtRank(detail.reference_rank ?? detail.adjusted_min_rank)}</b> − 考生位次 <b className="text-white/80">{fmtRank(detail.student_rank)}</b>
                 {detail.baseline_year ? `（${detail.baseline_year}年${fmtBaselineGranularity(detail.baseline_granularity)}）` : ""}</div>
-              <div>位次差比 = <b className={bucketKey === "超冲" ? "text-rose-300" : bucketKey === "搏" ? "text-orange-300" : bucketKey === "冲" ? "text-amber-300" : bucketKey === "稳" ? "text-emerald-300" : bucketKey === "垫" ? "text-indigo-300" : "text-sky-300"}>
-                {detail.rank_gap_ratio !== null && detail.rank_gap_ratio !== undefined ? `${(detail.rank_gap_ratio * 100).toFixed(1)}%` : "—"}
-              </b> → 判定 <b className="text-white/80">{head.bucket}</b> · 投档成功率 <b className="text-emerald-300">
-                {typeof detail.admission_probability === "number" && detail.admission_probability > 0 ? `${Math.round(detail.admission_probability * 100)}%` : "—"}
-              </b></div>
-              <div className="text-white/45">置信度 {detail.confidence?.toFixed?.(2) ?? detail.confidence}{detail.confidence < 0.7 ? "（&lt;0.7，成功率已打折）" : ""}</div>
+              <div>位次优势 = <b className={bucketKey === "超冲" ? "text-rose-300" : bucketKey === "搏" ? "text-orange-300" : bucketKey === "冲" ? "text-amber-300" : bucketKey === "稳" ? "text-emerald-300" : bucketKey === "垫" ? "text-indigo-300" : "text-sky-300"}>
+                {detail.advantage !== null && detail.advantage !== undefined ? `${detail.advantage >= 0 ? "+" : ""}${detail.advantage.toLocaleString("zh-CN")}` : "—"}
+              </b>（相对考生位次
+                <b className="ml-1">
+                  {detail.advantage_ratio !== null && detail.advantage_ratio !== undefined ? `${(detail.advantage_ratio * 100).toFixed(1)}%` : "—"}
+                </b>，负=目标更难）→ 判定 <b className="text-white/80">{head.bucket}</b> · 风险等级 <b className="text-emerald-300">{detail.risk_level ?? "—"}</b></div>
+              <div className="text-white/45">置信度 {detail.confidence?.toFixed?.(2) ?? detail.confidence}</div>
             </div>
           )}
         </div>
@@ -154,8 +155,8 @@ export default function TargetSchoolCard({ items, bucketKey }: Props) {
                 {/* 位次不共性时降级按组显示 */}
                 {!rankCommon && itDetail && (
                   <div className="text-[11px] text-white/55 mt-1 tabular-nums">
-                    考生位次 {fmtRank(itDetail.student_rank)} · {itDetail.baseline_year ? `${itDetail.baseline_year}年` : ""}录取 {fmtRank(itDetail.adjusted_min_rank)}
-                    {itDetail.rank_gap_ratio !== null && itDetail.rank_gap_ratio !== undefined ? ` · 差比 ${(itDetail.rank_gap_ratio * 100).toFixed(1)}%` : ""}
+                    考生位次 {fmtRank(itDetail.student_rank)} · {itDetail.baseline_year ? `${itDetail.baseline_year}年` : ""}录取 {fmtRank(itDetail.reference_rank ?? itDetail.adjusted_min_rank)}
+                    {itDetail.advantage_ratio !== null && itDetail.advantage_ratio !== undefined ? ` · 优势 ${(itDetail.advantage_ratio * 100).toFixed(1)}%` : ""}
                   </div>
                 )}
               </div>

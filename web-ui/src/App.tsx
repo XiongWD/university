@@ -18,14 +18,15 @@ const navItems = [
 ];
 
 export default function App() {
-  // 应用启动时加载志愿组（跨页面共享），离开前 flush 待删除项
+  // 应用启动时加载志愿组（跨页面共享）。
+  // 注意：不在卸载时 flushPendingDeletes——页面关闭时普通 fetch 不可靠（会被浏览器取消），
+  // 且 void Promise 无法保证完成，反而制造生命周期外的隐藏写入（曾导致 E2E 测试间污染）。
+  // 语义上：刷新/关闭时未到期的延迟删除视为「撤销」，下次加载时该项仍在，用户可重新移除。
   const loadGroup = useVolunteerStore((s) => s.loadGroup);
-  const flushPendingDeletes = useVolunteerStore((s) => s.flushPendingDeletes);
 
   useEffect(() => {
     void loadGroup();
-    return () => { void flushPendingDeletes(); };
-  }, [loadGroup, flushPendingDeletes]);
+  }, [loadGroup]);
 
   return (
     <div className="min-h-screen">

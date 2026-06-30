@@ -301,20 +301,24 @@ def recommendation(req: HenanRecommendationRequest, session: Session = Depends(g
         ),
     }
 
-    # 展示池：超冲默认不展示（资格可报但门槛明显过高）；其余档位排序+限量
+    # 候选池：搏/冲/稳/保/垫 全量展示所有"有机会"的志愿（不做数量截断）。
+    # 五档分类本身已按位次合理性划分（超冲=门槛明显过高，已不进展示池；
+    # 搏冲稳保垫=有机会区间）。数量控制只在下方 48 志愿草案做，上方列表让用户看到全部机会。
+    # 需人工复核/不推荐 不在主列表列举（对考生填报无指导意义，统计见 review_summary）。
     _DISPLAY_TIERS = ("搏", "冲", "稳", "保", "垫")
     buckets: dict[str, list] = {"搏": [], "冲": [], "稳": [], "保": [], "垫": [], "不推荐": [], "需人工复核": []}
     for bucket in _DISPLAY_TIERS:
         buckets[bucket] = sort_henan_bucket_candidates(classification_pool[bucket], profile)
-    # 不推荐/需人工复核 直接转（不排序，让用户看到资格/数据问题）
-    buckets["不推荐"] = classification_pool["不推荐"]
-    buckets["需人工复核"] = classification_pool["需人工复核"]
 
-    # 展示池限量：分类池全保留，展示池按档位截断（搏10/冲20/稳30/保25/垫15）
-    _DISPLAY_CAP = {"搏": 10, "冲": 20, "稳": 30, "保": 25, "垫": 15}
-    for bucket, cap in _DISPLAY_CAP.items():
-        if len(buckets[bucket]) > cap:
-            buckets[bucket] = buckets[bucket][:cap]
+    # 垫档位次上限过滤：垫档（advantage≥+15%）原始无上界，偏远院校（如考生位次+40%）
+    # 实力差距过大，对填报无指导意义。仅保留考生位次 +25% 以内的兜底院校。
+    student_rank = profile.get("rank") or 0
+    if student_rank > 0:
+        dian_cap = round(student_rank * 1.25)
+        buckets["垫"] = [c for c in buckets["垫"]
+                         if (c.get("bucket_detail") or {}).get("reference_rank", 0) <= dian_cap]
+    # 不推荐/需人工复核 列表置空（保留 key 兼容前端类型；统计汇总仍在 review_summary /
+    # classification_pool_counts 提供，便于数据治理，但不在主列表展示具体院校）
 
     # 48 志愿草案（design §8.4，问题1）：策略感知的配额与排序
     policies = load_henan_policy(_SEED_DIR)

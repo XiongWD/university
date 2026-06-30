@@ -20,6 +20,8 @@ export default function Toaster() {
         return (
           <div
             key={t.id}
+            role="status"
+            data-testid={`toast-${t.type}`}
             className={`glass rounded-xl px-3 py-2.5 text-sm flex items-start gap-2 shadow-xl animate-fade-in ${color}`}
           >
             <Icon className="w-4 h-4 shrink-0 mt-0.5" />

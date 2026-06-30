@@ -65,6 +65,22 @@ def _score_to_rank(entries: tuple[tuple[int, int], ...], score: int) -> int | No
     return best_rank
 
 
+# 科目名归一化：高考标准全称 ← 前端/俗称简称。
+# program_groups 用标准全称（思想政治/生物学），前端表单可能传简称（政治/生物），
+# 不归一化会导致"政治 not in [思想政治]"的误判（要求思想政治的专业组被错判不符）。
+_SUBJECT_ALIASES = {
+    "政治": "思想政治",
+    "生物": "生物学",
+}
+
+
+def norm_subject(name: str) -> str:
+    """科目名归一到高考标准全称。地理/化学/历史/物理 简称全称一致直接返回。"""
+    if not name:
+        return ""
+    return _SUBJECT_ALIASES.get(name.strip(), name.strip())
+
+
 # 同口径年份（3+1+2 历史类、合并本科批）：仅这些年份之间可做百分位归一化
 # 2024 是传统文理科口径（文科≠历史类、一本/二本≠合并本科批），口径断裂，不参与
 _SAME_CALIBER_YEARS = {2025, 2026}
@@ -446,8 +462,10 @@ def aggregate_group_eligibility(profile: dict, group, group_plans: list) -> dict
         group_blocked.append(f"首选科目要求{group.primary_subject_requirement}")
 
     require = (group.elective_subject_requirement or {}).get("require", [])
+    # 科目名归一化（政治↔思想政治、生物↔生物学），避免简称/全称不一致误判
+    student_electives = {norm_subject(s) for s in profile.get("elective_subjects", [])}
     for subject in require:
-        if subject not in profile.get("elective_subjects", []):
+        if norm_subject(subject) not in student_electives:
             group_blocked.append(f"再选科目要求包含{subject}")
 
     # 单科要求（组级）
@@ -747,10 +765,11 @@ def classify_group_bucket(
 
 
 def get_bucket_quota(policy_count: int, strategy: str, profile: dict) -> dict[str, tuple[int, int]]:
-    """48 志愿草案的冲稳保数量配额（design §8.4）。
+    """48 志愿草案的搏冲稳保数量配额（design §8.4）。
 
-    均衡档贴合河南省教育考试院官方「黄金比 3:4:3」建议（冲10-15/稳~20/保13-18）。
-    比例是产品默认策略，非官方强制。历史类+日语默认保守；自动策略按科类/语种选择。
+    各策略均含「搏」档：搏档是合理冲刺区间（位次差约 -15%~-25%），截断搏档会让
+    考生漏掉本可一搏的院校。历史类+日语不再默认降级为保守——保守基调由稳/保档的
+    较大占比体现，而非删去搏档。比例是产品默认策略，非官方强制。
     返回各档 (下限, 上限)。
     """
     # 非 48 志愿政策时按比例缩放
@@ -763,18 +782,17 @@ def get_bucket_quota(policy_count: int, strategy: str, profile: dict) -> dict[st
         def scaled(low: int, high: int) -> tuple[int, int]:
             return (low, high)
 
-    # 自动策略：历史类+日语 → 保守；否则均衡（design §8.4）
-    if strategy == "自动" and profile.get("track") == "历史类" and profile.get("exam_foreign_language") == "日语":
-        strategy = "保守"
-    elif strategy == "自动":
+    # 自动策略：统一均衡（不再因历史类+日语强制保守，避免搏档院校被整档截断）
+    if strategy == "自动":
         strategy = "均衡"
 
     if strategy == "保守":
-        return {"冲": scaled(6, 8), "稳": scaled(22, 26), "保": scaled(14, 18)}
+        # 保守基调：稳/保占大头，但仍保留少量搏档给考生冲刺机会
+        return {"搏": scaled(5, 6), "冲": scaled(6, 8), "稳": scaled(18, 22), "保": scaled(12, 14)}
     if strategy == "积极":
-        return {"冲": scaled(12, 16), "稳": scaled(18, 22), "保": scaled(8, 12)}
-    # 均衡：贴合河南省教育考试院官方"黄金比 3:4:3"建议（冲10-15/稳~20/保13-18）
-    return {"冲": scaled(12, 15), "稳": scaled(18, 20), "保": scaled(13, 15)}
+        return {"搏": scaled(12, 14), "冲": scaled(10, 12), "稳": scaled(12, 14), "保": scaled(6, 8)}
+    # 均衡：贴合河南省教育考试院官方"黄金比 3:4:3"建议，并补搏档
+    return {"搏": scaled(10, 12), "冲": scaled(12, 14), "稳": scaled(14, 16), "保": scaled(8, 10)}
 
 
 # 冲稳保排序权重（冲在前，保次之，不推荐最后，需人工复核在末尾）
@@ -914,7 +932,7 @@ def build_henan_candidates(profile: dict) -> list[dict]:
                 [],
             )
             if same_school_history_rows:
-                missing_data_items.append("同校历史存在，但缺少已核验录取位次")
+                missing_data_items.append("同校历史存在，但缺少目标专业组/组内专业已核验录取位次")
             else:
                 missing_data_items.append("缺少同校同科类同批次历史录取位次")
 
@@ -1279,11 +1297,16 @@ def sort_henan_bucket_candidates(candidates: list[dict], profile: dict) -> list[
     def _sort_key(c: dict):
         local_rank = 0 if (prefer_local and c.get("is_henan_local")) else 1
         public_rank = 0 if (prefer_public and c.get("school_ownership") == "公办") else 1
+        # 位次安全度：ref_rank 越大（越接近考生位次、越容易够到）越优先。
+        # 搏/冲档里这是关键因子——差距越小（越可能上）的冲刺院校应排在更前，
+        # 而非把最难考的堆在前面把容易够到的挤出配额。用负 ref_rank 实现降序。
+        ref_rank = (c.get("bucket_detail") or {}).get("reference_rank") or 0
         return (
             local_rank,
             public_rank,
             -_major_match_score(c),
             -_language_fit_score(c),
+            -ref_rank,  # 位次安全度：ref_rank 大（易够到）排前
             -_probability(c),
             _cost(c),
             c.get("school_name", ""),
@@ -1317,15 +1340,15 @@ def build_henan_volunteer_table(
     prefer_public = bool(profile.get("prefer_public"))
     sort_mode = profile.get("sort_mode") or "rank"
 
-    # 仅可达候选进入志愿表（冲/稳/保）；不推荐/需人工复核不进表
-    reachable = [c for c in candidates if c.get("bucket") in {"冲", "稳", "保"}]
-    by_bucket: dict[str, list[dict]] = {"冲": [], "稳": [], "保": []}
+    # 可达候选进入志愿表（搏/冲/稳/保）；不推荐/需人工复核/超冲不进表
+    reachable = [c for c in candidates if c.get("bucket") in {"搏", "冲", "稳", "保"}]
+    by_bucket: dict[str, list[dict]] = {"搏": [], "冲": [], "稳": [], "保": []}
     for c in reachable:
         by_bucket.setdefault(c["bucket"], []).append(c)
 
     ordered: list[dict] = []
     used: dict[str, int] = {}
-    for bucket in ("冲", "稳", "保"):
+    for bucket in ("搏", "冲", "稳", "保"):
         low, high = quota.get(bucket, (0, 0))
         picked = sort_henan_bucket_candidates(by_bucket.get(bucket, []), profile)[:high]
         used[bucket] = len(picked)
@@ -1344,7 +1367,7 @@ def build_henan_volunteer_table(
         "sort_mode": sort_mode,
         "prefer_local": prefer_local,
         "prefer_public": prefer_public,
-        "quota": {b: list(quota.get(b, (0, 0))) for b in ("冲", "稳", "保")},
+        "quota": {b: list(quota.get(b, (0, 0))) for b in ("搏", "冲", "稳", "保")},
         "used": used,
         "total": len(items),
         "items": items,

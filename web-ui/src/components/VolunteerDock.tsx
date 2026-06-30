@@ -44,6 +44,7 @@ function SortableRow({ item, index }: { item: UserVolunteerItem; index: number }
 export default function VolunteerDock() {
   const group = useVolunteerStore((s) => s.group);
   const loading = useVolunteerStore((s) => s.loading);
+  const initializationStatus = useVolunteerStore((s) => s.initializationStatus);
   const applyLayout = useVolunteerStore((s) => s.applyLayout);
   const clearAll = useVolunteerStore((s) => s.clearAll);
   const pendingDeletes = useVolunteerStore((s) => s.pendingDeletes);
@@ -76,7 +77,11 @@ export default function VolunteerDock() {
     [pendingDeletes],
   );
 
-  if (loading || !group) return null;
+  // 首次加载（尚无 group）时不渲染；后续 loadGroup 的 loading 期间保留上次 group，
+  // 避免"重新推荐/刷新触发 loadGroup 时志愿组整个消失"的误感（数据并未丢失）。
+  if (!group) return null;
+  // loading 期间仅做轻微视觉提示（半透明），不隐藏已加载的志愿项。
+  const loadingDim = loading ? "opacity-60 pointer-events-none" : "";
 
   // 折叠态：小型胶囊
   if (collapsed) {
@@ -98,7 +103,7 @@ export default function VolunteerDock() {
   }
 
   return (
-    <div data-testid="volunteer-dock" className="hidden md:flex fixed right-3 top-24 z-30 w-[380px] max-w-[calc(100vw-1.5rem)] max-h-[75vh] flex-col rounded-2xl bg-slate-950/85 shadow-2xl shadow-black/30 ring-1 ring-white/10 backdrop-blur-md">
+    <div data-testid="volunteer-dock" data-ready={initializationStatus} className={`hidden md:flex fixed right-3 top-24 z-30 w-[380px] max-w-[calc(100vw-1.5rem)] max-h-[75vh] flex-col rounded-2xl bg-slate-950/85 shadow-2xl shadow-black/30 ring-1 ring-white/10 backdrop-blur-md ${loadingDim}`}>
       {/* 顶部标题 + 折叠 */}
       <div className="flex items-center gap-2 p-3 border-b border-white/10">
         <Layers className="w-4 h-4 text-indigo-300 shrink-0" />

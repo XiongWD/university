@@ -148,19 +148,20 @@ def test_group_bucket_returns_three_layer_status():
 
 
 def test_bucket_quota_for_balanced_48_volunteers():
-    # 均衡档贴合官方黄金比 3:4:3（冲10-15/稳~20/保13-18）
+    # 均衡档含搏档：搏10-12/冲12-14/稳14-16/保8-10（搏档是合理冲刺区间，不应整档截断）
     quota = get_bucket_quota(48, "均衡", {"track": "物理类", "exam_foreign_language": "英语"})
-    assert quota == {"冲": (12, 15), "稳": (18, 20), "保": (13, 15)}
+    assert quota == {"搏": (10, 12), "冲": (12, 14), "稳": (14, 16), "保": (8, 10)}
 
 
-def test_bucket_quota_defaults_to_conservative_for_history_japanese():
+def test_bucket_quota_auto_not_forced_conservative_for_history_japanese():
+    # 自动策略统一均衡：历史类+日语不再强制降级为保守，避免搏档院校被整档截断
     quota = get_bucket_quota(48, "自动", {"track": "历史类", "exam_foreign_language": "日语"})
-    assert quota == {"冲": (6, 8), "稳": (22, 26), "保": (14, 18)}
+    assert quota == {"搏": (10, 12), "冲": (12, 14), "稳": (14, 16), "保": (8, 10)}
 
 
 def test_bucket_quota_for_aggressive_48_volunteers():
     quota = get_bucket_quota(48, "积极", {"track": "物理类", "exam_foreign_language": "英语"})
-    assert quota == {"冲": (12, 16), "稳": (18, 22), "保": (8, 12)}
+    assert quota == {"搏": (12, 14), "冲": (10, 12), "稳": (12, 14), "保": (6, 8)}
 
 
 def test_48_draft_respects_policy_count():

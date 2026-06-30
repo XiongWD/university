@@ -25,10 +25,22 @@ export interface Toast {
 const DELETE_DELAY_MS = 5000;
 let _toastId = 0;
 let _pendingLayoutQueue: Array<() => Promise<void>> = [];
+let _loadGeneration = 0;  // loadGroup 世代令牌，防旧 GET 覆盖新写入
+
+/**
+ * 志愿组初始化状态机（生产真实竞态修复）：
+ *  - idle：尚未加载（页面未挂载或刚创建 store）
+ *  - loading：loadGroup 进行中（此期间禁止添加/改档，避免基于空 store 误判 isAdded）
+ *  - ready：已加载最新 group，可安全写操作
+ *  - error：加载失败（按钮禁用，避免在未知状态下写入）
+ * 测试通过 data-ready="ready" 等待业务就绪，而非依赖元素可见。
+ */
+export type InitializationStatus = "idle" | "loading" | "ready" | "error";
 
 interface VolunteerState {
   group: UserVolunteerGroup | null;
   loading: boolean;
+  initializationStatus: InitializationStatus;
   saving: boolean;
   pendingLayout: boolean;
   pendingDeletes: Record<number, { item: UserVolunteerItem; timer: ReturnType<typeof setTimeout> }>;
@@ -44,6 +56,8 @@ interface VolunteerState {
   flushPendingDeletes: () => Promise<void>;
   clearAll: () => Promise<void>;
   isAdded: (schoolCode: string, groupCode: string) => boolean;
+  /** 初始化是否完成（ready 才允许写操作） */
+  isReady: () => boolean;
 
   // toast
   addToast: (message: string, type?: Toast["type"]) => void;
@@ -56,6 +70,7 @@ interface VolunteerState {
 export const useVolunteerStore = create<VolunteerState>((set, get) => ({
   group: null,
   loading: false,
+  initializationStatus: "idle",
   saving: false,
   pendingLayout: false,
   pendingDeletes: {},
@@ -69,15 +84,23 @@ export const useVolunteerStore = create<VolunteerState>((set, get) => ({
   dismissToast: (id) => set((st) => ({ toasts: st.toasts.filter((t) => t.id !== id) })),
 
   loadGroup: async () => {
-    set({ loading: true });
+    // 世代令牌：防止「旧 loadGroup 返回」覆盖「期间发生的新写入」。
+    // 场景：用户网络慢，loadGroup A 在途 → 用户点 addItem B 成功（store 已更新）→
+    //       A 才返回，若直接 set 会用旧 group 覆盖 B 的结果。令牌确保只有最新一次 load 生效。
+    const token = ++_loadGeneration;
+    set({ loading: true, initializationStatus: "loading" });
     try {
       const group = await getMyVolunteers();
-      set({ group, loading: false });
+      if (token !== _loadGeneration) return;  // 已被更新的 load/write 取代，丢弃
+      set({ group, loading: false, initializationStatus: "ready" });
     } catch (e) {
-      set({ loading: false });
+      if (token !== _loadGeneration) return;
+      set({ loading: false, initializationStatus: "error" });
       get().addToast("加载志愿组失败", "error");
     }
   },
+
+  isReady: () => get().initializationStatus === "ready",
 
   addItem: async (s, profile) => {
     // 乐观更新：先在前端临时加（无 id），成功替换，失败回滚
@@ -107,13 +130,17 @@ export const useVolunteerStore = create<VolunteerState>((set, get) => ({
         school_code: schoolCode, major_group_code: s.major_group_code, profile,
       });
       if (result.ok) {
-        set({ group: result.group, saving: false });
+        _loadGeneration++;  // 本次写入已更新 store，使任何在途的旧 loadGroup 失效（防覆盖）
+        set({ group: result.group, saving: false, initializationStatus: "ready" });
         get().addToast("已加入志愿组", "success");
         return true;
       }
       // 409 冲突：加载最新 + 提示（不静默）
       set({ group: prev, saving: false });
-      if (result.conflict.latest_group) set({ group: result.conflict.latest_group });
+      if (result.conflict.latest_group) {
+        _loadGeneration++;
+        set({ group: result.conflict.latest_group, initializationStatus: "ready" });
+      }
       get().addToast("志愿组已在其他页面更新，已加载最新版本", "info");
       return false;
     } catch (e) {
@@ -145,9 +172,13 @@ export const useVolunteerStore = create<VolunteerState>((set, get) => ({
       const req: ApplyLayoutRequest = { items: layoutItems, version: g.version };
       const result = await applyVolunteerLayout(req);
       if (result.ok) {
-        set({ group: result.group });
+        _loadGeneration++;
+        set({ group: result.group, initializationStatus: "ready" });
       } else {
-        if (result.conflict.latest_group) set({ group: result.conflict.latest_group });
+        if (result.conflict.latest_group) {
+          _loadGeneration++;
+          set({ group: result.conflict.latest_group, initializationStatus: "ready" });
+        }
         get().addToast("志愿组已在其他页面更新，已加载最新版本", "info");
       }
     };
@@ -180,9 +211,13 @@ export const useVolunteerStore = create<VolunteerState>((set, get) => ({
     try {
       const result = await updateVolunteerTier(itemId, tier, prev.version);
       if (result.ok) {
-        set({ group: result.group });
+        _loadGeneration++;
+        set({ group: result.group, initializationStatus: "ready" });
       } else {
-        if (result.conflict.latest_group) set({ group: result.conflict.latest_group });
+        if (result.conflict.latest_group) {
+          _loadGeneration++;
+          set({ group: result.conflict.latest_group, initializationStatus: "ready" });
+        }
         get().addToast("志愿组已在其他页面更新，已加载最新版本", "info");
       }
     } catch (e) {
@@ -234,10 +269,14 @@ export const useVolunteerStore = create<VolunteerState>((set, get) => ({
     try {
       const result = await clearVolunteers(cur.version);
       if (result.ok) {
-        set({ group: result.group, saving: false });
+        _loadGeneration++;
+        set({ group: result.group, saving: false, initializationStatus: "ready" });
         get().addToast("已清空志愿组", "success");
       } else {
-        if (result.conflict.latest_group) set({ group: result.conflict.latest_group });
+        if (result.conflict.latest_group) {
+          _loadGeneration++;
+          set({ group: result.conflict.latest_group, initializationStatus: "ready" });
+        }
         set({ saving: false });
         get().addToast("志愿组已在其他页面更新，已加载最新版本", "info");
       }
@@ -264,9 +303,13 @@ export const useVolunteerStore = create<VolunteerState>((set, get) => ({
     try {
       const result = await deleteVolunteerItem(itemId, cur.version);
       if (result.ok) {
-        set({ group: result.group });
+        _loadGeneration++;
+        set({ group: result.group, initializationStatus: "ready" });
       } else {
-        if (result.conflict.latest_group) set({ group: result.conflict.latest_group });
+        if (result.conflict.latest_group) {
+          _loadGeneration++;
+          set({ group: result.conflict.latest_group, initializationStatus: "ready" });
+        }
         get().addToast("志愿组已在其他页面更新，已加载最新版本", "info");
       }
     } catch {

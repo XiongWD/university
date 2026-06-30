@@ -176,6 +176,26 @@ def test_review_reason_missing_2025_rank(monkeypatch):
     assert c["admission_predictable"] is False
 
 
+def test_other_same_school_group_rank_does_not_make_missing_group_stable(monkeypatch):
+    """目标组缺历史时，不得用同校其他专业组位次推断并进入稳/保等确定档。"""
+    from app.engine.henan_recommendation import build_henan_candidates
+
+    groups = [_make_group("TARGET", school_code="853")]
+    plans = [_make_plan("TARGET", school_code="853")]
+    history = [
+        _make_history("OTHER1", 2025, 33721, school_code="853"),
+        _make_history("OTHER2", 2025, 34391, school_code="853"),
+    ]
+    _setup(monkeypatch, groups, plans, history)
+
+    c = build_henan_candidates(_profile(rank=73822))[0]
+    assert c["bucket"] == "需人工复核"
+    assert c["review_reason_code"] == "missing_verified_2025_rank"
+    assert c["bucket_detail"]["baseline_granularity"] is None
+    assert c["bucket_detail"]["adjusted_min_rank"] is None
+    assert c["admission_predictable"] is False
+
+
 def test_review_reason_only_2024_old_regime(monkeypatch):
     """仅有2024旧文科数据 → review_reason_code=only_2024_old_regime。"""
     from app.engine.henan_recommendation import build_henan_candidates

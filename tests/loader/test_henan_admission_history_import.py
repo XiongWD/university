@@ -81,7 +81,8 @@ def test_missing_verified_history_returns_none():
     assert baseline is None
 
 
-def test_school_level_fallback_is_low_confidence():
+def test_school_level_history_is_not_used_for_group_baseline():
+    """学校级历史不能冒充目标专业组历史；否则会把其他专业组最低位次用于本组判档。"""
     history = [
         _hist(min_rank=30000, data_granularity="school", major_name=None, major_group_code=None),
     ]
@@ -89,11 +90,10 @@ def test_school_level_fallback_is_low_confidence():
         history, school_code="10459", group_code="101", major_names=["法学"],
         track="历史类", batch="本科批",
     )
-    assert baseline is not None
-    assert baseline["data_granularity"] == "school"
+    assert baseline is None
 
 
-def test_inferred_school_fallback_uses_same_school_verified_2025_history():
+def test_other_group_history_is_not_inferred_for_missing_target_group():
     history = [
         _hist(
             year=2025,
@@ -116,13 +116,10 @@ def test_inferred_school_fallback_uses_same_school_verified_2025_history():
         history, school_code="10459", group_code="999", major_names=["journalism"],
         track="历史类", batch="本科批",
     )
-    assert baseline is not None
-    assert baseline["adjusted_min_rank"] == 18000
-    assert baseline["year"] == 2025
-    assert baseline["data_granularity"] == "school_inferred"
+    assert baseline is None
 
 
-def test_inferred_school_fallback_uses_verified_2024_history_when_2025_missing():
+def test_other_group_2024_history_is_not_inferred_for_missing_target_group():
     history = [
         _hist(
             year=2024,
@@ -137,10 +134,7 @@ def test_inferred_school_fallback_uses_verified_2024_history_when_2025_missing()
         history, school_code="10459", group_code="999", major_names=["journalism"],
         track="历史类", batch="本科批",
     )
-    assert baseline is not None
-    assert baseline["adjusted_min_rank"] == 26000
-    assert baseline["year"] == 2024
-    assert baseline["data_granularity"] == "school_inferred"
+    assert baseline is None
 
 
 def test_importer_rejects_verified_row_without_min_rank(tmp_path):

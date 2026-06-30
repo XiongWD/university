@@ -33,6 +33,24 @@ import type {
 
 const BASE = "/api/v1";
 
+// ── 测试 owner 隔离（E2E 用）─────────────────────────────────────────────
+// 设置后所有志愿组请求带 X-Owner-Key header，后端在 VOLUNTEER_OWNER_ISOLATION=1 时
+// 据此隔离不同 owner 的志愿组。生产环境不设置，保持 "default" 单用户。
+// 可由测试通过 window.__test_owner_key__ 注入；Playwright E2E 当前直接用浏览器上下文
+// extraHTTPHeaders 注入，同样会随 fetch 发出。测试 Node fetch 需自行带同一 header。
+const OWNER_STORAGE_KEY = "__test_owner_key__";
+function currentOwnerKey(): string | null {
+  try {
+    return (window as unknown as { [k: string]: string | undefined })[OWNER_STORAGE_KEY] ?? null;
+  } catch {
+    return null;  // Node 环境（无 window），由测试 Node fetch 自行带 header
+  }
+}
+function ownerHeaders(): Record<string, string> {
+  const k = currentOwnerKey();
+  return k ? { "X-Owner-Key": k } : {};
+}
+
 export class ApiError extends Error {
   status: number;
   constructor(message: string, status: number) {
@@ -43,8 +61,8 @@ export class ApiError extends Error {
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(`${BASE}${path}`, {
-    headers: { "Content-Type": "application/json" },
     ...init,
+    headers: { "Content-Type": "application/json", ...ownerHeaders(), ...(init?.headers ?? {}) },
   });
   if (!res.ok) {
     const text = await res.text().catch(() => res.statusText);
@@ -242,8 +260,8 @@ export type VolunteerResult =
 /** 统一处理志愿组写操作：200→成功，409→冲突（带最新group），其他→抛 ApiError */
 async function volunteerRequest(path: string, init: RequestInit): Promise<VolunteerResult> {
   const res = await fetch(`${BASE}${path}`, {
-    headers: { "Content-Type": "application/json" },
     ...init,
+    headers: { "Content-Type": "application/json", ...ownerHeaders(), ...(init.headers ?? {}) },
   });
   if (res.status === 409) {
     const body = (await res.json().catch(() => ({}))) as ConflictResponse;

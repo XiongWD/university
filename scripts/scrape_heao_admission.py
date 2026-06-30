@@ -30,7 +30,8 @@ OUT = Path("data/raw/henan_2026/heao_admission")
 OUT.mkdir(parents=True, exist_ok=True)
 
 # 从 cookie 文件读取 token（避免硬编码失效 token）
-TOKEN_FILE = Path(r"C:\Users\Administrator\Downloads\cookies-2026-06-28 (1).json")
+# 用户每次刷新 cookie 后更新此路径
+TOKEN_FILE = Path(r"C:\Users\Administrator\Downloads\cookies-2026-06-30 (3).json")
 TOKEN = ""
 if TOKEN_FILE.exists():
     _c = json.loads(TOKEN_FILE.read_text(encoding="utf-8"))

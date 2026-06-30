@@ -1,23 +1,21 @@
 import { test, expect, type Page } from "@playwright/test";
+import { createHash } from "node:crypto";
 
 // 本次数据增强（yxdh/zyzh 真实志愿填报代码 + 官网/招生网 + 复核文案 + 校园误并修复）端到端验收。
 // 前置：后端 8000 + 前端 5173 已启动。
 
 const BACKEND = "http://127.0.0.1:8000/api/v1";
 const VOLUNTEER = `${BACKEND}/my-volunteers`;
+const OWNER_HEADER = "X-Owner-Key";
 // 用一个能覆盖五档 + 需复核的 profile（历史类，rank 居中）
 const PROFILE = {
   source_province: "河南", score: 520, rank: 28000, track: "历史类",
   primary_subject: "历史", elective_subjects: ["政治", "地理"], exam_foreign_language: "英语",
 };
 
-async function clearGroup() {
-  const res = await fetch(VOLUNTEER);
-  const g = await res.json();
-  await fetch(`${VOLUNTEER}/clear`, {
-    method: "POST", headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ confirm: true, version: g.version }),
-  });
+function ownerFor(testInfo: { workerIndex: number; testId: string }) {
+  const id = createHash("sha1").update(testInfo.testId).digest("hex").slice(0, 12);
+  return `de-${testInfo.workerIndex}-${id}`;
 }
 
 async function getRecommendation() {
@@ -29,7 +27,7 @@ async function getRecommendation() {
 }
 
 test.describe("数据增强：yxdh/zyzh + 官网 + 复核文案 + 校园区分", () => {
-  test.beforeEach(async () => { await clearGroup(); });
+  // 注：无 beforeEach clearGroup——每个 UI 测试用唯一 owner 隔离（见下），无需清理。
 
   // ── 后端 API 层断言（最稳）──
   test("API: candidate 含 yxdh/zyzh/官网，且校园不串户", async () => {
@@ -94,15 +92,19 @@ test.describe("数据增强：yxdh/zyzh + 官网 + 复核文案 + 校园区分",
     await expect(page.getByText(/官网/).first()).toBeVisible({ timeout: 10000 });
   });
 
-  test("UI: 加入志愿组后，我的志愿也内联 yxdh/zyzh", async ({ page }) => {
+  test("UI: 加入志愿组后，我的志愿也内联 yxdh/zyzh", async ({ page }, testInfo) => {
+    const owner = ownerFor(testInfo);
+    // setExtraHTTPHeaders：稳定注入 X-Owner-Key 到该 page 所有浏览器请求（隔离志愿组）
+    await page.context().setExtraHTTPHeaders({ [OWNER_HEADER]: owner });
     await page.goto("/");
     await page.getByRole("button", { name: /生成志愿表|生成中/ }).click();
     await expect(page.getByText(/共\s*\d+\s*个院校专业组候选/)).toBeVisible({ timeout: 20000 });
-    await expect(page.getByTestId("dock-count")).toBeVisible({ timeout: 5000 });
+    // 等 store 初始化完成（data-ready=ready）再操作，避免竞态
+    await expect(page.getByTestId("volunteer-dock")).toHaveAttribute("data-ready", "ready", { timeout: 10000 });
 
     // 加入第一张可加入的卡片（首页靠前院校均带 yxdh 真实填报代码）
     await page.getByTestId("add-volunteer").first().click();
-    await expect(page.getByText("已加入志愿组").first()).toBeVisible({ timeout: 5000 });
+    await expect(page.getByTestId("added-badge").first()).toBeVisible({ timeout: 5000 });
 
     // 我的志愿组（悬浮窗始终展示在 md+ 视口）里校名后内联 yxdh（全角括号数字）
     const dock = page.getByTestId("volunteer-dock");

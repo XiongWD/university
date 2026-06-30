@@ -48,7 +48,7 @@ const targetItem: HenanTargetItem = {
 beforeEach(() => {
   vi.clearAllMocks();
   useVolunteerStore.setState({
-    group: null, loading: false, saving: false, pendingLayout: false,
+    group: null, loading: false, initializationStatus: "idle", saving: false, pendingLayout: false,
     pendingDeletes: {}, toasts: [],
   });
 });

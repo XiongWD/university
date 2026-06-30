@@ -14,6 +14,9 @@ function AddVolunteerButton({ item, profile }: { item: HenanTargetItem; profile:
   const isAdded = useVolunteerStore((s) => s.isAdded(item.school_code ?? "", item.major_group_code));
   const addItem = useVolunteerStore((s) => s.addItem);
   const saving = useVolunteerStore((s) => s.saving);
+  // 初始化未完成时禁用（生产竞态修复）：避免在空/旧 store 上误判 isAdded，
+  // 导致重复添加或服务端冲突。慢网络用户同样受益。
+  const ready = useVolunteerStore((s) => s.initializationStatus === "ready");
   const ineligible = item.group_eligibility_status === "ineligible";
 
   if (ineligible) {
@@ -34,13 +37,13 @@ function AddVolunteerButton({ item, profile }: { item: HenanTargetItem; profile:
     <button
       type="button"
       data-testid="add-volunteer"
-      disabled={saving}
+      disabled={saving || !ready}
+      title={ready ? undefined : "志愿组加载中…"}
       onClick={(e) => {
         e.stopPropagation();
         void addItem(item, profile);
       }}
-      className="absolute top-2 right-2 text-[10px] px-1.5 py-0.5 rounded bg-indigo-500/25 text-indigo-200 hover:bg-indigo-500/40 transition flex items-center gap-0.5 disabled:opacity-50"
-    >
+      className="absolute top-2 right-2 text-[10px] px-1.5 py-0.5 rounded bg-indigo-500/25 text-indigo-200 hover:bg-indigo-500/40 transition flex items-center gap-0.5 disabled:opacity-50">
       <Plus className="w-3 h-3" />加入志愿组
     </button>
   );

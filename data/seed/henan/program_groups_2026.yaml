@@ -673,6 +673,7 @@
   source_response_checksum: aefd5ab8ababd438
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -1650,6 +1651,7 @@
   source_response_checksum: c579762c3db4fd33
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '102'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -2092,6 +2094,7 @@
   source_response_checksum: 79cc58292f78c829|bc0ecb5087324730
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -2424,6 +2427,7 @@
   source_response_checksum: 0f438f782b930829|2c40634cfb913ea5|4b92015e99f74a91|624c0a83fcf8c301|9bb30e7a28bff102|debf7f247fa62ea3
   required_exam_language: null
   has_mixed_language_rules: true
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -3021,6 +3025,7 @@
   source_response_checksum: 0c908196b558e8ac|1c783ab3661adf19|fda60763f49a7da3
   required_exam_language: null
   has_mixed_language_rules: true
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -4004,6 +4009,7 @@
   source_response_checksum: 03349530f2f667af|091913c98daff755|0bb848913e467f64|15076b6f94748296|1f956be06f2b1e4c|666f60126db9a389|7010df61cfb8e48c|f8d22a4f368c5407|fe23b4550705a651
   required_exam_language: null
   has_mixed_language_rules: true
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -4273,6 +4279,7 @@
   source_response_checksum: 42f98479c15dcdaa
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -4304,6 +4311,7 @@
   source_response_checksum: ab8778adf2de0617
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -4335,6 +4343,7 @@
   source_response_checksum: 128a119ea072a7fc
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -4366,6 +4375,7 @@
   source_response_checksum: 96f69cfaef4ef16a
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -5077,7 +5087,7 @@
   source_response_checksum: 63a9f5f91ce21ddb
   required_exam_language: null
   has_mixed_language_rules: false
-  volunteer_group_code: ''
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -5629,6 +5639,7 @@
   source_response_checksum: 1b833bf93c51c269|41afdaab3189cd44|4c9e01fc6e56f78f|75f6dac24f6633e8|b3eef9b3257f2ba5|c5a6c3b8b88e77da|c692140d6522e8ab
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '109'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -5774,6 +5785,7 @@
   source_response_checksum: 052fcf06c347d1ac|62bce527168dfde0
   required_exam_language: null
   has_mixed_language_rules: true
+  volunteer_group_code: '104'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -6192,6 +6204,7 @@
   source_response_checksum: f551256f679585e3
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '102'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -6540,6 +6553,7 @@
   source_response_checksum: 694e4e2f11dbffc0
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '103'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -7182,6 +7196,7 @@
   source_response_checksum: c00f4c3ff828e790
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '104'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -8331,6 +8346,7 @@
   source_response_checksum: be6e65e35053b9a4
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -8398,6 +8414,7 @@
   source_response_checksum: 640a56d553bcadb6
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -8429,6 +8446,7 @@
   source_response_checksum: 99e2d50bb9f6a855
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -8622,6 +8640,7 @@
   source_response_checksum: 4266192cecc8bb12|6b9aa4dd0fe870c4|e2c650bba506fb01
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -9195,6 +9214,7 @@
   source_response_checksum: ddd6b7eb8ca5fd78
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '110'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -11071,6 +11091,7 @@
   source_response_checksum: 15ccf6b65c1ee4a1
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -11135,6 +11156,7 @@
   source_response_checksum: e3d763b693ede68d
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '104'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -11168,6 +11190,7 @@
   source_response_checksum: b33f872719156c3c|c6e3a97fae0d2c29
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '104'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -11401,6 +11424,7 @@
   source_response_checksum: 05d7c3359466567d|284db4601a0ab912
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '121'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -12302,6 +12326,7 @@
   source_response_checksum: 277aa5d8cba988b0
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '102'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -12333,7 +12358,7 @@
   source_response_checksum: 465103fc28841a66
   required_exam_language: null
   has_mixed_language_rules: false
-  volunteer_group_code: ''
+  volunteer_group_code: '102'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -12365,6 +12390,7 @@
   source_response_checksum: 7ddab1227ef0ab48
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '102'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -12818,6 +12844,7 @@
   source_response_checksum: 434bb6a600d51b4b|d7b20e0bb37967b3
   required_exam_language: 英语
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -12963,6 +12990,7 @@
   source_response_checksum: e0dc9bf0be023986
   required_exam_language: 英语
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -13149,6 +13177,7 @@
   source_response_checksum: 703bab4e4c3881c7
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -13733,6 +13762,7 @@
   source_response_checksum: 6c07a9182a3d8e02|995601e9568f4074
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -13933,6 +13963,7 @@
   source_response_checksum: 2843bf9d44151614|44cb693c494ba875|70bb81e30839e7ef|87b3ac34cdcfb035|c69d6d938845c71a|ff40b3fb3010423b
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -15878,6 +15909,7 @@
   source_response_checksum: aff1a0ad9828d424
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '108'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -16430,6 +16462,7 @@
   source_response_checksum: ae95c015de9ce555
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -16840,6 +16873,7 @@
   source_response_checksum: 323ff1f52760e0fe|8f4b816c5d9fae38
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -16905,6 +16939,7 @@
   source_response_checksum: 42e12323c26c2dc0|a92d5f1bc9c41b25
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -16975,6 +17010,7 @@
   source_response_checksum: 0d4b6137a37a4aa7|e0ec7a2ffbc351f2
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -17012,6 +17048,7 @@
   source_response_checksum: 0f1b18df802405ff|a7eb48a522717647|da1ae5e5cf08e8ba|ee9fc50652a22e97
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -17501,6 +17538,7 @@
   source_response_checksum: 0128424edd6aa5e9|ccaba5b59aa902e9|f802b42f6c6bc842
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -17571,6 +17609,7 @@
   source_response_checksum: 091d30b4b4aa48a0|6f68ef9e85f5f00a|b26267dc242fabc4
   required_exam_language: null
   has_mixed_language_rules: true
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -17606,6 +17645,7 @@
   source_response_checksum: 6f23f1966c0fa783|77655d2db2911f3a|98a28d94921386ef
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -17838,6 +17878,7 @@
   source_response_checksum: 37b12e206ef75588
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -18829,7 +18870,7 @@
   source_response_checksum: 22e6a3240afdb6d0|3423d6ee367d0b24|a6c754e5e17aa0f8|dadd134621b4c938
   required_exam_language: null
   has_mixed_language_rules: false
-  volunteer_group_code: ''
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -19005,6 +19046,7 @@
   source_response_checksum: 35dbe00b92164b08
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -19381,6 +19423,7 @@
   source_response_checksum: 28cc6f574186d08c|36cbb1f12c5a4d87|3ff580c78550d156|d1614598003cb6db
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '104'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -19412,6 +19455,7 @@
   source_response_checksum: d253417ad83e9b63
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '104'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -21256,6 +21300,7 @@
   source_response_checksum: 444a5f7decd1bf78|f8204b2e41ba41fb
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -21498,6 +21543,7 @@
   source_response_checksum: 107cc85e93d3bfa8|2414a388a1401e4c|2637f79d72a80c73|2ea54b20ed232285|d5b8ba68eaf58318|edc9d1e3cb1061f0
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -21679,7 +21725,7 @@
   source_response_checksum: 1e608dcd4174a783
   required_exam_language: 英语
   has_mixed_language_rules: false
-  volunteer_group_code: ''
+  volunteer_group_code: '106'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -21915,6 +21961,7 @@
   source_response_checksum: 511af849dfc2d560
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '103'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -22009,7 +22056,7 @@
   source_response_checksum: 0d762cc97732b09e|16f289fee2bef680|1cd64d66397f105b|1cea14bb7b680f9c|3951f045e857b3c0|45c853daeafde9b1|5ebcefecc3291b68|5f31defa5fb45bc3|6b7cd99bf00bf671|6cd709e393ce03c5|b8153664fb1b1e0a|dd24a8ece55ef8a3
   required_exam_language: null
   has_mixed_language_rules: false
-  volunteer_group_code: ''
+  volunteer_group_code: '114'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -22153,6 +22200,7 @@
   source_response_checksum: 2b05a5399b06f0b3|376c781f9cc68ed9|9d59a7d976fcbcb6|e8798a52a9e462e1
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -22510,6 +22558,7 @@
   source_response_checksum: 44514c53cb1b6dd7|54c0250d66f07902|60a796a1b4a6d4ee|7fe98e9437f54be9|cdfee7b25bcf0475|dc6e863e444f6330|e7507a05537687b1
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '102'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -22640,6 +22689,7 @@
   source_response_checksum: 00c27a7b1a82f817|0995e4e5ee2d1d9a|0ed2d1711f9fbb1d|42ff74a87c2f5864|78d798caa6f9abbc|79beff98847e8442|944fdc8c99936ce1|dbedd5509f310d25|e97ac787e882714c
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '105'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -22978,6 +23028,7 @@
   source_response_checksum: 19576bc94fea109e|270831f66126a23b|2befdbbf862909d2
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '112'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -23126,6 +23177,7 @@
   source_response_checksum: 30e7687defeb0914|837c1fcfda33f0b8
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '103'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -23477,6 +23529,7 @@
   source_response_checksum: 67cbb0117d4a45f4
   required_exam_language: 英语
   has_mixed_language_rules: false
+  volunteer_group_code: '104'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -23508,6 +23561,7 @@
   source_response_checksum: e6d3848fe8cf5758
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '104'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -23602,6 +23656,7 @@
   source_response_checksum: e42acd4e353e1159
   required_exam_language: 英语
   has_mixed_language_rules: false
+  volunteer_group_code: '104'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -23664,6 +23719,7 @@
   source_response_checksum: 7287fa472108a884
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '104'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -23941,6 +23997,7 @@
   source_response_checksum: 6e16925eef838ddf
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -24018,6 +24075,7 @@
   source_response_checksum: 2c76a8aaf75c581e|eb67f664e40557a5
   required_exam_language: null
   has_mixed_language_rules: true
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -24288,6 +24346,7 @@
   source_response_checksum: c1c54532988b2c71
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '102'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -24319,6 +24378,7 @@
   source_response_checksum: 712d4070ffc8ce51
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '102'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -24350,6 +24410,7 @@
   source_response_checksum: 2a1c5bd2e9a7d77a
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '102'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -24511,6 +24572,7 @@
   source_response_checksum: 1f1c7958dc791b61
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '102'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -24816,6 +24878,7 @@
   source_response_checksum: d2c61af2dcd58ed1
   required_exam_language: 英语
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -24847,6 +24910,7 @@
   source_response_checksum: 2a702de1e3601033
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -24880,6 +24944,7 @@
   source_response_checksum: 3221c2611249bc57|5776b863396b3391
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -24957,6 +25022,7 @@
   source_response_checksum: 3058b2be9753cf37|4042ecd33af8251b|430e4dc821f73bf5|835291a220b1a345
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -25119,6 +25185,7 @@
   source_response_checksum: 629c556958cee33e|87dbf5ee17fe910d
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -25157,6 +25224,7 @@
   source_response_checksum: 552f19a9828c1cf2|c9fa122c49af1050
   required_exam_language: 英语
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -25257,6 +25325,7 @@
   source_response_checksum: 30b4c46ac128b434
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -25976,6 +26045,7 @@
   source_response_checksum: 2bf527fbe0241693|46b843aeafa0f059|c3f61233a961828b
   required_exam_language: null
   has_mixed_language_rules: true
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -26009,6 +26079,7 @@
   source_response_checksum: 0dc6b5b4d8c4b6a2|4ac18b4a07d6289a
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -26044,6 +26115,7 @@
   source_response_checksum: 14daa9a85e258827|90eea9578f659770|be3b952439a178f6
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -26077,6 +26149,7 @@
   source_response_checksum: 2be67e0fb69e9281|dc83d6ee63b5a5d7
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -26112,6 +26185,7 @@
   source_response_checksum: 1f03da83be90fe0a|765231191b3c3790|e4fdfb58243c8776
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -26143,6 +26217,7 @@
   source_response_checksum: 797fad67f339727f
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -26180,6 +26255,7 @@
   source_response_checksum: 7249ee3e49c2b10e|919b7fd941b48e3f|e0ed8862019cc073|e1901be1f800f267
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -26385,6 +26461,7 @@
   source_response_checksum: 08495f040f21e671|101eee0823857e13|49380a208a3cc000|5d5502864a8f6f94|7db2b55579b48344|965143ea1eeaf3ef|9760f28c4ae4a99f|9c3194430c3c9950|afc9ca8d721ceb4c|ed0a2531ae02dec1|f98ba21b14c74186
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -27631,6 +27708,7 @@
   source_response_checksum: 5565da216cf7d21e
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -27794,6 +27872,7 @@
   source_response_checksum: 251843be721380d6|3e82c3ecdba19ee3|476f6d03b2e2ab93|51f6fde71a1a368f|5d59b0306563e23a|b88855d649f46902|b89876ba325e782a|e9c30ef1297b8aff|f21a9a6d0144338c|ff24618877b0e5ae
   required_exam_language: null
   has_mixed_language_rules: true
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -27860,6 +27939,7 @@
   source_response_checksum: 8502b9f5e4b50641
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -27891,6 +27971,7 @@
   source_response_checksum: d00acd79f786f3e8
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -27957,6 +28038,7 @@
   source_response_checksum: 49c8991cd3d79722
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -28764,7 +28846,7 @@
   source_response_checksum: 682c9c7feec7f432|6bf5a091834ac4fb|d6431d8145b9aa96
   required_exam_language: null
   has_mixed_language_rules: true
-  volunteer_group_code: ''
+  volunteer_group_code: '111'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -29957,7 +30039,7 @@
   source_response_checksum: 5c9c9f2be65d4200|f3d8133fc39137aa
   required_exam_language: null
   has_mixed_language_rules: false
-  volunteer_group_code: ''
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -30375,6 +30457,7 @@
   source_response_checksum: e533c23ac03c4aa8
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -30565,6 +30648,7 @@
   source_response_checksum: 526f48c5128a950e
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -30601,6 +30685,7 @@
   source_response_checksum: 2ceddd2699daf314|343a4b8822a867cb|709858bdd4b48ae8
   required_exam_language: 英语
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -31805,7 +31890,7 @@
   source_response_checksum: 1c88dcfc83d82399|449b97627a91d02c|930e5aaa3966c5e6|a440eb95cf5f5e7f
   required_exam_language: null
   has_mixed_language_rules: false
-  volunteer_group_code: ''
+  volunteer_group_code: '102'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -33069,6 +33154,7 @@
   source_response_checksum: fe1226fdc0491e23
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '104'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -33256,6 +33342,7 @@
   source_response_checksum: 356013effe8154ae|60d67ecb42cd2c00
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -33320,6 +33407,7 @@
   source_response_checksum: 17782242f0058f17
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -33357,6 +33445,7 @@
   source_response_checksum: 1927d4bf91d68042|3a97bfc0c80e3e52|87a10ab6a1f96361|95ba1a25ee058cca
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -33396,6 +33485,7 @@
   source_response_checksum: 277941704596d884|88eeb31be090d0b0|99404a3cf9a93ace|e0495457c3894339|e71b750a278ba379
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -33966,6 +34056,7 @@
   source_response_checksum: 71058105b42c0554
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '102'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -34028,6 +34119,7 @@
   source_response_checksum: 01c250d421077e48
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '102'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -34147,6 +34239,7 @@
   source_response_checksum: 30526549c6ab8225|3838e764c07576f7|5110b620d3d2ce22|5e8d43c20d85c504|7b15ea42c83fff5e|e013b68c111bc959|f94f5e17936127ee
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -34280,7 +34373,7 @@
   source_response_checksum: 5596e5a882855ca6|5cd886ad635c0e76|90017937d8203114|a2f823df6acf794c
   required_exam_language: null
   has_mixed_language_rules: false
-  volunteer_group_code: ''
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -34913,6 +35006,7 @@
   source_response_checksum: e41455ad39e3d312
   required_exam_language: 英语
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -35350,6 +35444,7 @@
   source_response_checksum: 6cea5cb3b1f24fd6
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '104'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -35491,6 +35586,7 @@
   source_response_checksum: 9396943f52b5e628
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -35633,6 +35729,7 @@
   source_response_checksum: 5619b9287bd2bf2b|a0474dbf7778adfe|c555e642472a8d81|ef76197ac87ad077
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -36822,6 +36919,7 @@
   source_response_checksum: dc0026f71b72ab36
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -36855,6 +36953,7 @@
   source_response_checksum: 2856d628483df8c1|9db42c5b7b0d7453
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -36888,6 +36987,7 @@
   source_response_checksum: 855fa09fcc689b2c|fe1a61986e4e26b2
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -37548,6 +37648,7 @@
   source_response_checksum: 5b63d6ecb6e47b1e|c3db8615005b115c
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '107'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -38642,6 +38743,7 @@
   source_response_checksum: d82d32b6afbce372
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '107'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -38706,6 +38808,7 @@
   source_response_checksum: 247ebb5e4b563d24
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '107'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -39139,6 +39242,7 @@
   source_response_checksum: 993fd0cbe4ab967d
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -40202,6 +40306,7 @@
   source_response_checksum: 03bfd64f0bb9d56f
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -40267,6 +40372,7 @@
   source_response_checksum: f8ae8004f8063044
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '102'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -40298,6 +40404,7 @@
   source_response_checksum: 3fe119779573b4e3
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '102'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -40329,6 +40436,7 @@
   source_response_checksum: 6141d42b6077ee0b
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '102'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -41140,6 +41248,7 @@
   source_response_checksum: 20b134fd7cff85b0|5b8f53a7cbb516bc|900a60f3839d20ab|f96209c099ec67f6
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '103'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -41481,6 +41590,7 @@
   source_response_checksum: 47f9f528b83ee7c9
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -41587,7 +41697,7 @@
   source_response_checksum: 0f97db209fabe335|17347e837bd06c51|409d2f703d5b1018|827041e2f8628e87|8c513938ebacb858
   required_exam_language: null
   has_mixed_language_rules: false
-  volunteer_group_code: ''
+  volunteer_group_code: '102'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -41724,6 +41834,7 @@
   source_response_checksum: 0e5a6bdb17d3a161|23e377f176adb40d|5a48d1e893da7798|db79d43817f66f4d
   required_exam_language: null
   has_mixed_language_rules: true
+  volunteer_group_code: '102'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -41763,6 +41874,7 @@
   source_response_checksum: 208cb56496409153|77abcb6a25c3aa01|a798519d9e971acc|d4d42cf509ec9daf|d7d219153212f2b8
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '102'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -43051,6 +43163,7 @@
   source_response_checksum: 0a8a57ab5d46ea88|a9239fb9d645c4c1
   required_exam_language: 英语
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -43720,7 +43833,7 @@
   source_response_checksum: 65ad149130f8ce39|98840f2fe4caaf4f
   required_exam_language: null
   has_mixed_language_rules: false
-  volunteer_group_code: ''
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -44474,6 +44587,7 @@
   source_response_checksum: 6782456cb0362c87|74ea72b02723d52c|b82436e4d934f55a|b9c49029667cd0bf|d6c9b50b347646b3
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '103'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -46082,6 +46196,7 @@
   source_response_checksum: b671d08833dc4954
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '102'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -46562,6 +46677,7 @@
   source_response_checksum: 8103febf6ecd0df3
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -46593,6 +46709,7 @@
   source_response_checksum: 7b7c7132f540a821
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -46665,6 +46782,7 @@
   source_response_checksum: 3190b3602091a320|82c169f53e1995b8|840b8fe55cad31e1
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -46805,6 +46923,7 @@
   source_response_checksum: 31ab77259aac9480|5446ac04a74e5a9a|5dcd1e0a087dd879|a25b8b51f4b27c9b|d08b811b6664b041|f8ef70fc1a1d2fd8
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -47514,6 +47633,7 @@
   source_response_checksum: af46edaf1042b697
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -47939,6 +48059,7 @@
   source_response_checksum: 78218e14ae77fd1b|b48329842b67126d|dc3b36d223666901
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -47974,6 +48095,7 @@
   source_response_checksum: 96c7ef0a231efd72|a9be3e5c5796f5ef|fbed76c57b3e1db0
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -48419,6 +48541,7 @@
   source_response_checksum: 51f1c94fa5066754|74d88f5a8ea64a5a|d7a94ff297b8796c
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -49107,6 +49230,7 @@
   source_response_checksum: 2aa68b3e225faeba|455f9fd0a590e4cb|76d77ffb40035b27|ba8feca40df3036c
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '103'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -50574,6 +50698,7 @@
   source_response_checksum: dc6486fba0537bb7
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -50638,6 +50763,7 @@
   source_response_checksum: 40b0fa5eb7723640
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -51251,6 +51377,7 @@
   source_response_checksum: abce6efaba4e6b9c
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -52665,6 +52792,7 @@
   source_response_checksum: a7bce09c6e65d3fe
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -52765,6 +52893,7 @@
   source_response_checksum: 8f89457865ce9646
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -52796,6 +52925,7 @@
   source_response_checksum: ffd7610e7a5602d2
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -53830,6 +53960,7 @@
   source_response_checksum: 13f4f94995c26f80|547ef2c31822f726|db59d90b51382edc
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -53863,6 +53994,7 @@
   source_response_checksum: 3d65f481cadf8225|6c920b410344c37f
   required_exam_language: null
   has_mixed_language_rules: true
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -54097,6 +54229,7 @@
   source_response_checksum: df1f0bedd3ba3ee6
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '102'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -54758,6 +54891,7 @@
   source_response_checksum: 204660ecbaf45126
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -54849,6 +54983,7 @@
   source_response_checksum: 18e3b879f99cf627
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -54922,6 +55057,7 @@
   source_response_checksum: 9b5fb162fb484a76|e103e6edee319af5
   required_exam_language: 英语
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -55720,6 +55856,7 @@
   source_response_checksum: 8040ce093bb170b9
   required_exam_language: 英语
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -56115,6 +56252,7 @@
   source_response_checksum: 0f58f100a8ed1131|4e7cca7e6c17f3da|72870f020aeb56e9
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '102'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -57609,6 +57747,7 @@
   source_response_checksum: 0b1d7b8e6f390038|19fbc8dc014c6aea|c2c8794bd8ab4f25
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -58188,6 +58327,7 @@
   source_response_checksum: 19a5bc0b912e4bf9|42079fd114d3d1f1|42affe13e48da3cc|4e1822222981866b|c41a51a1aa47c390|e6e13b4ee80dc87c
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -58264,6 +58404,7 @@
   source_response_checksum: 1aceed32f7e315a8|536b127d3f7e6a98|555077fc1036fe3e|8ccdb7886362b085|b41a07cb05d40d2e|d92abb0bd374ad41
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '104'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -58309,6 +58450,7 @@
   source_response_checksum: 03d8aa2a025d5258|2cb20597a64c9467|3eaa63e70ee2a5bb|50533d767fc1eadc|58a8143ff3bc033a|65bcc6a6f0893e5c|ca16545a11ff5083|d84851f527bb7a7e
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -58370,6 +58512,7 @@
   source_response_checksum: 38acd119d044d03e|4bfdba188429140e|537453ec12a23229|73990df9410235d7|780b27a7562e6b5e|7d94f06c7fa13ec1|90921f1947be1290|959c3e819dac855c|9820a5770076c6ca|ae4d78fadc4c6cfc|afe4c2c28a6c2712|c547d9b515c2dcbf|cf0fcdac81c6b71e|cf369c79ecf71897|d66da52f7ec7bf41|d6938bd3d1cf8ea9
   required_exam_language: null
   has_mixed_language_rules: true
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -59236,6 +59379,7 @@
   source_response_checksum: 029187330b9e9264
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '127'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -59721,6 +59865,7 @@
   source_response_checksum: 484b2292f2a16b0d|cf7108c330c0f311
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '111'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -59802,6 +59947,7 @@
   source_response_checksum: 013365fb9ca0e7d5|8b053e6fe2f7f553
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -60050,7 +60196,7 @@
   source_response_checksum: 00af783d76be5571|3d58893590a5eab9|3efdadcc16133c9d|78954f45bb515278|8c752eeebc0557e8|9b369fb3d54443e4
   required_exam_language: null
   has_mixed_language_rules: false
-  volunteer_group_code: ''
+  volunteer_group_code: '104'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -60229,6 +60375,7 @@
   source_response_checksum: 22a8e6cec99337ac|27de213452db325e
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -60260,6 +60407,7 @@
   source_response_checksum: 8cdf5ac9ca3c6803
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -60908,6 +61056,7 @@
   source_response_checksum: e0cd6bd741925ce8|e2f7cefa10d5b49f|f58c863d14c81dbf
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '102'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -60981,7 +61130,7 @@
   source_response_checksum: 1c9cff1a2a08dbae|82cd8893f52efd71|9387438fa625c935|f962ea84ab7db2d0
   required_exam_language: null
   has_mixed_language_rules: true
-  volunteer_group_code: ''
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -63188,6 +63337,7 @@
   source_response_checksum: 521bd5f8eed93398
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -63323,6 +63473,7 @@
   source_response_checksum: 4854213e89b37c36|63e4fe8d3274b63f|6f8136eb3a5a8fce|9a4ecee18342185b
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -64414,6 +64565,7 @@
   source_response_checksum: 02ee6e913c200244|77d741521f8b3f1b
   required_exam_language: 英语
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -64714,6 +64866,7 @@
   source_response_checksum: 05d1866b6c0aa99d|3483a9400048864e|ea750d681fa56146|ff74b0fe8a473e78
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -65078,6 +65231,7 @@
   source_response_checksum: fbf29465fb536a2b
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '501'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -65458,6 +65612,7 @@
   source_response_checksum: 25179fbf10ec68bb|d48cf7322ba5232a
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -65559,6 +65714,7 @@
   source_response_checksum: 5f4a8e86e4b92625|7175b4bad83f3228|839afff419b20e2e|9b3ab128985ac027|a921aafd8b3d0ae6|cbe165e24dbe2ab2
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '901'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -65702,6 +65858,7 @@
   source_response_checksum: 2058f165483abad9|253af3085d7d3923|805cd17cfcd99cd5|ba01fe45446b4b61
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '102'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -66631,6 +66788,7 @@
   source_response_checksum: 002694f3072ab770|11abc91487adb155|2b955e3c8c1a8874|5cab00b90785da0c|af7030d82f95bf65
   required_exam_language: 英语
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -66741,6 +66899,7 @@
   source_response_checksum: 1c5c7ffb3ad47d62|2f32f26474412515|8bc308062f0894e4|8f4082bb93c35bd8|c8e61a1b09b7455d|dbfed6c47d5e3fcb|e19b623e3be7d226
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -67284,6 +67443,7 @@
   source_response_checksum: 47c6e729dab34455
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -67648,6 +67808,7 @@
   source_response_checksum: 9570a38f536ee412
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -67681,6 +67842,7 @@
   source_response_checksum: 705d7fd90be0f9de|7a3b8f22398448b9
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -67753,6 +67915,7 @@
   source_response_checksum: 45ad2353a671167c|8ece63a69136b4f3|c4b6a43c738920bb
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -68503,6 +68666,7 @@
   source_response_checksum: 1d15c39a5565b8b3|579b5e2955a6ee03|62b26ebe59b13afb|6ab898c7269daf6c|7d6ad8c5600c4966|e3498e790d3a4ab4
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '102'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -68783,6 +68947,7 @@
   source_response_checksum: 1ad92132098a7f32|20406b3d2f8002be|253fae500abc6e1f|29e72b6068ba0b3d|9859a7198a331b2c|9d05d6fe744781ca|aeb28064e866c3be|aefa38f4940bf393|d1f9e88b5fb815b7|f0dff2ccf5c7e48d
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -68898,6 +69063,7 @@
   source_response_checksum: 1eb424e2f21be06f|631891cb636ae030|9148e7aae918d6cc|94a0eb5c767585c8|aab92bc909283d27
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '107'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -70121,7 +70287,7 @@
   source_response_checksum: 785d6a8daf9309eb|7fcbfb40d8c1a404|eca936052982fc68
   required_exam_language: null
   has_mixed_language_rules: false
-  volunteer_group_code: ''
+  volunteer_group_code: '102'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -70449,6 +70615,7 @@
   source_response_checksum: 305bace11fb57b18|3095e747df8d62d4|b612483a7ee0dd1d|f092b1f4ed135941
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '102'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -70513,6 +70680,7 @@
   source_response_checksum: 497d80e1cf25c165|97525eebc309f009
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -71539,6 +71707,7 @@
   source_response_checksum: 1b181eab9ca6099e
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '105'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -72093,6 +72262,7 @@
   source_response_checksum: 195ec77a01d3f7e9|9203d04ccd2c449b|e9b9a4d0333cbd55
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -72244,6 +72414,7 @@
   source_response_checksum: 0e263ca0f5173997|49667d7722952c3b|53fcfeb029fe9548|6093d5d90dd3f291|9f885b6df6bf97a1|b0856f59bc03be26|fe93d21db0c78158
   required_exam_language: null
   has_mixed_language_rules: true
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -73257,6 +73428,7 @@
   source_response_checksum: 31273698bf789f74|75d033413bc9d144|c016015816e275f2|d660c74dbc9e42fb
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -74869,6 +75041,7 @@
   source_response_checksum: 43b2bca7406bc6a3|92587ba1cd47546f|b3d7a86a4e1b12ac|d19b1308f3262172
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '103'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -74907,7 +75080,7 @@
   source_response_checksum: 3bfd40043a3e3556|4920b88cb53dcc1e|53ddd243d86d46d0|e5223b6f8471d747
   required_exam_language: 英语
   has_mixed_language_rules: false
-  volunteer_group_code: ''
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -75049,6 +75222,7 @@
   source_response_checksum: 23453bff5512ae91
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -75288,6 +75462,7 @@
   source_response_checksum: 6f048cb04e084c13|6f263525c109d3e7|7e1d89b38b376c02|d92b82387781de67
   required_exam_language: null
   has_mixed_language_rules: true
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -75488,6 +75663,7 @@
   source_response_checksum: 417656e0bb08a50a|6c62b11f3b8af00c|97598a36fe2c6ef7
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '102'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -76560,7 +76736,7 @@
   source_response_checksum: 28a693a4f6751ebe|7d9fdfda9583fce3|817efe698ff376d4|9cce30cdbbf158ee|e43340b2da45c894
   required_exam_language: null
   has_mixed_language_rules: false
-  volunteer_group_code: ''
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -76749,6 +76925,7 @@
   source_response_checksum: 609b0dbd275047f4|728811d049a3ab74
   required_exam_language: 英语
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -77636,6 +77813,7 @@
   source_response_checksum: 02a764442ea7db85|6958e0a8c71f90e0|963add8f43f5417c|ab863e215e98be42
   required_exam_language: null
   has_mixed_language_rules: true
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -77677,6 +77855,7 @@
   source_response_checksum: 292a0c71ed5bc82f|2c890b8d1bbf334a|30b623fe6953ac2a|61621166c332d40a|7888d8f2ab4e50ed|bec2eac2148d583f
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -78741,6 +78920,7 @@
   source_response_checksum: 47901493bc24f56f|48469a32d676e8c1|8585ba78c0f46577|991a2ce99e0a7e1b|a8c2ad6f4f4fc4af
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '102'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -79588,6 +79768,7 @@
   source_response_checksum: 7a375957cb6ca038
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -82172,6 +82353,7 @@
   source_response_checksum: 5a17808d6ef9d38e
   required_exam_language: 英语
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -82487,6 +82669,7 @@
   source_response_checksum: 620b8802748a74f2
   required_exam_language: 英语
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -82658,6 +82841,7 @@
   source_response_checksum: e73daee219ab23d0
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -82689,6 +82873,7 @@
   source_response_checksum: b5c2d948d5f69a12
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -82720,6 +82905,7 @@
   source_response_checksum: 65aebc6441db8930
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -82751,6 +82937,7 @@
   source_response_checksum: 6b977ab9b283202a
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -82782,6 +82969,7 @@
   source_response_checksum: 97edbd28b598b250
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -82850,6 +83038,7 @@
   source_response_checksum: f8284432b19ebef8
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '109'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -83320,6 +83509,7 @@
   source_response_checksum: e1c34007a2b847b0
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -83552,6 +83742,7 @@
   source_response_checksum: 960191f7d5bc98f3
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '104'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -83614,6 +83805,7 @@
   source_response_checksum: 4d9ea3de756c672a
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '104'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -83645,6 +83837,7 @@
   source_response_checksum: 3c8f69e8d7bf0ece
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '104'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -83676,6 +83869,7 @@
   source_response_checksum: 1b7034d099356226
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '104'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -83741,6 +83935,7 @@
   source_response_checksum: 6200f260692b318c
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '104'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -83807,6 +84002,7 @@
   source_response_checksum: c34cdc629ce5eb5d
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '104'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -83838,6 +84034,7 @@
   source_response_checksum: 274e630a0fc70372
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '104'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -83869,6 +84066,7 @@
   source_response_checksum: 8ca2f84de5810b48
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '104'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -84077,6 +84275,7 @@
   source_response_checksum: 59a4bf131c165c44|6b071a6515e5b095|e4607fdb253e0b4e
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '102'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -84382,6 +84581,7 @@
   source_response_checksum: d66079d71016ebc6
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -84645,6 +84845,7 @@
   source_response_checksum: dfd090ced9d3a591
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '104'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -84681,6 +84882,7 @@
   source_response_checksum: a78fdea29e9af937
   required_exam_language: 英语
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -84712,6 +84914,7 @@
   source_response_checksum: 42cb4e46e5c96fda
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '104'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -84860,6 +85063,7 @@
   source_response_checksum: 59d1a9038aed8251|8e10b8a828a95af5|a2d4da21f4a41c35|bca85492720826c6|d55c0291519fa3bb|e2fc653f62ad517e|fac25471ab62cdda
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -84909,6 +85113,7 @@
   source_response_checksum: 0147f2d0fcf527a1|1be1f9d7281929f4|439d4fed2d477cca|7d3c910bd839fb90|9801ef7a1e4e4103|9c13b6e32180b688|ba48086751c8b4ca|c02bb6280ddd2831|f313d6bd6726e53a|fb227b8b89039a4c
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -84940,6 +85145,7 @@
   source_response_checksum: 94b5e87ef40a4a36
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -85386,6 +85592,7 @@
   source_response_checksum: 399d58324b8d0321|bca5498727548b7e
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -85417,6 +85624,7 @@
   source_response_checksum: 8b677c53b6a28f3f
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -85731,6 +85939,7 @@
   source_response_checksum: acdc957fec8fbf01
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '103'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -85840,6 +86049,7 @@
   source_response_checksum: b6dc0e72c9a452d9|e813168c0132cf8c|e929bdbe505e21d0|f24aefe2896b1211
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '102'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -85877,6 +86087,7 @@
   source_response_checksum: 0bd10e9856ad9a88|2bf6eeda1465a8a4|9aacd4d2e969d07e|cecbe8f79bf34d13
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '102'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -85914,6 +86125,7 @@
   source_response_checksum: 3c305e06c4d9f40f|4531c8544bde4e08|895ccbd5e4839023|e90bdc94d17450c2
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '102'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -86212,6 +86424,7 @@
   source_response_checksum: 46cf9f27440eeaf4|c4bf578491c8234b
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -86348,6 +86561,7 @@
   source_response_checksum: 200882e086f6cbf3|83f433b09291e6a0|cc2a8d2b86b84acb
   required_exam_language: null
   has_mixed_language_rules: true
+  volunteer_group_code: '103'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -86559,6 +86773,7 @@
   source_response_checksum: 5234d1280e6623d8
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -87074,6 +87289,7 @@
   source_response_checksum: 97b1b1714ec0c78b
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -87583,6 +87799,7 @@
   source_response_checksum: 4cfce0b6dbe11ef1|915fec37cfae1fc0|b353463a48a9c128|d8128f51895a10f6
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '111'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -87620,6 +87837,7 @@
   source_response_checksum: 0de539cd9eb986a5|1db495acf03762e0|7a47d51c438b31eb|f59c9b4dc0e6785a
   required_exam_language: null
   has_mixed_language_rules: true
+  volunteer_group_code: '111'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -88034,6 +88252,7 @@
   source_response_checksum: e662d86f5b58f441
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批
@@ -88065,6 +88284,7 @@
   source_response_checksum: b8d93d98a15c155f
   required_exam_language: null
   has_mixed_language_rules: false
+  volunteer_group_code: '101'
 - year: 2026
   track: 历史类
   batch: 本科批

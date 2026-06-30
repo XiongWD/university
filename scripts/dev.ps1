@@ -97,8 +97,8 @@ function Invoke-Start {
 
     # 后端：python -m uvicorn app.api.main:app --host 0.0.0.0 --port 8000
     # 0.0.0.0 允许局域网访问（手机/平板直连 http://<本机IP>:8000）
-    $bePid = Start-BgProcess $ProjectRoot $BackendLog 'python' `
-        '-m uvicorn app.api.main:app --host 0.0.0.0 --port 8000'
+    $bePid = Start-BgProcess $ProjectRoot $BackendLog 'cmd.exe' `
+        '/c "set VOLUNTEER_OWNER_ISOLATION=1&& python -m uvicorn app.api.main:app --host 0.0.0.0 --port 8000"'
     Set-Content -Path $BackendPid -Value $bePid
     Write-Ok "后端已启动 (uvicorn :8000, PID $bePid) -> $BackendLog"
 
