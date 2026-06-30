@@ -73,8 +73,11 @@ export default function HenanItemCard({ s, bucketKey, index, showCalc }: Props) 
                 : "bg-white/10 text-white/60"
               }`}>{detail.risk_level}</span>
             )}
-            <span className="font-bold truncate">{s.school_name}</span>
-            <span className="text-[11px] text-white/50">{s.major_group_code} · {s.major_group_name}</span>
+            <span className="font-bold truncate">
+              {s.school_name}
+              {/* 真实志愿填报代码（来自 heao）：yxdh 河南院校代码，内联在校名后 */}
+              {s.yxdh ? <span className="font-normal text-white/40 ml-0.5">（{s.yxdh}）</span> : null}
+            </span>
           </div>
           {/* 学校性质（问题4）：公办/民办/中外 + 省内/省外 + 985/211 */}
           <div className="flex items-center gap-1.5 flex-wrap mt-1">
@@ -111,7 +114,10 @@ export default function HenanItemCard({ s, bucketKey, index, showCalc }: Props) 
             )}
           </div>
           {s.selected_majors && s.selected_majors.length > 0 && (
-            <div className="text-xs text-white/50 mt-0.5">组内专业：{s.selected_majors.join("、")}</div>
+            <div className="text-xs text-white/50 mt-0.5">
+              {/* 真实志愿填报代码（来自 heao）：zyzh 专业组号，内联在「组内专业」标签后 */}
+              组内专业{s.zyzh ? <span className="text-white/35">（{s.zyzh}）</span> : null}：{s.selected_majors.join("、")}
+            </div>
           )}
           {/* 资格链专业级下沉：partially_eligible 组展示可报/不可报专业分区 */}
           {s.group_eligibility_status === "partially_eligible" && (
@@ -140,6 +146,20 @@ export default function HenanItemCard({ s, bucketKey, index, showCalc }: Props) 
           </div>
           {typeof s.plan_count === "number" && (
             <div className="text-[13px] text-white/50 mt-0.5">2026河南计划 <b className="text-white/80">{s.plan_count}</b> 人</div>
+          )}
+          {/* 官网 / 招生网站（来自 heao schoolBaseInfo，供人工复核查 2026 招生简章），有才显示 */}
+          {(s.official_website || s.enrollment_website) && (
+            <div className="text-[11px] mt-0.5 flex items-center gap-2 flex-wrap">
+              {s.official_website && (
+                <a href={s.official_website} target="_blank" rel="noopener noreferrer"
+                   className="text-sky-300/80 hover:text-sky-200 hover:underline">官网</a>
+              )}
+              {s.official_website && s.enrollment_website && <span className="text-white/20">·</span>}
+              {s.enrollment_website && (
+                <a href={s.enrollment_website} target="_blank" rel="noopener noreferrer"
+                   className="text-emerald-300/80 hover:text-emerald-200 hover:underline">招生网</a>
+              )}
+            </div>
           )}
           {detail && (
             <div className="text-[13px] text-white/60 mt-0.5 flex flex-wrap gap-1.5 tabular-nums">

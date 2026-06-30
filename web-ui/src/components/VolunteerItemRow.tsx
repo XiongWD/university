@@ -133,10 +133,12 @@ export default function VolunteerItemRow({ item, index, dragHandleProps }: Props
         </div>
       </div>
 
-      {/* 主信息行：校名 + 专业组代码 */}
+      {/* 主信息行：校名（内联 yxdh 河南院校代码）+ 城市 */}
       <div className="mt-1 flex items-baseline gap-1.5 flex-wrap">
-        <span className="font-bold text-white/90">{item.school_name}</span>
-        <span className="text-white/40">{item.major_group_code}</span>
+        <span className="font-bold text-white/90">
+          {item.school_name}
+          {item.yxdh ? <span className="font-normal text-white/35">（{item.yxdh}）</span> : null}
+        </span>
         {item.school_city && <span className="text-white/35 text-[10px]">{item.school_city}</span>}
       </div>
 
@@ -158,9 +160,11 @@ export default function VolunteerItemRow({ item, index, dragHandleProps }: Props
         {typeof item.plan_count === "number" && <span>计划{item.plan_count}人</span>}
       </div>
 
-      {/* 组内专业（始终显示，截断） */}
+      {/* 组内专业（始终显示，截断；内联 zyzh 专业组号） */}
       {majors.length > 0 && (
-        <div className="mt-0.5 text-white/40 truncate">组内专业：{majors.join("、")}</div>
+        <div className="mt-0.5 text-white/40 truncate">
+          组内专业{item.zyzh ? <span className="text-white/30">（{item.zyzh}）</span> : null}：{majors.join("、")}
+        </div>
       )}
 
       {/* 算法档位变化提示 */}

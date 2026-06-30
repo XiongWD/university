@@ -129,6 +129,9 @@ def _item_to_domain(row: UserVolunteerItemRow, candidate: dict | None) -> UserVo
         advantage_ratio=detail.get("advantage_ratio"),
         baseline_year=detail.get("baseline_year"),
         risk_level=detail.get("risk_level"),
+        # 真实志愿填报代码（candidate 或快照兜底）
+        yxdh=src.get("yxdh"),
+        zyzh=src.get("zyzh"),
     )
 
 
@@ -228,6 +231,8 @@ def add_item(
         "accommodation": candidate.get("accommodation"),
         "plan_count": candidate.get("plan_count"),
         "selected_majors": candidate.get("selected_majors"),
+        "yxdh": candidate.get("yxdh"),
+        "zyzh": candidate.get("zyzh"),
         "bucket_detail": detail,
     }
     # 把新项之后的所有项 sort_order +1（保持连续）

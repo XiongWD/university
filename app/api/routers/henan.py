@@ -270,7 +270,7 @@ def recommendation(req: HenanRecommendationRequest, session: Session = Depends(g
 
     # 需复核原因细分统计（design：需人工复核≠不符合，需告知用户具体缺什么数据）
     review_reason_labels = {
-        "missing_verified_2025_rank": "缺2025同口径录取位次",
+        "missing_verified_2025_rank": "缺2025同口径录取位次（新设/更名校请查官网）",
         "only_2024_old_regime": "仅有2024旧文科数据",
         "missing_verified_2026_plan": "2026招生计划未核验",
         "unverified_2026_group": "2026专业组结构未核验",

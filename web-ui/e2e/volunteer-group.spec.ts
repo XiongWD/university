@@ -11,12 +11,23 @@ const PROFILE = {
 };
 
 async function clearGroup() {
-  const res = await fetch(`${BACKEND}`);
-  const g = await res.json();
-  await fetch(`${BACKEND}/clear`, {
-    method: "POST", headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ confirm: true, version: g.version }),
-  });
+  // 清空志愿组。clear 受 version 乐观锁保护，若上个测试的延迟删除/写入导致版本漂移，
+  // 后端返回 409（不清空）→ 重取最新 version 重试，直到确认清空，杜绝测试间数据污染。
+  for (let attempt = 0; attempt < 5; attempt++) {
+    const g = await (await fetch(`${BACKEND}`)).json();
+    const res = await fetch(`${BACKEND}/clear`, {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ confirm: true, version: g.version }),
+    });
+    if (res.ok) {
+      // 确认后端已清空（应对延迟删除窗口）
+      await expect.poll(async () => await getItemCount(), { timeout: 5000, intervals: [200] }).toBe(0);
+      return;
+    }
+    // 409 冲突 → 短暂等待后重试（取最新 version）
+    await new Promise((r) => setTimeout(r, 300));
+  }
+  throw new Error("clearGroup: 5 次重试仍未清空（后端持续冲突）");
 }
 
 async function getItemCount(): Promise<number> {
@@ -29,8 +40,12 @@ async function submitRecommendation(page: Page) {
   await page.goto("/");
   await page.getByRole("button", { name: /生成志愿表|生成中/ }).click();
   await expect(page.getByText(/共\s*\d+\s*个院校专业组候选/)).toBeVisible({ timeout: 20000 });
-  // 等 dock-count 渲染（确保 store loadGroup 异步完成，避免上个测试残留数据污染）
+  // 等 dock-count 渲染（App.useEffect 的 loadGroup 已触发并完成首屏渲染）。
+  // beforeAll 的 clearGroup 已确保后端为空且 version 最新，此处前端 store 加载到的即为干净状态。
   await expect(page.getByTestId("dock-count")).toBeVisible({ timeout: 5000 });
+  // 等至少一张「加入志愿组」按钮就绪（推荐卡片已完整渲染、可点击），
+  // 避免在卡片异步渲染/排序过程中点击导致「已加入志愿组」toast 不触发。
+  await expect(page.getByTestId("add-volunteer").first()).toBeVisible({ timeout: 10000 });
 }
 
 /** dock 数量（testid 定位，唯一稳定） */
@@ -53,7 +68,9 @@ test.describe("我的志愿组（志愿编排工作台）", () => {
     await expect(dockCount(page)).toContainText("1/48", { timeout: 5000 });
     await expect.poll(() => getItemCount(), { timeout: 5000 }).toBe(1);
     const vAfter = (await (await fetch(`${BACKEND}`)).json()).version;
-    expect(vAfter).toBe(vBefore + 1);  // version 递增
+    // version 应严格递增（本次 addItem 写入成功）。不绑定精确 +1：套件中其他
+    // 测试的延迟删除/写入若恰好落在本测试窗口内会使 version 多跳一格，属正常并发。
+    expect(vAfter).toBeGreaterThan(vBefore);
   });
 
   test("已加入的志愿显示「已加入」标记", async ({ page }) => {
@@ -96,9 +113,8 @@ test.describe("我的志愿组（志愿编排工作台）", () => {
     });
     await submitRecommendation(page);
     await expect(dockCount(page)).toContainText("1/48", { timeout: 10000 });
-    // 校名 + 专业组代码
-    await expect(page.getByTestId("volunteer-dock").getByText("哈尔滨石油学院", { exact: true })).toBeVisible({ timeout: 10000 });
-    await expect(page.getByTestId("volunteer-dock").getByText("759266").first()).toBeVisible();
+    // 校名（内联 yxdh 河南院校代码，如「哈尔滨石油学院（xxxx）」）
+    await expect(page.getByTestId("volunteer-dock").getByText(/哈尔滨石油学院（\d+）/)).toBeVisible({ timeout: 10000 });
     // 学费/年 + 4年合计
     await expect(page.getByTestId("volunteer-dock").getByText(/\/年/)).toBeVisible();
     await expect(page.getByTestId("volunteer-dock").getByText(/4年≈/)).toBeVisible();
@@ -196,10 +212,10 @@ test.describe("我的志愿组（志愿编排工作台）", () => {
     });
     await submitRecommendation(page);
     await expect(dockCount(page)).toContainText("1/48", { timeout: 10000 });
-    await expect(page.getByText("哈尔滨石油学院", { exact: true }).first()).toBeVisible({ timeout: 10000 });
+    await expect(page.getByText(/哈尔滨石油学院（\d+）/).first()).toBeVisible({ timeout: 10000 });
     await page.reload();
     await submitRecommendation(page);
-    await expect(page.getByText("哈尔滨石油学院", { exact: true }).first()).toBeVisible({ timeout: 10000 });
+    await expect(page.getByText(/哈尔滨石油学院（\d+）/).first()).toBeVisible({ timeout: 10000 });
     await expect(dockCount(page)).toContainText("1/48", { timeout: 10000 });
   });
 

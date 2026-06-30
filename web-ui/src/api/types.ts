@@ -447,6 +447,12 @@ export interface HenanTargetItem {
   school_level?: string;
   school_tags?: string[];
   is_henan_local?: boolean;
+  // 真实志愿填报代码（来自 heao，供考生在志愿系统输入）：yxdh=河南院校代码，zyzh=专业组号
+  yxdh?: string;
+  zyzh?: string;
+  // 官网 / 招生网站（供人工复核查 2026 招生简章）
+  official_website?: string;
+  enrollment_website?: string;
   // 冲稳保计算明细（问题2）+ 投档成功率（problem1）
   admission_probability?: number;
   bucket_detail?: BucketDetail;
@@ -552,9 +558,12 @@ export interface UserVolunteerItem {
   student_rank?: number | null;
   reference_rank?: number | null;
   advantage?: number | null;
-  advantage_ratio?: number | null;
-  baseline_year?: number | null;
-  risk_level?: string | null;
+    advantage_ratio?: number | null;
+    baseline_year?: number | null;
+    risk_level?: string | null;
+    // 真实志愿填报代码（来自 heao，供考生在志愿系统输入）：yxdh=河南院校代码，zyzh=专业组号
+    yxdh?: string | null;
+    zyzh?: string | null;
 }
 
 export interface StructureHint {

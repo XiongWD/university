@@ -85,6 +85,9 @@ class UserVolunteerItem(BaseModel):
     advantage_ratio: Optional[float] = None  # advantage / 考生位次
     baseline_year: Optional[int] = None  # 参考数据年份
     risk_level: Optional[str] = None  # 风险等级文字
+    # 真实志愿填报代码（来自 heao）：yxdh=河南院校代码，zyzh=专业组号
+    yxdh: Optional[str] = None
+    zyzh: Optional[str] = None
 
 
 class StructureHint(BaseModel):

@@ -234,6 +234,24 @@
   review_status: verified
 - year: 2024
   track: 历史类
+  school_code: '3825'
+  school_name: 北京师范大学（珠海校区）
+  major_group_code: '760802'
+  major_group_name: ''
+  major_name: null
+  min_score: 615
+  min_rank: 916
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
   school_code: '109'
   school_name: 东南大学
   major_group_code: '750073'
@@ -306,6 +324,24 @@
   review_status: verified
 - year: 2024
   track: 历史类
+  school_code: '3255'
+  school_name: 哈尔滨工业大学（深圳）
+  major_group_code: '760074'
+  major_group_name: ''
+  major_name: null
+  min_score: 616
+  min_rank: 887
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
   school_code: '123'
   school_name: 中南大学
   major_group_code: '750289'
@@ -331,6 +367,24 @@
   major_name: null
   min_score: 609
   min_rank: 1292
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
+  school_code: '3150'
+  school_name: 中国人民大学（苏州校区）
+  major_group_code: '759966'
+  major_group_name: ''
+  major_name: null
+  min_score: 604
+  min_rank: 1661
   avg_score: null
   plan_count: null
   batch: 本科批
@@ -417,6 +471,24 @@
   school_code: '126'
   school_name: 山东大学
   major_group_code: '750298'
+  major_group_name: ''
+  major_name: null
+  min_score: 598
+  min_rank: 2188
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
+  school_code: '1219'
+  school_name: 山东大学（威海）
+  major_group_code: '756120'
   major_group_name: ''
   major_name: null
   min_score: 598
@@ -1206,6 +1278,24 @@
   review_status: verified
 - year: 2024
   track: 历史类
+  school_code: '831'
+  school_name: 华北电力大学（北京）
+  major_group_code: '754828'
+  major_group_name: ''
+  major_name: null
+  min_score: 593
+  min_rank: 2728
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
   school_code: '556'
   school_name: 北京化工大学
   major_group_code: '753997'
@@ -1213,6 +1303,24 @@
   major_name: null
   min_score: 593
   min_rank: 2728
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
+  school_code: '830'
+  school_name: 中国地质大学（北京）
+  major_group_code: '754831'
+  major_group_name: ''
+  major_name: null
+  min_score: 582
+  min_rank: 4356
   avg_score: null
   plan_count: null
   batch: 本科批
@@ -1263,6 +1371,42 @@
   school_code: '98'
   school_name: 华南师范大学
   major_group_code: '749997'
+  major_group_name: ''
+  major_name: null
+  min_score: 581
+  min_rank: 4526
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
+  school_code: '832'
+  school_name: 中国石油大学（北京）
+  major_group_code: '754818'
+  major_group_name: ''
+  major_name: null
+  min_score: 585
+  min_rank: 3808
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
+  school_code: '832'
+  school_name: 中国石油大学（北京）
+  major_group_code: '754820'
   major_group_name: ''
   major_name: null
   min_score: 581
@@ -1350,6 +1494,24 @@
   review_status: verified
 - year: 2024
   track: 历史类
+  school_code: '121'
+  school_name: 中国地质大学（武汉）
+  major_group_code: '750291'
+  major_group_name: ''
+  major_name: null
+  min_score: 580
+  min_rank: 4709
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
   school_code: '133'
   school_name: 华东理工大学
   major_group_code: '750436'
@@ -1407,6 +1569,42 @@
   school_code: '589'
   school_name: 首都师范大学
   major_group_code: '754154'
+  major_group_name: ''
+  major_name: null
+  min_score: 579
+  min_rank: 4869
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
+  school_code: '1006'
+  school_name: 中国矿业大学（北京）
+  major_group_code: '755408'
+  major_group_name: ''
+  major_name: null
+  min_score: 579
+  min_rank: 4869
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
+  school_code: '1006'
+  school_name: 中国矿业大学（北京）
+  major_group_code: '755408'
   major_group_name: ''
   major_name: null
   min_score: 579
@@ -1591,6 +1789,24 @@
   major_name: null
   min_score: 577
   min_rank: 5265
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
+  school_code: '591'
+  school_name: 华北电力大学（保定）
+  major_group_code: '754194'
+  major_group_name: ''
+  major_name: null
+  min_score: 578
+  min_rank: 5068
   avg_score: null
   plan_count: null
   batch: 本科批
@@ -1962,6 +2178,24 @@
   review_status: verified
 - year: 2024
   track: 历史类
+  school_code: '3828'
+  school_name: 北京交通大学（威海校区）
+  major_group_code: '760808'
+  major_group_name: ''
+  major_name: null
+  min_score: 573
+  min_rank: 6088
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
   school_code: '557'
   school_name: 中国农业大学
   major_group_code: '753960'
@@ -2023,6 +2257,42 @@
   major_name: null
   min_score: 567
   min_rank: 7469
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
+  school_code: '3311'
+  school_name: 中国石油大学（北京）克拉玛依校区
+  major_group_code: '760190'
+  major_group_name: ''
+  major_name: null
+  min_score: 568
+  min_rank: 7217
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
+  school_code: '3311'
+  school_name: 中国石油大学（北京）克拉玛依校区
+  major_group_code: '760190'
+  major_group_name: ''
+  major_name: null
+  min_score: 566
+  min_rank: 7718
   avg_score: null
   plan_count: null
   batch: 本科批
@@ -2383,6 +2653,24 @@
   major_name: null
   min_score: 559
   min_rank: 9687
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
+  school_code: '120'
+  school_name: 中国石油大学（华东）
+  major_group_code: '750318'
+  major_group_name: ''
+  major_name: null
+  min_score: 578
+  min_rank: 5068
   avg_score: null
   plan_count: null
   batch: 本科批
@@ -2916,6 +3204,42 @@
   review_status: verified
 - year: 2024
   track: 历史类
+  school_code: '3152'
+  school_name: 合肥工业大学（宣城校区）
+  major_group_code: '759963'
+  major_group_name: ''
+  major_name: null
+  min_score: 552
+  min_rank: 12001
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
+  school_code: '3152'
+  school_name: 合肥工业大学（宣城校区）
+  major_group_code: '759964'
+  major_group_name: ''
+  major_name: null
+  min_score: 551
+  min_rank: 12326
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
   school_code: '265'
   school_name: 四川师范大学
   major_group_code: '751407'
@@ -3315,6 +3639,42 @@
   school_code: '36'
   school_name: 长安大学
   major_group_code: '749384'
+  major_group_name: ''
+  major_name: null
+  min_score: 542
+  min_rank: 15720
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
+  school_code: '396'
+  school_name: 湖南理工大学
+  major_group_code: '752288'
+  major_group_name: ''
+  major_name: null
+  min_score: 543
+  min_rank: 15332
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
+  school_code: '396'
+  school_name: 湖南理工大学
+  major_group_code: '752297'
   major_group_name: ''
   major_name: null
   min_score: 542
@@ -4734,6 +5094,24 @@
   review_status: verified
 - year: 2024
   track: 历史类
+  school_code: '3055'
+  school_name: 河北中医药大学
+  major_group_code: '759827'
+  major_group_name: ''
+  major_name: null
+  min_score: 526
+  min_rank: 23057
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
   school_code: '358'
   school_name: 西安工程大学
   major_group_code: '751954'
@@ -4993,6 +5371,24 @@
   major_name: null
   min_score: 525
   min_rank: 23548
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
+  school_code: '246'
+  school_name: 浙江科技大学
+  major_group_code: '751288'
+  major_group_name: ''
+  major_name: null
+  min_score: 527
+  min_rank: 22561
   avg_score: null
   plan_count: null
   batch: 本科批
@@ -6048,6 +6444,42 @@
   review_status: verified
 - year: 2024
   track: 历史类
+  school_code: '482'
+  school_name: 河南医药大学
+  major_group_code: '753329'
+  major_group_name: ''
+  major_name: null
+  min_score: 521
+  min_rank: 25688
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
+  school_code: '482'
+  school_name: 河南医药大学
+  major_group_code: '753324'
+  major_group_name: ''
+  major_name: null
+  min_score: 521
+  min_rank: 25688
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
   school_code: '488'
   school_name: 兰州交通大学
   major_group_code: '753290'
@@ -6282,6 +6714,24 @@
   review_status: verified
 - year: 2024
   track: 历史类
+  school_code: '1009'
+  school_name: 重庆科技大学
+  major_group_code: '755394'
+  major_group_name: ''
+  major_name: null
+  min_score: 517
+  min_rank: 27870
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
   school_code: '964'
   school_name: 广东技术师范大学
   major_group_code: '755291'
@@ -6289,6 +6739,42 @@
   major_name: null
   min_score: 517
   min_rank: 27870
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
+  school_code: '253'
+  school_name: 湖州师范大学
+  major_group_code: '751323'
+  major_group_name: ''
+  major_name: null
+  min_score: 545
+  min_rank: 14531
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
+  school_code: '253'
+  school_name: 湖州师范大学
+  major_group_code: '751323'
+  major_group_name: ''
+  major_name: null
+  min_score: 516
+  min_rank: 28443
   avg_score: null
   plan_count: null
   batch: 本科批
@@ -7902,6 +8388,24 @@
   review_status: verified
 - year: 2024
   track: 历史类
+  school_code: '553'
+  school_name: 山东第二医科大学
+  major_group_code: '753961'
+  major_group_name: ''
+  major_name: null
+  min_score: 509
+  min_rank: 32551
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
   school_code: '628'
   school_name: 石家庄学院
   major_group_code: '754306'
@@ -7923,6 +8427,24 @@
   school_code: '628'
   school_name: 石家庄学院
   major_group_code: '754311'
+  major_group_name: ''
+  major_name: null
+  min_score: 506
+  min_rank: 34448
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
+  school_code: '1210'
+  school_name: 山东航空学院
+  major_group_code: '756117'
   major_group_name: ''
   major_name: null
   min_score: 506
@@ -8262,6 +8784,42 @@
   review_status: verified
 - year: 2024
   track: 历史类
+  school_code: '1090'
+  school_name: 榆林大学
+  major_group_code: '755745'
+  major_group_name: ''
+  major_name: null
+  min_score: 511
+  min_rank: 31332
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
+  school_code: '1090'
+  school_name: 榆林大学
+  major_group_code: '755745'
+  major_group_name: ''
+  major_name: null
+  min_score: 503
+  min_rank: 36361
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
   school_code: '1801'
   school_name: 合肥师范学院
   major_group_code: '757433'
@@ -8323,6 +8881,24 @@
   major_name: null
   min_score: 503
   min_rank: 36361
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
+  school_code: '474'
+  school_name: 福建理工大学
+  major_group_code: '753141'
+  major_group_name: ''
+  major_name: null
+  min_score: 502
+  min_rank: 37018
   avg_score: null
   plan_count: null
   batch: 本科批
@@ -9054,6 +9630,24 @@
   review_status: verified
 - year: 2024
   track: 历史类
+  school_code: '152'
+  school_name: 淮安大学
+  major_group_code: '750575'
+  major_group_name: ''
+  major_name: null
+  min_score: 494
+  min_rank: 42359
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
   school_code: '435'
   school_name: 湖北汽车工业学院
   major_group_code: '752664'
@@ -9151,6 +9745,24 @@
   major_name: null
   min_score: 497
   min_rank: 40367
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
+  school_code: '1241'
+  school_name: 宁夏师范大学
+  major_group_code: '756220'
+  major_group_name: ''
+  major_name: null
+  min_score: 498
+  min_rank: 39680
   avg_score: null
   plan_count: null
   batch: 本科批
@@ -9792,6 +10404,24 @@
   review_status: verified
 - year: 2024
   track: 历史类
+  school_code: '512'
+  school_name: 海南医科大学
+  major_group_code: '753631'
+  major_group_name: ''
+  major_name: null
+  min_score: 488
+  min_rank: 46648
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
   school_code: '343'
   school_name: 云南农业大学
   major_group_code: '751933'
@@ -9849,6 +10479,24 @@
   school_code: '782'
   school_name: 四川旅游学院
   major_group_code: '754694'
+  major_group_name: ''
+  major_name: null
+  min_score: 488
+  min_rank: 46648
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
+  school_code: '2294'
+  school_name: 民政职业大学
+  major_group_code: '758554'
   major_group_name: ''
   major_name: null
   min_score: 488
@@ -10317,6 +10965,24 @@
   school_code: '1251'
   school_name: 梧州学院
   major_group_code: '756233'
+  major_group_name: ''
+  major_name: null
+  min_score: 486
+  min_rank: 48153
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
+  school_code: '400'
+  school_name: 吉林化工大学
+  major_group_code: '752388'
   major_group_name: ''
   major_name: null
   min_score: 486
@@ -11880,6 +12546,24 @@
   review_status: verified
 - year: 2024
   track: 历史类
+  school_code: '1042'
+  school_name: 赤峰大学
+  major_group_code: '755567'
+  major_group_name: ''
+  major_name: null
+  min_score: 482
+  min_rank: 51039
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
   school_code: '1014'
   school_name: 吉林农业科技学院
   major_group_code: '755431'
@@ -12171,6 +12855,24 @@
   school_code: '1586'
   school_name: 河北工程大学科信学院
   major_group_code: '756965'
+  major_group_name: ''
+  major_name: null
+  min_score: 481
+  min_rank: 51831
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
+  school_code: '3407'
+  school_name: 西藏农牧大学
+  major_group_code: '760353'
   major_group_name: ''
   major_name: null
   min_score: 481
@@ -12654,6 +13356,24 @@
   review_status: verified
 - year: 2024
   track: 历史类
+  school_code: '3705'
+  school_name: 新疆和田学院
+  major_group_code: '760737'
+  major_group_name: ''
+  major_name: null
+  min_score: 478
+  min_rank: 54094
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
   school_code: '2460'
   school_name: 湖北工程学院新技术学院
   major_group_code: '759027'
@@ -12819,6 +13539,24 @@
   school_code: '1086'
   school_name: 成都体育学院
   major_group_code: '755741'
+  major_group_name: ''
+  major_name: null
+  min_score: 476
+  min_rank: 55683
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
+  school_code: '1095'
+  school_name: 天水师范大学
+  major_group_code: '755775'
   major_group_name: ''
   major_name: null
   min_score: 476
@@ -13053,6 +13791,24 @@
   school_code: '2518'
   school_name: 潍坊理工学院
   major_group_code: '759190'
+  major_group_name: ''
+  major_name: null
+  min_score: 475
+  min_rank: 56502
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
+  school_code: '1333'
+  school_name: 新疆农业职业技术大学
+  major_group_code: '756459'
   major_group_name: ''
   major_name: null
   min_score: 475
@@ -14832,6 +15588,24 @@
   review_status: verified
 - year: 2024
   track: 历史类
+  school_code: '876'
+  school_name: 信阳师范大学
+  major_group_code: '755011'
+  major_group_name: ''
+  major_name: null
+  min_score: 453
+  min_rank: 74880
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
   school_code: '221'
   school_name: 沈阳师范大学
   major_group_code: '751074'
@@ -15084,6 +15858,24 @@
   review_status: verified
 - year: 2024
   track: 历史类
+  school_code: '2449'
+  school_name: 新乡工程学院
+  major_group_code: '758961'
+  major_group_name: ''
+  major_name: null
+  min_score: 448
+  min_rank: 79231
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
   school_code: '1848'
   school_name: 安徽新华学院
   major_group_code: '757460'
@@ -15181,6 +15973,24 @@
   major_name: null
   min_score: 447
   min_rank: 80118
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
+  school_code: '1530'
+  school_name: 中原科技学院
+  major_group_code: '756864'
+  major_group_name: ''
+  major_name: null
+  min_score: 456
+  min_rank: 72330
   avg_score: null
   plan_count: null
   batch: 本科批
@@ -16038,6 +16848,24 @@
   review_status: verified
 - year: 2024
   track: 历史类
+  school_code: '2525'
+  school_name: 昆明传媒学院
+  major_group_code: '759219'
+  major_group_name: ''
+  major_name: null
+  min_score: 439
+  min_rank: 87279
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
   school_code: '1549'
   school_name: 大连财经学院
   major_group_code: '756886'
@@ -16077,6 +16905,24 @@
   school_code: '2467'
   school_name: 湘潭理工学院
   major_group_code: '759021'
+  major_group_name: ''
+  major_name: null
+  min_score: 439
+  min_rank: 87279
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
+  school_code: '2523'
+  school_name: 滇池学院
+  major_group_code: '759217'
   major_group_name: ''
   major_name: null
   min_score: 439
@@ -16315,6 +17161,24 @@
   major_name: null
   min_score: 456
   min_rank: 72330
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
+  school_code: '2497'
+  school_name: 成都外国语学院
+  major_group_code: '759098'
+  major_group_name: ''
+  major_name: null
+  min_score: 437
+  min_rank: 89086
   avg_score: null
   plan_count: null
   batch: 本科批
@@ -18306,6 +19170,42 @@
   review_status: verified
 - year: 2024
   track: 历史类
+  school_code: '1324'
+  school_name: 河南开封科技传媒学院
+  major_group_code: '756429'
+  major_group_name: ''
+  major_name: null
+  min_score: 474
+  min_rank: 57313
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
+  school_code: '1324'
+  school_name: 河南开封科技传媒学院
+  major_group_code: '756429'
+  major_group_name: ''
+  major_name: null
+  min_score: 428
+  min_rank: 97632
+  avg_score: null
+  plan_count: null
+  batch: 本科批
+  data_granularity: major_group
+  source_name: 河南省考试院 book.heao.com.cn
+  source_url: https://book.heao.com.cn/?#/choose
+  as_of: ''
+  confidence: 0.95
+  review_status: verified
+- year: 2024
+  track: 历史类
   school_code: '2428'
   school_name: 江西农业大学南昌商学院
   major_group_code: '758886'
@@ -20088,8 +20988,8 @@
   review_status: verified
 - year: 2024
   track: 历史类
-  school_code: ''
-  school_name: 北京师范大学(珠海校区)
+  school_code: '3825'
+  school_name: 北京师范大学（珠海校区）
   major_group_code: null
   major_group_name: ''
   major_name: null
@@ -20160,8 +21060,8 @@
   review_status: verified
 - year: 2024
   track: 历史类
-  school_code: ''
-  school_name: 哈尔滨工业大学(深圳)
+  school_code: '3255'
+  school_name: 哈尔滨工业大学（深圳）
   major_group_code: null
   major_group_name: ''
   major_name: null
@@ -20214,8 +21114,8 @@
   review_status: verified
 - year: 2024
   track: 历史类
-  school_code: ''
-  school_name: 哈尔滨工业大学(威海)
+  school_code: '1457'
+  school_name: 哈尔滨工业大学（威海）
   major_group_code: null
   major_group_name: ''
   major_name: null
@@ -20232,8 +21132,8 @@
   review_status: verified
 - year: 2024
   track: 历史类
-  school_code: ''
-  school_name: 中国人民大学(苏州校区)
+  school_code: '3150'
+  school_name: 中国人民大学（苏州校区）
   major_group_code: null
   major_group_name: ''
   major_name: null
@@ -20358,8 +21258,8 @@
   review_status: verified
 - year: 2024
   track: 历史类
-  school_code: ''
-  school_name: 山东大学威海分校
+  school_code: '1219'
+  school_name: 山东大学（威海）
   major_group_code: null
   major_group_name: ''
   major_name: null
@@ -20952,8 +21852,8 @@
   review_status: verified
 - year: 2024
   track: 历史类
-  school_code: ''
-  school_name: 华北电力大学(北京)
+  school_code: '831'
+  school_name: 华北电力大学（北京）
   major_group_code: null
   major_group_name: ''
   major_name: null
@@ -20988,8 +21888,8 @@
   review_status: verified
 - year: 2024
   track: 历史类
-  school_code: ''
-  school_name: 中国地质大学(北京)
+  school_code: '830'
+  school_name: 中国地质大学（北京）
   major_group_code: null
   major_group_name: ''
   major_name: null
@@ -21060,8 +21960,8 @@
   review_status: verified
 - year: 2024
   track: 历史类
-  school_code: ''
-  school_name: 中国石油大学(北京)
+  school_code: '832'
+  school_name: 中国石油大学（北京）
   major_group_code: null
   major_group_name: ''
   major_name: null
@@ -21150,8 +22050,8 @@
   review_status: verified
 - year: 2024
   track: 历史类
-  school_code: ''
-  school_name: 中国地质大学(武汉)
+  school_code: '121'
+  school_name: 中国地质大学（武汉）
   major_group_code: null
   major_group_name: ''
   major_name: null
@@ -21204,8 +22104,8 @@
   review_status: verified
 - year: 2024
   track: 历史类
-  school_code: ''
-  school_name: 中国矿业大学(北京)
+  school_code: '1006'
+  school_name: 中国矿业大学（北京）
   major_group_code: null
   major_group_name: ''
   major_name: null
@@ -21384,8 +22284,8 @@
   review_status: verified
 - year: 2024
   track: 历史类
-  school_code: ''
-  school_name: 华北电力大学(保定)
+  school_code: '591'
+  school_name: 华北电力大学（保定）
   major_group_code: null
   major_group_name: ''
   major_name: null
@@ -21744,8 +22644,8 @@
   review_status: verified
 - year: 2024
   track: 历史类
-  school_code: ''
-  school_name: 北京交通大学(威海校区)
+  school_code: '3828'
+  school_name: 北京交通大学（威海校区）
   major_group_code: null
   major_group_name: ''
   major_name: null
@@ -21816,8 +22716,8 @@
   review_status: verified
 - year: 2024
   track: 历史类
-  school_code: ''
-  school_name: 中国石油大学(北京)克拉玛依校区
+  school_code: '3311'
+  school_name: 中国石油大学（北京）克拉玛依校区
   major_group_code: null
   major_group_name: ''
   major_name: null
@@ -22140,8 +23040,8 @@
   review_status: verified
 - year: 2024
   track: 历史类
-  school_code: ''
-  school_name: 中国石油大学(华东)
+  school_code: '120'
+  school_name: 中国石油大学（华东）
   major_group_code: null
   major_group_name: ''
   major_name: null
@@ -22626,8 +23526,8 @@
   review_status: verified
 - year: 2024
   track: 历史类
-  school_code: ''
-  school_name: 合肥工业大学(宣城校区)
+  school_code: '3152'
+  school_name: 合肥工业大学（宣城校区）
   major_group_code: null
   major_group_name: ''
   major_name: null
@@ -23076,8 +23976,8 @@
   review_status: verified
 - year: 2024
   track: 历史类
-  school_code: ''
-  school_name: 湖南理工学院
+  school_code: '396'
+  school_name: 湖南理工大学
   major_group_code: null
   major_group_name: ''
   major_name: null
@@ -24282,8 +25182,8 @@
   review_status: verified
 - year: 2024
   track: 历史类
-  school_code: ''
-  school_name: 河北中医药大学(原河北中医学院)
+  school_code: '3055'
+  school_name: 河北中医药大学
   major_group_code: null
   major_group_name: ''
   major_name: null
@@ -24570,8 +25470,8 @@
   review_status: verified
 - year: 2024
   track: 历史类
-  school_code: ''
-  school_name: 浙江科技大学(原浙江科技学院)
+  school_code: '246'
+  school_name: 浙江科技大学
   major_group_code: null
   major_group_name: ''
   major_name: null
@@ -25668,8 +26568,8 @@
   review_status: verified
 - year: 2024
   track: 历史类
-  school_code: ''
-  school_name: 新乡医学院
+  school_code: '482'
+  school_name: 河南医药大学
   major_group_code: null
   major_group_name: ''
   major_name: null
@@ -25866,8 +26766,8 @@
   review_status: verified
 - year: 2024
   track: 历史类
-  school_code: ''
-  school_name: 重庆科技大学(原重庆科技学院)
+  school_code: '1009'
+  school_name: 重庆科技大学
   major_group_code: null
   major_group_name: ''
   major_name: null
@@ -25974,8 +26874,8 @@
   review_status: verified
 - year: 2024
   track: 历史类
-  school_code: ''
-  school_name: 湖州师范学院
+  school_code: '253'
+  school_name: 湖州师范大学
   major_group_code: null
   major_group_name: ''
   major_name: null
@@ -27000,8 +27900,8 @@
   review_status: verified
 - year: 2024
   track: 历史类
-  school_code: ''
-  school_name: 闽江学院
+  school_code: '477'
+  school_name: 闽江大学
   major_group_code: null
   major_group_name: ''
   major_name: null
@@ -27504,8 +28404,8 @@
   review_status: verified
 - year: 2024
   track: 历史类
-  school_code: ''
-  school_name: 山东第二医科大学(原潍坊医学院)
+  school_code: '553'
+  school_name: 山东第二医科大学
   major_group_code: null
   major_group_name: ''
   major_name: null
@@ -27540,8 +28440,8 @@
   review_status: verified
 - year: 2024
   track: 历史类
-  school_code: ''
-  school_name: 山东航空学院(原滨州学院)
+  school_code: '1210'
+  school_name: 山东航空学院
   major_group_code: null
   major_group_name: ''
   major_name: null
@@ -27846,8 +28746,8 @@
   review_status: verified
 - year: 2024
   track: 历史类
-  school_code: ''
-  school_name: 榆林学院
+  school_code: '1090'
+  school_name: 榆林大学
   major_group_code: null
   major_group_name: ''
   major_name: null
@@ -27900,8 +28800,8 @@
   review_status: verified
 - year: 2024
   track: 历史类
-  school_code: ''
-  school_name: 福建理工大学(原福建工程学院)
+  school_code: '474'
+  school_name: 福建理工大学
   major_group_code: null
   major_group_name: ''
   major_name: null
@@ -28674,8 +29574,8 @@
   review_status: verified
 - year: 2024
   track: 历史类
-  school_code: ''
-  school_name: 淮阴工学院
+  school_code: '152'
+  school_name: 淮安大学
   major_group_code: null
   major_group_name: ''
   major_name: null
@@ -28782,8 +29682,8 @@
   review_status: verified
 - year: 2024
   track: 历史类
-  school_code: ''
-  school_name: 宁夏师范大学(原宁夏师范学院)
+  school_code: '1241'
+  school_name: 宁夏师范大学
   major_group_code: null
   major_group_name: ''
   major_name: null
@@ -29394,8 +30294,8 @@
   review_status: verified
 - year: 2024
   track: 历史类
-  school_code: ''
-  school_name: 海南医科大学(原海南医学院)
+  school_code: '512'
+  school_name: 海南医科大学
   major_group_code: null
   major_group_name: ''
   major_name: null
@@ -29412,8 +30312,8 @@
   review_status: verified
 - year: 2024
   track: 历史类
-  school_code: ''
-  school_name: 绍兴文理学院
+  school_code: '255'
+  school_name: 绍兴大学
   major_group_code: null
   major_group_name: ''
   major_name: null
@@ -29502,8 +30402,8 @@
   review_status: verified
 - year: 2024
   track: 历史类
-  school_code: ''
-  school_name: 民政职业大学(原北京社会管理职业学院)
+  school_code: '2294'
+  school_name: 民政职业大学
   major_group_code: null
   major_group_name: ''
   major_name: null
@@ -29970,8 +30870,8 @@
   review_status: verified
 - year: 2024
   track: 历史类
-  school_code: ''
-  school_name: 吉林化工学院
+  school_code: '400'
+  school_name: 吉林化工大学
   major_group_code: null
   major_group_name: ''
   major_name: null
@@ -31266,8 +32166,8 @@
   review_status: verified
 - year: 2024
   track: 历史类
-  school_code: ''
-  school_name: 陇南师范学院(原陇南师范高等专科学校)
+  school_code: '1706'
+  school_name: 陇南师范学院
   major_group_code: null
   major_group_name: ''
   major_name: null
@@ -31284,8 +32184,8 @@
   review_status: verified
 - year: 2024
   track: 历史类
-  school_code: ''
-  school_name: 赤峰学院
+  school_code: '1042'
+  school_name: 赤峰大学
   major_group_code: null
   major_group_name: ''
   major_name: null
@@ -31536,8 +32436,8 @@
   review_status: verified
 - year: 2024
   track: 历史类
-  school_code: ''
-  school_name: 西藏农牧学院
+  school_code: '3407'
+  school_name: 西藏农牧大学
   major_group_code: null
   major_group_name: ''
   major_name: null
@@ -32022,8 +32922,8 @@
   review_status: verified
 - year: 2024
   track: 历史类
-  school_code: ''
-  school_name: 新疆和田学院(原和田师范专科学校)
+  school_code: '3705'
+  school_name: 新疆和田学院
   major_group_code: null
   major_group_name: ''
   major_name: null
@@ -32202,8 +33102,8 @@
   review_status: verified
 - year: 2024
   track: 历史类
-  school_code: ''
-  school_name: 天水师范学院
+  school_code: '1095'
+  school_name: 天水师范大学
   major_group_code: null
   major_group_name: ''
   major_name: null
@@ -32436,8 +33336,8 @@
   review_status: verified
 - year: 2024
   track: 历史类
-  school_code: ''
-  school_name: 新疆农业职业技术大学(原新疆农业职业技术学院)
+  school_code: '1333'
+  school_name: 新疆农业职业技术大学
   major_group_code: null
   major_group_name: ''
   major_name: null
@@ -34002,8 +34902,8 @@
   review_status: verified
 - year: 2024
   track: 历史类
-  school_code: ''
-  school_name: 信阳师范大学(原信阳师范学院)
+  school_code: '876'
+  school_name: 信阳师范大学
   major_group_code: null
   major_group_name: ''
   major_name: null
@@ -34308,8 +35208,8 @@
   review_status: verified
 - year: 2024
   track: 历史类
-  school_code: ''
-  school_name: 新乡工程学院(原河南科技学院新科学院)
+  school_code: '2449'
+  school_name: 新乡工程学院
   major_group_code: null
   major_group_name: ''
   major_name: null
@@ -34416,8 +35316,8 @@
   review_status: verified
 - year: 2024
   track: 历史类
-  school_code: ''
-  school_name: 中原科技学院(原河南师范大学新联学院)
+  school_code: '1530'
+  school_name: 中原科技学院
   major_group_code: null
   major_group_name: ''
   major_name: null
@@ -35514,8 +36414,8 @@
   review_status: verified
 - year: 2024
   track: 历史类
-  school_code: ''
-  school_name: 昆明传媒学院(原云南艺术学院文华学院)
+  school_code: '2525'
+  school_name: 昆明传媒学院
   major_group_code: null
   major_group_name: ''
   major_name: null
@@ -35586,8 +36486,8 @@
   review_status: verified
 - year: 2024
   track: 历史类
-  school_code: ''
-  school_name: 滇池学院(原云南大学滇池学院)
+  school_code: '2523'
+  school_name: 滇池学院
   major_group_code: null
   major_group_name: ''
   major_name: null
@@ -35838,8 +36738,8 @@
   review_status: verified
 - year: 2024
   track: 历史类
-  school_code: ''
-  school_name: 漯河食品工程职业大学(原漯河食品职业学院)
+  school_code: '2453'
+  school_name: 漯河食品工程职业大学
   major_group_code: null
   major_group_name: ''
   major_name: null
@@ -35946,8 +36846,8 @@
   review_status: verified
 - year: 2024
   track: 历史类
-  school_code: ''
-  school_name: 成都外国语学院(原四川外国语大学成都学院)
+  school_code: '2497'
+  school_name: 成都外国语学院
   major_group_code: null
   major_group_name: ''
   major_name: null
@@ -37908,8 +38808,8 @@
   review_status: verified
 - year: 2024
   track: 历史类
-  school_code: ''
-  school_name: 河南开封科技传媒学院(原河南大学民生学院)
+  school_code: '1324'
+  school_name: 河南开封科技传媒学院
   major_group_code: null
   major_group_name: ''
   major_name: null

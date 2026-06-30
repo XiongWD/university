@@ -47,6 +47,12 @@ class HenanUniversity(SourceStamped):
     school_level: str = ""  # 985 / 211 / 双一流 / 省重点 / 普通本科 / 高职高专
     strong_majors: list[str] = []
     tags: list[str] = []
+    # 真实志愿填报用（design §4.1 扩展）：
+    # yxdh = 河南省考试院院校代码（考生在志愿系统实际输入的代码，≠国标码≠gaokao.cn school_id）
+    henan_school_code: str = ""
+    # 官网 / 招生网站（供人工复核查 2026 招生简章，来自 heao schoolBaseInfo）
+    official_website: str = ""
+    enrollment_website: str = ""
 
 
 class HenanAdmissionHistory(SourceStamped):
@@ -78,6 +84,10 @@ class HenanProgramGroup(SourceStamped):
     school_name: str
     major_group_code: str
     major_group_name: str
+    # 真实志愿填报用（design §4.3 扩展）：
+    # volunteer_group_code = 河南省考试院专业组代码（考生在志愿系统实际输入的专业组号，
+    # 来自 heao zyzh；≠ gaokao.cn major_group_code）。缺失时用 major_group_code 兜底展示。
+    volunteer_group_code: str = ""
     included_majors: list[str] = []
     major_codes: list[str] = []
     primary_subject_requirement: str | None = None  # 物理 / 历史 / 空

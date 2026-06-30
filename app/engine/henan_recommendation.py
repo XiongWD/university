@@ -1015,7 +1015,7 @@ def build_henan_candidates(profile: dict) -> list[dict]:
             # 主因（最高优先级），用于卡片主展示 + 向后兼容 review_reason_code 单值字段
             primary_code = review_reason_codes[0]
             review_reason = {
-                "missing_verified_2025_rank": "资格暂无问题，但缺少2025同口径院校专业组最低录取位次，无法严谨判定搏/冲/稳/保/垫，需补充数据后复核",
+                "missing_verified_2025_rank": "资格暂无问题，但缺少2025同口径院校专业组最低录取位次，无法严谨判定搏/冲/稳/保/垫，需补充数据后复核；若该院校为2026新设/更名（无历史录取数据），请直接查下方官网/招生网确认2026招生简章与计划",
                 "only_2024_old_regime": "仅有2024旧文科口径数据（≠新高考历史类），口径断裂不可直接判档，待2025同口径数据补齐后复核",
                 "missing_verified_2026_plan": "2026河南招生计划未核验，无法确认本组2026是否招生",
                 "unverified_2026_group": "2026专业组结构未核验，无法确认选科/语种等限制是否最新",
@@ -1032,6 +1032,12 @@ def build_henan_candidates(profile: dict) -> list[dict]:
         school_city = getattr(uni, "city", "") if uni else ""
         school_tags = getattr(uni, "tags", []) if uni else []
         school_level = getattr(uni, "school_level", "") if uni else ""
+        # 真实志愿填报代码（design §4.1/§4.3 扩展）：河南院校代码 yxdh + 专业组号 zyzh，
+        # 来自 heao。yxdh 从 university 取；zyzh 从 group.volunteer_group_code 取（缺失则空）。
+        henan_school_code = getattr(uni, "henan_school_code", "") if uni else ""
+        official_website = getattr(uni, "official_website", "") if uni else ""
+        enrollment_website = getattr(uni, "enrollment_website", "") if uni else ""
+        volunteer_group_code = getattr(group, "volunteer_group_code", "") or ""
         is_henan_local = bool(getattr(lead_plan, "is_henan_local_school", False)) or (school_province == "河南")
         # 生活费：按学校城市匹配月综合成本中位×12，缺失回退全国基准(月2000)
         monthly_mid = city_monthly_mid.get(school_city)
@@ -1136,6 +1142,12 @@ def build_henan_candidates(profile: dict) -> list[dict]:
             "school_level": school_level,
             "school_tags": school_tags,
             "is_henan_local": is_henan_local,
+            # 真实志愿填报代码（来自 heao，供考生在志愿系统输入）
+            "yxdh": henan_school_code,
+            "zyzh": volunteer_group_code,
+            # 官网 / 招生网站（供人工复核查 2026 招生简章）
+            "official_website": official_website,
+            "enrollment_website": enrollment_website,
             # 冲稳保计算明细（问题2）+ 投档成功率（problem1）
             "admission_probability": admission_probability,
             "bucket_detail": bucket_detail,
