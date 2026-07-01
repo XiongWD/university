@@ -9,6 +9,7 @@ import { CSS } from "@dnd-kit/utilities";
 import { ChevronRight, Trash2, Layers, MapPin, Building2 } from "lucide-react";
 import { useVolunteerStore } from "../store/volunteerStore";
 import VolunteerItemRow from "./VolunteerItemRow";
+import HeaoSummaryBar from "./HeaoSummaryBar";
 import type { LayoutItem, UserVolunteerItem } from "../api/types";
 
 /**
@@ -156,6 +157,8 @@ export default function VolunteerDock() {
               ⚠ {h.message}
             </div>
           ))}
+          {/* heao 权威评估汇总 */}
+          <HeaoSummaryBar items={items} />
         </div>
       )}
 

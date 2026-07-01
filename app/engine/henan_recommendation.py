@@ -765,11 +765,10 @@ def classify_group_bucket(
 
 
 def get_bucket_quota(policy_count: int, strategy: str, profile: dict) -> dict[str, tuple[int, int]]:
-    """48 志愿草案的搏冲稳保数量配额（design §8.4）。
+    """48 志愿草案的搏冲稳保数量配额（模拟人类高考生"稳保为主、少量冲刺"的真实选法）。
 
-    各策略均含「搏」档：搏档是合理冲刺区间（位次差约 -15%~-25%），截断搏档会让
-    考生漏掉本可一搏的院校。历史类+日语不再默认降级为保守——保守基调由稳/保档的
-    较大占比体现，而非删去搏档。比例是产品默认策略，非官方强制。
+    人类考生（尤其中等位次、求稳防滑档）的志愿结构：稳保占主体（35-42 个），
+    少量冲刺（冲 6-8 + 搏 3-5），而非机械均衡分配。比例是产品默认策略，非官方强制。
     返回各档 (下限, 上限)。
     """
     # 非 48 志愿政策时按比例缩放
@@ -782,17 +781,18 @@ def get_bucket_quota(policy_count: int, strategy: str, profile: dict) -> dict[st
         def scaled(low: int, high: int) -> tuple[int, int]:
             return (low, high)
 
-    # 自动策略：统一均衡（不再因历史类+日语强制保守，避免搏档院校被整档截断）
+    # 自动策略：默认稳保为主（贴近人类求稳选法）
     if strategy == "自动":
-        strategy = "均衡"
+        strategy = "稳保为主"
 
     if strategy == "保守":
-        # 保守基调：稳/保占大头，但仍保留少量搏档给考生冲刺机会
-        return {"搏": scaled(5, 6), "冲": scaled(6, 8), "稳": scaled(18, 22), "保": scaled(12, 14)}
+        # 极稳：几乎全稳保，仅极少量冲刺
+        return {"搏": scaled(2, 3), "冲": scaled(4, 6), "稳": scaled(22, 26), "保": scaled(14, 18)}
     if strategy == "积极":
-        return {"搏": scaled(12, 14), "冲": scaled(10, 12), "稳": scaled(12, 14), "保": scaled(6, 8)}
-    # 均衡：贴合河南省教育考试院官方"黄金比 3:4:3"建议，并补搏档
-    return {"搏": scaled(10, 12), "冲": scaled(12, 14), "稳": scaled(14, 16), "保": scaled(8, 10)}
+        # 偏冲：加大冲刺，缩减保底
+        return {"搏": scaled(8, 10), "冲": scaled(12, 14), "稳": scaled(14, 16), "保": scaled(6, 8)}
+    # 稳保为主（自动默认）：稳保占主体，少量冲刺
+    return {"搏": scaled(3, 5), "冲": scaled(6, 8), "稳": scaled(20, 24), "保": scaled(14, 18)}
 
 
 # 冲稳保排序权重（冲在前，保次之，不推荐最后，需人工复核在末尾）
@@ -1230,11 +1230,20 @@ def build_henan_candidates(profile: dict) -> list[dict]:
 _STRATEGY_LABEL = {"自动": "自动", "积极": "积极", "保守": "保守", "均衡": "均衡"}
 
 
-def sort_henan_bucket_candidates(candidates: list[dict], profile: dict) -> list[dict]:
-    """按固定优先级对同一档位候选排序。
+# 发达地区省份（人类考生偏好：经济发达+高校密集+就业机会多）
+# 北京、天津、上海、江苏、浙江、广东、福建、山东
+DEVELOPED_PROVINCES = {"北京", "天津", "上海", "江苏", "浙江", "广东", "福建", "山东"}
 
-    优先级是字典序：省内 → 公办 → 专业匹配 → 日语适配 → 成功率 → 费用。
-    后一层只在前一层相同的候选之间比较。
+
+def sort_henan_bucket_candidates(candidates: list[dict], profile: dict, bucket: str = "") -> list[dict]:
+    """模拟人类高考生选志愿的排序：分档不同，位次方向相反，同段内按偏好加权。
+
+    人类逻辑（关键：搏/冲 vs 稳/保 位次方向相反）：
+      - 搏/冲档：冲的是"更好的学校"——ref_rank 小（分数高、更难考、更想去）的优先。
+        冲就是要冲好学校，不是冲"最容易够到的差学校"。
+      - 稳档：位次匹配区间，按偏好（省内公办发达）选。
+      - 保档：保底求稳——ref_rank 大（更确定能上）的优先。保就是要稳。
+      - 同位次段内，偏好加权微调：省内 + 公办 + 发达地区 + 语种适配。
     """
     prefer_local = bool(profile.get("prefer_local"))
     prefer_public = bool(profile.get("prefer_public"))
@@ -1283,32 +1292,42 @@ def sort_henan_bucket_candidates(candidates: list[dict], profile: dict) -> list[
             return 0.25
         return 0.0
 
-    def _probability(c: dict) -> float:
-        detail = c.get("bucket_detail") or {}
-        value = c.get("admission_probability")
-        if value is None:
-            value = detail.get("admission_probability")
-        return float(value or 0.0)
+    def _preference_score(c: dict) -> float:
+        """偏好加权分（同位次段内微调用）。省内/公办/发达地区/专业匹配/语种适配叠加。"""
+        score = 0.0
+        if prefer_local and c.get("is_henan_local"):
+            score += 3.0
+        if prefer_public and c.get("school_ownership") == "公办":
+            score += 2.0
+        if c.get("school_province") in DEVELOPED_PROVINCES:
+            score += 1.5
+        score += _major_match_score(c) * 2.0
+        score += _language_fit_score(c) * 1.5
+        return score
 
     def _cost(c: dict) -> float:
         value = c.get("four_year_total")
         return float(value) if isinstance(value, (int, float)) and value > 0 else 999999999.0
 
     def _sort_key(c: dict):
-        local_rank = 0 if (prefer_local and c.get("is_henan_local")) else 1
-        public_rank = 0 if (prefer_public and c.get("school_ownership") == "公办") else 1
-        # 位次安全度：ref_rank 越大（越接近考生位次、越容易够到）越优先。
-        # 搏/冲档里这是关键因子——差距越小（越可能上）的冲刺院校应排在更前，
-        # 而非把最难考的堆在前面把容易够到的挤出配额。用负 ref_rank 实现降序。
         ref_rank = (c.get("bucket_detail") or {}).get("reference_rank") or 0
+        # 位次方向：搏/冲档 ref_rank 小（好学校）优先；稳/保档 ref_rank 大（稳）优先。
+        # 这是人类选志愿的核心——冲好的、保稳的，方向相反。
+        if bucket in ("搏", "冲"):
+            # 冲档：ref_rank 小（分数高、更想去）排前 → 用升序（rank_band 越小越前）
+            rank_band = ref_rank // 2000
+            rank_dir = rank_band            # 升序：小值在前
+            rank_fine = ref_rank            # 同段内 ref_rank 小的在前
+        else:
+            # 稳/保档：ref_rank 大（更稳、更确定能上）排前 → 用降序
+            rank_band = ref_rank // 2000
+            rank_dir = -rank_band           # 降序：大值在前
+            rank_fine = -ref_rank           # 同段内 ref_rank 大的在前
         return (
-            local_rank,
-            public_rank,
-            -_major_match_score(c),
-            -_language_fit_score(c),
-            -ref_rank,  # 位次安全度：ref_rank 大（易够到）排前
-            -_probability(c),
-            _cost(c),
+            rank_dir,             # 主序：位次段（搏冲=好学校段在前；稳保=稳的段在前）
+            -_preference_score(c),# 次序：同段内偏好加权（省内/公办/发达/专业/语种）
+            rank_fine,            # 同段同偏好时，位次方向细化
+            _cost(c),             # 最终兜底：所有条件相同时，学费低的在前
             c.get("school_name", ""),
         )
 
@@ -1336,9 +1355,14 @@ def build_henan_volunteer_table(
     policy_count = getattr(policy, "parallel_volunteer_count", 48) or 48
     major_cap = getattr(policy, "major_count_per_group", 6) or 6
     quota = get_bucket_quota(policy_count, strategy, profile)
-    prefer_local = bool(profile.get("prefer_local"))
-    prefer_public = bool(profile.get("prefer_public"))
+    # 偏好默认开启（人类高考生默认倾向省内+公办）；profile 显式传 false 时尊重用户选择。
+    prefer_local = profile.get("prefer_local")
+    prefer_local = True if prefer_local is None else bool(prefer_local)
+    prefer_public = profile.get("prefer_public")
+    prefer_public = True if prefer_public is None else bool(prefer_public)
     sort_mode = profile.get("sort_mode") or "rank"
+    # 同步回 profile，供 sort_henan_bucket_candidates 使用
+    profile = {**profile, "prefer_local": prefer_local, "prefer_public": prefer_public}
 
     # 可达候选进入志愿表（搏/冲/稳/保）；不推荐/需人工复核/超冲不进表
     reachable = [c for c in candidates if c.get("bucket") in {"搏", "冲", "稳", "保"}]
@@ -1350,7 +1374,7 @@ def build_henan_volunteer_table(
     used: dict[str, int] = {}
     for bucket in ("搏", "冲", "稳", "保"):
         low, high = quota.get(bucket, (0, 0))
-        picked = sort_henan_bucket_candidates(by_bucket.get(bucket, []), profile)[:high]
+        picked = sort_henan_bucket_candidates(by_bucket.get(bucket, []), profile, bucket)[:high]
         used[bucket] = len(picked)
         ordered.extend(picked)
 

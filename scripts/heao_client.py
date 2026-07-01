@@ -10,7 +10,7 @@ import urllib.request
 from pathlib import Path
 
 # 最新 cookie 文件（用户每次刷新后更新此路径）
-TOKEN_FILE = Path(r"C:\Users\Administrator\Downloads\cookies-2026-06-30 (1).json")
+TOKEN_FILE = Path(r"C:\Users\Administrator\Downloads\cookies-2026-07-01 (1).json")
 
 _CTX = ssl.create_default_context()
 _CTX.check_hostname = False

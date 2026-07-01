@@ -79,7 +79,7 @@ export default function TargetSchoolCard({ items, bucketKey }: Props) {
         <div className="mt-2 text-[13px] text-white/70 flex flex-wrap items-center gap-x-3 gap-y-1 tabular-nums">
           <span>考生位次 <b className="text-white/90">{fmtRank(detail.student_rank)}</b></span>
           <span className="text-white/25">·</span>
-          <span>{detail.baseline_year ? `${detail.baseline_year}年` : ""}录取位次 <b className="text-white/90">{fmtRank(detail.adjusted_min_rank)}</b></span>
+          <span>{detail.baseline_year ? `${detail.baseline_year}年` : ""}录取位次 <b className="text-white/90">{fmtRank(detail.raw_historical_rank ?? detail.adjusted_min_rank)}</b></span>
           <span className="text-white/25">·</span>
           <span>位次优势 <b className={bucketKey === "超冲" ? "text-rose-300" : bucketKey === "搏" ? "text-orange-300" : bucketKey === "冲" ? "text-amber-300" : bucketKey === "稳" ? "text-emerald-300" : bucketKey === "垫" ? "text-indigo-300" : "text-sky-300"}>
             {detail.advantage_ratio !== null && detail.advantage_ratio !== undefined ? `${(detail.advantage_ratio * 100).toFixed(1)}%` : "—"}
@@ -155,7 +155,7 @@ export default function TargetSchoolCard({ items, bucketKey }: Props) {
                 {/* 位次不共性时降级按组显示 */}
                 {!rankCommon && itDetail && (
                   <div className="text-[11px] text-white/55 mt-1 tabular-nums">
-                    考生位次 {fmtRank(itDetail.student_rank)} · {itDetail.baseline_year ? `${itDetail.baseline_year}年` : ""}录取 {fmtRank(itDetail.reference_rank ?? itDetail.adjusted_min_rank)}
+                    考生位次 {fmtRank(itDetail.student_rank)} · {itDetail.baseline_year ? `${itDetail.baseline_year}年` : ""}录取 {fmtRank(itDetail.raw_historical_rank ?? itDetail.adjusted_min_rank)}
                     {itDetail.advantage_ratio !== null && itDetail.advantage_ratio !== undefined ? ` · 优势 ${(itDetail.advantage_ratio * 100).toFixed(1)}%` : ""}
                   </div>
                 )}

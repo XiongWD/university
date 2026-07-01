@@ -148,20 +148,21 @@ def test_group_bucket_returns_three_layer_status():
 
 
 def test_bucket_quota_for_balanced_48_volunteers():
-    # 均衡档含搏档：搏10-12/冲12-14/稳14-16/保8-10（搏档是合理冲刺区间，不应整档截断）
+    # 默认(稳保为主)：模拟人类"稳保为主、少量冲刺"——稳+保占主体，搏3-5/冲6-8
     quota = get_bucket_quota(48, "均衡", {"track": "物理类", "exam_foreign_language": "英语"})
-    assert quota == {"搏": (10, 12), "冲": (12, 14), "稳": (14, 16), "保": (8, 10)}
+    assert quota == {"搏": (3, 5), "冲": (6, 8), "稳": (20, 24), "保": (14, 18)}
 
 
 def test_bucket_quota_auto_not_forced_conservative_for_history_japanese():
-    # 自动策略统一均衡：历史类+日语不再强制降级为保守，避免搏档院校被整档截断
+    # 自动策略=稳保为主：人类求稳选法，稳保占主体
     quota = get_bucket_quota(48, "自动", {"track": "历史类", "exam_foreign_language": "日语"})
-    assert quota == {"搏": (10, 12), "冲": (12, 14), "稳": (14, 16), "保": (8, 10)}
+    assert quota == {"搏": (3, 5), "冲": (6, 8), "稳": (20, 24), "保": (14, 18)}
 
 
 def test_bucket_quota_for_aggressive_48_volunteers():
+    # 积极：偏冲，加大冲刺缩减保底
     quota = get_bucket_quota(48, "积极", {"track": "物理类", "exam_foreign_language": "英语"})
-    assert quota == {"搏": (12, 14), "冲": (10, 12), "稳": (12, 14), "保": (6, 8)}
+    assert quota == {"搏": (8, 10), "冲": (12, 14), "稳": (14, 16), "保": (6, 8)}
 
 
 def test_48_draft_respects_policy_count():
@@ -238,13 +239,13 @@ def test_bucket_candidate_sort_uses_same_local_and_public_preferences():
     candidates = [
         {
             "school_name": "省外民办位次更近",
-            "bucket_detail": {"rank_gap_ratio": -0.01},
+            "bucket_detail": {"reference_rank": 73000},
             "is_henan_local": False,
             "school_ownership": "民办",
         },
         {
             "school_name": "河南公办位次略远",
-            "bucket_detail": {"rank_gap_ratio": 0.02},
+            "bucket_detail": {"reference_rank": 75000},
             "is_henan_local": True,
             "school_ownership": "公办",
         },
@@ -255,6 +256,7 @@ def test_bucket_candidate_sort_uses_same_local_and_public_preferences():
         {"sort_mode": "rank", "prefer_local": True, "prefer_public": True},
     )
 
+    # 同位次段（73000/75000 同在 36000-38000 段附近）内，省内公办偏好加分更高
     assert ordered[0]["school_name"] == "河南公办位次略远"
 
 
@@ -263,7 +265,7 @@ def test_bucket_candidate_sort_prioritizes_major_match_with_japanese_fit_before_
         {
             "school_name": "高概率低费用但专业不匹配",
             "selected_majors": ["会计学", "财务管理"],
-            "bucket_detail": {"rank_gap_ratio": -0.02},
+            "bucket_detail": {"reference_rank": 74000},
             "admission_probability": 0.95,
             "four_year_total": 80000,
             "is_henan_local": True,
@@ -273,7 +275,7 @@ def test_bucket_candidate_sort_prioritizes_major_match_with_japanese_fit_before_
         {
             "school_name": "日语专业匹配但概率较低",
             "selected_majors": ["日语", "翻译"],
-            "bucket_detail": {"rank_gap_ratio": 0.02},
+            "bucket_detail": {"reference_rank": 74000},
             "admission_probability": 0.70,
             "four_year_total": 120000,
             "is_henan_local": True,
@@ -301,6 +303,7 @@ def test_bucket_candidate_sort_local_priority_dominates_later_factors():
         {
             "school_name": "省内公办但专业不匹配",
             "selected_majors": ["会计学"],
+            "bucket_detail": {"reference_rank": 74000},
             "admission_probability": 0.80,
             "four_year_total": 80000,
             "is_henan_local": True,
@@ -310,6 +313,7 @@ def test_bucket_candidate_sort_local_priority_dominates_later_factors():
         {
             "school_name": "省外民办但专业更匹配",
             "selected_majors": ["日语"],
+            "bucket_detail": {"reference_rank": 74000},
             "admission_probability": 0.80,
             "four_year_total": 120000,
             "is_henan_local": False,

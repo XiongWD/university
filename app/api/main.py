@@ -31,6 +31,19 @@ async def lifespan(app: FastAPI):
                 s, ["河南"], [2024, 2025, 2026],
             )
         _state["seed_loaded"] = True
+    # 预热评估数据缓存（heao_assessment + plan_costs 等大文件启动时加载，
+    # 消除首次访问评估报告页的 5 秒等待）
+    try:
+        from app.api.routers.my_volunteers import (
+            _load_heao_assessment, _load_plan_costs,
+            _load_university_meta, _load_biz_recommendations,
+        )
+        _load_heao_assessment()
+        _load_plan_costs()
+        _load_university_meta()
+        _load_biz_recommendations()
+    except Exception:
+        pass  # 预热失败不影响启动，首次请求时会按需加载
     yield
     _state["seed_loaded"] = False
 

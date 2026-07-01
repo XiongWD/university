@@ -1,0 +1,355 @@
+[
+  {
+    "features211": "",
+    "schoolRecentYearsAdmission": [
+      {
+        "year": "2025",
+        "maxCj": 504,
+        "minCj": 452,
+        "maxWc": 110379,
+        "lqs": 64
+      },
+      {
+        "year": "2024",
+        "maxCj": 450,
+        "minCj": 435,
+        "maxWc": 90950,
+        "lqs": 32
+      }
+    ],
+    "zyNum": 17,
+    "majorList": [
+      {
+        "zyzh": "101",
+        "year": "2025",
+        "kskmyqzw": "不限",
+        "minCj": 452,
+        "zyzMajorList": [
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "468.0",
+                "zyzh": "101",
+                "year": "2025",
+                "kskmyqzw": "不限",
+                "maxCj": 473,
+                "minCj": 453,
+                "maxWc": 109305,
+                "lqs": 6,
+                "kskmyq": "00"
+              }
+            ],
+            "zydh": "21",
+            "majorName": "学前教育(师范)",
+            "majorCode": "040106"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "467.2",
+                "zyzh": "101",
+                "year": "2025",
+                "kskmyqzw": "不限",
+                "maxCj": 486,
+                "minCj": 452,
+                "maxWc": 110379,
+                "lqs": 18,
+                "kskmyq": "00"
+              }
+            ],
+            "zydh": "22",
+            "majorName": "小学教育(师范)",
+            "majorCode": "040107"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "462.5",
+                "zyzh": "101",
+                "year": "2025",
+                "kskmyqzw": "不限",
+                "maxCj": 471,
+                "minCj": 457,
+                "maxWc": 104935,
+                "lqs": 4,
+                "kskmyq": "00"
+              }
+            ],
+            "zydh": "23",
+            "majorName": "服装设计与工程",
+            "majorCode": "081602"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "466.0",
+                "zyzh": "101",
+                "year": "2025",
+                "kskmyqzw": "不限",
+                "maxCj": 474,
+                "minCj": 453,
+                "maxWc": 109305,
+                "lqs": 3,
+                "kskmyq": "00"
+              }
+            ],
+            "zydh": "24",
+            "majorName": "市场营销",
+            "majorCode": "120202"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "465.3",
+                "zyzh": "101",
+                "year": "2025",
+                "kskmyqzw": "不限",
+                "maxCj": 479,
+                "minCj": 452,
+                "maxWc": 110379,
+                "lqs": 25,
+                "kskmyq": "00"
+              }
+            ],
+            "zydh": "25",
+            "majorName": "会计学",
+            "majorCode": "120203"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "479.3",
+                "zyzh": "101",
+                "year": "2025",
+                "kskmyqzw": "不限",
+                "maxCj": 504,
+                "minCj": 458,
+                "maxWc": 103807,
+                "lqs": 4,
+                "kskmyq": "00"
+              }
+            ],
+            "zydh": "26",
+            "majorName": "财务管理",
+            "majorCode": "120204"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "473.0",
+                "zyzh": "101",
+                "year": "2025",
+                "kskmyqzw": "不限",
+                "maxCj": 475,
+                "minCj": 471,
+                "maxWc": 90174,
+                "lqs": 3,
+                "kskmyq": "00"
+              }
+            ],
+            "zydh": "27",
+            "majorName": "健康服务与管理",
+            "majorCode": "120410"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "472.0",
+                "zyzh": "101",
+                "year": "2025",
+                "kskmyqzw": "不限",
+                "maxCj": 472,
+                "minCj": 472,
+                "maxWc": 89224,
+                "lqs": 1,
+                "kskmyq": "00"
+              }
+            ],
+            "zydh": "28",
+            "majorName": "物流管理",
+            "majorCode": "120601"
+          }
+        ],
+        "kskmyq": "00",
+        "minWc": 110379
+      },
+      {
+        "zyzh": "2024年招生专业",
+        "year": "2024",
+        "kskmyqzw": "",
+        "zyzMajorList": [
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "436.6",
+                "zyzh": "2024年招生专业",
+                "year": "2024",
+                "maxCj": 439,
+                "kskmyqzw": "",
+                "minCj": 436,
+                "maxWc": 89984,
+                "lqs": 5,
+                "kskmyq": ""
+              }
+            ],
+            "zydh": "21",
+            "majorName": "金融工程",
+            "majorCode": "020302"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "437.5",
+                "zyzh": "2024年招生专业",
+                "year": "2024",
+                "maxCj": 438,
+                "kskmyqzw": "",
+                "minCj": 437,
+                "maxWc": 89086,
+                "lqs": 2,
+                "kskmyq": ""
+              }
+            ],
+            "zydh": "22",
+            "majorName": "学前教育(师范)",
+            "majorCode": "040106"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "444.5",
+                "zyzh": "2024年招生专业",
+                "year": "2024",
+                "maxCj": 450,
+                "kskmyqzw": "",
+                "minCj": 439,
+                "maxWc": 87279,
+                "lqs": 2,
+                "kskmyq": ""
+              }
+            ],
+            "zydh": "23",
+            "majorName": "小学教育(师范)",
+            "majorCode": "040107"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "435.3",
+                "zyzh": "2024年招生专业",
+                "year": "2024",
+                "maxCj": 436,
+                "kskmyqzw": "",
+                "minCj": 435,
+                "maxWc": 90950,
+                "lqs": 3,
+                "kskmyq": ""
+              }
+            ],
+            "zydh": "24",
+            "majorName": "工程造价",
+            "majorCode": "120105"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "435.2",
+                "zyzh": "2024年招生专业",
+                "year": "2024",
+                "maxCj": 436,
+                "kskmyqzw": "",
+                "minCj": 435,
+                "maxWc": 90950,
+                "lqs": 5,
+                "kskmyq": ""
+              }
+            ],
+            "zydh": "25",
+            "majorName": "市场营销",
+            "majorCode": "120202"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "437.7",
+                "zyzh": "2024年招生专业",
+                "year": "2024",
+                "maxCj": 440,
+                "kskmyqzw": "",
+                "minCj": 436,
+                "maxWc": 89984,
+                "lqs": 7,
+                "kskmyq": ""
+              }
+            ],
+            "zydh": "26",
+            "majorName": "会计学",
+            "majorCode": "120203"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "436.5",
+                "zyzh": "2024年招生专业",
+                "year": "2024",
+                "maxCj": 437,
+                "kskmyqzw": "",
+                "minCj": 436,
+                "maxWc": 89984,
+                "lqs": 2,
+                "kskmyq": ""
+              }
+            ],
+            "zydh": "27",
+            "majorName": "财务管理",
+            "majorCode": "120204"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "436.7",
+                "zyzh": "2024年招生专业",
+                "year": "2024",
+                "maxCj": 437,
+                "kskmyqzw": "",
+                "minCj": 436,
+                "maxWc": 89984,
+                "lqs": 3,
+                "kskmyq": ""
+              }
+            ],
+            "zydh": "28",
+            "majorName": "健康服务与管理",
+            "majorCode": "120410"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "436.3",
+                "zyzh": "2024年招生专业",
+                "year": "2024",
+                "maxCj": 439,
+                "kskmyqzw": "",
+                "minCj": 435,
+                "maxWc": 90950,
+                "lqs": 3,
+                "kskmyq": ""
+              }
+            ],
+            "zydh": "29",
+            "majorName": "物流管理",
+            "majorCode": "120601"
+          }
+        ],
+        "kskmyq": ""
+      }
+    ],
+    "location": "27",
+    "yxdh": "9259",
+    "competentDept": "陕西省教育厅",
+    "schoolName": "陕西服装工程学院",
+    "features985": "",
+    "schoolFeatures": "",
+    "schoolCode": "13125"
+  }
+]

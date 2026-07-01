@@ -166,7 +166,7 @@ export default function HenanItemCard({ s, bucketKey, index, showCalc }: Props) 
               <span>考生位次 <b className="text-white/90">{fmtRank(detail.student_rank)}</b></span>
               <span className="text-white/25">·</span>
               <span>
-                {detail.baseline_year ? `${detail.baseline_year}年录取位次` : "去年录取位次"} <b className="text-white/90">{fmtRank(detail.adjusted_min_rank)}</b>
+                {detail.baseline_year ? `${detail.baseline_year}年录取位次` : "去年录取位次"} <b className="text-white/90">{fmtRank(detail.raw_historical_rank ?? detail.adjusted_min_rank)}</b>
               </span>
             </div>
           )}

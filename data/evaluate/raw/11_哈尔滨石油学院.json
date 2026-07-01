@@ -1,0 +1,247 @@
+[
+  {
+    "features211": "",
+    "schoolRecentYearsAdmission": [
+      {
+        "year": "2025",
+        "maxCj": 513,
+        "minCj": 456,
+        "maxWc": 106050,
+        "lqs": 182
+      },
+      {
+        "year": "2024",
+        "maxCj": 439,
+        "minCj": 428,
+        "maxWc": 97632,
+        "lqs": 59
+      }
+    ],
+    "zyNum": 11,
+    "majorList": [
+      {
+        "zyzh": "103",
+        "year": "2025",
+        "kskmyqzw": "不限",
+        "minCj": 456,
+        "zyzMajorList": [
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "467.0",
+                "zyzh": "103",
+                "year": "2025",
+                "kskmyqzw": "不限",
+                "maxCj": 486,
+                "minCj": 456,
+                "maxWc": 106050,
+                "lqs": 41,
+                "kskmyq": "00"
+              }
+            ],
+            "zydh": "04",
+            "majorName": "国际经济与贸易",
+            "majorCode": "020401"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "465.0",
+                "zyzh": "103",
+                "year": "2025",
+                "kskmyqzw": "不限",
+                "maxCj": 476,
+                "minCj": 456,
+                "maxWc": 106050,
+                "lqs": 12,
+                "kskmyq": "00"
+              }
+            ],
+            "zydh": "05",
+            "majorName": "学前教育(师范)",
+            "majorCode": "040106"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "467.5",
+                "zyzh": "103",
+                "year": "2025",
+                "kskmyqzw": "不限",
+                "maxCj": 482,
+                "minCj": 456,
+                "maxWc": 106050,
+                "lqs": 38,
+                "kskmyq": "00"
+              }
+            ],
+            "zydh": "06",
+            "majorName": "英语",
+            "majorCode": "050201"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "468.6",
+                "zyzh": "103",
+                "year": "2025",
+                "kskmyqzw": "不限",
+                "maxCj": 476,
+                "minCj": 458,
+                "maxWc": 103807,
+                "lqs": 7,
+                "kskmyq": "00"
+              }
+            ],
+            "zydh": "07",
+            "majorName": "俄语",
+            "majorCode": "050202"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "465.7",
+                "zyzh": "103",
+                "year": "2025",
+                "kskmyqzw": "不限",
+                "maxCj": 513,
+                "minCj": 456,
+                "maxWc": 106050,
+                "lqs": 80,
+                "kskmyq": "00"
+              }
+            ],
+            "zydh": "08",
+            "majorName": "财务管理",
+            "majorCode": "120204"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "469.5",
+                "zyzh": "103",
+                "year": "2025",
+                "kskmyqzw": "不限",
+                "maxCj": 474,
+                "minCj": 459,
+                "maxWc": 102736,
+                "lqs": 4,
+                "kskmyq": "00"
+              }
+            ],
+            "zydh": "09",
+            "majorName": "跨境电子商务",
+            "majorCode": "120803"
+          }
+        ],
+        "kskmyq": "00",
+        "minWc": 106050
+      },
+      {
+        "zyzh": "2024年招生专业",
+        "year": "2024",
+        "kskmyqzw": "",
+        "zyzMajorList": [
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "429.8",
+                "zyzh": "2024年招生专业",
+                "year": "2024",
+                "maxCj": 432,
+                "kskmyqzw": "",
+                "minCj": 428,
+                "maxWc": 97632,
+                "lqs": 9,
+                "kskmyq": ""
+              }
+            ],
+            "zydh": "03",
+            "majorName": "学前教育(师范)",
+            "majorCode": "040106"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "431.6",
+                "zyzh": "2024年招生专业",
+                "year": "2024",
+                "maxCj": 437,
+                "kskmyqzw": "",
+                "minCj": 428,
+                "maxWc": 97632,
+                "lqs": 20,
+                "kskmyq": ""
+              }
+            ],
+            "zydh": "04",
+            "majorName": "英语",
+            "majorCode": "050201"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "433.0",
+                "zyzh": "2024年招生专业",
+                "year": "2024",
+                "maxCj": 439,
+                "kskmyqzw": "",
+                "minCj": 429,
+                "maxWc": 96702,
+                "lqs": 4,
+                "kskmyq": ""
+              }
+            ],
+            "zydh": "05",
+            "majorName": "俄语",
+            "majorCode": "050202"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "430.2",
+                "zyzh": "2024年招生专业",
+                "year": "2024",
+                "maxCj": 435,
+                "kskmyqzw": "",
+                "minCj": 428,
+                "maxWc": 97632,
+                "lqs": 18,
+                "kskmyq": ""
+              }
+            ],
+            "zydh": "06",
+            "majorName": "财务管理",
+            "majorCode": "120204"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "431.9",
+                "zyzh": "2024年招生专业",
+                "year": "2024",
+                "maxCj": 436,
+                "kskmyqzw": "",
+                "minCj": 428,
+                "maxWc": 97632,
+                "lqs": 8,
+                "kskmyq": ""
+              }
+            ],
+            "zydh": "07",
+            "majorName": "跨境电子商务",
+            "majorCode": "120803"
+          }
+        ],
+        "kskmyq": ""
+      }
+    ],
+    "location": "8",
+    "yxdh": "6802",
+    "competentDept": "黑龙江省教育厅",
+    "schoolName": "哈尔滨石油学院",
+    "features985": "",
+    "schoolFeatures": "",
+    "schoolCode": "13299"
+  }
+]

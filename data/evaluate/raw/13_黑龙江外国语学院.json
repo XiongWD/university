@@ -1,0 +1,301 @@
+[
+  {
+    "features211": "",
+    "schoolRecentYearsAdmission": [
+      {
+        "year": "2025",
+        "maxCj": 520,
+        "minCj": 450,
+        "maxWc": 112544,
+        "lqs": 80
+      },
+      {
+        "year": "2024",
+        "maxCj": 476,
+        "minCj": 428,
+        "maxWc": 97632,
+        "lqs": 77
+      }
+    ],
+    "zyNum": 13,
+    "majorList": [
+      {
+        "zyzh": "101",
+        "year": "2025",
+        "kskmyqzw": "不限",
+        "minCj": 450,
+        "zyzMajorList": [
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "472.0",
+                "zyzh": "101",
+                "year": "2025",
+                "kskmyqzw": "不限",
+                "maxCj": 472,
+                "minCj": 472,
+                "maxWc": 89224,
+                "lqs": 1,
+                "kskmyq": "00"
+              }
+            ],
+            "zydh": "04",
+            "majorName": "小学教育",
+            "majorCode": "040107"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "473.3",
+                "zyzh": "101",
+                "year": "2025",
+                "kskmyqzw": "不限",
+                "maxCj": 520,
+                "minCj": 466,
+                "maxWc": 95283,
+                "lqs": 20,
+                "kskmyq": "00"
+              }
+            ],
+            "zydh": "06",
+            "majorName": "英语",
+            "majorCode": "050201"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "471.3",
+                "zyzh": "101",
+                "year": "2025",
+                "kskmyqzw": "不限",
+                "maxCj": 478,
+                "minCj": 465,
+                "maxWc": 96380,
+                "lqs": 20,
+                "kskmyq": "00"
+              }
+            ],
+            "zydh": "07",
+            "majorName": "英语(师范)",
+            "majorCode": "050201"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "459.3",
+                "zyzh": "101",
+                "year": "2025",
+                "kskmyqzw": "不限",
+                "maxCj": 471,
+                "minCj": 450,
+                "maxWc": 112544,
+                "lqs": 11,
+                "kskmyq": "00"
+              }
+            ],
+            "zydh": "08",
+            "majorName": "翻译(智能翻译)",
+            "majorCode": "050261"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "465.2",
+                "zyzh": "101",
+                "year": "2025",
+                "kskmyqzw": "不限",
+                "maxCj": 479,
+                "minCj": 459,
+                "maxWc": 102736,
+                "lqs": 18,
+                "kskmyq": "00"
+              },
+              {
+                "lqpjf": "430.6",
+                "year": "2024",
+                "maxCj": 434,
+                "minCj": 429,
+                "maxWc": 96702,
+                "lqs": 5
+              }
+            ],
+            "zydh": "09",
+            "majorName": "商务英语",
+            "majorCode": "050262"
+          }
+        ],
+        "kskmyq": "00",
+        "minWc": 112544
+      },
+      {
+        "zyzh": "102",
+        "year": "2025",
+        "kskmyqzw": "不限",
+        "minCj": 472,
+        "zyzMajorList": [
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "476.9",
+                "zyzh": "102",
+                "year": "2025",
+                "kskmyqzw": "不限",
+                "maxCj": 492,
+                "minCj": 472,
+                "maxWc": 89224,
+                "lqs": 10,
+                "kskmyq": "00"
+              }
+            ],
+            "zydh": "05",
+            "majorName": "汉语国际教育(师范)",
+            "majorCode": "050103"
+          }
+        ],
+        "kskmyq": "00",
+        "minWc": 89224
+      },
+      {
+        "zyzh": "2024年招生专业",
+        "year": "2024",
+        "kskmyqzw": "",
+        "zyzMajorList": [
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "434.4",
+                "zyzh": "2024年招生专业",
+                "year": "2024",
+                "maxCj": 438,
+                "kskmyqzw": "",
+                "minCj": 432,
+                "maxWc": 93783,
+                "lqs": 5,
+                "kskmyq": ""
+              }
+            ],
+            "zydh": "03",
+            "majorName": "小学教育",
+            "majorCode": "040107"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "434.0",
+                "zyzh": "2024年招生专业",
+                "year": "2024",
+                "maxCj": 441,
+                "kskmyqzw": "",
+                "minCj": 431,
+                "maxWc": 94756,
+                "lqs": 10,
+                "kskmyq": ""
+              }
+            ],
+            "zydh": "04",
+            "majorName": "汉语国际教育(师范)",
+            "majorCode": "050103"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "431.5",
+                "zyzh": "2024年招生专业",
+                "year": "2024",
+                "maxCj": 439,
+                "kskmyqzw": "",
+                "minCj": 428,
+                "maxWc": 97632,
+                "lqs": 20,
+                "kskmyq": ""
+              }
+            ],
+            "zydh": "05",
+            "majorName": "英语",
+            "majorCode": "050201"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "431.6",
+                "zyzh": "2024年招生专业",
+                "year": "2024",
+                "maxCj": 443,
+                "kskmyqzw": "",
+                "minCj": 428,
+                "maxWc": 97632,
+                "lqs": 20,
+                "kskmyq": ""
+              }
+            ],
+            "zydh": "06",
+            "majorName": "英语(师范)",
+            "majorCode": "050201"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "434.6",
+                "zyzh": "2024年招生专业",
+                "year": "2024",
+                "maxCj": 476,
+                "kskmyqzw": "",
+                "minCj": 428,
+                "maxWc": 97632,
+                "lqs": 10,
+                "kskmyq": ""
+              }
+            ],
+            "zydh": "07",
+            "majorName": "俄语",
+            "majorCode": "050202"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "428.0",
+                "zyzh": "2024年招生专业",
+                "year": "2024",
+                "maxCj": 428,
+                "kskmyqzw": "",
+                "minCj": 428,
+                "maxWc": 97632,
+                "lqs": 2,
+                "kskmyq": ""
+              }
+            ],
+            "zydh": "08",
+            "majorName": "翻译(英语方向)",
+            "majorCode": "050261"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "434.6",
+                "zyzh": "2024年招生专业",
+                "year": "2024",
+                "maxCj": 438,
+                "kskmyqzw": "",
+                "minCj": 431,
+                "maxWc": 94756,
+                "lqs": 5,
+                "kskmyq": ""
+              }
+            ],
+            "zydh": "10",
+            "majorName": "网络与新媒体",
+            "majorCode": "050306"
+          }
+        ],
+        "kskmyq": ""
+      }
+    ],
+    "location": "8",
+    "yxdh": "6808",
+    "competentDept": "黑龙江省教育厅",
+    "schoolName": "黑龙江外国语学院",
+    "features985": "",
+    "schoolFeatures": "",
+    "schoolCode": "13296"
+  }
+]

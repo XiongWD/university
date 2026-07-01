@@ -1,10 +1,23 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { GripVertical, MoreVertical, Trash2, RefreshCw, ChevronDown, ChevronRight, Wallet } from "lucide-react";
 import type { UserVolunteerItem } from "../api/types";
 import { useVolunteerStore } from "../store/volunteerStore";
 import { fmtMoney, fmtRank } from "./HenanItemCard";
 import { OWNERSHIP_STYLE, PLANNABLE_TIERS, TIER_STYLE } from "./volunteerTier";
+import { getHeaoAssessment, type HeaoSchoolAssessment } from "../api/client";
+
+// heao 评估数据模块级缓存（所有行共享一次请求）
+let _heaoCache: Record<string, HeaoSchoolAssessment> | null = null;
+let _heaoPromise: Promise<Record<string, HeaoSchoolAssessment>> | null = null;
+async function loadHeao(): Promise<Record<string, HeaoSchoolAssessment>> {
+  if (_heaoCache) return _heaoCache;
+  if (!_heaoPromise) {
+    _heaoPromise = getHeaoAssessment().then((d) => { _heaoCache = d; return d; })
+      .catch(() => { _heaoPromise = null; return {}; });
+  }
+  return _heaoPromise;
+}
 
 interface Props {
   item: UserVolunteerItem;
@@ -18,10 +31,25 @@ export default function VolunteerItemRow({ item, index, dragHandleProps }: Props
   const updateTier = useVolunteerStore((s) => s.updateTier);
   const requestDelete = useVolunteerStore((s) => s.requestDelete);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(true);
+  const [heaoAssess, setHeaoAssess] = useState<HeaoSchoolAssessment | null>(null);
   // 菜单 fixed 定位（脱离 Dock overflow 容器，防裁剪看不见）
   const menuBtnRef = useRef<HTMLButtonElement>(null);
   const [menuPos, setMenuPos] = useState<{ top: number; right: number } | null>(null);
+
+  // 挂载即加载 heao 评估（默认展开，不等点击）
+  useEffect(() => {
+    if (heaoAssess) return;
+    loadHeao().then((d) => {
+      const key = item.school_name.split("(")[0];
+      setHeaoAssess(d[key] ?? null);
+    });
+  }, [item.school_name]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // 展开切换（仅切 chevron 方向，数据已预加载）
+  const toggleExpand = () => {
+    setExpanded((v) => !v);
+  };
 
   const openMenu = () => {
     const rect = menuBtnRef.current?.getBoundingClientRect();
@@ -56,7 +84,7 @@ export default function VolunteerItemRow({ item, index, dragHandleProps }: Props
         {/* 展开切换 */}
         <button
           type="button"
-          onClick={() => setExpanded((v) => !v)}
+          onClick={toggleExpand}
           className="text-white/30 hover:text-white/60 shrink-0"
           aria-label={expanded ? "收起详情" : "展开详情"}
         >
@@ -197,6 +225,46 @@ export default function VolunteerItemRow({ item, index, dragHandleProps }: Props
             </div>
           )}
           {item.risk_level && <div className="text-white/40">风险等级：{item.risk_level}</div>}
+        </div>
+      )}
+
+      {/* heao 权威评估：2025 历年专业组录取数据（展开时懒加载） */}
+      {expanded && heaoAssess && heaoAssess.groups.length > 0 && (
+        <div className="mt-1.5 pt-1.5 border-t border-white/10 space-y-1">
+          <div className="text-[10px] text-white/40 flex items-center gap-1">
+            <span className="text-emerald-300/70">◆ heao权威</span>
+            <span>2025各专业组录取 · 院校代码{heaoAssess.yxdh || "—"}</span>
+          </div>
+          {heaoAssess.groups.map((g) => {
+            const gStyle = TIER_STYLE[g.tier] ?? "bg-white/10 text-white/50";
+            const plannedT = item.planned_tier ?? item.effective_tier;
+            const tierOrder: Record<string, number> = { "超冲": 0, "搏": 1, "冲": 2, "稳": 3, "保": 4, "垫": 5 };
+            const mismatch = plannedT !== g.tier;
+            const tooOptimistic = mismatch && (tierOrder[g.tier] ?? 9) < (tierOrder[plannedT] ?? 9);
+            return (
+              <div key={g.zyzh} className="flex items-center gap-1.5 text-[10px] font-mono">
+                <span className="text-white/60 w-12 shrink-0">{g.zyzh}组</span>
+                <span className="text-white/40 w-10 shrink-0">{g.requirement || "—"}</span>
+                <span className={`px-1 py-0.5 rounded text-[9px] font-bold shrink-0 ${gStyle}`}>{g.tier}</span>
+                {typeof g.min_score_2025 === "number" && (
+                  <span className="text-white/60 shrink-0">2025:{g.min_score_2025}分</span>
+                )}
+                {typeof g.min_rank_2025 === "number" && (
+                  <span className="text-white/40 shrink-0">{g.min_rank_2025.toLocaleString("zh-CN")}位</span>
+                )}
+                {typeof g.advantage === "number" && (
+                  <span className={`shrink-0 ${g.advantage >= 0 ? "text-sky-300" : "text-orange-300"}`}>
+                    {g.advantage >= 0 ? "+" : ""}{g.advantage.toLocaleString("zh-CN")}
+                  </span>
+                )}
+                {mismatch && (
+                  <span className={`shrink-0 text-[9px] ${tooOptimistic ? "text-rose-300" : "text-amber-300"}`}>
+                    {tooOptimistic ? "⚠设定偏乐观" : "设定偏保守"}
+                  </span>
+                )}
+              </div>
+            );
+          })}
         </div>
       )}
     </div>

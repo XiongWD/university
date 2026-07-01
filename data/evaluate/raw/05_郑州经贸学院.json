@@ -1,0 +1,805 @@
+[
+  {
+    "features211": "",
+    "schoolRecentYearsAdmission": [
+      {
+        "year": "2025",
+        "maxCj": 525,
+        "minCj": 501,
+        "maxWc": 61895,
+        "lqs": 1161
+      },
+      {
+        "year": "2024",
+        "maxCj": 493,
+        "minCj": 463,
+        "maxWc": 66389,
+        "lqs": 1229
+      }
+    ],
+    "zyNum": 42,
+    "majorList": [
+      {
+        "zyzh": "101",
+        "year": "2025",
+        "kskmyqzw": "不限",
+        "minCj": 501,
+        "zyzMajorList": [
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "504.6",
+                "zyzh": "101",
+                "year": "2025",
+                "kskmyqzw": "不限",
+                "maxCj": 518,
+                "minCj": 501,
+                "maxWc": 61895,
+                "lqs": 30,
+                "kskmyq": "00"
+              }
+            ],
+            "zydh": "12",
+            "majorName": "投资学",
+            "majorCode": "020304"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "505.4",
+                "zyzh": "101",
+                "year": "2025",
+                "kskmyqzw": "不限",
+                "maxCj": 517,
+                "minCj": 502,
+                "maxWc": 61064,
+                "lqs": 25,
+                "kskmyq": "00"
+              }
+            ],
+            "zydh": "13",
+            "majorName": "互联网金融",
+            "majorCode": "020309"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "504.8",
+                "zyzh": "101",
+                "year": "2025",
+                "kskmyqzw": "不限",
+                "maxCj": 520,
+                "minCj": 502,
+                "maxWc": 61064,
+                "lqs": 60,
+                "kskmyq": "00"
+              }
+            ],
+            "zydh": "14",
+            "majorName": "国际经济与贸易",
+            "majorCode": "020401"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "517.6",
+                "zyzh": "101",
+                "year": "2025",
+                "kskmyqzw": "不限",
+                "maxCj": 525,
+                "minCj": 514,
+                "maxWc": 51305,
+                "lqs": 90,
+                "kskmyq": "00"
+              }
+            ],
+            "zydh": "15",
+            "majorName": "法学",
+            "majorCode": "030101"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "506.8",
+                "zyzh": "101",
+                "year": "2025",
+                "kskmyqzw": "不限",
+                "maxCj": 522,
+                "minCj": 502,
+                "maxWc": 61064,
+                "lqs": 100,
+                "kskmyq": "00"
+              }
+            ],
+            "zydh": "16",
+            "majorName": "英语",
+            "majorCode": "050201"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "502.6",
+                "zyzh": "101",
+                "year": "2025",
+                "kskmyqzw": "不限",
+                "maxCj": 513,
+                "minCj": 501,
+                "maxWc": 61895,
+                "lqs": 35,
+                "kskmyq": "00"
+              }
+            ],
+            "zydh": "17",
+            "majorName": "商务英语",
+            "majorCode": "050262"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "503.7",
+                "zyzh": "101",
+                "year": "2025",
+                "kskmyqzw": "不限",
+                "maxCj": 515,
+                "minCj": 501,
+                "maxWc": 61895,
+                "lqs": 55,
+                "kskmyq": "00"
+              }
+            ],
+            "zydh": "18",
+            "majorName": "广播电视学(融媒体方向)",
+            "majorCode": "050302"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "502.9",
+                "zyzh": "101",
+                "year": "2025",
+                "kskmyqzw": "不限",
+                "maxCj": 514,
+                "minCj": 501,
+                "maxWc": 61895,
+                "lqs": 45,
+                "kskmyq": "00"
+              }
+            ],
+            "zydh": "19",
+            "majorName": "广告学",
+            "majorCode": "050303"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "508.4",
+                "zyzh": "101",
+                "year": "2025",
+                "kskmyqzw": "不限",
+                "maxCj": 518,
+                "minCj": 504,
+                "maxWc": 59322,
+                "lqs": 80,
+                "kskmyq": "00"
+              }
+            ],
+            "zydh": "20",
+            "majorName": "网络与新媒体",
+            "majorCode": "050306"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "502.7",
+                "zyzh": "101",
+                "year": "2025",
+                "kskmyqzw": "不限",
+                "maxCj": 505,
+                "minCj": 501,
+                "maxWc": 61895,
+                "lqs": 30,
+                "kskmyq": "00"
+              }
+            ],
+            "zydh": "21",
+            "majorName": "服装设计与工程",
+            "majorCode": "081602"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "504.3",
+                "zyzh": "101",
+                "year": "2025",
+                "kskmyqzw": "不限",
+                "maxCj": 515,
+                "minCj": 503,
+                "maxWc": 60188,
+                "lqs": 35,
+                "kskmyq": "00"
+              }
+            ],
+            "zydh": "22",
+            "majorName": "工商管理",
+            "majorCode": "120201"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "504.2",
+                "zyzh": "101",
+                "year": "2025",
+                "kskmyqzw": "不限",
+                "maxCj": 519,
+                "minCj": 501,
+                "maxWc": 61895,
+                "lqs": 36,
+                "kskmyq": "00"
+              }
+            ],
+            "zydh": "23",
+            "majorName": "市场营销(大数据营销方向)",
+            "majorCode": "120202"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "512.8",
+                "zyzh": "101",
+                "year": "2025",
+                "kskmyqzw": "不限",
+                "maxCj": 522,
+                "minCj": 508,
+                "maxWc": 56017,
+                "lqs": 195,
+                "kskmyq": "00"
+              }
+            ],
+            "zydh": "24",
+            "majorName": "会计学",
+            "majorCode": "120203"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "507.0",
+                "zyzh": "101",
+                "year": "2025",
+                "kskmyqzw": "不限",
+                "maxCj": 521,
+                "minCj": 505,
+                "maxWc": 58484,
+                "lqs": 90,
+                "kskmyq": "00"
+              }
+            ],
+            "zydh": "25",
+            "majorName": "财务管理",
+            "majorCode": "120204"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "507.7",
+                "zyzh": "101",
+                "year": "2025",
+                "kskmyqzw": "不限",
+                "maxCj": 521,
+                "minCj": 506,
+                "maxWc": 57662,
+                "lqs": 120,
+                "kskmyq": "00"
+              }
+            ],
+            "zydh": "26",
+            "majorName": "审计学",
+            "majorCode": "120207"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "502.3",
+                "zyzh": "101",
+                "year": "2025",
+                "kskmyqzw": "不限",
+                "maxCj": 518,
+                "minCj": 501,
+                "maxWc": 61895,
+                "lqs": 75,
+                "kskmyq": "00"
+              }
+            ],
+            "zydh": "27",
+            "majorName": "物流管理",
+            "majorCode": "120601"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "502.6",
+                "zyzh": "101",
+                "year": "2025",
+                "kskmyqzw": "不限",
+                "maxCj": 522,
+                "minCj": 501,
+                "maxWc": 61895,
+                "lqs": 60,
+                "kskmyq": "00"
+              }
+            ],
+            "zydh": "28",
+            "majorName": "电子商务",
+            "majorCode": "120801"
+          }
+        ],
+        "kskmyq": "00",
+        "minWc": 61895
+      },
+      {
+        "zyzh": "2024年招生专业",
+        "year": "2024",
+        "kskmyqzw": "",
+        "zyzMajorList": [
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "467.8",
+                "zyzh": "2024年招生专业",
+                "year": "2024",
+                "maxCj": 471,
+                "kskmyqzw": "",
+                "minCj": 466,
+                "maxWc": 63839,
+                "lqs": 35,
+                "kskmyq": ""
+              }
+            ],
+            "zydh": "14",
+            "majorName": "经济统计学",
+            "majorCode": "020102"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "467.8",
+                "zyzh": "2024年招生专业",
+                "year": "2024",
+                "maxCj": 478,
+                "kskmyqzw": "",
+                "minCj": 464,
+                "maxWc": 65531,
+                "lqs": 25,
+                "kskmyq": ""
+              }
+            ],
+            "zydh": "15",
+            "majorName": "数字经济",
+            "majorCode": "020109"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "466.7",
+                "zyzh": "2024年招生专业",
+                "year": "2024",
+                "maxCj": 476,
+                "kskmyqzw": "",
+                "minCj": 463,
+                "maxWc": 66389,
+                "lqs": 20,
+                "kskmyq": ""
+              }
+            ],
+            "zydh": "16",
+            "majorName": "金融工程",
+            "majorCode": "020302"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "468.3",
+                "zyzh": "2024年招生专业",
+                "year": "2024",
+                "maxCj": 481,
+                "kskmyqzw": "",
+                "minCj": 463,
+                "maxWc": 66389,
+                "lqs": 40,
+                "kskmyq": ""
+              }
+            ],
+            "zydh": "17",
+            "majorName": "信用管理(大数据征信方向)",
+            "majorCode": "020306"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "467.0",
+                "zyzh": "2024年招生专业",
+                "year": "2024",
+                "maxCj": 476,
+                "kskmyqzw": "",
+                "minCj": 463,
+                "maxWc": 66389,
+                "lqs": 24,
+                "kskmyq": ""
+              }
+            ],
+            "zydh": "18",
+            "majorName": "互联网金融",
+            "majorCode": "020309"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "466.5",
+                "zyzh": "2024年招生专业",
+                "year": "2024",
+                "maxCj": 484,
+                "kskmyqzw": "",
+                "minCj": 464,
+                "maxWc": 65531,
+                "lqs": 45,
+                "kskmyq": ""
+              }
+            ],
+            "zydh": "19",
+            "majorName": "国际经济与贸易",
+            "majorCode": "020401"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "482.2",
+                "zyzh": "2024年招生专业",
+                "year": "2024",
+                "maxCj": 490,
+                "kskmyqzw": "",
+                "minCj": 478,
+                "maxWc": 54094,
+                "lqs": 55,
+                "kskmyq": ""
+              }
+            ],
+            "zydh": "20",
+            "majorName": "法学",
+            "majorCode": "030101"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "468.6",
+                "zyzh": "2024年招生专业",
+                "year": "2024",
+                "maxCj": 484,
+                "kskmyqzw": "",
+                "minCj": 465,
+                "maxWc": 64708,
+                "lqs": 120,
+                "kskmyq": ""
+              }
+            ],
+            "zydh": "21",
+            "majorName": "英语",
+            "majorCode": "050201"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "466.7",
+                "zyzh": "2024年招生专业",
+                "year": "2024",
+                "maxCj": 478,
+                "kskmyqzw": "",
+                "minCj": 464,
+                "maxWc": 65531,
+                "lqs": 25,
+                "kskmyq": ""
+              }
+            ],
+            "zydh": "22",
+            "majorName": "商务英语",
+            "majorCode": "050262"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "465.8",
+                "zyzh": "2024年招生专业",
+                "year": "2024",
+                "maxCj": 472,
+                "kskmyqzw": "",
+                "minCj": 463,
+                "maxWc": 66389,
+                "lqs": 55,
+                "kskmyq": ""
+              }
+            ],
+            "zydh": "23",
+            "majorName": "广播电视学(融媒体方向)",
+            "majorCode": "050302"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "468.2",
+                "zyzh": "2024年招生专业",
+                "year": "2024",
+                "maxCj": 485,
+                "kskmyqzw": "",
+                "minCj": 464,
+                "maxWc": 65531,
+                "lqs": 45,
+                "kskmyq": ""
+              }
+            ],
+            "zydh": "24",
+            "majorName": "广告学",
+            "majorCode": "050303"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "470.0",
+                "zyzh": "2024年招生专业",
+                "year": "2024",
+                "maxCj": 493,
+                "kskmyqzw": "",
+                "minCj": 467,
+                "maxWc": 63016,
+                "lqs": 80,
+                "kskmyq": ""
+              }
+            ],
+            "zydh": "25",
+            "majorName": "网络与新媒体",
+            "majorCode": "050306"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "465.5",
+                "zyzh": "2024年招生专业",
+                "year": "2024",
+                "maxCj": 476,
+                "kskmyqzw": "",
+                "minCj": 464,
+                "maxWc": 65531,
+                "lqs": 30,
+                "kskmyq": ""
+              }
+            ],
+            "zydh": "26",
+            "majorName": "工业设计",
+            "majorCode": "080205"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "474.0",
+                "zyzh": "2024年招生专业",
+                "year": "2024",
+                "maxCj": 483,
+                "kskmyqzw": "",
+                "minCj": 469,
+                "maxWc": 61381,
+                "lqs": 15,
+                "kskmyq": ""
+              }
+            ],
+            "zydh": "27",
+            "majorName": "数字媒体技术",
+            "majorCode": "080906"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "465.3",
+                "zyzh": "2024年招生专业",
+                "year": "2024",
+                "maxCj": 471,
+                "kskmyqzw": "",
+                "minCj": 463,
+                "maxWc": 66389,
+                "lqs": 30,
+                "kskmyq": ""
+              }
+            ],
+            "zydh": "28",
+            "majorName": "服装设计与工程",
+            "majorCode": "081602"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "466.6",
+                "zyzh": "2024年招生专业",
+                "year": "2024",
+                "maxCj": 489,
+                "kskmyqzw": "",
+                "minCj": 463,
+                "maxWc": 66389,
+                "lqs": 35,
+                "kskmyq": ""
+              }
+            ],
+            "zydh": "29",
+            "majorName": "信息管理与信息系统",
+            "majorCode": "120102"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "467.9",
+                "zyzh": "2024年招生专业",
+                "year": "2024",
+                "maxCj": 474,
+                "kskmyqzw": "",
+                "minCj": 466,
+                "maxWc": 63839,
+                "lqs": 35,
+                "kskmyq": ""
+              }
+            ],
+            "zydh": "30",
+            "majorName": "大数据管理与应用",
+            "majorCode": "120108"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "466.9",
+                "zyzh": "2024年招生专业",
+                "year": "2024",
+                "maxCj": 480,
+                "kskmyqzw": "",
+                "minCj": 464,
+                "maxWc": 65531,
+                "lqs": 30,
+                "kskmyq": ""
+              }
+            ],
+            "zydh": "31",
+            "majorName": "工程审计",
+            "majorCode": "120109"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "464.9",
+                "zyzh": "2024年招生专业",
+                "year": "2024",
+                "maxCj": 471,
+                "kskmyqzw": "",
+                "minCj": 463,
+                "maxWc": 66389,
+                "lqs": 32,
+                "kskmyq": ""
+              }
+            ],
+            "zydh": "32",
+            "majorName": "市场营销(大数据营销方向)",
+            "majorCode": "120202"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "476.3",
+                "zyzh": "2024年招生专业",
+                "year": "2024",
+                "maxCj": 490,
+                "kskmyqzw": "",
+                "minCj": 472,
+                "maxWc": 58914,
+                "lqs": 128,
+                "kskmyq": ""
+              }
+            ],
+            "zydh": "33",
+            "majorName": "会计学",
+            "majorCode": "120203"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "470.7",
+                "zyzh": "2024年招生专业",
+                "year": "2024",
+                "maxCj": 482,
+                "kskmyqzw": "",
+                "minCj": 468,
+                "maxWc": 62194,
+                "lqs": 72,
+                "kskmyq": ""
+              }
+            ],
+            "zydh": "34",
+            "majorName": "财务管理",
+            "majorCode": "120204"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "472.4",
+                "zyzh": "2024年招生专业",
+                "year": "2024",
+                "maxCj": 484,
+                "kskmyqzw": "",
+                "minCj": 469,
+                "maxWc": 61381,
+                "lqs": 73,
+                "kskmyq": ""
+              }
+            ],
+            "zydh": "35",
+            "majorName": "审计学",
+            "majorCode": "120207"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "465.5",
+                "zyzh": "2024年招生专业",
+                "year": "2024",
+                "maxCj": 478,
+                "kskmyqzw": "",
+                "minCj": 463,
+                "maxWc": 66389,
+                "lqs": 65,
+                "kskmyq": ""
+              }
+            ],
+            "zydh": "36",
+            "majorName": "物流管理",
+            "majorCode": "120601"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "465.4",
+                "zyzh": "2024年招生专业",
+                "year": "2024",
+                "maxCj": 476,
+                "kskmyqzw": "",
+                "minCj": 463,
+                "maxWc": 66389,
+                "lqs": 55,
+                "kskmyq": ""
+              }
+            ],
+            "zydh": "37",
+            "majorName": "电子商务",
+            "majorCode": "120801"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "463.4",
+                "zyzh": "2024年招生专业",
+                "year": "2024",
+                "maxCj": 464,
+                "kskmyqzw": "",
+                "minCj": 463,
+                "maxWc": 66389,
+                "lqs": 60,
+                "kskmyq": ""
+              }
+            ],
+            "zydh": "38",
+            "majorName": "广播电视编导",
+            "majorCode": "130305"
+          }
+        ],
+        "kskmyq": ""
+      }
+    ],
+    "location": "16",
+    "yxdh": "6504",
+    "competentDept": "河南省教育厅",
+    "schoolName": "郑州经贸学院",
+    "features985": "",
+    "schoolFeatures": "",
+    "schoolCode": "13508"
+  }
+]

@@ -280,6 +280,133 @@ export function getMyVolunteers(): Promise<UserVolunteerGroup> {
   return request<UserVolunteerGroup>("/my-volunteers");
 }
 
+/** heao 权威评估：{校名: {school_name, yxdh, groups: [{zyzh, requirement, min_score_2025, ...}]}} */
+export type HeaoMajorHistory = {
+  year: string;
+  min_score: number | null;
+  max_score: number | null;
+  min_rank: number | null;
+  avg_score: string | null;
+  admit_count: number | null;
+};
+export type HeaoMajor = {
+  major_name: string;
+  major_code: string;
+  history: HeaoMajorHistory[];
+};
+export type HeaoGroup = {
+  zyzh: string;
+  requirement: string;
+  min_score_2025: number | null;
+  min_rank_2025: number | null;
+  equiv_score_2026: number | null;
+  advantage: number | null;
+  advantage_ratio: number | null;
+  tier: string;
+  majors: HeaoMajor[];
+};
+export type HeaoSchoolAssessment = {
+  school_name: string;
+  yxdh: string;
+  ownership: string;
+  province: string;
+  city: string;
+  tuition: number | null;
+  groups: HeaoGroup[];
+};
+
+/** GET /my-volunteers/heao-assessment — heao 权威评估数据（2025 历年专业组录取） */
+export function getHeaoAssessment(): Promise<Record<string, HeaoSchoolAssessment>> {
+  return request<Record<string, HeaoSchoolAssessment>>("/my-volunteers/heao-assessment");
+}
+
+/** 国贸/商务推荐候选（heao 验证） */
+export type BizRecommendation = {
+  school: string;
+  zyzh: string;
+  req: string;
+  score: number;
+  rank: number;
+  gap: number;
+  biz: string[];
+  majors: string[];
+  ownership?: string;
+  province?: string;
+  city?: string;
+  tuition?: number;
+  tier?: string;
+};
+
+/** 完整评估报告：评估+推荐+建议 */
+export type FullAssessment = {
+  heao_assessment: Record<string, HeaoSchoolAssessment>;
+  biz_recommendations: BizRecommendation[];
+  recommendation_text: string;
+};
+
+/** GET /my-volunteers/full-assessment — 完整评估报告 */
+export function getFullAssessment(): Promise<FullAssessment> {
+  return request<FullAssessment>("/my-volunteers/full-assessment");
+}
+
+/** 志愿建议项 */
+export type SuggestionMajor = { major_code: string; major_name: string };
+export type SuggestionItem = {
+  index: number;
+  school: string;
+  yxdh: string;
+  ownership: string;
+  province: string;
+  city: string;
+  zyzh: string;
+  requirement: string;
+  min_score_2025: number | null;
+  min_rank_2025: number | null;
+  equiv_score_2026: number | null;
+  gap: number | null;
+  tier: string;
+  majors: SuggestionMajor[];
+  tuition: number | null;
+  accommodation: number;
+  monthly_cost: number;
+  four_year_total: number;
+  source: string; // brother(弟弟选) / recommended(推荐)
+  planned_tier?: string | null; // 弟弟原设定档位
+  eligible?: boolean;
+  eligibility_status?: string; // 可填 / 有风险 / 不可填
+  eligibility_reasons?: string[];
+};
+export type SuggestionStats = {
+  total: number;
+  by_tier: Record<string, number>;
+  by_source?: { brother: number; recommended: number };
+  by_ownership: Record<string, number>;
+  by_province: Record<string, number>;
+  tuition_min: number;
+  tuition_max: number;
+  four_year_min: number;
+  four_year_max: number;
+  local_count: number;
+};
+export type VolunteerSuggestion = {
+  items: SuggestionItem[];
+  stats: SuggestionStats;
+  pool_total: number;
+  skipped_ineligible: SuggestionItem[];
+  brother_profile: {
+    score: number; rank: number | null; track: string;
+    primary_subject: string; elective_subjects: string[];
+    exam_foreign_language: string;
+  };
+};
+
+/** GET /my-volunteers/volunteer-suggestion — 生成志愿建议 */
+export function getVolunteerSuggestion(rush: number, steady: number, safe: number): Promise<VolunteerSuggestion> {
+  return request<VolunteerSuggestion>(
+    `/my-volunteers/volunteer-suggestion?rush=${rush}&steady=${steady}&safe=${safe}`,
+  );
+}
+
 /** POST /my-volunteers/items — 添加志愿（服务端重新校验） */
 export function addVolunteerItem(req: AddVolunteerItemRequest): Promise<VolunteerResult> {
   return volunteerRequest("/my-volunteers/items", {

@@ -1,0 +1,119 @@
+[
+  {
+    "features211": "",
+    "schoolRecentYearsAdmission": [
+      {
+        "year": "2025",
+        "maxCj": 492,
+        "minCj": 467,
+        "maxWc": 94273,
+        "lqs": 21
+      },
+      {
+        "year": "2024",
+        "maxCj": 440,
+        "minCj": 428,
+        "maxWc": 97632,
+        "lqs": 21
+      }
+    ],
+    "zyNum": 3,
+    "majorList": [
+      {
+        "zyzh": "104",
+        "year": "2025",
+        "kskmyqzw": "不限",
+        "minCj": 467,
+        "zyzMajorList": [
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "472.3",
+                "zyzh": "104",
+                "year": "2025",
+                "kskmyqzw": "不限",
+                "maxCj": 474,
+                "minCj": 471,
+                "maxWc": 90174,
+                "lqs": 6,
+                "kskmyq": "00"
+              },
+              {
+                "lqpjf": "433.2",
+                "year": "2024",
+                "maxCj": 440,
+                "minCj": 430,
+                "maxWc": 95716,
+                "lqs": 6
+              }
+            ],
+            "zydh": "03",
+            "majorName": "互联网金融",
+            "majorCode": "020309"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "472.3",
+                "zyzh": "104",
+                "year": "2025",
+                "kskmyqzw": "不限",
+                "maxCj": 477,
+                "minCj": 468,
+                "maxWc": 93246,
+                "lqs": 10,
+                "kskmyq": "00"
+              },
+              {
+                "lqpjf": "432.7",
+                "year": "2024",
+                "maxCj": 437,
+                "minCj": 430,
+                "maxWc": 95716,
+                "lqs": 11
+              }
+            ],
+            "zydh": "04",
+            "majorName": "财务管理",
+            "majorCode": "120204"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "473.4",
+                "zyzh": "104",
+                "year": "2025",
+                "kskmyqzw": "不限",
+                "maxCj": 492,
+                "minCj": 467,
+                "maxWc": 94273,
+                "lqs": 5,
+                "kskmyq": "00"
+              },
+              {
+                "lqpjf": "430.3",
+                "year": "2024",
+                "maxCj": 434,
+                "minCj": 428,
+                "maxWc": 97632,
+                "lqs": 4
+              }
+            ],
+            "zydh": "05",
+            "majorName": "电子商务",
+            "majorCode": "120801"
+          }
+        ],
+        "kskmyq": "00",
+        "minWc": 94273
+      }
+    ],
+    "location": "8",
+    "yxdh": "8389",
+    "competentDept": "黑龙江省教育厅",
+    "schoolName": "齐齐哈尔工程学院",
+    "features985": "",
+    "schoolFeatures": "",
+    "schoolCode": "12729"
+  }
+]

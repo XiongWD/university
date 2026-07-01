@@ -1,0 +1,237 @@
+[
+  {
+    "features211": "",
+    "schoolRecentYearsAdmission": [
+      {
+        "year": "2025",
+        "maxCj": 489,
+        "minCj": 446,
+        "maxWc": 117012,
+        "lqs": 26
+      },
+      {
+        "year": "2024",
+        "maxCj": 440,
+        "minCj": 428,
+        "maxWc": 97632,
+        "lqs": 14
+      }
+    ],
+    "zyNum": 10,
+    "majorList": [
+      {
+        "zyzh": "101",
+        "year": "2025",
+        "kskmyqzw": "不限",
+        "minCj": 446,
+        "zyzMajorList": [
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "461.3",
+                "zyzh": "101",
+                "year": "2025",
+                "kskmyqzw": "不限",
+                "maxCj": 471,
+                "minCj": 446,
+                "maxWc": 117012,
+                "lqs": 6,
+                "kskmyq": "00"
+              }
+            ],
+            "zydh": "05",
+            "majorName": "互联网金融",
+            "majorCode": "020309"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "463.0",
+                "zyzh": "101",
+                "year": "2025",
+                "kskmyqzw": "不限",
+                "maxCj": 472,
+                "minCj": 449,
+                "maxWc": 113650,
+                "lqs": 3,
+                "kskmyq": "00"
+              }
+            ],
+            "zydh": "06",
+            "majorName": "国际经济与贸易",
+            "majorCode": "020401"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "468.0",
+                "zyzh": "101",
+                "year": "2025",
+                "kskmyqzw": "不限",
+                "maxCj": 469,
+                "minCj": 467,
+                "maxWc": 94273,
+                "lqs": 2,
+                "kskmyq": "00"
+              },
+              {
+                "lqpjf": "430.0",
+                "year": "2024",
+                "maxCj": 430,
+                "minCj": 430,
+                "maxWc": 95716,
+                "lqs": 1
+              }
+            ],
+            "zydh": "07",
+            "majorName": "日语",
+            "majorCode": "050207"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "458.5",
+                "zyzh": "101",
+                "year": "2025",
+                "kskmyqzw": "不限",
+                "maxCj": 468,
+                "minCj": 449,
+                "maxWc": 113650,
+                "lqs": 2,
+                "kskmyq": "00"
+              }
+            ],
+            "zydh": "08",
+            "majorName": "商务英语",
+            "majorCode": "050262"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "468.0",
+                "zyzh": "101",
+                "year": "2025",
+                "kskmyqzw": "不限",
+                "maxCj": 468,
+                "minCj": 468,
+                "maxWc": 93246,
+                "lqs": 1,
+                "kskmyq": "00"
+              }
+            ],
+            "zydh": "10",
+            "majorName": "风景园林",
+            "majorCode": "082803"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "470.5",
+                "zyzh": "101",
+                "year": "2025",
+                "kskmyqzw": "不限",
+                "maxCj": 489,
+                "minCj": 466,
+                "maxWc": 95283,
+                "lqs": 10,
+                "kskmyq": "00"
+              }
+            ],
+            "zydh": "11",
+            "majorName": "会计学",
+            "majorCode": "120203"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "473.0",
+                "zyzh": "101",
+                "year": "2025",
+                "kskmyqzw": "不限",
+                "maxCj": 473,
+                "minCj": 473,
+                "maxWc": 88177,
+                "lqs": 1,
+                "kskmyq": "00"
+              }
+            ],
+            "zydh": "12",
+            "majorName": "财务管理",
+            "majorCode": "120204"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "467.0",
+                "zyzh": "101",
+                "year": "2025",
+                "kskmyqzw": "不限",
+                "maxCj": 467,
+                "minCj": 467,
+                "maxWc": 94273,
+                "lqs": 1,
+                "kskmyq": "00"
+              }
+            ],
+            "zydh": "14",
+            "majorName": "电子商务",
+            "majorCode": "120801"
+          }
+        ],
+        "kskmyq": "00",
+        "minWc": 117012
+      },
+      {
+        "zyzh": "2024年招生专业",
+        "year": "2024",
+        "kskmyqzw": "",
+        "zyzMajorList": [
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "431.9",
+                "zyzh": "2024年招生专业",
+                "year": "2024",
+                "maxCj": 440,
+                "kskmyqzw": "",
+                "minCj": 428,
+                "maxWc": 97632,
+                "lqs": 12,
+                "kskmyq": ""
+              }
+            ],
+            "zydh": "10",
+            "majorName": "会计学",
+            "majorCode": "120203"
+          },
+          {
+            "recentYearsAdmission": [
+              {
+                "lqpjf": "431.0",
+                "zyzh": "2024年招生专业",
+                "year": "2024",
+                "maxCj": 431,
+                "kskmyqzw": "",
+                "minCj": 431,
+                "maxWc": 94756,
+                "lqs": 1,
+                "kskmyq": ""
+              }
+            ],
+            "zydh": "11",
+            "majorName": "财务管理",
+            "majorCode": "120204"
+          }
+        ],
+        "kskmyq": ""
+      }
+    ],
+    "location": "19",
+    "yxdh": "9851",
+    "competentDept": "广东省教育厅",
+    "schoolName": "广东理工学院",
+    "features985": "",
+    "schoolFeatures": "",
+    "schoolCode": "13720"
+  }
+]

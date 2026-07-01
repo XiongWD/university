@@ -1,0 +1,1838 @@
+meta:
+  source: 河南志愿填报系统 book.heao.com.cn getSchoolList 接口
+  query_date: '2026-07-01'
+  track: 历史类
+  years:
+  - 2025
+  - 2024
+  brother:
+    score: 480
+    rank: 73822
+    year: 2026
+  tier_criteria:
+    口径: 2025专业组最低位次 vs 弟弟2026位次73822
+    超冲: ratio < -0.15
+    搏: -0.15 <= ratio < -0.03
+    冲: -0.03 <= ratio < 0.03
+    稳: 0.03 <= ratio < 0.12
+    保: 0.12 <= ratio < 0.25
+    垫: ratio >= 0.25
+schools:
+- school_name: 安阳学院
+  yxdh: '6507'
+  school_code: '13504'
+  school_admission:
+  - year: '2025'
+    min_score: 480
+    max_score: 524
+    min_rank: 81280
+    admit_count: 1007
+  - year: '2024'
+    min_score: 428
+    max_score: 487
+    min_rank: 97632
+    admit_count: 1051
+  groups:
+  - zyzh: '103'
+    requirement: 不限
+    min_score_2025: 494
+    min_rank_2025: 68041
+    equiv_score_2026: 487
+    advantage: -5781
+    advantage_ratio: -0.085
+    tier: 搏
+    majors:
+    - major_name: 法学
+      major_code: '31'
+      history:
+      - year: '2025'
+        min_score: 494
+        max_score: 519
+        min_rank: 68041
+        avg_score: '501.4'
+        admit_count: 186
+    - major_name: 学前教育(师范)
+      major_code: '32'
+      history:
+      - year: '2025'
+        min_score: 494
+        max_score: 500
+        min_rank: 68041
+        avg_score: '497.0'
+        admit_count: 4
+    - major_name: 汉语言文学(师范)
+      major_code: '33'
+      history:
+      - year: '2025'
+        min_score: 494
+        max_score: 521
+        min_rank: 68041
+        avg_score: '500.9'
+        admit_count: 110
+    - major_name: 英语(师范)
+      major_code: '34'
+      history:
+      - year: '2025'
+        min_score: 495
+        max_score: 523
+        min_rank: 67131
+        avg_score: '504.5'
+        admit_count: 15
+    - major_name: 商务英语
+      major_code: '35'
+      history:
+      - year: '2025'
+        min_score: 497
+        max_score: 517
+        min_rank: 65332
+        avg_score: '504.5'
+        admit_count: 4
+    - major_name: 会计学
+      major_code: '36'
+      history:
+      - year: '2025'
+        min_score: 494
+        max_score: 512
+        min_rank: 68041
+        avg_score: '499.1'
+        admit_count: 34
+    - major_name: 财务管理
+      major_code: '37'
+      history:
+      - year: '2025'
+        min_score: 495
+        max_score: 515
+        min_rank: 67131
+        avg_score: '503.5'
+        admit_count: 6
+    - major_name: 健康服务与管理
+      major_code: '38'
+      history:
+      - year: '2025'
+        min_score: 500
+        max_score: 510
+        min_rank: 62743
+        avg_score: '504.7'
+        admit_count: 3
+    - major_name: 物流管理
+      major_code: '39'
+      history:
+      - year: '2025'
+        min_score: 496
+        max_score: 499
+        min_rank: 66221
+        avg_score: '497.5'
+        admit_count: 2
+  - zyzh: '501'
+    requirement: 不限
+    min_score_2025: 480
+    min_rank_2025: 81280
+    equiv_score_2026: 471
+    advantage: 7458
+    advantage_ratio: 0.092
+    tier: 稳
+    majors:
+    - major_name: 广播电视编导
+      major_code: '40'
+      history:
+      - year: '2025'
+        min_score: 480
+        max_score: 518
+        min_rank: 81280
+        avg_score: '487.8'
+        admit_count: 30
+  - zyzh: '903'
+    requirement: 不限
+    min_score_2025: 482
+    min_rank_2025: 79353
+    equiv_score_2026: 473
+    advantage: 5531
+    advantage_ratio: 0.07
+    tier: 稳
+    majors:
+    - major_name: 税收学
+      major_code: '41'
+      history:
+      - year: '2025'
+        min_score: 482
+        max_score: 502
+        min_rank: 79353
+        avg_score: '487.1'
+        admit_count: 75
+    - major_name: 金融学
+      major_code: '42'
+      history:
+      - year: '2025'
+        min_score: 482
+        max_score: 495
+        min_rank: 79353
+        avg_score: '486.7'
+        admit_count: 51
+    - major_name: 汉语言文学(师范)
+      major_code: '43'
+      history:
+      - year: '2025'
+        min_score: 482
+        max_score: 524
+        min_rank: 79353
+        avg_score: '487.7'
+        admit_count: 289
+    - major_name: 城乡规划
+      major_code: '44'
+      history:
+      - year: '2025'
+        min_score: 482
+        max_score: 500
+        min_rank: 79353
+        avg_score: '487.2'
+        admit_count: 19
+    - major_name: 智慧建筑与建造
+      major_code: '45'
+      history:
+      - year: '2025'
+        min_score: 482
+        max_score: 490
+        min_rank: 79353
+        avg_score: '484.9'
+        admit_count: 8
+    - major_name: 会计学
+      major_code: '46'
+      history:
+      - year: '2025'
+        min_score: 482
+        max_score: 521
+        min_rank: 79353
+        avg_score: '487.7'
+        admit_count: 140
+    - major_name: 物流管理
+      major_code: '47'
+      history:
+      - year: '2025'
+        min_score: 482
+        max_score: 492
+        min_rank: 79353
+        avg_score: '486.0'
+        admit_count: 16
+      - year: '2024'
+        min_score: 446
+        max_score: 460
+        min_rank: 80945
+        avg_score: '452.6'
+        admit_count: 8
+    - major_name: 旅游管理
+      major_code: '48'
+      history:
+      - year: '2025'
+        min_score: 483
+        max_score: 501
+        min_rank: 78394
+        avg_score: '487.8'
+        admit_count: 15
+      - year: '2024'
+        min_score: 454
+        max_score: 456
+        min_rank: 74039
+        avg_score: '455.0'
+        admit_count: 3
+- school_name: 商丘学院
+  yxdh: '6200'
+  school_code: '14003'
+  school_admission:
+  - year: '2025'
+    min_score: 483
+    max_score: 532
+    min_rank: 78394
+    admit_count: 812
+  - year: '2024'
+    min_score: 448
+    max_score: 497
+    min_rank: 79231
+    admit_count: 784
+  groups:
+  - zyzh: '102'
+    requirement: 生物学
+    min_score_2025: 483
+    min_rank_2025: 78394
+    equiv_score_2026: 475
+    advantage: 4572
+    advantage_ratio: 0.058
+    tier: 稳
+    majors:
+    - major_name: 园林
+      major_code: '17'
+      history:
+      - year: '2025'
+        min_score: 483
+        max_score: 492
+        min_rank: 78394
+        avg_score: '485.9'
+        admit_count: 15
+  - zyzh: '103'
+    requirement: 不限
+    min_score_2025: 486
+    min_rank_2025: 75472
+    equiv_score_2026: 478
+    advantage: 1650
+    advantage_ratio: 0.022
+    tier: 冲
+    majors:
+    - major_name: 经济学
+      major_code: '18'
+      history:
+      - year: '2025'
+        min_score: 486
+        max_score: 513
+        min_rank: 75472
+        avg_score: '490.2'
+        admit_count: 41
+    - major_name: 学前教育(师范)
+      major_code: '19'
+      history:
+      - year: '2025'
+        min_score: 486
+        max_score: 504
+        min_rank: 75472
+        avg_score: '489.8'
+        admit_count: 13
+    - major_name: 小学教育(师范)
+      major_code: '20'
+      history:
+      - year: '2025'
+        min_score: 486
+        max_score: 518
+        min_rank: 75472
+        avg_score: '491.2'
+        admit_count: 52
+    - major_name: 汉语言文学(师范)
+      major_code: '21'
+      history:
+      - year: '2025'
+        min_score: 486
+        max_score: 532
+        min_rank: 75472
+        avg_score: '492.3'
+        admit_count: 388
+    - major_name: 英语
+      major_code: '22'
+      history:
+      - year: '2025'
+        min_score: 486
+        max_score: 515
+        min_rank: 75472
+        avg_score: '491.4'
+        admit_count: 49
+    - major_name: 商务英语
+      major_code: '23'
+      history:
+      - year: '2025'
+        min_score: 488
+        max_score: 497
+        min_rank: 73552
+        avg_score: '491.0'
+        admit_count: 3
+    - major_name: 网络与新媒体
+      major_code: '24'
+      history:
+      - year: '2025'
+        min_score: 486
+        max_score: 509
+        min_rank: 75472
+        avg_score: '490.8'
+        admit_count: 47
+    - major_name: 城乡规划
+      major_code: '25'
+      history:
+      - year: '2025'
+        min_score: 486
+        max_score: 500
+        min_rank: 75472
+        avg_score: '488.8'
+        admit_count: 11
+    - major_name: 会计学
+      major_code: '26'
+      history:
+      - year: '2025'
+        min_score: 486
+        max_score: 521
+        min_rank: 75472
+        avg_score: '491.2'
+        admit_count: 160
+    - major_name: 财务管理
+      major_code: '27'
+      history:
+      - year: '2025'
+        min_score: 486
+        max_score: 507
+        min_rank: 75472
+        avg_score: '489.6'
+        admit_count: 27
+    - major_name: 电子商务
+      major_code: '28'
+      history:
+      - year: '2025'
+        min_score: 486
+        max_score: 490
+        min_rank: 75472
+        avg_score: '488.3'
+        admit_count: 6
+- school_name: 中原科技学院(原河南师范大学新联学院)
+  yxdh: '6502'
+  school_code: '13502'
+  school_admission:
+  - year: '2025'
+    min_score: 481
+    max_score: 526
+    min_rank: 80334
+    admit_count: 1251
+  - year: '2024'
+    min_score: 456
+    max_score: 491
+    min_rank: 72330
+    admit_count: 1579
+  groups:
+  - zyzh: '101'
+    requirement: 不限
+    min_score_2025: 495
+    min_rank_2025: 67131
+    equiv_score_2026: 488
+    advantage: -6691
+    advantage_ratio: -0.1
+    tier: 搏
+    majors:
+    - major_name: 国际经济与贸易
+      major_code: '33'
+      history:
+      - year: '2025'
+        min_score: 497
+        max_score: 517
+        min_rank: 65332
+        avg_score: '502.0'
+        admit_count: 40
+    - major_name: 学前教育(师范)
+      major_code: '34'
+      history:
+      - year: '2025'
+        min_score: 495
+        max_score: 518
+        min_rank: 67131
+        avg_score: '499.7'
+        admit_count: 55
+    - major_name: 小学教育(师范)
+      major_code: '35'
+      history:
+      - year: '2025'
+        min_score: 498
+        max_score: 524
+        min_rank: 64473
+        avg_score: '502.8'
+        admit_count: 90
+    - major_name: 汉语言文学(师范)
+      major_code: '36'
+      history:
+      - year: '2025'
+        min_score: 507
+        max_score: 526
+        min_rank: 56846
+        avg_score: '513.4'
+        admit_count: 225
+    - major_name: 汉语国际教育(师范)
+      major_code: '37'
+      history:
+      - year: '2025'
+        min_score: 499
+        max_score: 519
+        min_rank: 63623
+        avg_score: '502.8'
+        admit_count: 42
+    - major_name: 英语(师范)
+      major_code: '38'
+      history:
+      - year: '2025'
+        min_score: 499
+        max_score: 525
+        min_rank: 63623
+        avg_score: '504.4'
+        admit_count: 97
+    - major_name: 西班牙语
+      major_code: '39'
+      history:
+      - year: '2025'
+        min_score: 495
+        max_score: 515
+        min_rank: 67131
+        avg_score: '499.6'
+        admit_count: 30
+    - major_name: 日语(师范)
+      major_code: '40'
+      history:
+      - year: '2025'
+        min_score: 495
+        max_score: 512
+        min_rank: 67131
+        avg_score: '499.3'
+        admit_count: 30
+    - major_name: 商务英语
+      major_code: '41'
+      history:
+      - year: '2025'
+        min_score: 497
+        max_score: 522
+        min_rank: 65332
+        avg_score: '501.8'
+        admit_count: 48
+    - major_name: 网络与新媒体
+      major_code: '42'
+      history:
+      - year: '2025'
+        min_score: 498
+        max_score: 519
+        min_rank: 64473
+        avg_score: '503.7'
+        admit_count: 100
+    - major_name: 时尚传播
+      major_code: '43'
+      history:
+      - year: '2025'
+        min_score: 495
+        max_score: 509
+        min_rank: 67131
+        avg_score: '497.1'
+        admit_count: 45
+    - major_name: 心理学(师范)
+      major_code: '44'
+      history:
+      - year: '2025'
+        min_score: 498
+        max_score: 517
+        min_rank: 64473
+        avg_score: '501.5'
+        admit_count: 40
+    - major_name: 工商管理
+      major_code: '45'
+      history:
+      - year: '2025'
+        min_score: 496
+        max_score: 518
+        min_rank: 66221
+        avg_score: '500.4'
+        admit_count: 45
+    - major_name: 市场营销
+      major_code: '46'
+      history:
+      - year: '2025'
+        min_score: 495
+        max_score: 513
+        min_rank: 67131
+        avg_score: '497.5'
+        admit_count: 45
+    - major_name: 财务管理
+      major_code: '47'
+      history:
+      - year: '2025'
+        min_score: 499
+        max_score: 521
+        min_rank: 63623
+        avg_score: '504.7'
+        admit_count: 74
+    - major_name: 财务会计教育(师范)
+      major_code: '48'
+      history:
+      - year: '2025'
+        min_score: 497
+        max_score: 509
+        min_rank: 65332
+        avg_score: '499.8'
+        admit_count: 45
+    - major_name: 物流管理
+      major_code: '49'
+      history:
+      - year: '2025'
+        min_score: 495
+        max_score: 513
+        min_rank: 67131
+        avg_score: '497.1'
+        admit_count: 45
+    - major_name: 跨境电子商务
+      major_code: '50'
+      history:
+      - year: '2025'
+        min_score: 495
+        max_score: 522
+        min_rank: 67131
+        avg_score: '497.9'
+        admit_count: 45
+    - major_name: 旅游管理
+      major_code: '51'
+      history:
+      - year: '2025'
+        min_score: 495
+        max_score: 522
+        min_rank: 67131
+        avg_score: '500.8'
+        admit_count: 40
+  - zyzh: '501'
+    requirement: 不限
+    min_score_2025: 481
+    min_rank_2025: 80334
+    equiv_score_2026: 473
+    advantage: 6512
+    advantage_ratio: 0.081
+    tier: 稳
+    majors:
+    - major_name: 广播电视编导
+      major_code: '52'
+      history:
+      - year: '2025'
+        min_score: 481
+        max_score: 503
+        min_rank: 80334
+        avg_score: '488.4'
+        admit_count: 70
+- school_name: 新乡工程学院(原河南科技学院新科学院)
+  yxdh: '6503'
+  school_code: '13506'
+  school_admission:
+  - year: '2025'
+    min_score: 485
+    max_score: 541
+    min_rank: 76495
+    admit_count: 813
+  - year: '2024'
+    min_score: 448
+    max_score: 484
+    min_rank: 79231
+    admit_count: 812
+  groups:
+  - zyzh: '101'
+    requirement: 不限
+    min_score_2025: 485
+    min_rank_2025: 76495
+    equiv_score_2026: 478
+    advantage: 2673
+    advantage_ratio: 0.035
+    tier: 稳
+    majors:
+    - major_name: 国际经济与贸易
+      major_code: 09
+      history:
+      - year: '2025'
+        min_score: 487
+        max_score: 496
+        min_rank: 74511
+        avg_score: '489.7'
+        admit_count: 45
+    - major_name: 法学
+      major_code: '10'
+      history:
+      - year: '2025'
+        min_score: 498
+        max_score: 541
+        min_rank: 64473
+        avg_score: '506.5'
+        admit_count: 70
+    - major_name: 汉语言文学(师范)
+      major_code: '11'
+      history:
+      - year: '2025'
+        min_score: 492
+        max_score: 523
+        min_rank: 69878
+        avg_score: '498.2'
+        admit_count: 181
+    - major_name: 汉语国际教育(师范)
+      major_code: '12'
+      history:
+      - year: '2025'
+        min_score: 486
+        max_score: 516
+        min_rank: 75472
+        avg_score: '488.7'
+        admit_count: 95
+    - major_name: 英语(师范)
+      major_code: '13'
+      history:
+      - year: '2025'
+        min_score: 486
+        max_score: 515
+        min_rank: 75472
+        avg_score: '490.3'
+        admit_count: 120
+    - major_name: 翻译
+      major_code: '14'
+      history:
+      - year: '2025'
+        min_score: 485
+        max_score: 498
+        min_rank: 76495
+        avg_score: '489.3'
+        admit_count: 60
+    - major_name: 商务英语
+      major_code: '15'
+      history:
+      - year: '2025'
+        min_score: 485
+        max_score: 497
+        min_rank: 76495
+        avg_score: '486.9'
+        admit_count: 60
+    - major_name: 新闻学
+      major_code: '16'
+      history:
+      - year: '2025'
+        min_score: 488
+        max_score: 492
+        min_rank: 73552
+        avg_score: '490.2'
+        admit_count: 40
+    - major_name: 城乡规划
+      major_code: '17'
+      history:
+      - year: '2025'
+        min_score: 490
+        max_score: 499
+        min_rank: 71710
+        avg_score: '492.6'
+        admit_count: 5
+    - major_name: 市场营销
+      major_code: '18'
+      history:
+      - year: '2025'
+        min_score: 486
+        max_score: 496
+        min_rank: 75472
+        avg_score: '488.5'
+        admit_count: 20
+    - major_name: 人力资源管理
+      major_code: '19'
+      history:
+      - year: '2025'
+        min_score: 486
+        max_score: 498
+        min_rank: 75472
+        avg_score: '488.4'
+        admit_count: 40
+    - major_name: 物流管理
+      major_code: '20'
+      history:
+      - year: '2025'
+        min_score: 486
+        max_score: 506
+        min_rank: 75472
+        avg_score: '490.0'
+        admit_count: 30
+    - major_name: 旅游管理
+      major_code: '21'
+      history:
+      - year: '2025'
+        min_score: 486
+        max_score: 495
+        min_rank: 75472
+        avg_score: '488.5'
+        admit_count: 20
+    - major_name: 酒店管理
+      major_code: '22'
+      history:
+      - year: '2025'
+        min_score: 485
+        max_score: 498
+        min_rank: 76495
+        avg_score: '486.3'
+        admit_count: 27
+- school_name: 郑州经贸学院
+  yxdh: '6504'
+  school_code: '13508'
+  school_admission:
+  - year: '2025'
+    min_score: 501
+    max_score: 525
+    min_rank: 61895
+    admit_count: 1161
+  - year: '2024'
+    min_score: 463
+    max_score: 493
+    min_rank: 66389
+    admit_count: 1229
+  groups:
+  - zyzh: '101'
+    requirement: 不限
+    min_score_2025: 501
+    min_rank_2025: 61895
+    equiv_score_2026: 494
+    advantage: -11927
+    advantage_ratio: -0.193
+    tier: 超冲
+    majors:
+    - major_name: 投资学
+      major_code: '12'
+      history:
+      - year: '2025'
+        min_score: 501
+        max_score: 518
+        min_rank: 61895
+        avg_score: '504.6'
+        admit_count: 30
+    - major_name: 互联网金融
+      major_code: '13'
+      history:
+      - year: '2025'
+        min_score: 502
+        max_score: 517
+        min_rank: 61064
+        avg_score: '505.4'
+        admit_count: 25
+    - major_name: 国际经济与贸易
+      major_code: '14'
+      history:
+      - year: '2025'
+        min_score: 502
+        max_score: 520
+        min_rank: 61064
+        avg_score: '504.8'
+        admit_count: 60
+    - major_name: 法学
+      major_code: '15'
+      history:
+      - year: '2025'
+        min_score: 514
+        max_score: 525
+        min_rank: 51305
+        avg_score: '517.6'
+        admit_count: 90
+    - major_name: 英语
+      major_code: '16'
+      history:
+      - year: '2025'
+        min_score: 502
+        max_score: 522
+        min_rank: 61064
+        avg_score: '506.8'
+        admit_count: 100
+    - major_name: 商务英语
+      major_code: '17'
+      history:
+      - year: '2025'
+        min_score: 501
+        max_score: 513
+        min_rank: 61895
+        avg_score: '502.6'
+        admit_count: 35
+    - major_name: 广播电视学(融媒体方向)
+      major_code: '18'
+      history:
+      - year: '2025'
+        min_score: 501
+        max_score: 515
+        min_rank: 61895
+        avg_score: '503.7'
+        admit_count: 55
+    - major_name: 广告学
+      major_code: '19'
+      history:
+      - year: '2025'
+        min_score: 501
+        max_score: 514
+        min_rank: 61895
+        avg_score: '502.9'
+        admit_count: 45
+    - major_name: 网络与新媒体
+      major_code: '20'
+      history:
+      - year: '2025'
+        min_score: 504
+        max_score: 518
+        min_rank: 59322
+        avg_score: '508.4'
+        admit_count: 80
+    - major_name: 服装设计与工程
+      major_code: '21'
+      history:
+      - year: '2025'
+        min_score: 501
+        max_score: 505
+        min_rank: 61895
+        avg_score: '502.7'
+        admit_count: 30
+    - major_name: 工商管理
+      major_code: '22'
+      history:
+      - year: '2025'
+        min_score: 503
+        max_score: 515
+        min_rank: 60188
+        avg_score: '504.3'
+        admit_count: 35
+    - major_name: 市场营销(大数据营销方向)
+      major_code: '23'
+      history:
+      - year: '2025'
+        min_score: 501
+        max_score: 519
+        min_rank: 61895
+        avg_score: '504.2'
+        admit_count: 36
+    - major_name: 会计学
+      major_code: '24'
+      history:
+      - year: '2025'
+        min_score: 508
+        max_score: 522
+        min_rank: 56017
+        avg_score: '512.8'
+        admit_count: 195
+    - major_name: 财务管理
+      major_code: '25'
+      history:
+      - year: '2025'
+        min_score: 505
+        max_score: 521
+        min_rank: 58484
+        avg_score: '507.0'
+        admit_count: 90
+    - major_name: 审计学
+      major_code: '26'
+      history:
+      - year: '2025'
+        min_score: 506
+        max_score: 521
+        min_rank: 57662
+        avg_score: '507.7'
+        admit_count: 120
+    - major_name: 物流管理
+      major_code: '27'
+      history:
+      - year: '2025'
+        min_score: 501
+        max_score: 518
+        min_rank: 61895
+        avg_score: '502.3'
+        admit_count: 75
+    - major_name: 电子商务
+      major_code: '28'
+      history:
+      - year: '2025'
+        min_score: 501
+        max_score: 522
+        min_rank: 61895
+        avg_score: '502.6'
+        admit_count: 60
+- school_name: 长春财经学院
+  yxdh: '6795'
+  school_code: '13603'
+  school_admission:
+  - year: '2025'
+    min_score: 467
+    max_score: 515
+    min_rank: 94273
+    admit_count: 78
+  - year: '2024'
+    min_score: 436
+    max_score: 465
+    min_rank: 89984
+    admit_count: 39
+  groups:
+  - zyzh: '103'
+    requirement: 不限
+    min_score_2025: 467
+    min_rank_2025: 94273
+    equiv_score_2026: 458
+    advantage: 20451
+    advantage_ratio: 0.217
+    tier: 保
+    majors:
+    - major_name: 经济学
+      major_code: '01'
+      history:
+      - year: '2025'
+        min_score: 474
+        max_score: 481
+        min_rank: 87119
+        avg_score: '476.4'
+        admit_count: 8
+      - year: '2024'
+        min_score: 436
+        max_score: 440
+        min_rank: 89984
+        avg_score: '437.5'
+        admit_count: 6
+    - major_name: 金融学
+      major_code: '02'
+      history:
+      - year: '2025'
+        min_score: 471
+        max_score: 474
+        min_rank: 90174
+        avg_score: '472.3'
+        admit_count: 3
+    - major_name: 保险学
+      major_code: '03'
+      history:
+      - year: '2025'
+        min_score: 473
+        max_score: 475
+        min_rank: 88177
+        avg_score: '474.3'
+        admit_count: 3
+    - major_name: 投资学
+      major_code: '04'
+      history:
+      - year: '2025'
+        min_score: 471
+        max_score: 484
+        min_rank: 90174
+        avg_score: '475.3'
+        admit_count: 3
+    - major_name: 国际经济与贸易
+      major_code: '05'
+      history:
+      - year: '2025'
+        min_score: 471
+        max_score: 480
+        min_rank: 90174
+        avg_score: '476.6'
+        admit_count: 5
+    - major_name: 法学
+      major_code: '06'
+      history:
+      - year: '2025'
+        min_score: 468
+        max_score: 503
+        min_rank: 93246
+        avg_score: '478.9'
+        admit_count: 15
+    - major_name: 小学教育
+      major_code: '07'
+      history:
+      - year: '2025'
+        min_score: 475
+        max_score: 478
+        min_rank: 86143
+        avg_score: '476.0'
+        admit_count: 3
+    - major_name: 英语
+      major_code: 08
+      history:
+      - year: '2025'
+        min_score: 472
+        max_score: 478
+        min_rank: 89224
+        avg_score: '474.3'
+        admit_count: 3
+    - major_name: 网络与新媒体
+      major_code: 09
+      history:
+      - year: '2025'
+        min_score: 473
+        max_score: 478
+        min_rank: 88177
+        avg_score: '474.3'
+        admit_count: 4
+    - major_name: 工商管理
+      major_code: '10'
+      history:
+      - year: '2025'
+        min_score: 472
+        max_score: 480
+        min_rank: 89224
+        avg_score: '475.8'
+        admit_count: 5
+    - major_name: 会计学
+      major_code: '11'
+      history:
+      - year: '2025'
+        min_score: 478
+        max_score: 480
+        min_rank: 83148
+        avg_score: '479.2'
+        admit_count: 5
+    - major_name: 财务管理
+      major_code: '12'
+      history:
+      - year: '2025'
+        min_score: 467
+        max_score: 475
+        min_rank: 94273
+        avg_score: '472.8'
+        admit_count: 5
+    - major_name: 审计学
+      major_code: '13'
+      history:
+      - year: '2025'
+        min_score: 474
+        max_score: 481
+        min_rank: 87119
+        avg_score: '477.8'
+        admit_count: 6
+    - major_name: 物流管理
+      major_code: '14'
+      history:
+      - year: '2025'
+        min_score: 471
+        max_score: 476
+        min_rank: 90174
+        avg_score: '474.0'
+        admit_count: 3
+    - major_name: 跨境电子商务
+      major_code: '15'
+      history:
+      - year: '2025'
+        min_score: 472
+        max_score: 515
+        min_rank: 89224
+        avg_score: '484.3'
+        admit_count: 4
+    - major_name: 旅游管理
+      major_code: '16'
+      history:
+      - year: '2025'
+        min_score: 472
+        max_score: 474
+        min_rank: 89224
+        avg_score: '473.0'
+        admit_count: 3
+- school_name: 西安外事学院
+  yxdh: '7623'
+  school_code: '12713'
+  school_admission:
+  - year: '2025'
+    min_score: 470
+    max_score: 518
+    min_rank: 91159
+    admit_count: 71
+  - year: '2024'
+    min_score: 437
+    max_score: 483
+    min_rank: 89086
+    admit_count: 73
+  groups:
+  - zyzh: '101'
+    requirement: 不限
+    min_score_2025: 470
+    min_rank_2025: 91159
+    equiv_score_2026: 461
+    advantage: 17337
+    advantage_ratio: 0.19
+    tier: 保
+    majors:
+    - major_name: 经济与金融
+      major_code: 08
+      history:
+      - year: '2025'
+        min_score: 479
+        max_score: 496
+        min_rank: 82229
+        avg_score: '484.8'
+        admit_count: 4
+    - major_name: 学前教育(师范)
+      major_code: 09
+      history:
+      - year: '2025'
+        min_score: 483
+        max_score: 483
+        min_rank: 78394
+        avg_score: '483.0'
+        admit_count: 1
+    - major_name: 小学教育(师范)
+      major_code: '10'
+      history:
+      - year: '2025'
+        min_score: 480
+        max_score: 481
+        min_rank: 81280
+        avg_score: '480.5'
+        admit_count: 2
+    - major_name: 汉语国际教育
+      major_code: '11'
+      history:
+      - year: '2025'
+        min_score: 481
+        max_score: 488
+        min_rank: 80334
+        avg_score: '483.3'
+        admit_count: 4
+    - major_name: 英语
+      major_code: '12'
+      history:
+      - year: '2025'
+        min_score: 482
+        max_score: 497
+        min_rank: 79353
+        avg_score: '487.4'
+        admit_count: 7
+    - major_name: 日语
+      major_code: '13'
+      history:
+      - year: '2025'
+        min_score: 518
+        max_score: 518
+        min_rank: 48095
+        avg_score: '518.0'
+        admit_count: 1
+    - major_name: 新闻学
+      major_code: '14'
+      history:
+      - year: '2025'
+        min_score: 486
+        max_score: 488
+        min_rank: 75472
+        avg_score: '486.7'
+        admit_count: 3
+    - major_name: 网络与新媒体
+      major_code: '15'
+      history:
+      - year: '2025'
+        min_score: 480
+        max_score: 494
+        min_rank: 81280
+        avg_score: '484.7'
+        admit_count: 10
+    - major_name: 数字出版
+      major_code: '16'
+      history:
+      - year: '2025'
+        min_score: 470
+        max_score: 470
+        min_rank: 91159
+        avg_score: '470.0'
+        admit_count: 1
+    - major_name: 会计学
+      major_code: '18'
+      history:
+      - year: '2025'
+        min_score: 470
+        max_score: 518
+        min_rank: 91159
+        avg_score: '483.9'
+        admit_count: 30
+    - major_name: 电子商务
+      major_code: '20'
+      history:
+      - year: '2025'
+        min_score: 487
+        max_score: 493
+        min_rank: 74511
+        avg_score: '490.0'
+        admit_count: 2
+    - major_name: 旅游管理
+      major_code: '21'
+      history:
+      - year: '2025'
+        min_score: 489
+        max_score: 489
+        min_rank: 72634
+        avg_score: '489.0'
+        admit_count: 1
+  - zyzh: '501'
+    requirement: 不限
+    min_score_2025: 471
+    min_rank_2025: 90174
+    equiv_score_2026: 462
+    advantage: 16352
+    advantage_ratio: 0.181
+    tier: 保
+    majors:
+    - major_name: 广播电视编导
+      major_code: '22'
+      history:
+      - year: '2025'
+        min_score: 471
+        max_score: 480
+        min_rank: 90174
+        avg_score: '473.8'
+        admit_count: 5
+- school_name: 广东理工学院
+  yxdh: '9851'
+  school_code: '13720'
+  school_admission:
+  - year: '2025'
+    min_score: 446
+    max_score: 489
+    min_rank: 117012
+    admit_count: 26
+  - year: '2024'
+    min_score: 428
+    max_score: 440
+    min_rank: 97632
+    admit_count: 14
+  groups:
+  - zyzh: '101'
+    requirement: 不限
+    min_score_2025: 446
+    min_rank_2025: 117012
+    equiv_score_2026: 435
+    advantage: 43190
+    advantage_ratio: 0.369
+    tier: 垫
+    majors:
+    - major_name: 互联网金融
+      major_code: '05'
+      history:
+      - year: '2025'
+        min_score: 446
+        max_score: 471
+        min_rank: 117012
+        avg_score: '461.3'
+        admit_count: 6
+    - major_name: 国际经济与贸易
+      major_code: '06'
+      history:
+      - year: '2025'
+        min_score: 449
+        max_score: 472
+        min_rank: 113650
+        avg_score: '463.0'
+        admit_count: 3
+    - major_name: 日语
+      major_code: '07'
+      history:
+      - year: '2025'
+        min_score: 467
+        max_score: 469
+        min_rank: 94273
+        avg_score: '468.0'
+        admit_count: 2
+      - year: '2024'
+        min_score: 430
+        max_score: 430
+        min_rank: 95716
+        avg_score: '430.0'
+        admit_count: 1
+    - major_name: 商务英语
+      major_code: 08
+      history:
+      - year: '2025'
+        min_score: 449
+        max_score: 468
+        min_rank: 113650
+        avg_score: '458.5'
+        admit_count: 2
+    - major_name: 风景园林
+      major_code: '10'
+      history:
+      - year: '2025'
+        min_score: 468
+        max_score: 468
+        min_rank: 93246
+        avg_score: '468.0'
+        admit_count: 1
+    - major_name: 会计学
+      major_code: '11'
+      history:
+      - year: '2025'
+        min_score: 466
+        max_score: 489
+        min_rank: 95283
+        avg_score: '470.5'
+        admit_count: 10
+    - major_name: 财务管理
+      major_code: '12'
+      history:
+      - year: '2025'
+        min_score: 473
+        max_score: 473
+        min_rank: 88177
+        avg_score: '473.0'
+        admit_count: 1
+    - major_name: 电子商务
+      major_code: '14'
+      history:
+      - year: '2025'
+        min_score: 467
+        max_score: 467
+        min_rank: 94273
+        avg_score: '467.0'
+        admit_count: 1
+- school_name: 陕西服装工程学院
+  yxdh: '9259'
+  school_code: '13125'
+  school_admission:
+  - year: '2025'
+    min_score: 452
+    max_score: 504
+    min_rank: 110379
+    admit_count: 64
+  - year: '2024'
+    min_score: 435
+    max_score: 450
+    min_rank: 90950
+    admit_count: 32
+  groups:
+  - zyzh: '101'
+    requirement: 不限
+    min_score_2025: 452
+    min_rank_2025: 110379
+    equiv_score_2026: 441
+    advantage: 36557
+    advantage_ratio: 0.331
+    tier: 垫
+    majors:
+    - major_name: 学前教育(师范)
+      major_code: '21'
+      history:
+      - year: '2025'
+        min_score: 453
+        max_score: 473
+        min_rank: 109305
+        avg_score: '468.0'
+        admit_count: 6
+    - major_name: 小学教育(师范)
+      major_code: '22'
+      history:
+      - year: '2025'
+        min_score: 452
+        max_score: 486
+        min_rank: 110379
+        avg_score: '467.2'
+        admit_count: 18
+    - major_name: 服装设计与工程
+      major_code: '23'
+      history:
+      - year: '2025'
+        min_score: 457
+        max_score: 471
+        min_rank: 104935
+        avg_score: '462.5'
+        admit_count: 4
+    - major_name: 市场营销
+      major_code: '24'
+      history:
+      - year: '2025'
+        min_score: 453
+        max_score: 474
+        min_rank: 109305
+        avg_score: '466.0'
+        admit_count: 3
+    - major_name: 会计学
+      major_code: '25'
+      history:
+      - year: '2025'
+        min_score: 452
+        max_score: 479
+        min_rank: 110379
+        avg_score: '465.3'
+        admit_count: 25
+    - major_name: 财务管理
+      major_code: '26'
+      history:
+      - year: '2025'
+        min_score: 458
+        max_score: 504
+        min_rank: 103807
+        avg_score: '479.3'
+        admit_count: 4
+    - major_name: 健康服务与管理
+      major_code: '27'
+      history:
+      - year: '2025'
+        min_score: 471
+        max_score: 475
+        min_rank: 90174
+        avg_score: '473.0'
+        admit_count: 3
+    - major_name: 物流管理
+      major_code: '28'
+      history:
+      - year: '2025'
+        min_score: 472
+        max_score: 472
+        min_rank: 89224
+        avg_score: '472.0'
+        admit_count: 1
+- school_name: 齐齐哈尔工程学院
+  yxdh: '8389'
+  school_code: '12729'
+  school_admission:
+  - year: '2025'
+    min_score: 467
+    max_score: 492
+    min_rank: 94273
+    admit_count: 21
+  - year: '2024'
+    min_score: 428
+    max_score: 440
+    min_rank: 97632
+    admit_count: 21
+  groups:
+  - zyzh: '104'
+    requirement: 不限
+    min_score_2025: 467
+    min_rank_2025: 94273
+    equiv_score_2026: 458
+    advantage: 20451
+    advantage_ratio: 0.217
+    tier: 保
+    majors:
+    - major_name: 互联网金融
+      major_code: '03'
+      history:
+      - year: '2025'
+        min_score: 471
+        max_score: 474
+        min_rank: 90174
+        avg_score: '472.3'
+        admit_count: 6
+      - year: '2024'
+        min_score: 430
+        max_score: 440
+        min_rank: 95716
+        avg_score: '433.2'
+        admit_count: 6
+    - major_name: 财务管理
+      major_code: '04'
+      history:
+      - year: '2025'
+        min_score: 468
+        max_score: 477
+        min_rank: 93246
+        avg_score: '472.3'
+        admit_count: 10
+      - year: '2024'
+        min_score: 430
+        max_score: 437
+        min_rank: 95716
+        avg_score: '432.7'
+        admit_count: 11
+    - major_name: 电子商务
+      major_code: '05'
+      history:
+      - year: '2025'
+        min_score: 467
+        max_score: 492
+        min_rank: 94273
+        avg_score: '473.4'
+        admit_count: 5
+      - year: '2024'
+        min_score: 428
+        max_score: 434
+        min_rank: 97632
+        avg_score: '430.3'
+        admit_count: 4
+- school_name: 哈尔滨石油学院
+  yxdh: '6802'
+  school_code: '13299'
+  school_admission:
+  - year: '2025'
+    min_score: 456
+    max_score: 513
+    min_rank: 106050
+    admit_count: 182
+  - year: '2024'
+    min_score: 428
+    max_score: 439
+    min_rank: 97632
+    admit_count: 59
+  groups:
+  - zyzh: '103'
+    requirement: 不限
+    min_score_2025: 456
+    min_rank_2025: 106050
+    equiv_score_2026: 445
+    advantage: 32228
+    advantage_ratio: 0.304
+    tier: 垫
+    majors:
+    - major_name: 国际经济与贸易
+      major_code: '04'
+      history:
+      - year: '2025'
+        min_score: 456
+        max_score: 486
+        min_rank: 106050
+        avg_score: '467.0'
+        admit_count: 41
+    - major_name: 学前教育(师范)
+      major_code: '05'
+      history:
+      - year: '2025'
+        min_score: 456
+        max_score: 476
+        min_rank: 106050
+        avg_score: '465.0'
+        admit_count: 12
+    - major_name: 英语
+      major_code: '06'
+      history:
+      - year: '2025'
+        min_score: 456
+        max_score: 482
+        min_rank: 106050
+        avg_score: '467.5'
+        admit_count: 38
+    - major_name: 俄语
+      major_code: '07'
+      history:
+      - year: '2025'
+        min_score: 458
+        max_score: 476
+        min_rank: 103807
+        avg_score: '468.6'
+        admit_count: 7
+    - major_name: 财务管理
+      major_code: 08
+      history:
+      - year: '2025'
+        min_score: 456
+        max_score: 513
+        min_rank: 106050
+        avg_score: '465.7'
+        admit_count: 80
+    - major_name: 跨境电子商务
+      major_code: 09
+      history:
+      - year: '2025'
+        min_score: 459
+        max_score: 474
+        min_rank: 102736
+        avg_score: '469.5'
+        admit_count: 4
+- school_name: 信阳学院
+  yxdh: '6508'
+  school_code: '13503'
+  school_admission:
+  - year: '2025'
+    min_score: 485
+    max_score: 527
+    min_rank: 76495
+    admit_count: 1763
+  - year: '2024'
+    min_score: 430
+    max_score: 504
+    min_rank: 95716
+    admit_count: 1845
+  groups:
+  - zyzh: '101'
+    requirement: 不限
+    min_score_2025: 499
+    min_rank_2025: 63623
+    equiv_score_2026: 493
+    advantage: -10199
+    advantage_ratio: -0.16
+    tier: 超冲
+    majors:
+    - major_name: 经济学
+      major_code: '13'
+      history:
+      - year: '2025'
+        min_score: 505
+        max_score: 521
+        min_rank: 58484
+        avg_score: '511.3'
+        admit_count: 20
+    - major_name: 法学
+      major_code: '14'
+      history:
+      - year: '2025'
+        min_score: 506
+        max_score: 527
+        min_rank: 57662
+        avg_score: '512.0'
+        admit_count: 245
+    - major_name: 教育学(师范)
+      major_code: '15'
+      history:
+      - year: '2025'
+        min_score: 499
+        max_score: 522
+        min_rank: 63623
+        avg_score: '504.3'
+        admit_count: 90
+    - major_name: 小学教育(师范)
+      major_code: '16'
+      history:
+      - year: '2025'
+        min_score: 499
+        max_score: 521
+        min_rank: 63623
+        avg_score: '504.0'
+        admit_count: 50
+    - major_name: 汉语言文学(师范)
+      major_code: '17'
+      history:
+      - year: '2025'
+        min_score: 500
+        max_score: 525
+        min_rank: 62743
+        avg_score: '508.6'
+        admit_count: 568
+    - major_name: 英语(师范)
+      major_code: '18'
+      history:
+      - year: '2025'
+        min_score: 499
+        max_score: 522
+        min_rank: 63623
+        avg_score: '504.7'
+        admit_count: 210
+    - major_name: 历史学(师范)
+      major_code: '19'
+      history:
+      - year: '2025'
+        min_score: 499
+        max_score: 524
+        min_rank: 63623
+        avg_score: '504.6'
+        admit_count: 190
+    - major_name: 心理学(师范)
+      major_code: '20'
+      history:
+      - year: '2025'
+        min_score: 499
+        max_score: 518
+        min_rank: 63623
+        avg_score: '502.5'
+        admit_count: 80
+    - major_name: 人居环境科学与技术
+      major_code: '21'
+      history:
+      - year: '2025'
+        min_score: 499
+        max_score: 521
+        min_rank: 63623
+        avg_score: '500.6'
+        admit_count: 30
+    - major_name: 会计学
+      major_code: '22'
+      history:
+      - year: '2025'
+        min_score: 503
+        max_score: 525
+        min_rank: 60188
+        avg_score: '508.5'
+        admit_count: 120
+    - major_name: 财务管理
+      major_code: '23'
+      history:
+      - year: '2025'
+        min_score: 499
+        max_score: 521
+        min_rank: 63623
+        avg_score: '503.6'
+        admit_count: 40
+  - zyzh: '102'
+    requirement: 地理
+    min_score_2025: 503
+    min_rank_2025: 60188
+    equiv_score_2026: 496
+    advantage: -13634
+    advantage_ratio: -0.227
+    tier: 超冲
+    majors:
+    - major_name: 地理科学(师范)
+      major_code: '24'
+      history:
+      - year: '2025'
+        min_score: 503
+        max_score: 521
+        min_rank: 60188
+        avg_score: '509.0'
+        admit_count: 70
+  - zyzh: '501'
+    requirement: 不限
+    min_score_2025: 485
+    min_rank_2025: 76495
+    equiv_score_2026: 478
+    advantage: 2673
+    advantage_ratio: 0.035
+    tier: 稳
+    majors:
+    - major_name: 广播电视编导
+      major_code: '25'
+      history:
+      - year: '2025'
+        min_score: 485
+        max_score: 504
+        min_rank: 76495
+        avg_score: '492.2'
+        admit_count: 50
+- school_name: 黑龙江外国语学院
+  yxdh: '6808'
+  school_code: '13296'
+  school_admission:
+  - year: '2025'
+    min_score: 450
+    max_score: 520
+    min_rank: 112544
+    admit_count: 80
+  - year: '2024'
+    min_score: 428
+    max_score: 476
+    min_rank: 97632
+    admit_count: 77
+  groups:
+  - zyzh: '101'
+    requirement: 不限
+    min_score_2025: 450
+    min_rank_2025: 112544
+    equiv_score_2026: 438
+    advantage: 38722
+    advantage_ratio: 0.344
+    tier: 垫
+    majors:
+    - major_name: 小学教育
+      major_code: '04'
+      history:
+      - year: '2025'
+        min_score: 472
+        max_score: 472
+        min_rank: 89224
+        avg_score: '472.0'
+        admit_count: 1
+    - major_name: 英语
+      major_code: '06'
+      history:
+      - year: '2025'
+        min_score: 466
+        max_score: 520
+        min_rank: 95283
+        avg_score: '473.3'
+        admit_count: 20
+    - major_name: 英语(师范)
+      major_code: '07'
+      history:
+      - year: '2025'
+        min_score: 465
+        max_score: 478
+        min_rank: 96380
+        avg_score: '471.3'
+        admit_count: 20
+    - major_name: 翻译(智能翻译)
+      major_code: 08
+      history:
+      - year: '2025'
+        min_score: 450
+        max_score: 471
+        min_rank: 112544
+        avg_score: '459.3'
+        admit_count: 11
+    - major_name: 商务英语
+      major_code: 09
+      history:
+      - year: '2025'
+        min_score: 459
+        max_score: 479
+        min_rank: 102736
+        avg_score: '465.2'
+        admit_count: 18
+      - year: '2024'
+        min_score: 429
+        max_score: 434
+        min_rank: 96702
+        avg_score: '430.6'
+        admit_count: 5
+  - zyzh: '102'
+    requirement: 不限
+    min_score_2025: 472
+    min_rank_2025: 89224
+    equiv_score_2026: 463
+    advantage: 15402
+    advantage_ratio: 0.173
+    tier: 保
+    majors:
+    - major_name: 汉语国际教育(师范)
+      major_code: '05'
+      history:
+      - year: '2025'
+        min_score: 472
+        max_score: 492
+        min_rank: 89224
+        avg_score: '476.9'
+        admit_count: 10

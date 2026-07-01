@@ -308,7 +308,7 @@ def recommendation(req: HenanRecommendationRequest, session: Session = Depends(g
     _DISPLAY_TIERS = ("搏", "冲", "稳", "保", "垫")
     buckets: dict[str, list] = {"搏": [], "冲": [], "稳": [], "保": [], "垫": [], "不推荐": [], "需人工复核": []}
     for bucket in _DISPLAY_TIERS:
-        buckets[bucket] = sort_henan_bucket_candidates(classification_pool[bucket], profile)
+        buckets[bucket] = sort_henan_bucket_candidates(classification_pool[bucket], profile, bucket)
 
     # 垫档位次上限过滤：垫档（advantage≥+15%）原始无上界，偏远院校（如考生位次+40%）
     # 实力差距过大，对填报无指导意义。仅保留考生位次 +25% 以内的兜底院校。

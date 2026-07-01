@@ -1,10 +1,11 @@
 import { useEffect } from "react";
 import { Routes, Route, NavLink } from "react-router-dom";
-import { GraduationCap, Calculator, LineChart, Target } from "lucide-react";
+import { GraduationCap, Calculator, LineChart, Target, ClipboardCheck } from "lucide-react";
 import HomePage from "./pages/HomePage";
 import RankPage from "./pages/RankPage";
 import ControlLinePage from "./pages/ControlLinePage";
 import TargetEvaluationPage from "./pages/TargetEvaluationPage";
+import AssessmentPage from "./pages/AssessmentPage";
 import Toaster from "./components/Toaster";
 import VolunteerDock from "./components/VolunteerDock";
 import MobileVolunteerBar from "./components/MobileVolunteerBar";
@@ -13,6 +14,7 @@ import { useVolunteerStore } from "./store/volunteerStore";
 const navItems = [
   { to: "/", label: "志愿推荐", icon: GraduationCap, end: true },
   { to: "/target-evaluation", label: "目标评估", icon: Target },
+  { to: "/assessment", label: "评估报告", icon: ClipboardCheck },
   { to: "/rank", label: "位次工具", icon: LineChart },
   { to: "/control-line", label: "省控线", icon: Calculator },
 ];
@@ -67,6 +69,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/target-evaluation" element={<TargetEvaluationPage />} />
+          <Route path="/assessment" element={<AssessmentPage />} />
           <Route path="/rank" element={<RankPage />} />
           <Route path="/control-line" element={<ControlLinePage />} />
         </Routes>
